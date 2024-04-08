@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import { moderateScale, scale, ScaledSheet, verticalScale } from 'react-native-size-matters';
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -8,13 +8,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   text: {
-    fontSize: 20,
+    fontSize: scale(20),
     fontWeight: 'bold',
     color: '#333',
   },
   logo: {
-    width: 100,
-    height: 100,
+    width: scale(100),
+    height: scale(100),
     resizeMode: 'contain',
   },
 });
