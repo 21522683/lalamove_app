@@ -1,4 +1,5 @@
 import { moderateScale, scale, ScaledSheet, verticalScale } from 'react-native-size-matters';
+import FONT_FAMILY from '../../constants/font';
 
 const styles = ScaledSheet.create({
   container: {
@@ -11,6 +12,7 @@ const styles = ScaledSheet.create({
     fontSize: scale(20),
     fontWeight: 'bold',
     color: '#fff',
+    fontFamily: FONT_FAMILY.MediumItalic
   },
   logo: {
     width: scale(100),
