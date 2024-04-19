@@ -1,9 +1,11 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React from 'react';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './src/screens/HomeScreen';
-import ProfileScreen from './src/screens/ProfileScreen';
+import ProfileScreen from './src/screens/module_User/ProfileScreen';
+
+
 const Stack = createNativeStackNavigator();
+
 export default function App() {
   return (
     <NavigationContainer>
@@ -15,16 +17,3 @@ export default function App() {
   );
 }
 
-
-// import { View, Text } from 'react-native'
-// import React from 'react';
-// import HomeScreen from './src/screens/HomeScreen';
-
-// const App = () => {
-
-//   return (
-//     <HomeScreen/>
-//   )
-// }
-
-// export default App;

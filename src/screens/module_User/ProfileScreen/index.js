@@ -1,7 +1,7 @@
 import {View, Text, Button, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import styles from './style.js';
-import {IMAGES} from '../../assets/images/index.js';
+import {IMAGES} from '../../../assets/images/index.js';
 
 const ProfileScreen = ({navigation}) => {
   return (
