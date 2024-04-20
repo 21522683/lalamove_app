@@ -15,9 +15,6 @@ const styles = ScaledSheet.create({
     borderBottomWidth: verticalScale(1.5),
     width: '100%',
   },
-  container_body: {
-    marginVertical: verticalScale(30),
-  },
   back_button: {
     padding: moderateScale(10),
   },
@@ -28,36 +25,9 @@ const styles = ScaledSheet.create({
     textAlign: 'center',
     marginRight: scale(20),
   },
-
-  container_avatar: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatar: {
-    width: scale(80),
-    height: verticalScale(80),
-    resizeMode: 'contain',
-    borderRadius: scale(80),
-    borderWidth: 1,
-    borderColor: '#A2A2A2'
-  },
-  button_change: {
-    width: scale(100),
-    backgroundColor: CUSTOM_COLOR.Primary,
-    padding: moderateScale(8),
-    borderRadius: moderateScale(6),
-    marginTop: verticalScale(10),
-
-  },
-  text_change: {
-    textAlign: 'center',
-    color: CUSTOM_COLOR.White,
-    fontWeight: 'bold'
-  },
   container_input: {
     paddingHorizontal: scale(30),
-    marginVertical: verticalScale(10),
+    marginVertical: verticalScale(6),
   },
   title_input: {
     color: CUSTOM_COLOR.Black,
@@ -67,10 +37,15 @@ const styles = ScaledSheet.create({
     borderWidth: 1,
     borderColor: CUSTOM_COLOR.Grey,
     borderRadius: moderateScale(5),
-    paddingHorizontal: moderateScale(20),
-    marginVertical: verticalScale(6),
+    paddingLeft: scale(20),
+    paddingRight: scale(60),
+    paddingVertical: verticalScale(12),
+    marginVertical: verticalScale(8),
     width: '100%',
-    
+    flex: 1,
+  },
+  space: {
+    marginVertical: verticalScale(15),
   },
   text_validation: {
     fontSize: scale(10),
@@ -89,7 +64,23 @@ const styles = ScaledSheet.create({
     color: CUSTOM_COLOR.White,
     fontWeight: 'bold',
     fontSize: scale(14),
+  },
+  container_body: {
+    marginVertical: verticalScale(30),
+  },
+  input: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  button_eye: {
+    padding: moderateScale(10),
+    marginLeft: moderateScale(-50),
+  },
+  icon_eye: {
+    width: scale(26),
+    height: verticalScale(22),
   }
+
   
 });
 
