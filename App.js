@@ -11,6 +11,8 @@ import ReviewDriverScreen from './src/screens/module_Admin/ReviewDriverScreen';
 import DetailReviewDriverScreen from './src/screens/module_Admin/DetailReviewDriverScreen';
 import DriverManageScreen from './src/screens/module_Admin/DriverManageScreen';
 import DetailDriverScreen from './src/screens/module_Admin/DetailDriverScreen';
+import StatiscalAdminScreen from './src/screens/module_Admin/StatiscalAdminScreen';
+import StatiscalDriverScreen from './src/screens/module_Driver/StatiscalDriverScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +20,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Detail driver" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Statiscal driver" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Private Account" component={PrivateAccountScreen} />
@@ -29,6 +31,8 @@ export default function App() {
         <Stack.Screen name="Detail review driver" component={DetailReviewDriverScreen} />
         <Stack.Screen name="Manage driver" component={DriverManageScreen} />
         <Stack.Screen name="Detail driver" component={DetailDriverScreen} />
+        <Stack.Screen name="Statiscal admin" component={StatiscalAdminScreen} />
+        <Stack.Screen name="Statiscal driver" component={StatiscalDriverScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
