@@ -12,4 +12,20 @@ export const IMAGES = {
     close: require('./close.png'),
 
 
+    foward_icon: require('./Forward.png'),
+    foward_icon_orage: require('./Forward_orage.png'),
+    account_icon: require('./User.png'),
+    policy_icon: require('./UserShield.png'),
+    address_icon: require('./Address.png'),
+    key_security_icon: require('./KeySecurity.png'),
+    back_icon: require('./Back.png'),
+    eye_icon: require('./Eye.png'),
+    not_eye_icon: require('./Invisible.png'),
+    more_icon: require('./ViewMore.png'),
+    add_icon: require('./Plus.png'),
+    search_icon: require('./Vector.png'),
+    arrow_back: require('./arrow_left.png'),
+    cccd: require('./cccd.png'),
+    cavet: require('./cavet.png'),
+    gplx: require('./gplx.png'),
 }
