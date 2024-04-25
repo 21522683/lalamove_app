@@ -7,10 +7,11 @@ export const IMAGES = {
     showPass: require('./show_pass.png'),
     driverAcc: require('./driverAcc.png'),
     userAcc: require('./userAcc.png'),
-    plus: require('./plus.png'),
+    plus_icon: require('./plus_icon.png'),
     arrowDown: require('./arrowDown.png'),
     close: require('./close.png'),
 
+    plus: require('./Plus.png'),
 
     foward_icon: require('./Forward.png'),
     foward_icon_orage: require('./Forward_orage.png'),

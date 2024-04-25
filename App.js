@@ -29,7 +29,18 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Step2">
+        <Stack.Screen name="Intro" component={IntroScreen}  options={{headerShown:false}}/>
+        <Stack.Screen name="Login" component={LoginScreen}  options={{headerTitle:''}}/>
+        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}  options={{headerTitle:''}}/>
+        <Stack.Screen name="ChoosingTypeAccount" component={ChoosingTypeAccountScreen}  options={{headerTitle:''}}/>
+        <Stack.Screen name="RegisterUser" component={RegisterUserScreen}  options={{headerTitle:''}}/>
+        <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen}  options={{headerTitle:''}}/>
+        <Stack.Screen name="RegisterDriver" component={RegisterDriverScreen}  options={{headerTitle:''}}/>
+        <Stack.Screen name="Step1" component={Step1Screen}  options={{headerTitle:''}}/>
+        <Stack.Screen name="Step2" component={Step2Screen}  options={{headerTitle:''}}/>
+        <Stack.Screen name="Step3" component={Step3Screen}  options={{headerTitle:''}}/>
+
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Private Account" component={PrivateAccountScreen} />
@@ -42,6 +53,7 @@ export default function App() {
         <Stack.Screen name="Detail driver" component={DetailDriverScreen} />
         <Stack.Screen name="Statiscal admin" component={StatiscalAdminScreen} />
         <Stack.Screen name="Statiscal driver" component={StatiscalDriverScreen} />
+        
       </Stack.Navigator>
 
 
