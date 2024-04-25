@@ -9,4 +9,5 @@ async function bootstrap() {
 // 21522448
 //mongodb+srv://21522448:Alj8zjz8KqlaCoqb@lalamove.yy2l8yg.mongodb.net/?retryWrites=true&w=majority&appName=lalamove
 //mongodb+srv://21522448:Alj8zjz8KqlaCoqb@lalamove.yy2l8yg.mongodb.net/
+// add
 bootstrap();
