@@ -1,7 +1,10 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { USER_TYPE } from 'src/constants';
 import { VehicleType } from './VehicleType.schema';
 import { Types } from 'mongoose';
+import * as bcrypt from 'bcrypt';
+import * as crypto from 'crypto'
+
+// class vehicle
 @Schema() // will create _id filed
 class Vehicle {
   vehicleName: string;
@@ -12,12 +15,16 @@ class Vehicle {
   cavetImage: string;
   cavetText: string;
 }
+
+// class driverLisence
 @Schema() // will create _id filed
 class DriverLisence {
   driverLisenceNumber: string;
   driverLisenceImage: string;
   driverLisenceType: string;
 }
+
+// user
 @Schema({
   timestamps: true,
 })
@@ -34,7 +41,7 @@ export class User {
   @Prop({
     required: true,
     immutable: true,
-    enum: Object.keys(USER_TYPE),
+    enum: ['Admin', 'User', 'Driver'],
   })
   userType: string;
 
@@ -50,6 +57,9 @@ export class User {
   @Prop({ default: '', required: false })
   address?: string;
 
+  @Prop({ default: '', required: false })
+  avatar?: string;
+
   @Prop({ required: false })
   dob?: Date;
 
@@ -58,7 +68,7 @@ export class User {
 
   @Prop({ required: false, type: [Vehicle] })
   vehicles?: Vehicle[];
-  
+
   @Prop({ default: true, required: false })
   isWaitingAccepted?: boolean;
 
@@ -67,5 +77,41 @@ export class User {
 
   @Prop({ required: false })
   dateApproval?: Date;
+
+  @Prop({ required: false })
+  passwordResetToken?: string;
+
+  @Prop({ required: false })
+  passwordResetExpires?: Date;
+
+
+  // method
+  checkPassword:Function;
+  createResetPassToken:Function;
+
+
 }
-export const UserSchema = SchemaFactory.createForClass(User);
+
+const UserSchema = SchemaFactory.createForClass(User);
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(this.password, salt);
+  this.password = hash;
+  next();
+});
+// method
+UserSchema.method("checkPassword", async function (enteredPassword: string): Promise<boolean> {
+  return await bcrypt.compare(enteredPassword, this.password);
+});
+
+UserSchema.method("createResetPassToken", function (): string {
+  const verifyToken = crypto.randomBytes(32).toString("hex");
+  this.passwordResetToken = crypto.createHash("sha256").update(verifyToken).digest("hex");
+  // this.passwordResetExpires =  Date.now() + 30 * 60 * 1000;
+  return verifyToken;
+});
+
+export { UserSchema };
