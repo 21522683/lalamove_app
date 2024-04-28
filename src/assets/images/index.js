@@ -1,6 +1,8 @@
 export const IMAGES = {
+  export const IMAGES = {
     logo: require('./logo.png'),
     avatar: require('./avatarDefault.png'),
+    map: require('./map.png'),
     intro: require('./picture_creera.png'),
     googleIcon: require('./google.png'),
     hidePass: require('./hide_pass.png'),
@@ -29,4 +31,6 @@ export const IMAGES = {
     cccd: require('./cccd.png'),
     cavet: require('./cavet.png'),
     gplx: require('./gplx.png'),
+}
+    
 }
