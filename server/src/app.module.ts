@@ -8,6 +8,7 @@ import {ThrottlerModule, ThrottlerGuard} from '@nestjs/throttler'
 import { APP_GUARD } from '@nestjs/core';
 import { MyLoggerModule } from './my-logger/my-logger.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { AuthGuard } from './modules/auth/auth.guard';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -31,7 +32,11 @@ import { AuthModule } from './modules/auth/auth.module';
     AppService,{
       provide:APP_GUARD,
       useClass: ThrottlerGuard
-    }
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
   ],
 })
 export class AppModule {}

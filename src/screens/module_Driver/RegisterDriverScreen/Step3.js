@@ -140,7 +140,7 @@ const Step3Screen = ({ navigation }) => {
                             <View style={{ flex: 1, width: 50, borderStyle: 'dashed', borderWidth: 1, borderRadius: 4, height: 50, alignItems: 'center', marginHorizontal: 5 }}>
                                 {
                                     driverLisenceImage == '' ?
-                                        <Image source={IMAGES.plus} style={{
+                                        <Image source={IMAGES.plus_icon} style={{
                                             width: '70%',
                                             height: '100%',
                                             resizeMode: 'contain',
@@ -175,7 +175,7 @@ const Step3Screen = ({ navigation }) => {
                             <View style={{ flex: 1, width: 50, borderStyle: 'dashed', borderWidth: 1, borderRadius: 4, height: 50, alignItems: 'center', marginHorizontal: 5 }}>
                                 {
                                     CCCDImage == '' ?
-                                        <Image source={IMAGES.plus} style={{
+                                        <Image source={IMAGES.plus_icon} style={{
                                             width: '70%',
                                             height: '100%',
                                             resizeMode: 'contain',
@@ -210,7 +210,7 @@ const Step3Screen = ({ navigation }) => {
                             <View style={{ flex: 1, width: 50, borderStyle: 'dashed', borderWidth: 1, borderRadius: 4, height: 50, alignItems: 'center', marginHorizontal: 5 }}>
                                 {
                                     avatarImg == '' ?
-                                        <Image source={IMAGES.plus} style={{
+                                        <Image source={IMAGES.plus_icon} style={{
                                             width: '70%',
                                             height: '100%',
                                             resizeMode: 'contain',

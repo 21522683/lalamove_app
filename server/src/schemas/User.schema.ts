@@ -107,11 +107,13 @@ UserSchema.method("checkPassword", async function (enteredPassword: string): Pro
   return await bcrypt.compare(enteredPassword, this.password);
 });
 
-UserSchema.method("createResetPassToken", function (): string {
-  const verifyToken = crypto.randomBytes(32).toString("hex");
-  this.passwordResetToken = crypto.createHash("sha256").update(verifyToken).digest("hex");
-  // this.passwordResetExpires =  Date.now() + 30 * 60 * 1000;
-  return verifyToken;
+UserSchema.method("createResetPassToken", function (otp : string) {
+  
+  this.passwordResetToken = otp;
+  const now = new Date();
+  now.setMinutes(now.getMinutes() + 10);
+  this.passwordResetExpires =  now;
+ 
 });
 
 export { UserSchema };

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './src/screens/HomeScreen';
 import ProfileScreen from './src/screens/module_User/ProfileScreen';
@@ -12,7 +12,8 @@ import VerifyEmailScreen from './src/screens/module_General/VerifyEmailScreen';
 import RegisterDriverScreen from './src/screens/module_Driver/RegisterDriverScreen';
 import Step1Screen from './src/screens/module_Driver/RegisterDriverScreen/Step1';
 import Step2Screen from './src/screens/module_Driver/RegisterDriverScreen/Step2';
-import Step3Screen from './src/screens/module_Driver/RegisterDriverScreen/Step3';import PrivateAccountScreen from './src/screens/module_User/PrivateAccountScreen';
+import Step3Screen from './src/screens/module_Driver/RegisterDriverScreen/Step3';
+import PrivateAccountScreen from './src/screens/module_User/PrivateAccountScreen';
 import PrivatePolicyScreen from './src/screens/module_User/PrivatePolicyScreen';
 import PasswordManageScreen from './src/screens/module_User/PasswordManageScreen';
 import AddressManageScreen from './src/screens/module_User/AddressManageScreen';
@@ -22,25 +23,19 @@ import DriverManageScreen from './src/screens/module_Admin/DriverManageScreen';
 import DetailDriverScreen from './src/screens/module_Admin/DetailDriverScreen';
 import StatiscalAdminScreen from './src/screens/module_Admin/StatiscalAdminScreen';
 import StatiscalDriverScreen from './src/screens/module_Driver/StatiscalDriverScreen';
+import DriverTabStack from './src/navigations/DriverTabStack';
+import UserTabStack from './src/navigations/UserTabStack';
+import AdminTabStack from './src/navigations/AdminTabStack';
+import AuthStackScreens from './src/navigations/AuthStack';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
+  const [userType, setUserType] = React.useState("")
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Step2">
-        <Stack.Screen name="Intro" component={IntroScreen}  options={{headerShown:false}}/>
-        <Stack.Screen name="Login" component={LoginScreen}  options={{headerTitle:''}}/>
-        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen}  options={{headerTitle:''}}/>
-        <Stack.Screen name="ChoosingTypeAccount" component={ChoosingTypeAccountScreen}  options={{headerTitle:''}}/>
-        <Stack.Screen name="RegisterUser" component={RegisterUserScreen}  options={{headerTitle:''}}/>
-        <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen}  options={{headerTitle:''}}/>
-        <Stack.Screen name="RegisterDriver" component={RegisterDriverScreen}  options={{headerTitle:''}}/>
-        <Stack.Screen name="Step1" component={Step1Screen}  options={{headerTitle:''}}/>
-        <Stack.Screen name="Step2" component={Step2Screen}  options={{headerTitle:''}}/>
-        <Stack.Screen name="Step3" component={Step3Screen}  options={{headerTitle:''}}/>
 
+      {/* <Stack.Navigator initialRouteName="Step2">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Private Account" component={PrivateAccountScreen} />
@@ -53,8 +48,14 @@ export default function App() {
         <Stack.Screen name="Detail driver" component={DetailDriverScreen} />
         <Stack.Screen name="Statiscal admin" component={StatiscalAdminScreen} />
         <Stack.Screen name="Statiscal driver" component={StatiscalDriverScreen} />
-        
-      </Stack.Navigator>
+      </Stack.Navigator> */}
+      {
+        userType === 'User' ? <UserTabStack />
+          : userType === 'Driver' ? <DriverTabStack />
+            : userType === 'Admin' ? <AdminTabStack />
+              : <AuthStackScreens />
+      }
+
 
 
     </NavigationContainer>

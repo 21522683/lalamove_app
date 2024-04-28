@@ -163,7 +163,7 @@ const Step2Screen = ({ navigation }) => {
                             <View style={{ flex: 1, width: 50, borderStyle: 'dashed', borderWidth: 1, borderRadius: 4, height: 50, alignItems: 'center', marginHorizontal: 5 }}>
                                 {
                                     vehicleImg == '' ?
-                                        <Image source={IMAGES.plus} style={{
+                                        <Image source={IMAGES.plus_icon} style={{
                                             width: '70%',
                                             height: '100%',
                                             resizeMode: 'contain',
@@ -198,7 +198,7 @@ const Step2Screen = ({ navigation }) => {
                             <View style={{ flex: 1, width: 50, borderStyle: 'dashed', borderWidth: 1, borderRadius: 4, height: 50, alignItems: 'center', marginHorizontal: 5 }}>
                                 {
                                     cavetImg == '' ?
-                                        <Image source={IMAGES.plus} style={{
+                                        <Image source={IMAGES.plus_icon} style={{
                                             width: '70%',
                                             height: '100%',
                                             resizeMode: 'contain',

@@ -1,6 +1,6 @@
 import { Catch, ArgumentsHost, HttpStatus, HttpException } from "@nestjs/common";
 import { BaseExceptionFilter } from "@nestjs/core";
-import { Request, Response } from 'express' 
+import { Request, Response } from 'express'
 import { MyLoggerService } from "./my-logger/my-logger.service";
 
 type MyResponseObj = {
@@ -25,9 +25,16 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
             path: request.url,
             response: '',
         }
-
-        response 
-            .status(myResponseObj.statusCode) 
+        // Add more Prisma Error Types if you want
+        if (exception instanceof HttpException) {
+            myResponseObj.statusCode = exception.getStatus()
+            myResponseObj.response = exception.getResponse()
+        } else {
+            myResponseObj.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+            myResponseObj.response = 'Internal Server Error'
+        }
+        response
+            .status(myResponseObj.statusCode)
             .json(myResponseObj)
 
         this.logger.error(myResponseObj.response, AllExceptionsFilter.name)
