@@ -1,4 +1,3 @@
-export const IMAGES = {
   export const IMAGES = {
     logo: require('./logo.png'),
     avatar: require('./avatarDefault.png'),
@@ -33,4 +32,3 @@ export const IMAGES = {
     gplx: require('./gplx.png'),
 }
     
-}
