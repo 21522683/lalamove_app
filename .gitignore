@@ -83,7 +83,7 @@ server/.env.development.local
 server/.env.test.local
 server/.env.production.local
 server/.env.local
-
+server/.env
 # temp directory
 server/.temp
 server/.tmp
