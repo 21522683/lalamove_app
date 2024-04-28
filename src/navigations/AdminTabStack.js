@@ -28,7 +28,7 @@ export default AdminTabStackScreens = () => {
     function AdminManageReportStackScreens() {
         return (
             <AdminManageReportStack.Navigator>
-
+                
             </AdminManageReportStack.Navigator>
         );
     }
