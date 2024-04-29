@@ -1,13 +1,13 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import StatiscalAdminScreen from "../screens/module_Admin/StatiscalAdminScreen";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from "@react-navigation/native-stack";
 import CUSTOM_COLOR from "../constants/colors";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 const AdminTabStack = createBottomTabNavigator();
 
 export default AdminTabStackScreens = () => {
 
-    const AdminProfileStack = createNativeStackNavigator();
+    const AdminProfileStack = createStackNavigator();
     function AdminProfileStackScreens() {
         return (
             <AdminProfileStack.Navigator>
@@ -15,7 +15,7 @@ export default AdminTabStackScreens = () => {
             </AdminProfileStack.Navigator>
         );
     }
-    const AdminManageVehicleTypeStack = createNativeStackNavigator();
+    const AdminManageVehicleTypeStack = createStackNavigator();
     function AdminManageVehicleTypeStackScreens() {
         return (
             <AdminManageVehicleTypeStack.Navigator>
@@ -24,7 +24,7 @@ export default AdminTabStackScreens = () => {
         );
     }
 
-    const AdminManageReportStack = createNativeStackNavigator();
+    const AdminManageReportStack = createStackNavigator();
     function AdminManageReportStackScreens() {
         return (
             <AdminManageReportStack.Navigator>
@@ -32,7 +32,7 @@ export default AdminTabStackScreens = () => {
             </AdminManageReportStack.Navigator>
         );
     }
-    const AdminManageApproveStack = createNativeStackNavigator();
+    const AdminManageApproveStack = createStackNavigator();
     function AdminManageApproveStackScreens() {
         return (
             <AdminManageApproveStack.Navigator>

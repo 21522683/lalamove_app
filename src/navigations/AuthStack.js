@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import IntroScreen from '../screens/module_General/IntroScreen';
 import LoginScreen from '../screens/module_General/LoginScreen';
 import ForgotPasswordScreen from '../screens/module_General/ForgotPasswordScreen';
@@ -10,11 +9,12 @@ import RegisterDriverScreen from '../screens/module_Driver/RegisterDriverScreen'
 import Step1Screen from '../screens/module_Driver/RegisterDriverScreen/Step1';
 import Step2Screen from '../screens/module_Driver/RegisterDriverScreen/Step2';
 import Step3Screen from '../screens/module_Driver/RegisterDriverScreen/Step3';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const AuthStack = createNativeStackNavigator();
+const AuthStack = createStackNavigator();
 export default function AuthStackScreens() {
     return (
-        <AuthStack.Navigator>
+        <AuthStack.Navigator >
             <AuthStack.Screen name="Intro" component={IntroScreen} options={{ headerShown: false }} />
             <AuthStack.Screen name="Login" component={LoginScreen} options={{ headerTitle: '' }} />
             <AuthStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} options={{ headerTitle: '' }} />

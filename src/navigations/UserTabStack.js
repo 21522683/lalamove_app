@@ -1,12 +1,13 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import CUSTOM_COLOR from "../constants/colors";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createStackNavigator } from "@react-navigation/stack";
 
 const UserTabStack = createBottomTabNavigator();
 
 export default UserTabStackScreens = () => {
 
-    const UserProfileStack = createNativeStackNavigator();
+    const UserProfileStack = createStackNavigator();
     function UserProfileStackScreens() {
         return (
             <UserProfileStack.Navigator>
@@ -14,7 +15,7 @@ export default UserTabStackScreens = () => {
             </UserProfileStack.Navigator>
         );
     }
-    const OrdersUserStack = createNativeStackNavigator();
+    const OrdersUserStack = createStackNavigator();
     function OrdersUserStackScreens() {
         return (
             <OrdersUserStack.Navigator>
@@ -22,7 +23,7 @@ export default UserTabStackScreens = () => {
             </OrdersUserStack.Navigator>
         );
     }
-    const HomeUserStack = createNativeStackNavigator();
+    const HomeUserStack = createStackNavigator();
     function HomeUserStackScreens() {
         return (
             <HomeUserStack.Navigator>

@@ -41,6 +41,7 @@ const Input = ({
             onFocus();
             setIsFocused(true);
           }}
+          
           editable={!enalble}
           onBlur={() => setIsFocused(false)}
           secureTextEntry={hidePassword}

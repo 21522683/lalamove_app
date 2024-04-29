@@ -5,12 +5,12 @@ import UserTabStack from './src/navigations/UserTabStack';
 import AdminTabStack from './src/navigations/AdminTabStack';
 import AuthStackScreens from './src/navigations/AuthStack';
 
-const Stack = createNativeStackNavigator();
-
 export default function App() {
-  const [userType, setUserType] = React.useState("")
+  const [userType, setUserType] = React.useState("Driver")
+
   return (
-    <NavigationContainer>
+
+    <NavigationContainer >
       {
         userType === 'User' ? <UserTabStack />
           : userType === 'Driver' ? <DriverTabStack />
