@@ -96,14 +96,7 @@ const UserModalCreateComplain = () => {
                      Hình ảnh:
                  </Text>
                 <View style={{flexDirection: 'row', gap: 12}}>
-                {/* {
-                    [1,2,3].map((item,index) => {
-                        return (
-                            <Image key={index} source={{ uri: 'https://images.fpt.shop/unsafe/filters:quality(5)/fptshop.com.vn/uploads/images/tin-tuc/175607/Originals/avt-cho-cute%20(22).jpg'}}
-                            style={{width: 60, height: 60, resizeMode: 'cover', borderRadius: 8}}/>
-                        )
-                    })
-                } */}
+              
                 {
                     listImage.length > 0 && 
                     listImage.map((item,indexImage) => {

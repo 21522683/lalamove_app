@@ -69,10 +69,6 @@ function UserComplainManagementScreen() {
                         </View>
                     </View>
 
-                  
-                  
-                       
-                              
                                    <FlatList 
                                    contentContainerStyle={{
                                     paddingBottom: 200,

@@ -52,8 +52,6 @@ const styles = ScaledSheet.create({
         height: 40,
         paddingHorizontal: 8,
     
-        
-
     },
 
     complainCard: {
