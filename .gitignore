@@ -40,6 +40,62 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
+server/node_modules
+# compiled output
+server/dist
+server/node_modules
+server/build
+
+# Logs
+server/logs
+server/*.log
+server/npm-debug.log*
+server/pnpm-debug.log*
+server/yarn-debug.log*
+server/yarn-error.log*
+server/lerna-debug.log*
+
+# OS
+server/.DS_Store
+
+# Tests
+server/coverage
+server/.nyc_output
+
+# IDEs and editors
+server/.idea
+server/.project
+server/.classpath
+server/.c9/
+server/*.launch
+server/.settings/
+server/*.sublime-workspace
+
+# IDE - VSCode
+server/.vscode/*
+server/!.vscode/settings.json
+server/!.vscode/tasks.json
+server/!.vscode/launch.json
+server/!.vscode/extensions.json
+
+# dotenv environment variable files
+server/.env.development.local
+server/.env.test.local
+server/.env.production.local
+server/.env.local
+server/.env
+# temp directory
+server/.temp
+server/.tmp
+
+# Runtime data
+server/pids
+server/*.pid
+server/*.seed
+server/*.pid.lock
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+server/report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 # fastlane
 #
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the

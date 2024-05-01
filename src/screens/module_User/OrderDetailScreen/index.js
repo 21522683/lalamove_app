@@ -6,7 +6,6 @@ import {
   ScrollView,
   Dimensions,
   Modal,
-  Alert,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {ICONS} from '../../../assets/icons';
