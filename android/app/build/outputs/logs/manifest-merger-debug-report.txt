@@ -6,13 +6,16 @@ INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\
 INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml:2:1-9:12
 INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.react:flipper-integration:0.73.6] C:\Users\quich\.gradle\caches\transforms-3\7ceec762c322db3b2ee74240d8e71306\transformed\jetified-flipper-integration-0.73.6-debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:react-native-community_datetimepicker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-masked-view_masked-view] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-masked-view\masked-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-picker_picker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-picker\picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-gesture-handler] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-image-picker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-19:12
 MERGED from [:react-native-pager-view] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-pager-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:react-native-reanimated] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-reanimated\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-safe-area-context] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-safe-area-context\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-screens] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-screens\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:react-native-svg] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-svg\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-vector-icons] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-vector-icons\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [com.facebook.react:react-android:0.73.6] C:\Users\quich\.gradle\caches\transforms-3\e1231b5b187cb579b629117f9511a862\transformed\jetified-react-android-0.73.6-debug\AndroidManifest.xml:2:1-24:12
 MERGED from [com.facebook.fresco:flipper-fresco-plugin:3.1.3] C:\Users\quich\.gradle\caches\transforms-3\2b5ba21ddda073e33e012f0d689623c6\transformed\jetified-flipper-fresco-plugin-3.1.3\AndroidManifest.xml:8:1-13:12
@@ -117,6 +120,8 @@ ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app
 MERGED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:8:5-27:19
 MERGED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:8:5-27:19
 INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml:5:5-8:50
+MERGED from [:react-native-community_datetimepicker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-20
+MERGED from [:react-native-community_datetimepicker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-20
 MERGED from [:react-native-image-picker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-17:19
 MERGED from [:react-native-image-picker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-17:19
 MERGED from [com.facebook.react:react-android:0.73.6] C:\Users\quich\.gradle\caches\transforms-3\e1231b5b187cb579b629117f9511a862\transformed\jetified-react-android-0.73.6-debug\AndroidManifest.xml:18:5-22:19
@@ -197,6 +202,8 @@ INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\
 INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml
 MERGED from [com.facebook.react:flipper-integration:0.73.6] C:\Users\quich\.gradle\caches\transforms-3\7ceec762c322db3b2ee74240d8e71306\transformed\jetified-flipper-integration-0.73.6-debug\AndroidManifest.xml:5:5-44
 MERGED from [com.facebook.react:flipper-integration:0.73.6] C:\Users\quich\.gradle\caches\transforms-3\7ceec762c322db3b2ee74240d8e71306\transformed\jetified-flipper-integration-0.73.6-debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-community_datetimepicker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-community_datetimepicker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-masked-view_masked-view] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-masked-view\masked-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-masked-view_masked-view] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-masked-view\masked-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-picker_picker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-picker\picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
@@ -207,10 +214,14 @@ MERGED from [:react-native-image-picker] D:\work_space\uit_ltttbdd\visual_studio
 MERGED from [:react-native-image-picker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-pager-view] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-pager-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-pager-view] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-pager-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-reanimated] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-reanimated\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-reanimated] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-reanimated\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-safe-area-context] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-safe-area-context\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-safe-area-context] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-safe-area-context\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-screens] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-screens\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-screens] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-screens\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-svg] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-svg\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-svg] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-svg\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-vector-icons] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-vector-icons\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-vector-icons] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-vector-icons\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [com.facebook.react:react-android:0.73.6] C:\Users\quich\.gradle\caches\transforms-3\e1231b5b187cb579b629117f9511a862\transformed\jetified-react-android-0.73.6-debug\AndroidManifest.xml:10:5-44

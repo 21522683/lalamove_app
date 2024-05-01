@@ -54,7 +54,6 @@ const CreateAddressScreen = () => {
     },[address])
 
     const handleClickDataItem = (item) => {
-        console.log(item)
         if (address.province==="") {
             setAddress(prev => ({
                 ...prev,

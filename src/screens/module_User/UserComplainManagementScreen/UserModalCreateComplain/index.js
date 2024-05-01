@@ -5,12 +5,11 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import styles from './style';
 import { scale, verticalScale } from 'react-native-size-matters';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { runCLI } from 'jest';
 
 const UserModalCreateComplain = () => {
 
    const [listImage,setListImage] = useState([]) 
-   const [isVisibleModal,setVisibleModal] = useState(false)
+   const [isVisibleModal,setVisibleModal] = useState(true)
    const selectImage = () => {
     let options = {
         mediaType: 'photo',

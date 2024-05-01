@@ -85,11 +85,6 @@ function UserComplainManagementScreen() {
                                     </View>
                                    )}/>
                              
-                       
-                           
-                      
-                   
-                    
                     
                </View>
                <Modal

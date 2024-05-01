@@ -6,7 +6,7 @@ import AdminTabStack from './src/navigations/AdminTabStack';
 import AuthStackScreens from './src/navigations/AuthStack';
 
 export default function App() {
-  const [userType, setUserType] = React.useState("Driver")
+  const [userType, setUserType] = React.useState("User")
 
   return (
 
