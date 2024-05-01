@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/schemas';
 import { JwtModule } from '@nestjs/jwt';
+import { VehicleType, VehicleTypeSchema } from 'src/schemas/VehicleType.schema';
 
 @Module({
   imports: [
@@ -16,6 +17,12 @@ import { JwtModule } from '@nestjs/jwt';
       {
         name: User.name,
         schema: UserSchema,
+      },
+    ]),
+    MongooseModule.forFeature([
+      {
+        name: VehicleType.name,
+        schema: VehicleTypeSchema,
       },
     ]),
   ],

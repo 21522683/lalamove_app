@@ -43,7 +43,7 @@ yarn-error.log
 server/node_modules
 # compiled output
 server/dist
-/node_modules
+server/node_modules
 server/build
 
 # Logs
@@ -83,7 +83,7 @@ server/.env.development.local
 server/.env.test.local
 server/.env.production.local
 server/.env.local
-
+server/.env
 # temp directory
 server/.temp
 server/.tmp

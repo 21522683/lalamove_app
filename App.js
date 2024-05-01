@@ -1,22 +1,13 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import DriverTabStack from './src/navigations/DriverTabStack';
-import UserTabStack from './src/navigations/UserTabStack';
-import AdminTabStack from './src/navigations/AdminTabStack';
-import AuthStackScreens from './src/navigations/AuthStack';
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
+import TotalStack from './src/navigations/TotalStack';
 
 export default function App() {
-  const [userType, setUserType] = React.useState("Driver")
-
+  
   return (
-
-    <NavigationContainer >
-      {
-        userType === 'User' ? <UserTabStack />
-          : userType === 'Driver' ? <DriverTabStack />
-            : userType === 'Admin' ? <AdminTabStack />
-              : <AuthStackScreens />
-      }
-    </NavigationContainer>
+    <Provider store={store}>
+      <TotalStack />
+    </Provider>
   );
 }

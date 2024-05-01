@@ -17,11 +17,11 @@ export class CreateDriver {
 
   @IsString()
   @IsNotEmpty()
-  CCCD: string;
+  CCCDText: string;
 
   @IsString()
   @IsNotEmpty()
-  Address: string;
+  address: string;
 
   @IsString()
   @IsNotEmpty()
