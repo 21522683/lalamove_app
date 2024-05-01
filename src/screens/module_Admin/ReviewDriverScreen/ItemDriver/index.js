@@ -3,9 +3,9 @@ import React from 'react'
 import { IMAGES } from '../../../../assets/images'
 import styles from './style'
 
-const ItemDriver = () => {
+const ItemDriver = ({onClicked}) => {
   return (
-    <View style={styles.container_item_diver}>
+    <View style={styles.container_item_diver} onPress={onClicked}>
       <Image source={IMAGES.avatar} style={styles.avatar} />
       <View style={styles.container_info}>
         <Text style={styles.name_diver}>Nguyễn Văn Trường Sơn</Text>

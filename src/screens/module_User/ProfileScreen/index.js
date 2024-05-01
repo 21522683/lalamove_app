@@ -4,8 +4,10 @@ import styles from './style.js';
 import { IMAGES } from '../../../assets/images/index.js';
 import CUSTOM_COLOR from '../../../constants/colors.js';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useNavigation } from '@react-navigation/native';
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
+  const navigation = useNavigation();
 
   const [date, setDate] = useState(new Date);
   const [showPicker, setShowPicker] = useState(false);
@@ -44,7 +46,7 @@ const ProfileScreen = ({ navigation }) => {
         keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}
       >
         <View style={styles.header}>
-          <Image source={IMAGES.back_icon} style={styles.back_button} />
+          <Image source={IMAGES.back_icon} style={styles.back_button} onPress={() => {navigation.goBack()}}/>
           <Text style={styles.title_header}>Thông tin cá nhân</Text>
         </View>
 

@@ -11,6 +11,11 @@ import AddressManagementScreen from "../screens/module_User/AddressManagement";
 import AddAddressScreen from "../screens/module_User/AddressManagement/AddAddressScreen";
 import CreateAddressScreen from "../screens/module_User/AddressManagement/CreateAddressScreen";
 import UserComplainManagementScreen from "../screens/module_User/UserComplainManagementScreen";
+import PrivateAccountScreen from "../screens/module_User/PrivateAccountScreen";
+import ProfileScreen from "../screens/module_User/ProfileScreen";
+import PasswordManageScreen from "../screens/module_User/PasswordManageScreen";
+import AddressManageScreen from "../screens/module_User/AddressManageScreen";
+import PrivatePolicyScreen from "../screens/module_User/PrivatePolicyScreen";
 
 const UserTabStack = createBottomTabNavigator();
 
@@ -19,10 +24,12 @@ export default UserTabStackScreens = () => {
     const UserProfileStack = createStackNavigator();
     function UserProfileStackScreens() {
         return (
-            <UserProfileStack.Navigator initialRouteName="UserAddressManagementScreen">
-                <UserProfileStack.Screen name="UserAddressManagementScreen" component={AddressManagementScreen} options={{headerShown: false}}/>
-                <UserProfileStack.Screen name="AddAddressScreen" component={AddAddressScreen} options={{headerShown: false}}/>
-                <UserProfileStack.Screen name="CreateAddressScreen" component={CreateAddressScreen} options={{headerShown: false}}/>
+            <UserProfileStack.Navigator initialRouteName="PrivateAccountScreen">
+                <UserProfileStack.Screen name="PrivateAccountScreen" component={PrivateAccountScreen} options={{headerShown: false}}/>
+                <UserProfileStack.Screen name="ProfileScreen" component={ProfileScreen} options={{headerShown: false}}/>
+                <UserProfileStack.Screen name="PasswordManageScreen" component={PasswordManageScreen} options={{headerShown: false}}/>
+                <UserProfileStack.Screen name="AddressManageScreen" component={AddressManageScreen} options={{headerShown: false}}/>
+                <UserProfileStack.Screen name="PrivatePolicyScreen" component={PrivatePolicyScreen} options={{headerShown: false}}/>
             </UserProfileStack.Navigator>
         );
     }

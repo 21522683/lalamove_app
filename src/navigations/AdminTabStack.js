@@ -6,16 +6,20 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ComplainManagementScreen from "../screens/module_Admin/ComplainManagementScreen";
 import VehicleManagementScreen from "../screens/module_Admin/VehicleManagement/VehicleManagementScreen";
 import DetaiVehicleScreen from "../screens/module_Admin/VehicleManagement/DetaiVehicleScreen";
+import ReviewDriverScreen from "../screens/module_Admin/ReviewDriverScreen";
+import DetailReviewDriverScreen from "../screens/module_Admin/DetailReviewDriverScreen";
+import DriverManageScreen from "../screens/module_Admin/DriverManageScreen";
+import DetailDriverScreen from "../screens/module_Admin/DetailDriverScreen";
 const AdminTabStack = createBottomTabNavigator();
 
 export default AdminTabStackScreens = () => {
 
-    const AdminProfileStack = createStackNavigator();
-    function AdminProfileStackScreens() {
+    const AdminStatiscalStack = createStackNavigator();
+    function AdminStatiscalStackScreens() {
         return (
-            <AdminProfileStack.Navigator>
-
-            </AdminProfileStack.Navigator>
+            <AdminStatiscalStack.Navigator initialRouteName='StatiscalAdminScreen'>
+                <AdminStatiscalStack.Screen name="StatiscalAdminScreen" component={StatiscalAdminScreen} options={{headerShown: false}}/>
+            </AdminStatiscalStack.Navigator>
         );
     }
     const AdminManageVehicleTypeStack = createStackNavigator();
@@ -39,9 +43,20 @@ export default AdminTabStackScreens = () => {
     const AdminManageApproveStack = createStackNavigator();
     function AdminManageApproveStackScreens() {
         return (
-            <AdminManageApproveStack.Navigator>
-
+            <AdminManageApproveStack.Navigator initialRouteName='ReviewDriverScreen'>
+                <AdminManageApproveStack.Screen name="ReviewDriverScreen" component={ReviewDriverScreen} options={{headerShown: false}}/>
+                <AdminManageApproveStack.Screen name="DetailReviewDriverScreen" component={DetailReviewDriverScreen} options={{headerShown: false}}/>
             </AdminManageApproveStack.Navigator>
+        );
+    }
+
+    const AdminDriverManageStack = createStackNavigator();
+    function AdminDriverManageStackScreens() {
+        return (
+            <AdminDriverManageStack.Navigator initialRouteName='DriverManageScreen'>
+                <AdminDriverManageStack.Screen name="DriverManageScreen" component={DriverManageScreen} options={{headerShown: false}}/>
+                <AdminDriverManageStack.Screen name="DetailDriverScreen" component={DetailDriverScreen} options={{headerShown: false}}/>
+            </AdminDriverManageStack.Navigator>
         );
     }
 
