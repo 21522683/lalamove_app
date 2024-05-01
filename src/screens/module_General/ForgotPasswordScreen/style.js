@@ -21,7 +21,7 @@ const styles = ScaledSheet.create({
     marginVertical:20,
     fontSize: scale(14),
     fontWeight: 'normal',
-    textAlign:'center',
+    textAlign:'left',
     justifyContent:'center',
     color: 'black',
     fontFamily: FONT_FAMILY.Light

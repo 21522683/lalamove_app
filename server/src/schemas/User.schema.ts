@@ -7,20 +7,28 @@ import * as crypto from 'crypto'
 // class vehicle
 @Schema() // will create _id filed
 class Vehicle {
+  @Prop()
   vehicleName: string;
+  @Prop()
   lisencePlate: string;
+  @Prop()
   vehicleImage: string;
   @Prop({ required: true, type: Types.ObjectId, ref: 'VehicleType' })
   vehicleType?: VehicleType;
+  @Prop()
   cavetImage: string;
+  @Prop()
   cavetText: string;
 }
 
 // class driverLisence
 @Schema() // will create _id filed
 class DriverLisence {
+  @Prop()
   driverLisenceNumber: string;
+  @Prop()
   driverLisenceImage: string;
+  @Prop()
   driverLisenceType: string;
 }
 
@@ -69,7 +77,7 @@ export class User {
   @Prop({ required: false, type: [Vehicle] })
   vehicles?: Vehicle[];
 
-  @Prop({ default: true, required: false })
+  @Prop({ default: false, required: false })
   isWaitingAccepted?: boolean;
 
   @Prop({ required: false })
