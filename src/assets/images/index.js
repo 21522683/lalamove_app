@@ -1,7 +1,19 @@
   export const IMAGES = {
     logo: require('./logo.png'),
+    logo2: require('./logo2.png'),
     avatar: require('./avatarDefault.png'),
     map: require('./map.png'),
+
+
+    welcomeOrder: require('./welcomeOrder.png'),
+    xemay: require('./xemay.png'),
+    xebantai: require('./xebantai.png'),
+    xetai: require('./xetai.png'),
+    xevan: require('./xevan.png'),
+    xemayprevorder: require('./xemayprevorder.png'),
+    car: require('./car.png'),
+
+
     intro: require('./picture_creera.png'),
     googleIcon: require('./google.png'),
     hidePass: require('./hide_pass.png'),
