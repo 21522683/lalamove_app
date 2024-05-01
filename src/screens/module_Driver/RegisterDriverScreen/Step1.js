@@ -71,7 +71,7 @@ const Step1Screen = ({ navigation }) => {
         <View style={styles.container}>
             <Text style={{ ...styles.subText, marginTop: 0, marginBottom: 10 }}>Bước 1:</Text>
             <Text style={styles.titleText}>Tạo tài khoản tài xế mới</Text>
-            <View style={{ marginTop: 10, width: '100%' }}>
+            <View style={{ marginTop: 10, width: '100%' }}> 
                 <Input
                     onChangeText={text => handleOnchange(text, 'fullName')}
                     onFocus={() => handleError(null, 'fullName')}
