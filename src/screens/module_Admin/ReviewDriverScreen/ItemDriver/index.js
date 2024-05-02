@@ -3,9 +3,9 @@ import React from 'react'
 import { IMAGES } from '../../../../assets/images'
 import styles from './style'
 
-const ItemDriver = () => {
+const ItemDriver = ({onClicked}) => {
   return (
-    <View style={styles.container_item_diver}>
+    <View style={styles.container_item_diver} >
       <Image source={IMAGES.avatar} style={styles.avatar} />
       <View style={styles.container_info}>
         <Text style={styles.name_diver}>Nguyễn Văn Trường Sơn</Text>
@@ -14,7 +14,7 @@ const ItemDriver = () => {
           <Text style={styles.date_create}>12/04/2024</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.button_detail}>
+      <TouchableOpacity style={styles.button_detail} onPress={onClicked}>
         <Text style={styles.text_button} t>Xem chi tiết</Text>
       </TouchableOpacity>
     </View>

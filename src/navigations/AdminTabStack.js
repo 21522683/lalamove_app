@@ -1,67 +1,48 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StatiscalAdminScreen from '../screens/module_Admin/StatiscalAdminScreen';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import CUSTOM_COLOR from '../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ComplainManagementScreen from '../screens/module_Admin/ComplainManagementScreen';
-import VehicleManagementScreen from '../screens/module_Admin/VehicleManagement/VehicleManagementScreen';
-import DetaiVehicleScreen from '../screens/module_Admin/VehicleManagement/DetaiVehicleScreen';
+import ComplainManagementScreen from "../screens/module_Admin/ComplainManagementScreen";
+import VehicleManagementScreen from "../screens/module_Admin/VehicleManagement/VehicleManagementScreen";
+import DetaiVehicleScreen from "../screens/module_Admin/VehicleManagement/DetaiVehicleScreen";
+import ReviewDriverScreen from "../screens/module_Admin/ReviewDriverScreen";
+import DetailReviewDriverScreen from "../screens/module_Admin/DetailReviewDriverScreen";
+import DriverManageScreen from "../screens/module_Admin/DriverManageScreen";
+import DetailDriverScreen from "../screens/module_Admin/DetailDriverScreen";
+import ProfileDriverScreen from '../screens/module_Driver/ProfileScreen';
 const AdminTabStack = createBottomTabNavigator();
 
-export default AdminTabStackScreens = () => {
-  const AdminProfileStack = createStackNavigator();
-  function AdminProfileStackScreens() {
-    return <AdminProfileStack.Navigator></AdminProfileStack.Navigator>;
-  }
-  const AdminManageVehicleTypeStack = createStackNavigator();
-  function AdminManageVehicleTypeStackScreens() {
-    return (
-      <AdminManageVehicleTypeStack.Navigator initialRouteName="VehicleManagementScreen">
-        <AdminManageVehicleTypeStack.Screen
-          name="VehicleManagementScreen"
-          component={VehicleManagementScreen}
-          options={{headerShown: false}}
-        />
-        <AdminManageVehicleTypeStack.Screen
-          name="DetaiVehicleScreen"
-          component={DetaiVehicleScreen}
-          options={{headerShown: false}}
-        />
-      </AdminManageVehicleTypeStack.Navigator>
-    );
-  }
 
-  const AdminManageReportStack = createStackNavigator();
-  function AdminManageReportStackScreens() {
-    return (
-      <AdminManageReportStack.Navigator initialRouteName="AdminComplainManagementScreen">
-        <AdminManageReportStack.Screen
-          name="AdminComplainManagementScreen"
-          component={ComplainManagementScreen}
-          options={{headerShown: false}}
-        />
-      </AdminManageReportStack.Navigator>
-    );
-  }
-  const AdminManageApproveStack = createStackNavigator();
-  function AdminManageApproveStackScreens() {
-    return (
-      <AdminManageApproveStack.Navigator></AdminManageApproveStack.Navigator>
-    );
-  }
+const AdminStatiscalStack = createStackNavigator();
+export default function AdminStatiscalStackScreens() {
+  return (
+    <AdminStatiscalStack.Navigator >
+      <AdminStatiscalStack.Screen name="home-admin" component={AdminTabStackScreens} options={{ headerShown: false }} />
+      <AdminStatiscalStack.Screen name="DetaiVehicleScreen" component={DetaiVehicleScreen} options={{ headerShown: false }} />
+      <AdminStatiscalStack.Screen name="DetailReviewDriverScreen" component={DetailReviewDriverScreen} options={{ headerShown: false }} />
+      <AdminStatiscalStack.Screen name="DetailDriverScreen" component={DetailDriverScreen} options={{ headerShown: false }} />
+
+    </AdminStatiscalStack.Navigator>
+  );
+}
+
+
+
+function AdminTabStackScreens() {
 
   return (
     <AdminTabStack.Navigator
-      initialRouteName="reportAdmin"
+      initialRouteName="homeAdmin"
       screenOptions={{
         tabBarActiveTintColor: CUSTOM_COLOR.Primary,
       }}>
       <AdminTabStack.Screen
         name="homeAdmin"
-        component={AdminManageApproveStackScreens}
+        component={ReviewDriverScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused, color, size}) => {
+          tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'home' : 'home-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -69,23 +50,23 @@ export default AdminTabStackScreens = () => {
       />
       <AdminTabStack.Screen
         name="ordersAdmin"
-        component={AdminManageReportStackScreens}
+        component={ComplainManagementScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused, color, size}) => {
+          tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'home' : 'home-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         }}
       />
-      {/* <AdminTabStack.Screen name="statisticalAdmin" component={StatiscalAdminScreen} options={{
+      <AdminTabStack.Screen name="statisticalAdmin" component={StatiscalAdminScreen} options={{
                 headerShown: false,
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName = focused ? 'home' : 'home-outline';
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
             }} />
-            <AdminTabStack.Screen name="profileAdmin" component={AdminProfileStackScreens} options={{
+            {/* <AdminTabStack.Screen name="profileAdmin" component={AdminProfileStackScreens} options={{
                 headerShown: false,
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName = focused ? 'home' : 'home-outline';
@@ -94,21 +75,21 @@ export default AdminTabStackScreens = () => {
             }} /> */}
       <AdminTabStack.Screen
         name="vehicleAdmin"
-        component={AdminManageVehicleTypeStackScreens}
+        component={VehicleManagementScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused, color, size}) => {
+          tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'home' : 'home-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         }}
       />
       <AdminTabStack.Screen
-        name="reportAdmin"
-        component={AdminManageReportStackScreens}
+        name="admin-profile"
+        component={ProfileDriverScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused, color, size}) => {
+          tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'home' : 'home-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },

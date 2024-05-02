@@ -10,11 +10,14 @@ import {
 import React, {useEffect, useRef, useState} from 'react';
 import {ICONS} from '../../../assets/icons';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import styles from './style';
 import AddressItem from '../components/AddressItem';
 import {IMAGES} from '../../../assets/images';
 import ContactItem from '../components/ContactItem';
 import ReviewModal from './ReviewModal';
+import CUSTOM_COLOR from '../../../constants/colors';
+import UserModalCreateComplain from './UserModalCreateComplain';
 
 const OrderDetailScreen = ({navigation, route}) => {
   var order = {...route.params};
@@ -36,10 +39,12 @@ const OrderDetailScreen = ({navigation, route}) => {
   const scrollViewRef = useRef();
   const windowHeight = Dimensions.get('window').height;
   const [visibleReview, setVisibleReview] = useState(false);
+  const [isVisibleModal, setVisibleModal] = useState(false);
 
   useEffect(() => {
     if (scrollViewRef.current) {
-      scrollViewRef.current.scrollToEnd({animated: true});
+      order.status === 'Đang giao' &&
+        scrollViewRef.current.scrollToEnd({animated: true});
     }
   }, []);
 
@@ -66,7 +71,11 @@ const OrderDetailScreen = ({navigation, route}) => {
             <ContactItem {...order.sourceAddress} />
           </View>
         )}
-        <View style={{backgroundColor: '#fff', height: windowHeight - 130}}>
+        <View
+          style={{
+            backgroundColor: '#fff',
+            height: windowHeight - (order.status === 'Đang giao' ? 80 : 40),
+          }}>
           {order.status !== 'Đã hủy' && (
             <View style={styles.outer_good}>
               <Image
@@ -173,17 +182,38 @@ const OrderDetailScreen = ({navigation, route}) => {
           {/* <View style={{height: windowHeight}}></View> */}
         </View>
       </ScrollView>
-      {order.status === 'Hoàn thành' && (
-        <View
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            backgroundColor: '#fff',
-            paddingBottom: 15,
-            bottom: 0,
-          }}>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          backgroundColor: '#fff',
+          paddingBottom: 10,
+          bottom: 0,
+        }}>
+        <View style={{flex: 1}}>
           <View>
+            <TouchableOpacity
+              style={[styles.outer_receiver_slider, styles.back_white]}
+              onPress={() => setVisibleModal(true)}>
+              <View>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: CUSTOM_COLOR.Primary,
+                    fontWeight: 'bold',
+                    alignSelf: 'center',
+                  }}>
+                  Khiếu nại
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+        {order.status === 'Hoàn thành' && (
+          <View style={{flex: 1}}>
             <TouchableOpacity
               style={[styles.outer_receiver_slider, styles.width_50]}
               onPress={() => setVisibleReview(true)}>
@@ -195,13 +225,13 @@ const OrderDetailScreen = ({navigation, route}) => {
                     fontWeight: 'bold',
                     alignSelf: 'center',
                   }}>
-                  Đánh giá tài xế
+                  Đánh giá
                 </Text>
               </View>
             </TouchableOpacity>
           </View>
-        </View>
-      )}
+        )}
+      </View>
       <View
         style={{
           flex: 1,
@@ -220,6 +250,187 @@ const OrderDetailScreen = ({navigation, route}) => {
             }}
           />
         </Modal>
+        <Modal
+          visible={isVisibleModal}
+          animationType="slide"
+          transparent={true}>
+          <ScrollView>
+            {/* <ModalComponent setVisibleModal={setVisibleModal} /> */}
+            <UserModalCreateComplain
+              isVisibleModal={isVisibleModal}
+              setVisibleModal={setVisibleModal}
+            />
+          </ScrollView>
+        </Modal>
+      </View>
+    </View>
+  );
+};
+
+const ModalComponent = ({setVisibleModal}) => {
+  return (
+    <View style={styles.modalOverlay}>
+      <View style={{...styles.modalInner, gap: 18}}>
+        <View style={{flexDirection: 'row', gap: 12}}>
+          <Icon2 name="file-invoice" size={20} color={'#EA7000'} />
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: '500',
+              color: '#606060',
+              flex: 1,
+            }}>
+            Đơn hàng #123455
+          </Text>
+          <View style={{flexDirection: 'row', alignItems: 'center', gap: 8}}>
+            <Text>Đã phản hồi</Text>
+            <Icon name="checkcircle" color="#F16722" />
+          </View>
+        </View>
+        <View style={{flexDirection: 'row', gap: 12, alignItems: 'center'}}>
+          <Text style={{fontSize: 16, fontWeight: '400', color: '#222222'}}>
+            Tài xế:
+          </Text>
+          <Text style={{...styles.titleComplainCard, width: 'unset'}}>
+            Nguyễn Văn Phát
+          </Text>
+          <Image
+            source={{
+              uri: 'https://images.fpt.shop/unsafe/filters:quality(5)/fptshop.com.vn/uploads/images/tin-tuc/175607/Originals/avt-cho-cute%20(22).jpg',
+            }}
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 20,
+              resizeMode: 'cover',
+            }}
+          />
+        </View>
+        <View style={{flexDirection: 'row', gap: 12, alignItems: 'center'}}>
+          <Text style={{fontSize: 16, fontWeight: '400', color: '#222222'}}>
+            Khách hàng:
+          </Text>
+          <Text style={{...styles.titleComplainCard, width: 'unset'}}>
+            Lê Văn A
+          </Text>
+        </View>
+
+        <View style={{flexDirection: 'row', gap: 12, alignItems: 'center'}}>
+          <Text style={{fontSize: 16, fontWeight: '400', color: '#222222'}}>
+            Ngày:
+          </Text>
+          <Text style={{...styles.titleComplainCard, width: 'unset'}}>
+            15/02/2003
+          </Text>
+        </View>
+
+        <View style={{flexDirection: 'row', gap: 12}}>
+          <Text style={{fontSize: 16, fontWeight: '400', color: '#222222'}}>
+            Tiêu đề:
+          </Text>
+          <Text style={{...styles.titleComplainCard, flex: 1}}>
+            Phản ánh về chất lượng hàng hóa
+          </Text>
+        </View>
+
+        <View style={{gap: 4}}>
+          <Text style={{fontSize: 16, fontWeight: '400', color: '#222222'}}>
+            Nội dung:
+          </Text>
+          <Text
+            style={{
+              ...styles.titleComplainCard,
+              width: 'unset',
+              marginLeft: 8,
+            }}>
+            Phản ánh về chất lượng hàng không kka akafkdk dfjdkf df kdfj dfjdkfj
+            dflkfdl dfldkf
+          </Text>
+        </View>
+
+        <View style={{gap: 4}}>
+          <Text style={{fontSize: 16, fontWeight: '400', color: '#222222'}}>
+            Hình ảnh:
+          </Text>
+          <View style={{flexDirection: 'row', gap: 12}}>
+            {[1, 2, 3].map((item, index) => {
+              return (
+                <Image
+                  key={index}
+                  source={{
+                    uri: 'https://images.fpt.shop/unsafe/filters:quality(5)/fptshop.com.vn/uploads/images/tin-tuc/175607/Originals/avt-cho-cute%20(22).jpg',
+                  }}
+                  style={{
+                    width: 60,
+                    height: 60,
+                    resizeMode: 'cover',
+                    borderRadius: 8,
+                  }}
+                />
+              );
+            })}
+          </View>
+        </View>
+        <View
+          style={{
+            height: 1,
+            backgroundColor: '#CCCCCC',
+            marginVertical: 12,
+          }}></View>
+
+        <View style={{gap: 4}}>
+          <Text style={{fontSize: 16, fontWeight: '400', color: '#222222'}}>
+            Phản hồi:
+          </Text>
+          <Text
+            style={{
+              ...styles.titleComplainCard,
+              width: 'unset',
+              marginLeft: 8,
+            }}>
+            Xin lỗi về sự .... Chúng tôi đã có liên hệ thỏa đáng về sự việc
+            trên. Chúc bạn có những trải nghiệm tốt nhất về dịch vụ của chúng
+            tôi
+          </Text>
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            gap: 12,
+            justifyContent: 'flex-end',
+            marginTop: 12,
+          }}>
+          <View
+            style={{
+              borderRadius: 4,
+              minWidth: 90,
+              height: 40,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '#F16722',
+            }}>
+            <Text style={{fontWeight: '500', color: 'white'}}>Xóa</Text>
+          </View>
+
+          <TouchableOpacity
+            activeOpacity={1}
+            delayPressIn={0}
+            onPress={() => setVisibleModal(false)}>
+            <View
+              style={{
+                borderRadius: 4,
+                minWidth: 90,
+                height: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderWidth: 1,
+                borderColor: '#F16722',
+              }}>
+              <Text style={{fontWeight: '500', color: '#F16722'}}>Đóng</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

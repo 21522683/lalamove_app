@@ -5,7 +5,7 @@ import Dialog from "react-native-dialog";
 import { IMAGES } from '../../../../assets/images';
 
 const DriverInformationScreen = () => {
-
+  
   const [showDialog, setShowDialog] = useState(false);
 
   const handleSend = () => {

@@ -21,129 +21,102 @@ import OrderDetailDriverScreen from '../screens/module_Driver/screens/OrderDetai
 import ReceiverDetailDriverScreen from '../screens/module_Driver/screens/ReceiverDetailScreen';
 import DriverReviewMap from '../screens/module_Driver/screens/ReviewMap';
 import VerifyOrderDriverScreen from '../screens/module_Driver/screens/VerifyOrderScreen';
+import {Polygon} from 'react-native-svg';
+import DriverReceivedOrdersScreen from '../screens/module_Driver/ReceivedOrdersScreen';
+import ReceivedDriverOrderDetailScreen from '../screens/module_Driver/OrderDetailScreen';
 const DriverTabStack = createBottomTabNavigator();
 
-export default DriverTabStackScreens = () => {
-  function showBottomNavigation(route) {
-    const routeName = route.state
-      ? route.state.routes[route.state.index].name
-      : 'Orders';
-    console.log(route.state);
+const DriverStack = createStackNavigator();
+export default function DriverStackScreens() {
+  return (
+    <DriverStack.Navigator>
+      <DriverStack.Screen
+        name="application-driver"
+        component={DriverTabStackScreens}
+        options={{headerTitle: '', headerShown: false}}
+      />
+      <DriverStack.Screen
+        name="infor-driver"
+        component={DriverInformationScreen}
+        options={{headerTitle: 'Thông tin tài xế', headerBackTitle: ''}}
+      />
+      <DriverStack.Screen
+        name="policy"
+        component={PrivatePolicyScreen}
+        options={{headerTitle: 'Chính sách tài xế', headerBackTitle: ''}}
+      />
+      <DriverStack.Screen
+        name="license-driver"
+        component={LisenceDriverManageScreen}
+        options={{headerTitle: 'Bằng lái tài xế', headerBackTitle: ''}}
+      />
+      <DriverStack.Screen
+        name="license-driver-infor"
+        component={LicenseDriverInforScreen}
+        options={{headerTitle: 'Thông tin bằng lái', headerBackTitle: ''}}
+      />
+      <DriverStack.Screen
+        name="license-driver-form"
+        component={LicenseDriverForm}
+        options={({route}) => ({
+          title: route.params.name,
+          headerBackTitle: '',
+        })}
+      />
+      <DriverStack.Screen
+        name="vehicle-driver"
+        component={VehicleManageScreen}
+        options={{headerTitle: 'Phương tiện', headerBackTitle: ''}}
+      />
+      <DriverStack.Screen
+        name="vehicle-driver-infor"
+        component={VehicleDriverInforScreen}
+        options={{headerTitle: 'Thông tin phương tiện', headerBackTitle: ''}}
+      />
+      <DriverStack.Screen
+        name="vehicle-driver-form"
+        component={VehicleDriverForm}
+        options={({route}) => ({
+          title: route.params.name,
+          headerBackTitle: '',
+        })}
+      />
 
-    switch (routeName) {
-      case 'Orders':
-        return true;
-      case 'Order':
-        return true;
-      case 'Profile':
-        return true;
-      default:
-        return false;
-    }
-  }
-  const DriverProfileStack = createStackNavigator();
-  function DriverProfileStackScreens() {
-    return (
-      <DriverProfileStack.Navigator>
-        <DriverProfileStack.Screen
-          name="profile"
-          component={ProfileDriverScreen}
-          options={{headerShown: false}}
-        />
-        <DriverProfileStack.Screen
-          name="policy"
-          component={PrivatePolicyScreen}
-          options={{headerTitle: 'Chính sách người dùng', headerBackTitle: ''}}
-        />
-        <DriverProfileStack.Screen
-          name="infor-driver"
-          component={DriverInformationScreen}
-          options={{headerTitle: 'Thông tin tài xế', headerBackTitle: ''}}
-        />
-        <DriverProfileStack.Screen
-          name="license-driver"
-          component={LisenceDriverManageScreen}
-          options={{headerTitle: 'Bằng lái tài xế', headerBackTitle: ''}}
-        />
-        <DriverProfileStack.Screen
-          name="license-driver-infor"
-          component={LicenseDriverInforScreen}
-          options={{headerTitle: 'Thông tin bằng lái', headerBackTitle: ''}}
-        />
-        <DriverProfileStack.Screen
-          name="license-driver-form"
-          component={LicenseDriverForm}
-          options={({route}) => ({
-            title: route.params.name,
-            headerBackTitle: '',
-          })}
-        />
-        <DriverProfileStack.Screen
-          name="vehicle-driver"
-          component={VehicleManageScreen}
-          options={{headerTitle: 'Phương tiện', headerBackTitle: ''}}
-        />
-        <DriverProfileStack.Screen
-          name="vehicle-driver-infor"
-          component={VehicleDriverInforScreen}
-          options={{headerTitle: 'Thông tin phương tiện', headerBackTitle: ''}}
-        />
-        <DriverProfileStack.Screen
-          name="vehicle-driver-form"
-          component={VehicleDriverForm}
-          options={({route}) => ({
-            title: route.params.name,
-            headerBackTitle: '',
-          })}
-        />
-      </DriverProfileStack.Navigator>
-    );
-  }
-  const OrdersDriverStack = createStackNavigator();
-  function OrdersDriverStackScreens() {
-    return (
-      <OrdersDriverStack.Navigator initialRouteName="ReceiverDetailDriverScreen">
-        <HomeDriverStack.Screen
-          name="ReceiverDetailDriverScreen"
-          component={ReceiverDetailDriverScreen}
-          options={{headerShown: false}}
-        />
-      </OrdersDriverStack.Navigator>
-    );
-  }
-  const HomeDriverStack = createStackNavigator();
-  function HomeDriverStackScreens() {
-    return (
-      <HomeDriverStack.Navigator>
-        <HomeDriverStack.Screen
-          name="DriverOrderScreen"
-          component={DriverOrdersScreen}
-          options={{headerShown: false}}
-        />
-        <HomeDriverStack.Screen
-          name="OrderDetailDriverScreen"
-          component={OrderDetailDriverScreen}
-          options={{headerShown: false}}
-        />
-        <HomeDriverStack.Screen
-          name="ReceiverDetailDriverScreen"
-          component={ReceiverDetailDriverScreen}
-          options={{headerShown: false}}
-        />
-        <HomeDriverStack.Screen
-          name="DriverReviewMap"
-          component={DriverReviewMap}
-          options={{headerShown: false}}
-        />
-        <HomeDriverStack.Screen
-          name="VerifyOrderDriverScreen"
-          component={VerifyOrderDriverScreen}
-          options={{headerShown: false}}
-        />
-      </HomeDriverStack.Navigator>
-    );
-  }
+      <DriverStack.Screen
+        name="DriverOrderScreen"
+        component={DriverOrdersScreen}
+        options={{headerShown: false}}
+      />
+      <DriverStack.Screen
+        name="OrderDetailDriverScreen"
+        component={OrderDetailDriverScreen}
+        options={{headerShown: false}}
+      />
+      <DriverStack.Screen
+        name="ReceiverDetailDriverScreen"
+        component={ReceiverDetailDriverScreen}
+        options={{headerShown: false}}
+      />
+      <DriverStack.Screen
+        name="DriverReviewMap"
+        component={DriverReviewMap}
+        options={{headerShown: false}}
+      />
+      <DriverStack.Screen
+        name="VerifyOrderDriverScreen"
+        component={VerifyOrderDriverScreen}
+        options={{headerShown: false}}
+      />
+      <DriverStack.Screen
+        name="ReceivedDriverOrderDetailScreen"
+        component={ReceivedDriverOrderDetailScreen}
+        options={{headerTitle: '', headerShown: false}}
+      />
+    </DriverStack.Navigator>
+  );
+}
 
+function DriverTabStackScreens() {
   return (
     <DriverTabStack.Navigator
       initialRouteName="Orders"
@@ -153,17 +126,17 @@ export default DriverTabStackScreens = () => {
       <DriverTabStack.Screen
         name="Orders"
         component={DriverOrdersScreen}
-        options={({route}) => ({
+        options={{
           headerShown: false,
           tabBarIcon: ({focused, color, size}) => {
             let iconName = focused ? 'download' : 'download-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-        })}
+        }}
       />
       <DriverTabStack.Screen
         name="Order"
-        component={HomeDriverStackScreens}
+        component={DriverReceivedOrdersScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({focused, color, size}) => {
@@ -185,7 +158,7 @@ export default DriverTabStackScreens = () => {
       />
       <DriverTabStack.Screen
         name="Profile"
-        component={DriverProfileStackScreens}
+        component={ProfileDriverScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({focused, color, size}) => {
@@ -196,4 +169,4 @@ export default DriverTabStackScreens = () => {
       />
     </DriverTabStack.Navigator>
   );
-};
+}
