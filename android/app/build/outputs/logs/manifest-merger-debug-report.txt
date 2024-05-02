@@ -6,6 +6,7 @@ INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\
 INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml:2:1-9:12
 INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.react:flipper-integration:0.73.6] C:\Users\quich\.gradle\caches\transforms-3\7ceec762c322db3b2ee74240d8e71306\transformed\jetified-flipper-integration-0.73.6-debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:react-native-async-storage_async-storage] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-community_datetimepicker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-masked-view_masked-view] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-masked-view\masked-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-picker_picker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-picker\picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
@@ -202,6 +203,8 @@ INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\
 INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml
 MERGED from [com.facebook.react:flipper-integration:0.73.6] C:\Users\quich\.gradle\caches\transforms-3\7ceec762c322db3b2ee74240d8e71306\transformed\jetified-flipper-integration-0.73.6-debug\AndroidManifest.xml:5:5-44
 MERGED from [com.facebook.react:flipper-integration:0.73.6] C:\Users\quich\.gradle\caches\transforms-3\7ceec762c322db3b2ee74240d8e71306\transformed\jetified-flipper-integration-0.73.6-debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-async-storage_async-storage] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-async-storage_async-storage] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-community_datetimepicker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-community_datetimepicker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-masked-view_masked-view] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-masked-view\masked-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
