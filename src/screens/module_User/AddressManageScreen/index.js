@@ -3,13 +3,16 @@ import React, { useState } from 'react'
 import styles from './style.js';
 import { IMAGES } from '../../../assets/images/index.js';
 import ItemAddress from './ItemAddress/index.js';
+import { useNavigation } from '@react-navigation/native';
 
 const AddressManageScreen = () => {
+
+    const navigation = useNavigation();
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Image source={IMAGES.back_icon} style={styles.back_button} />
+                <Image source={IMAGES.back_icon} style={styles.back_button} onPress={() => {navigation.goBack()}}/>
                 <Text style={styles.title_header}>Địa chỉ đã lưu</Text>
             </View>
 

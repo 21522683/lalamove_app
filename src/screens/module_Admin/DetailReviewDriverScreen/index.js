@@ -3,9 +3,12 @@ import React, { useState } from 'react'
 import styles from './style'
 import { IMAGES } from '../../../assets/images'
 import Dialog from "react-native-dialog";
+import { useNavigation } from '@react-navigation/native';
+
 
 const DetailReviewDriverScreen = () => {
 
+  const navigation = useNavigation();
   const [showDialog, setShowDialog] = useState(false);
   const [valueReject, setValueReject] = useState("");
 
@@ -20,7 +23,9 @@ const DetailReviewDriverScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Image source={IMAGES.arrow_back} style={styles.back_button} />
+        <Image source={IMAGES.arrow_back} style={styles.back_button} onPress={() => {
+          navigation.goBack()
+        }}/>
         <Text style={styles.title_header}>Thông tin đăng ký tài xế</Text>
       </View>
       <ScrollView style={styles.scroll_body} showsVerticalScrollIndicator={false}>
