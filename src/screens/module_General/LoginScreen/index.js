@@ -1,4 +1,4 @@
-import { View, Text, Keyboard } from 'react-native';
+import { View, Text, Keyboard, KeyboardAvoidingView , ScrollView} from 'react-native';
 import styles from './style.js';
 import Input from '../../../components/Input.js';
 import MyButton from '../../../components/MyButton.js';
@@ -58,49 +58,57 @@ const LoginScreen = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Chào mừng bạn trở lại</Text>
-      <View style={{ marginTop: 20, width: '100%', height: '33%' }}>
-        <Input
-          onChangeText={text => handleOnchange(text, 'phoneNumber')}
-          onFocus={() => handleError(null, 'phoneNumber')}
-          label="Username"
-          placeholder="Nhập username"
-          error={errors.phoneNumber}
-        />
-        <Input
-          onChangeText={text => handleOnchange(text, 'password')}
-          onFocus={() => handleError(null, 'password')}
-          label="Mật khẩu"
-          placeholder="Nhập mật khẩu"
-          error={errors.password}
-          password
-        />
-      </View>
-      <Text style={{ ...styles.subText, marginBottom: 10, marginTop: 5 }}>Bạn là ai?</Text>
-      <RadioGroup
-        layout='row'
-        containerStyle={{ marginBottom: 15 }}
-        radioButtons={radioButtons}
-        labelStyle={{ marginRight: 30 }}
-        onPress={(id) => {
-          console.log(id)
-          setSelectedId(id)
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}
+      >
+        <Text style={styles.titleText}>Chào mừng bạn trở lại</Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={{ marginTop: 20, width: '100%', height: '33%' }}>
+            <Input
+              onChangeText={text => handleOnchange(text, 'phoneNumber')}
+              onFocus={() => handleError(null, 'phoneNumber')}
+              label="Username"
+              placeholder="Nhập username"
+              error={errors.phoneNumber}
+            />
+            <Input
+              onChangeText={text => handleOnchange(text, 'password')}
+              onFocus={() => handleError(null, 'password')}
+              label="Mật khẩu"
+              placeholder="Nhập mật khẩu"
+              error={errors.password}
+              password
+            />
+          </View>
+          <Text style={{ ...styles.subText, marginBottom: 10, marginTop: 5 }}>Bạn là ai?</Text>
+          <RadioGroup
+            layout='row'
+            containerStyle={{ marginBottom: 15 }}
+            radioButtons={radioButtons}
+            labelStyle={{ marginRight: 30 }}
+            onPress={(id) => {
+              console.log(id)
+              setSelectedId(id)
 
-        }}
-        selectedId={selectedId}
-      />
-      <MyButton text={'Đăng nhập'} onPress={validate} />
-      <View style={{ alignSelf: 'center', width: '100%' }}>
-        <Text style={{ ...styles.subText }}>Hoặc tiếp tục với</Text>
-        <LoginGoogleBtn text={'Đăng nhập bằng Google'} onPress={() => {
-            
-         }} />
-      </View>
+            }}
+            selectedId={selectedId}
+          />
+          <MyButton text={'Đăng nhập'} onPress={validate} />
+          <View style={{ alignSelf: 'center', width: '100%' }}>
+            <Text style={{ ...styles.subText }}>Hoặc tiếp tục với</Text>
+            <LoginGoogleBtn text={'Đăng nhập bằng Google'} onPress={() => {
 
-      <View style={{ width: '100%', flex: 1, justifyContent: 'flex-end', }}>
-        <Text onPress={() => { navigation.navigate('ForgotPassword') }} style={{ ...styles.subText, color: '#F16722', fontWeight: '700' }}>Quên mật khẩu?</Text>
-        <Text onPress={() => { navigation.navigate('ChoosingTypeAccount') }} style={{ ...styles.subText, color: '#F16722', fontWeight: '700' }}>Tạo tài khoản mới</Text>
-      </View>
+            }} />
+          </View>
+
+          <View style={{ width: '100%', flex: 1, justifyContent: 'flex-end', }}>
+            <Text onPress={() => { navigation.navigate('ForgotPassword') }} style={{ ...styles.subText, color: '#F16722', fontWeight: '700' }}>Quên mật khẩu?</Text>
+            <Text onPress={() => { navigation.navigate('ChoosingTypeAccount') }} style={{ ...styles.subText, color: '#F16722', fontWeight: '700' }}>Tạo tài khoản mới</Text>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
 
     </View>
   );
