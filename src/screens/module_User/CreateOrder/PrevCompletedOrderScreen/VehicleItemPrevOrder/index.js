@@ -31,14 +31,7 @@ const VehicleItemPrevOrder = ({setListChosenVihicle, noAction}) => {
               Cước phí di chuyển: 200,000/1 xe/1km
             </Text>
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop:8}}>
-            <Text style={{color: '#000', fontSize:13, fontWeight: '500'}}>
-            Số lượng: 2 xe
-          </Text>
-            <Text style={{color: '#000', fontSize:13, fontWeight: '500'}}>
-            Thành tiền: 500,000
-          </Text>
-        </View> 
+       
       </View>
       
     </Pressable>

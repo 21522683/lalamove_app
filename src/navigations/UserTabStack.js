@@ -28,12 +28,16 @@ export default function UserStackScreens() {
     <UserStack.Navigator >
       <UserStack.Screen name="User-Home" component={UserTabStackScreens} options={{ headerShown: false }} />
       <UserStack.Screen name="WelcomeCreateOrderScreen" component={WelcomeCreateOrderScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="ChooseAddressScreen" component={AddressManagementScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="AddAddressScreen" component={AddAddressScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="CreateAddressScreen" component={CreateAddressScreen} options={{ headerShown: false }} />
       <UserStack.Screen name="GoodsInformationScreen" component={GoodsInformationScreen} options={{ headerShown: false }} />
       <UserStack.Screen name="ChooseVehicleScreen" component={ChooseVehicleScreen} options={{ headerShown: false }} />
       <UserStack.Screen name="PrevCompletedOrderScreen" component={PrevCompletedOrderScreen} options={{ headerShown: false }} />
       <UserStack.Screen name="CompletedOrderScreen" component={CompletedOrderScreen} options={{ headerShown: false }} />
       <UserStack.Screen name="UserComplainManagementScreen" component={UserComplainManagementScreen} options={{ headerShown: false }} />
       <UserStack.Screen name="OrderDetailScreen" component={OrderDetailScreen} options={{ headerShown: false }} />
+
     </UserStack.Navigator>
   );
 }

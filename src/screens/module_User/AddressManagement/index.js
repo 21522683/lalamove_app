@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native'
 import React from 'react'
 import { FAB, Surface } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -10,9 +10,11 @@ import { useNavigation } from '@react-navigation/native';
 const AddressManagementScreen = () => {
     const navigation = useNavigation()
   return (
-    <View style={{flex: 1,  backgroundColor: 'white'}}>
+    <SafeAreaView style={{flex: 1,  backgroundColor: 'white'}}>
         <Surface style={styles.header}>
-            <Icon name="arrowleft" size={24}/>
+        <TouchableOpacity
+                onPress={() => {navigation.goBack()}}
+            ><Icon name="arrowleft" size={24}/></TouchableOpacity>
             <Text style={styles.headerTitle} >Sổ địa chỉ</Text>
             <View style={{width: 28}}></View>
         </Surface>
@@ -40,7 +42,7 @@ const AddressManagementScreen = () => {
             <Icon name='pluscircle' size={40} color='#F16722'/>
         </TouchableOpacity>
 
-    </View>
+    </SafeAreaView>
   )
 }
 

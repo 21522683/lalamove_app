@@ -10,19 +10,10 @@ import { verticalScale } from 'react-native-size-matters';
 import { IMAGES } from '../../../../../assets/images';
 
 
-const VehicleItem = ({setListChosenVihicle}) => {
+const VehicleItem = ({index,setIndexChosen, indexChosen}) => {
   const [isChosen,setChosen] = useState(false) 
-  const [numVehicle,setNumVehicle] = useState(1)
   const handlePress = () =>{
-    
-    setChosen(prev =>{
-      const nextState = !prev;
-      if (nextState)   setListChosenVihicle(prev => [...prev,0])
-      else setListChosenVihicle(prev => prev.slice(1))
-       
-      return nextState;
-     }
-    )
+    setChosen(prev => !prev)
   }
   return (
     <Pressable 
@@ -71,20 +62,7 @@ const VehicleItem = ({setListChosenVihicle}) => {
             </Text>
             <Text style={{color: '#333'}}>200,000/1 xe/1km</Text>
         </View>
-        <View style={{flexDirection: 'row', gap:8, alignItems: 'center', marginTop: 12}}>
-       
-            <Text style={{color: '#898989'}}>
-              Số lượng:
-            </Text>
-            <TextInput keyboardType='numeric' 
-            underlineColorAndroid={'#F16722'}
-            value={numVehicle.toString()}
-            onChangeText={(value) => setNumVehicle(value)}
-            style={{width: 80, textAlign: 'center'}} />
-            <View>
-
-            </View>
-        </View>
+      
         </>
        }
         

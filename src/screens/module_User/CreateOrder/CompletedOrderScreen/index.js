@@ -32,7 +32,7 @@ const CompletedOrderScreen = () => {
             <Text style={{textAlign:'center', color:'#606060', fontSize: 16}}>Theo dõi đơn hàng ở mục Quản lý đơn hàng.</Text>
           </View>
           <Pressable     
-              onPress={()=> navigation.navigate('CompletedOrderScreen')}>
+              onPress={()=> navigation.navigate('User-Home')}>
               <View style={{backgroundColor: '#F16722', height: 45, marginHorizontal: 12, 
               alignItems: 'center', justifyContent: 'center', borderRadius: 8, marginTop:16}}>
                   <Text style={{fontSize: 15, fontWeight: '500',color:'white'}}>Về trang chủ</Text>

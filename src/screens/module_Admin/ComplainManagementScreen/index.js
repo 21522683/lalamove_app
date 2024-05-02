@@ -1,4 +1,4 @@
-import { Image, Modal, ScrollView, Text, TouchableOpacity, TouchableOpacityBase, View } from "react-native";
+import { Image, Modal, SafeAreaView, ScrollView, Text, TouchableOpacity, TouchableOpacityBase, View } from "react-native";
 import styles from "./style";
 import {  Surface } from "react-native-paper";
 import {  scale, verticalScale } from "react-native-size-matters";
@@ -15,90 +15,92 @@ function ComplainManagementScreen() {
     const [selectedStatus,setSelectedStatus] = useState('Phản hồi')
     const [isVisibleModal,setVisibleModal] = useState(false)
     return (
-            <View style={{flex: 1,  backgroundColor: 'white'}}>
+            <SafeAreaView style={{flex: 1,  backgroundColor: 'white'}}>
                <Surface style={styles.header}>
                     <Icon name="arrowleft" size={24}/>
                     <Text style={styles.title} >Quản lý khiếu nại</Text>
                     <View style={{width: 28}}></View>
                </Surface>
-               <View style={styles.body_padding}>
-                    <View style={styles.search_container}>
-                        <Icon name="search1" size={20} color="#BDBDBD" />
-                        <TextInput  placeholder="Tìm kiếm..." style={styles.search_input}></TextInput>
-                    </View>
-                    <View style={{flexDirection: 'row', gap: scale(24), marginTop: scale(16)}}>
-                        <View style={{width: scale(120)}}>
-                            <Text style={{fontSize: scale(14), fontWeight: '500'}}>Thời gian</Text>
-                          
-                            <Picker 
-                                mode="dropdown"
-                                selectedValue={selectedTime}
-                                onValueChange={(value) => setSelectedTime(value)}>
-                                  <Picker.Item
-                                                label={'Gần đây'}
-                                                value={'Gần đây'}
-                                       >
-
-                                  </Picker.Item>
-                                  <Picker.Item
-                                                label={'Cũ nhất'}
-                                                value={'Cũ nhất'}
-                                       >
-
-                                  </Picker.Item>
-                                </Picker>
-                     
-                         
+              
+                   <View style={styles.body_padding}>
+                        <View style={styles.search_container}>
+                            <Icon name="search1" size={20} color="#BDBDBD" />
+                            <TextInput  placeholder="Tìm kiếm..." style={styles.search_input}></TextInput>
                         </View>
-                        <View style={{flex: 1}}>
-                            <Text style={{fontSize: scale(14), fontWeight: '500'}}>Trạng thái</Text>
-                            <Picker 
-                            mode="dropdown"
-                            selectedValue={selectedStatus}
-                            onValueChange={(value) => setSelectedStatus(value)}>
-                            <Picker.Item
-                                            label={'Phản hồi'}
-                                            value={'Phản hồi'}
-                                >
-
-                            </Picker.Item>
-                            <Picker.Item
-                                            label={'Chưa phản hồi'}
-                                            value={'Chưa phản hồi'}
-                                >
-
-                            </Picker.Item>
-                    </Picker>
-                     
-                        </View>
-                    </View>
-
-                  
-                  
-                       
+                        <View style={{flexDirection: 'row', gap: scale(24), marginTop: scale(16)}}>
+                            <View style={{width: scale(120)}}>
+                                <Text style={{fontSize: scale(14), fontWeight: '500'}}>Thời gian</Text>
                               
-                                   <FlatList 
-                                   contentContainerStyle={{
-                                    paddingBottom: 200,
-                                    marginTop: 12
-                                   }}
-                                   
-                                   showsVerticalScrollIndicator={false}
-                                   keyExtractor={(item,index) => index}
-                                   data={Array.from({length:20})}
-                                   renderItem={({item,index}) => (
-                                    <View style={{marginBottom: 16, marginHorizontal: 2}} key={index}> 
-                                            <ComplainCard setVisibleModal={setVisibleModal}/>
-                                    </View>
-                                   )}/>
+                                <Picker 
+                                    mode="dropdown"
+                                    selectedValue={selectedTime}
+                                    onValueChange={(value) => setSelectedTime(value)}>
+                                      <Picker.Item
+                                                    label={'Gần đây'}
+                                                    value={'Gần đây'}
+                                           >
+    
+                                      </Picker.Item>
+                                      <Picker.Item
+                                                    label={'Cũ nhất'}
+                                                    value={'Cũ nhất'}
+                                           >
+    
+                                      </Picker.Item>
+                                    </Picker>
+                         
                              
-                       
-                           
+                            </View>
+                            <View style={{flex: 1}}>
+                                <Text style={{fontSize: scale(14), fontWeight: '500'}}>Trạng thái</Text>
+                                <Picker 
+                                mode="dropdown"
+                                selectedValue={selectedStatus}
+                                onValueChange={(value) => setSelectedStatus(value)}>
+                                <Picker.Item
+                                                label={'Phản hồi'}
+                                                value={'Phản hồi'}
+                                    >
+    
+                                </Picker.Item>
+                                <Picker.Item
+                                                label={'Chưa phản hồi'}
+                                                value={'Chưa phản hồi'}
+                                    >
+    
+                                </Picker.Item>
+                        </Picker>
+                         
+                            </View>
+                        </View>
+    
                       
-                   
-                    
-                    
-               </View>
+                      
+                           
+                                  
+                                       <FlatList 
+                                       contentContainerStyle={{
+                                        paddingBottom: 200,
+                                        marginTop: 12
+                                       }}
+                                       
+                                       showsVerticalScrollIndicator={false}
+                                       keyExtractor={(item,index) => index}
+                                       data={Array.from({length:20})}
+                                       renderItem={({item,index}) => (
+                                        <View style={{marginBottom: 16, marginHorizontal: 2}} key={index}> 
+                                                <ComplainCard setVisibleModal={setVisibleModal}/>
+                                        </View>
+                                       )}/>
+                                 
+                           
+                               
+                          
+                       
+                        
+                        
+                   </View>
+            
                <Modal
                visible={isVisibleModal}
                animationType="slide"
@@ -106,7 +108,7 @@ function ComplainManagementScreen() {
             
                    <ScrollView><ModalComponent setVisibleModal={setVisibleModal}/></ScrollView>
                </Modal>
-            </View>
+            </SafeAreaView>
     );
 
 }

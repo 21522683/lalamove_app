@@ -44,10 +44,12 @@ const WelcomeCreateOrderScreen = () => {
                 <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
                   <Icon3 name='dot-circle-o'  size={16} color='#FF671D' style={{marginTop: 3, marginRight: 12}}/>
                   <View style={{gap:8, flex:1}}>
-                    <View style={{flexDirection:'row', alignItems:'center', gap:4}}>
-                      <Text style={{color: '#2F2E36', fontSize:15 }}>Địa điểm nhận hàng</Text>
-                      <Icon4 name='chevron-right'  size={20} />
-                    </View>
+                    <Pressable onPress={() => navigation.navigate('ChooseAddressScreen')}>
+                      <View style={{flexDirection:'row', alignItems:'center', gap:4}}>
+                        <Text style={{color: '#2F2E36', fontSize:15 }}>Địa điểm nhận hàng</Text>
+                        <Icon4 name='chevron-right'  size={20} />
+                      </View>
+                    </Pressable>
                     <Text>4519 Nguyễn Cửu Phú, Tân Tạo A, Bình 
                           Tân, Thành phố Hồ Chí Minh, Việt Nam</Text>
                   </View>
@@ -57,10 +59,12 @@ const WelcomeCreateOrderScreen = () => {
                 <View style={{flexDirection: 'row', alignItems: 'flex-start', marginTop: 24}}>
                   <Icon6 name='location-outline'  size={16} color='#4CAF50' style={{marginTop: 3, marginRight: 12}}/>
                   <View style={{gap:8, flex:1}}>
-                    <View style={{flexDirection:'row', alignItems:'center', gap:4}}>
-                      <Text style={{color: '#2F2E36', fontSize:15 }}>Địa điểm nhận hàng</Text>
-                      <Icon4 name='chevron-right'  size={20} />
-                    </View>
+                   
+                      <View style={{flexDirection:'row', alignItems:'center', gap:4}}>
+                        <Text style={{color: '#2F2E36', fontSize:15 }}>Địa điểm nhận hàng</Text>
+                        <Icon4 name='chevron-right'  size={20} />
+                      </View>
+               
                     <Text>4519 Nguyễn Cửu Phú, Tân Tạo A, Bình 
                           Tân, Thành phố Hồ Chí Minh, Việt Nam</Text>
                   </View>
