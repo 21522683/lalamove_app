@@ -11,7 +11,7 @@ const styles = ScaledSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: moderateScale(20),
+    padding: moderateScale(14),
     borderBottomColor: '#AEAEAE',
     borderBottomWidth: verticalScale(1.5),
     width: '100%',
@@ -21,9 +21,11 @@ const styles = ScaledSheet.create({
   },
   back_button: {
     padding: moderateScale(10),
+    width: scale(20),
+    height: verticalScale(20),
   },
   title_header: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     flex: 1,
     textAlign: 'center',

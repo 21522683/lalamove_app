@@ -42,5 +42,6 @@
     cccd: require('./cccd.png'),
     cavet: require('./cavet.png'),
     gplx: require('./gplx.png'),
+    logout: require('./logout.png'),
 }
     
