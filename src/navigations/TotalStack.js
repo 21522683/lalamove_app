@@ -26,7 +26,7 @@ export default TotalStack = () => {
     return (
         <NavigationContainer >
             {
-                userAuth?.userType === 'User' ? <DriverTabStack />
+                userAuth?.userType === 'User' ? <UserTabStack />
                     : userAuth?.userType === 'Driver' ? <DriverTabStack />
                         : userAuth?.userType === 'Admin' ? <AdminTabStack />
                             : <AuthStackScreens />

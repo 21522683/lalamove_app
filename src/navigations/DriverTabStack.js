@@ -33,7 +33,7 @@ export default function DriverStackScreens() {
       <DriverStack.Screen
         name="application-driver"
         component={DriverTabStackScreens}
-        options={{ headerTitle: '' }}
+        options={{ headerTitle: '', headerShown: false }}
       />
       <DriverStack.Screen
         name="infor-driver"
