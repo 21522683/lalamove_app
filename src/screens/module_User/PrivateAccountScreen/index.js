@@ -4,10 +4,13 @@ import styles from './style.js'
 import { IMAGES } from '../../../assets/images/index.js'
 import { FiChevronRight } from "react-icons/fi";
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { logoutUserAction } from '../../../redux/slices/usersSlices.js';
 
 const PrivateAccountScreen = () => {
 
   const navigation = useNavigation();
+  const dispatch = useDispatch()
 
   return (
     <SafeAreaView style={styles.container}>
@@ -73,13 +76,15 @@ const PrivateAccountScreen = () => {
             </TouchableOpacity>
           </View>
 
-          <View style={styles.item_selection}>
-            <Image source={IMAGES.logout} style={styles.icon_selection}/>
-            <Text style={styles.title_selection}>Đăng xuất</Text>
-            <TouchableOpacity style={styles.button_foward}>
-              <Image source={IMAGES.foward_icon_orage} style={styles.icon_next} />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity onPress={()=>{dispatch(logoutUserAction())}}>
+            <View style={styles.item_selection}>
+              <Image source={IMAGES.logout} style={styles.icon_selection}/>
+              <Text style={styles.title_selection}>Đăng xuất</Text>
+              <TouchableOpacity style={styles.button_foward}>
+                <Image source={IMAGES.foward_icon_orage} style={styles.icon_next} />
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
 
         </View>
 

@@ -30,7 +30,7 @@ export default TotalStack = () => {
       ) : userAuth?.userType === 'Admin' ? (
         <AdminTabStack />
       ) : (
-        <DriverTabStack />
+        <AuthStackScreens />
       )}
     </NavigationContainer>
   );
