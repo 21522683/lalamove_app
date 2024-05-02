@@ -10,7 +10,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <UserTabStack />
+        <DriverTabStack />
       </NavigationContainer>
     </Provider>
   );

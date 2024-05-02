@@ -24,6 +24,23 @@ import VerifyOrderDriverScreen from '../screens/module_Driver/screens/VerifyOrde
 const DriverTabStack = createBottomTabNavigator();
 
 export default DriverTabStackScreens = () => {
+  function showBottomNavigation(route) {
+    const routeName = route.state
+      ? route.state.routes[route.state.index].name
+      : 'Orders';
+    console.log(route.state);
+
+    switch (routeName) {
+      case 'Orders':
+        return true;
+      case 'Order':
+        return true;
+      case 'Profile':
+        return true;
+      default:
+        return false;
+    }
+  }
   const DriverProfileStack = createStackNavigator();
   function DriverProfileStackScreens() {
     return (
@@ -135,14 +152,14 @@ export default DriverTabStackScreens = () => {
       }}>
       <DriverTabStack.Screen
         name="Orders"
-        component={HomeDriverStackScreens}
-        options={{
+        component={DriverOrdersScreen}
+        options={({route}) => ({
           headerShown: false,
           tabBarIcon: ({focused, color, size}) => {
             let iconName = focused ? 'download' : 'download-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-        }}
+        })}
       />
       <DriverTabStack.Screen
         name="Order"
