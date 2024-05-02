@@ -1,11 +1,11 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StatiscalDriverScreen from '../screens/module_Driver/StatiscalDriverScreen';
 import Step1Screen from '../screens/module_Driver/RegisterDriverScreen/Step1';
 import Step2Screen from '../screens/module_Driver/RegisterDriverScreen/Step2';
 import CUSTOM_COLOR from '../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import ProfileDriverScreen from '../screens/module_Driver/ProfileScreen';
 import PrivatePolicyScreen from '../screens/module_User/PrivatePolicyScreen';
 import DetailDriverScreen from '../screens/module_Admin/DetailDriverScreen';
@@ -21,44 +21,44 @@ import OrderDetailDriverScreen from '../screens/module_Driver/screens/OrderDetai
 import ReceiverDetailDriverScreen from '../screens/module_Driver/screens/ReceiverDetailScreen';
 import DriverReviewMap from '../screens/module_Driver/screens/ReviewMap';
 import VerifyOrderDriverScreen from '../screens/module_Driver/screens/VerifyOrderScreen';
-import {Polygon} from 'react-native-svg';
-import DriverReceivedOrdersScreen from '../screens/module_Driver/ReceivedOrdersScreen';
-import ReceivedDriverOrderDetailScreen from '../screens/module_Driver/OrderDetailScreen';
+import { Polygon } from 'react-native-svg';
 const DriverTabStack = createBottomTabNavigator();
+
 
 const DriverStack = createStackNavigator();
 export default function DriverStackScreens() {
   return (
     <DriverStack.Navigator>
+
       <DriverStack.Screen
         name="application-driver"
         component={DriverTabStackScreens}
-        options={{headerTitle: '', headerShown: false}}
+        options={{ headerTitle: '' }}
       />
       <DriverStack.Screen
         name="infor-driver"
         component={DriverInformationScreen}
-        options={{headerTitle: 'Thông tin tài xế', headerBackTitle: ''}}
+        options={{ headerTitle: 'Thông tin tài xế', headerBackTitle: '' }}
       />
       <DriverStack.Screen
         name="policy"
         component={PrivatePolicyScreen}
-        options={{headerTitle: 'Chính sách tài xế', headerBackTitle: ''}}
+        options={{ headerTitle: 'Chính sách tài xế', headerBackTitle: '' }}
       />
       <DriverStack.Screen
         name="license-driver"
         component={LisenceDriverManageScreen}
-        options={{headerTitle: 'Bằng lái tài xế', headerBackTitle: ''}}
+        options={{ headerTitle: 'Bằng lái tài xế', headerBackTitle: '' }}
       />
       <DriverStack.Screen
         name="license-driver-infor"
         component={LicenseDriverInforScreen}
-        options={{headerTitle: 'Thông tin bằng lái', headerBackTitle: ''}}
+        options={{ headerTitle: 'Thông tin bằng lái', headerBackTitle: '' }}
       />
       <DriverStack.Screen
         name="license-driver-form"
         component={LicenseDriverForm}
-        options={({route}) => ({
+        options={({ route }) => ({
           title: route.params.name,
           headerBackTitle: '',
         })}
@@ -66,17 +66,17 @@ export default function DriverStackScreens() {
       <DriverStack.Screen
         name="vehicle-driver"
         component={VehicleManageScreen}
-        options={{headerTitle: 'Phương tiện', headerBackTitle: ''}}
+        options={{ headerTitle: 'Phương tiện', headerBackTitle: '' }}
       />
       <DriverStack.Screen
         name="vehicle-driver-infor"
         component={VehicleDriverInforScreen}
-        options={{headerTitle: 'Thông tin phương tiện', headerBackTitle: ''}}
+        options={{ headerTitle: 'Thông tin phương tiện', headerBackTitle: '' }}
       />
       <DriverStack.Screen
         name="vehicle-driver-form"
         component={VehicleDriverForm}
-        options={({route}) => ({
+        options={({ route }) => ({
           title: route.params.name,
           headerBackTitle: '',
         })}
@@ -85,32 +85,27 @@ export default function DriverStackScreens() {
       <DriverStack.Screen
         name="DriverOrderScreen"
         component={DriverOrdersScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <DriverStack.Screen
         name="OrderDetailDriverScreen"
         component={OrderDetailDriverScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <DriverStack.Screen
         name="ReceiverDetailDriverScreen"
         component={ReceiverDetailDriverScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <DriverStack.Screen
         name="DriverReviewMap"
         component={DriverReviewMap}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <DriverStack.Screen
         name="VerifyOrderDriverScreen"
         component={VerifyOrderDriverScreen}
-        options={{headerShown: false}}
-      />
-      <DriverStack.Screen
-        name="ReceivedDriverOrderDetailScreen"
-        component={ReceivedDriverOrderDetailScreen}
-        options={{headerTitle: '', headerShown: false}}
+        options={{ headerShown: false }}
       />
     </DriverStack.Navigator>
   );
@@ -128,7 +123,8 @@ function DriverTabStackScreens() {
         component={DriverOrdersScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused, color, size}) => {
+          tabBarLabel:'Nhận đơn',
+          tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'download' : 'download-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -136,10 +132,11 @@ function DriverTabStackScreens() {
       />
       <DriverTabStack.Screen
         name="Order"
-        component={DriverReceivedOrdersScreen}
+        component={DriverOrdersScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused, color, size}) => {
+          tabBarLabel:'Đơn hàng',
+          tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'reader' : 'reader-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -150,7 +147,8 @@ function DriverTabStackScreens() {
         component={StatiscalDriverScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused, color, size}) => {
+          tabBarLabel:'Thống kê',
+          tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'stats-chart' : 'stats-chart-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -161,7 +159,8 @@ function DriverTabStackScreens() {
         component={ProfileDriverScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused, color, size}) => {
+          tabBarLabel:'Hồ sơ',
+          tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'person' : 'person-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -169,4 +168,4 @@ function DriverTabStackScreens() {
       />
     </DriverTabStack.Navigator>
   );
-}
+};
