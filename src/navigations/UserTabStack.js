@@ -109,7 +109,7 @@ function UserTabStackScreens() {
 
       <UserTabStack.Screen
         name="Profile"
-        component={ProfileDriverScreen}
+        component={PrivateAccountScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({focused, color, size}) => {

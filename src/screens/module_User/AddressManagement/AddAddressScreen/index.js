@@ -58,7 +58,7 @@ const AddAddressScreen = () => {
                 </View>
                 <Pressable>
                     <View style={{backgroundColor: '#F16722', height: 50, marginHorizontal: 12, 
-                    alignItems: 'center', justifyContent: 'center', borderRadius: 100, elevation: 2}}>
+                    alignItems: 'center', justifyContent: 'center', borderRadius: 8, elevation: 2}}>
                         <Text style={{fontSize: 15, fontWeight: '400',color:'white'}}>Thêm địa chỉ</Text>
                     </View>
                 </Pressable>
