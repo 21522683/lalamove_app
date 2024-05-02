@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import UserTabStack from "./UserTabStack";
-import { NavigationContainer } from "@react-navigation/native";
-import AdminTabStack from "./AdminTabStack";
-import AuthStackScreens from "./AuthStack";
-import { setUserAuth } from "../redux/slices/usersSlices";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import UserTabStack from './UserTabStack';
+import { NavigationContainer } from '@react-navigation/native';
+import AdminTabStack from './AdminTabStack';
+import AuthStackScreens from './AuthStack';
+import { setUserAuth } from '../redux/slices/usersSlices';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import DriverTabStack from "./DriverTabStack";
+import DriverTabStack from './DriverTabStack';
 export default TotalStack = () => {
     const dispatch = useDispatch();
     const userAuth = useSelector(state => state?.users?.userAuth)
@@ -14,7 +14,7 @@ export default TotalStack = () => {
    
     useEffect(() => {
         async function userStorage() {
-            let u = await AsyncStorage.getItem('userStorage')
+            const u = await AsyncStorage.getItem('userStorage')
             if (u !== null) {
                 dispatch(setUserAuth(JSON.parse(u)))
     
@@ -26,7 +26,7 @@ export default TotalStack = () => {
     return (
         <NavigationContainer >
             {
-                userAuth?.userType === 'User' ? <UserTabStack />
+                userAuth?.userType === 'User' ? <DriverTabStack />
                     : userAuth?.userType === 'Driver' ? <DriverTabStack />
                         : userAuth?.userType === 'Admin' ? <AdminTabStack />
                             : <AuthStackScreens />

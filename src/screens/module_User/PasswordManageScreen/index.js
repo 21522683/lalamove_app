@@ -3,9 +3,11 @@ import React, { useState } from 'react'
 import styles from './style.js';
 import { IMAGES } from '../../../assets/images/index.js';
 import CUSTOM_COLOR from '../../../constants/colors.js';
+import { useNavigation } from '@react-navigation/native';
 
 const PasswordManageScreen = () => {
 
+    const navigation = useNavigation();
     const [showCurrentPass, setShowCurrentPass] = useState(false);
     const [showNewPass, setShowNewPass] = useState(false);
     const [showConfirmPass, setShowConfirmPass] = useState(false);
@@ -33,7 +35,7 @@ const PasswordManageScreen = () => {
                 keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}
             >
                 <View style={styles.header}>
-                    <Image source={IMAGES.back_icon} style={styles.back_button} />
+                    <Image source={IMAGES.back_icon} style={styles.back_button} onPress={() => {navigation.goBack()}}/>
                     <Text style={styles.title_header}>Quản lý mật khẩu</Text>
                 </View>
 

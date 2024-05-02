@@ -1,5 +1,5 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import CUSTOM_COLOR from "../constants/colors";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import CUSTOM_COLOR from '../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator } from "@react-navigation/stack";
 import WelcomeCreateOrderScreen from "../screens/module_User/CreateOrder/WelcomeCreateOrderScreen";
@@ -11,79 +11,77 @@ import AddressManagementScreen from "../screens/module_User/AddressManagement";
 import AddAddressScreen from "../screens/module_User/AddressManagement/AddAddressScreen";
 import CreateAddressScreen from "../screens/module_User/AddressManagement/CreateAddressScreen";
 import UserComplainManagementScreen from "../screens/module_User/UserComplainManagementScreen";
+import PrivateAccountScreen from "../screens/module_User/PrivateAccountScreen";
+import ProfileScreen from "../screens/module_User/ProfileScreen";
+import PasswordManageScreen from "../screens/module_User/PasswordManageScreen";
+import AddressManageScreen from "../screens/module_User/AddressManageScreen";
+import PrivatePolicyScreen from "../screens/module_User/PrivatePolicyScreen";
+import UserOrdersScreen from '../screens/module_User/OrdersScreen';
+import OrderDetailScreen from '../screens/module_User/OrderDetailScreen';
+import ProfileDriverScreen from '../screens/module_Driver/ProfileScreen';
+
+
+
+const UserStack = createStackNavigator();
+export default function UserStackScreens() {
+  return (
+    <UserStack.Navigator >
+      <UserStack.Screen name="User-Home" component={UserTabStackScreens} options={{ headerShown: false }} />
+      <UserStack.Screen name="WelcomeCreateOrderScreen" component={WelcomeCreateOrderScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="GoodsInformationScreen" component={GoodsInformationScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="ChooseVehicleScreen" component={ChooseVehicleScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="PrevCompletedOrderScreen" component={PrevCompletedOrderScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="CompletedOrderScreen" component={CompletedOrderScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="UserComplainManagementScreen" component={UserComplainManagementScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="OrderDetailScreen" component={OrderDetailScreen} options={{ headerShown: false }} />
+    </UserStack.Navigator>
+  );
+}
 
 const UserTabStack = createBottomTabNavigator();
 
-export default UserTabStackScreens = () => {
+function UserTabStackScreens() {
+  return (
+    <UserTabStack.Navigator
+      initialRouteName="ordersUser"
+      screenOptions={{
+        tabBarActiveTintColor: CUSTOM_COLOR.Primary,
+      }}>
+      <UserTabStack.Screen
+        name="Orders"
+        component={UserOrdersScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName = focused ? 'reader' : 'reader-outline';
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        }}
+      />
+      <UserTabStack.Screen
+        name="Home"
+        component={WelcomeCreateOrderScreen}
+        options={{
+          headerShown: false,
 
-    const UserProfileStack = createStackNavigator();
-    function UserProfileStackScreens() {
-        return (
-            <UserProfileStack.Navigator initialRouteName="UserAddressManagementScreen">
-                <UserProfileStack.Screen name="UserAddressManagementScreen" component={AddressManagementScreen} options={{headerShown: false}}/>
-                <UserProfileStack.Screen name="AddAddressScreen" component={AddAddressScreen} options={{headerShown: false}}/>
-                <UserProfileStack.Screen name="CreateAddressScreen" component={CreateAddressScreen} options={{headerShown: false}}/>
-            </UserProfileStack.Navigator>
-        );
-    }
-    const OrdersUserStack = createStackNavigator();
-    function OrdersUserStackScreens() {
-        return (
-            <OrdersUserStack.Navigator initialRouteName="WelcomeCreateOrderScreen">
-                <OrdersUserStack.Screen name="WelcomeCreateOrderScreen" component={WelcomeCreateOrderScreen} options={{headerShown: false}}/>
-                <OrdersUserStack.Screen name="GoodsInformationScreen" component={GoodsInformationScreen} options={{headerShown: false}}/>
-                <OrdersUserStack.Screen name="ChooseVehicleScreen" component={ChooseVehicleScreen} options={{headerShown: false}}/>
-                <OrdersUserStack.Screen name="PrevCompletedOrderScreen" component={PrevCompletedOrderScreen} options={{headerShown: false}}/>
-                <OrdersUserStack.Screen name="CompletedOrderScreen" component={CompletedOrderScreen} options={{headerShown: false}}/>
-                
-                <OrdersUserStack.Screen name="UserComplainManagementScreen" component={UserComplainManagementScreen} options={{headerShown: false}}/>
- 
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName = focused ? 'home' : 'home-outline';
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        }}
+      />
 
-
-                
-            </OrdersUserStack.Navigator>
-        );
-    }
-
-
-   
-
-    const HomeUserStack = createStackNavigator();
-    function HomeUserStackScreens() {
-        return (
-            <HomeUserStack.Navigator>
-                
-            </HomeUserStack.Navigator>
-        );
-    }
-
-    return (
-        <UserTabStack.Navigator initialRouteName="ordersUser" screenOptions={{
-            tabBarActiveTintColor: CUSTOM_COLOR.Primary,
-        }}>
-            <UserTabStack.Screen name="homeUser" component={HomeUserStackScreens} options={{
-                headerShown: false,
-                tabBarIcon: ({ focused, color, size }) => {
-                    let iconName = focused ? 'home' : 'home-outline';
-                    return <Ionicons name={iconName} size={size} color={color} />;
-                },
-            }} />
-            <UserTabStack.Screen name="ordersUser" component={OrdersUserStackScreens}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: ({ focused, color, size }) => {
-                        let iconName = focused ? 'home' : 'home-outline';
-                        return <Ionicons name={iconName} size={size} color={color} />;
-                    },
-                }} />
- 
-            <UserTabStack.Screen name="profileUser" component={UserProfileStackScreens} options={{
-                headerShown: false,
-                tabBarIcon: ({ focused, color, size }) => {
-                    let iconName = focused ? 'home' : 'home-outline';
-                    return <Ionicons name={iconName} size={size} color={color} />;
-                },
-            }} />
-        </UserTabStack.Navigator>
-    );
-}
+      <UserTabStack.Screen
+        name="Profile"
+        component={ProfileDriverScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName = focused ? 'person' : 'person-outline';
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        }}
+      />
+    </UserTabStack.Navigator>
+  );
+};

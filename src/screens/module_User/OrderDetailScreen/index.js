@@ -6,7 +6,6 @@ import {
   ScrollView,
   Dimensions,
   Modal,
-  Alert,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {ICONS} from '../../../assets/icons';
@@ -67,7 +66,7 @@ const OrderDetailScreen = ({navigation, route}) => {
             <ContactItem {...order.sourceAddress} />
           </View>
         )}
-        <View style={{backgroundColor: '#fff', height: windowHeight - 80}}>
+        <View style={{backgroundColor: '#fff', height: windowHeight - 130}}>
           {order.status !== 'Đã hủy' && (
             <View style={styles.outer_good}>
               <Image

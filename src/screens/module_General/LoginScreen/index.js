@@ -92,7 +92,9 @@ const LoginScreen = ({ navigation }) => {
       <MyButton text={'Đăng nhập'} onPress={validate} />
       <View style={{ alignSelf: 'center', width: '100%' }}>
         <Text style={{ ...styles.subText }}>Hoặc tiếp tục với</Text>
-        <LoginGoogleBtn text={'Đăng nhập bằng Google'} onPress={() => { }} />
+        <LoginGoogleBtn text={'Đăng nhập bằng Google'} onPress={() => {
+            
+         }} />
       </View>
 
       <View style={{ width: '100%', flex: 1, justifyContent: 'flex-end', }}>

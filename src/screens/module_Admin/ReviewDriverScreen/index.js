@@ -3,8 +3,12 @@ import React from 'react'
 import styles from './style'
 import { IMAGES } from '../../../assets/images'
 import ItemDriver from './ItemDriver'
+import { useNavigation } from '@react-navigation/native'
 
 const ReviewDriverScreen = () => {
+
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -21,7 +25,9 @@ const ReviewDriverScreen = () => {
           {
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ].map((item, index) => {
               return (
-                <ItemDriver key={index}/>
+                <ItemDriver key={index} onClicked={() => {
+                  navigation.navigate('DetailReviewDriverScreen')
+                }}/>
               )
             })
           }
