@@ -1,32 +1,66 @@
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  PermissionsAndroid,
+} from 'react-native';
 import React, {useState} from 'react';
 import styles from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/EvilIcons';
-import {launchCamera} from 'react-native-image-picker';
+import {launchCamera as _launchCamera} from 'react-native-image-picker';
+let launchCamera = _launchCamera;
 import {IMAGES} from '../../../../assets/images';
 
 const VerifyOrderDriverScreen = ({navigation, props}) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const handleCameraLaunch = () => {
-    const options = {
-      mediaType: 'photo',
-      includeBase64: false,
-      maxHeight: 2000,
-      maxWidth: 2000,
-    };
+    requestCameraPermission();
+  };
 
-    launchCamera(options, response => {
-      if (response.didCancel) {
-        console.log('User cancelled camera');
-      } else if (response.error) {
-        console.log('Camera Error: ', response.error);
+  const requestCameraPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: 'App Camera Permission',
+          message: 'App needs access to your camera ',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('Camera permission given');
+        const options = {
+          mediaType: 'photo',
+          includeBase64: false,
+          maxHeight: 2000,
+          maxWidth: 2000,
+        };
+
+        launchCamera(options, handleResponse);
       } else {
-        let imageUri = response.uri || response.assets?.[0]?.uri;
-        setSelectedImage(imageUri);
-        console.log(imageUri);
+        console.log('Camera permission denied');
       }
-    });
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  const handleResponse = response => {
+    console.log(response);
+    if (response.didCancel) {
+      console.log('User cancelled image picker');
+    } else if (response.error) {
+      console.log('Image picker error: ', response.error);
+    } else {
+      let imageUri = response.uri || response.assets?.[0]?.uri;
+      console.log('dô');
+      console.log(imageUri);
+      setSelectedImage(imageUri);
+    }
   };
 
   return (
