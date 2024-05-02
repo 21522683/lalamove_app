@@ -6,6 +6,7 @@ import {
 } from 'react-native-size-matters';
 import FONT_FAMILY from '../../../constants/font';
 import CUSTOM_COLOR from '../../../constants/colors';
+import {Dimensions} from 'react-native';
 
 const styles = ScaledSheet.create({
   container: {
@@ -136,7 +137,7 @@ const styles = ScaledSheet.create({
   },
   outer_receiver_slider: {
     backgroundColor: CUSTOM_COLOR.Primary,
-    height: 70,
+    height: 50,
     marginHorizontal: 10,
     marginTop: 7,
     borderRadius: 5,
@@ -145,10 +146,25 @@ const styles = ScaledSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 8,
-    position: 'absolute',
-    bottom: 10,
-    left: 0,
-    right: 0,
+  },
+  back_white: {
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: CUSTOM_COLOR.Primary,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    alignItems: 'center',
+  },
+  modalInner: {
+    marginTop: verticalScale(76),
+    width: Dimensions.get('window').width - 48,
+    paddingVertical: verticalScale(24),
+    paddingHorizontal: scale(16),
+    backgroundColor: 'white',
+    borderRadius: 8,
+    marginBottom: 54,
   },
 });
 

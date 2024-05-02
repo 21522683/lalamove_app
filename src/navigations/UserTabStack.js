@@ -1,43 +1,72 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import CUSTOM_COLOR from '../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { createStackNavigator } from "@react-navigation/stack";
-import WelcomeCreateOrderScreen from "../screens/module_User/CreateOrder/WelcomeCreateOrderScreen";
-import GoodsInformationScreen from "../screens/module_User/CreateOrder/GoodsInformationScreen";
-import ChooseVehicleScreen from "../screens/module_User/CreateOrder/ChooseVehicleScreen";
-import PrevCompletedOrderScreen from "../screens/module_User/CreateOrder/PrevCompletedOrderScreen";
-import CompletedOrderScreen from "../screens/module_User/CreateOrder/CompletedOrderScreen";
-import AddressManagementScreen from "../screens/module_User/AddressManagement";
-import AddAddressScreen from "../screens/module_User/AddressManagement/AddAddressScreen";
-import CreateAddressScreen from "../screens/module_User/AddressManagement/CreateAddressScreen";
-import UserComplainManagementScreen from "../screens/module_User/UserComplainManagementScreen";
-import PrivateAccountScreen from "../screens/module_User/PrivateAccountScreen";
-import ProfileScreen from "../screens/module_User/ProfileScreen";
-import PasswordManageScreen from "../screens/module_User/PasswordManageScreen";
-import AddressManageScreen from "../screens/module_User/AddressManageScreen";
-import PrivatePolicyScreen from "../screens/module_User/PrivatePolicyScreen";
+import {createStackNavigator} from '@react-navigation/stack';
+import WelcomeCreateOrderScreen from '../screens/module_User/CreateOrder/WelcomeCreateOrderScreen';
+import GoodsInformationScreen from '../screens/module_User/CreateOrder/GoodsInformationScreen';
+import ChooseVehicleScreen from '../screens/module_User/CreateOrder/ChooseVehicleScreen';
+import PrevCompletedOrderScreen from '../screens/module_User/CreateOrder/PrevCompletedOrderScreen';
+import CompletedOrderScreen from '../screens/module_User/CreateOrder/CompletedOrderScreen';
+import AddressManagementScreen from '../screens/module_User/AddressManagement';
+import AddAddressScreen from '../screens/module_User/AddressManagement/AddAddressScreen';
+import CreateAddressScreen from '../screens/module_User/AddressManagement/CreateAddressScreen';
+import UserComplainManagementScreen from '../screens/module_User/UserComplainManagementScreen';
+import PrivateAccountScreen from '../screens/module_User/PrivateAccountScreen';
+import ProfileScreen from '../screens/module_User/ProfileScreen';
+import PasswordManageScreen from '../screens/module_User/PasswordManageScreen';
+import AddressManageScreen from '../screens/module_User/AddressManageScreen';
+import PrivatePolicyScreen from '../screens/module_User/PrivatePolicyScreen';
 import UserOrdersScreen from '../screens/module_User/OrdersScreen';
 import OrderDetailScreen from '../screens/module_User/OrderDetailScreen';
 import ProfileDriverScreen from '../screens/module_Driver/ProfileScreen';
 
-
-
 const UserStack = createStackNavigator();
 export default function UserStackScreens() {
   return (
-    <UserStack.Navigator >
-      <UserStack.Screen name="User-Home" component={UserTabStackScreens} options={{ headerShown: false }} />
-      <UserStack.Screen name="WelcomeCreateOrderScreen" component={WelcomeCreateOrderScreen} options={{ headerShown: false }} />
-      <UserStack.Screen name="ChooseAddressScreen" component={AddressManagementScreen} options={{ headerShown: false }} />
+    <UserStack.Navigator>
+      <UserStack.Screen
+        name="User-Home"
+        component={UserTabStackScreens}
+        options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="WelcomeCreateOrderScreen"
+        component={WelcomeCreateOrderScreen}
+        options={{headerShown: false}}
+      />
+       <UserStack.Screen name="ChooseAddressScreen" component={AddressManagementScreen} options={{ headerShown: false }} />
       <UserStack.Screen name="AddAddressScreen" component={AddAddressScreen} options={{ headerShown: false }} />
       <UserStack.Screen name="CreateAddressScreen" component={CreateAddressScreen} options={{ headerShown: false }} />
-      <UserStack.Screen name="GoodsInformationScreen" component={GoodsInformationScreen} options={{ headerShown: false }} />
-      <UserStack.Screen name="ChooseVehicleScreen" component={ChooseVehicleScreen} options={{ headerShown: false }} />
-      <UserStack.Screen name="PrevCompletedOrderScreen" component={PrevCompletedOrderScreen} options={{ headerShown: false }} />
-      <UserStack.Screen name="CompletedOrderScreen" component={CompletedOrderScreen} options={{ headerShown: false }} />
-      <UserStack.Screen name="UserComplainManagementScreen" component={UserComplainManagementScreen} options={{ headerShown: false }} />
-      <UserStack.Screen name="OrderDetailScreen" component={OrderDetailScreen} options={{ headerShown: false }} />
-
+      <UserStack.Screen
+        name="GoodsInformationScreen"
+        component={GoodsInformationScreen}
+        options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="ChooseVehicleScreen"
+        component={ChooseVehicleScreen}
+        options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="PrevCompletedOrderScreen"
+        component={PrevCompletedOrderScreen}
+        options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="CompletedOrderScreen"
+        component={CompletedOrderScreen}
+        options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="UserComplainManagementScreen"
+        component={UserComplainManagementScreen}
+        options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="OrderDetailScreen"
+        component={OrderDetailScreen}
+        options={{headerShown: false}}
+      />
     </UserStack.Navigator>
   );
 }
@@ -56,7 +85,7 @@ function UserTabStackScreens() {
         component={UserOrdersScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({focused, color, size}) => {
             let iconName = focused ? 'reader' : 'reader-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -67,8 +96,7 @@ function UserTabStackScreens() {
         component={WelcomeCreateOrderScreen}
         options={{
           headerShown: false,
-
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({focused, color, size}) => {
             let iconName = focused ? 'home' : 'home-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -80,7 +108,7 @@ function UserTabStackScreens() {
         component={ProfileDriverScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({focused, color, size}) => {
             let iconName = focused ? 'person' : 'person-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -88,4 +116,4 @@ function UserTabStackScreens() {
       />
     </UserTabStack.Navigator>
   );
-};
+}
