@@ -87,8 +87,11 @@ export class AuthService {
     });
     if (!exitedUser) throw new UnauthorizedException();
     if (exitedUser && !(await exitedUser.checkPassword(loginUserDto.password))) {
+      console.log(loginUserDto)
       throw new UnauthorizedException();
     }
+    
+
     if (exitedUser.userType !== loginUserDto.userType) {
       throw new UnauthorizedException();
     }

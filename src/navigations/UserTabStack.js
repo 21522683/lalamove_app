@@ -1,4 +1,4 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CUSTOM_COLOR from '../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator } from "@react-navigation/stack";
@@ -18,58 +18,29 @@ import AddressManageScreen from "../screens/module_User/AddressManageScreen";
 import PrivatePolicyScreen from "../screens/module_User/PrivatePolicyScreen";
 import UserOrdersScreen from '../screens/module_User/OrdersScreen';
 import OrderDetailScreen from '../screens/module_User/OrderDetailScreen';
+import ProfileDriverScreen from '../screens/module_Driver/ProfileScreen';
+
+
+
+const UserStack = createStackNavigator();
+export default function UserStackScreens() {
+  return (
+    <UserStack.Navigator >
+      <UserStack.Screen name="User-Home" component={UserTabStackScreens} options={{ headerShown: false }} />
+      <UserStack.Screen name="WelcomeCreateOrderScreen" component={WelcomeCreateOrderScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="GoodsInformationScreen" component={GoodsInformationScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="ChooseVehicleScreen" component={ChooseVehicleScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="PrevCompletedOrderScreen" component={PrevCompletedOrderScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="CompletedOrderScreen" component={CompletedOrderScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="UserComplainManagementScreen" component={UserComplainManagementScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="OrderDetailScreen" component={OrderDetailScreen} options={{ headerShown: false }} />
+    </UserStack.Navigator>
+  );
+}
 
 const UserTabStack = createBottomTabNavigator();
 
-export default UserTabStackScreens = () => {
-
-    const UserProfileStack = createStackNavigator();
-    function UserProfileStackScreens() {
-        return (
-            <UserProfileStack.Navigator initialRouteName="UserAddressManagementScreen">
-                <UserProfileStack.Screen name="UserAddressManagementScreen" component={AddressManagementScreen} options={{headerShown: false}}/>
-                <UserProfileStack.Screen name="AddAddressScreen" component={AddAddressScreen} options={{headerShown: false}}/>
-                <UserProfileStack.Screen name="CreateAddressScreen" component={CreateAddressScreen} options={{headerShown: false}}/>
-            </UserProfileStack.Navigator>
-        );
-    }
-    const OrdersUserStack = createStackNavigator();
-    function OrdersUserStackScreens() {
-        return (
-            <OrdersUserStack.Navigator initialRouteName="WelcomeCreateOrderScreen">
-                <OrdersUserStack.Screen name="WelcomeCreateOrderScreen" component={WelcomeCreateOrderScreen} options={{headerShown: false}}/>
-                <OrdersUserStack.Screen name="GoodsInformationScreen" component={GoodsInformationScreen} options={{headerShown: false}}/>
-                <OrdersUserStack.Screen name="ChooseVehicleScreen" component={ChooseVehicleScreen} options={{headerShown: false}}/>
-                <OrdersUserStack.Screen name="PrevCompletedOrderScreen" component={PrevCompletedOrderScreen} options={{headerShown: false}}/>
-                <OrdersUserStack.Screen name="CompletedOrderScreen" component={CompletedOrderScreen} options={{headerShown: false}}/>
-                
-                <OrdersUserStack.Screen name="UserComplainManagementScreen" component={UserComplainManagementScreen} options={{headerShown: false}}/>
- 
-
-
-                
-            </OrdersUserStack.Navigator>
-        );
-    }
-
-  const HomeUserStack = createStackNavigator();
-  function HomeUserStackScreens() {
-    return (
-      <HomeUserStack.Navigator initialRouteName="UserOrdersScreen">
-        <HomeUserStack.Screen
-          name="UserOrdersScreen"
-          component={UserOrdersScreen}
-          options={{headerShown: false}}
-        />
-        <HomeUserStack.Screen
-          name="OrderDetailScreen"
-          component={OrderDetailScreen}
-          options={{headerShown: false}}
-        />
-      </HomeUserStack.Navigator>
-    );
-  }
-
+function UserTabStackScreens() {
   return (
     <UserTabStack.Navigator
       initialRouteName="ordersUser"
@@ -78,10 +49,10 @@ export default UserTabStackScreens = () => {
       }}>
       <UserTabStack.Screen
         name="Orders"
-        component={HomeUserStackScreens}
+        component={UserOrdersScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused, color, size}) => {
+          tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'reader' : 'reader-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -89,10 +60,11 @@ export default UserTabStackScreens = () => {
       />
       <UserTabStack.Screen
         name="Home"
-        component={OrdersUserStackScreens}
+        component={WelcomeCreateOrderScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused, color, size}) => {
+
+          tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'home' : 'home-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -101,10 +73,10 @@ export default UserTabStackScreens = () => {
 
       <UserTabStack.Screen
         name="Profile"
-        component={UserProfileStackScreens}
+        component={ProfileDriverScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({focused, color, size}) => {
+          tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'person' : 'person-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
