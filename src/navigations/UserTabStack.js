@@ -34,6 +34,11 @@ export default function UserStackScreens() {
       <UserStack.Screen name="CompletedOrderScreen" component={CompletedOrderScreen} options={{ headerShown: false }} />
       <UserStack.Screen name="UserComplainManagementScreen" component={UserComplainManagementScreen} options={{ headerShown: false }} />
       <UserStack.Screen name="OrderDetailScreen" component={OrderDetailScreen} options={{ headerShown: false }} />
+
+      <UserStack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="PasswordManageScreen" component={PasswordManageScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="AddressManageScreen" component={AddressManageScreen} options={{ headerShown: false }} />
+      <UserStack.Screen name="PrivatePolicyScreen" component={PrivatePolicyScreen} options={{ headerShown: false }} />
     </UserStack.Navigator>
   );
 }
@@ -73,7 +78,7 @@ function UserTabStackScreens() {
 
       <UserTabStack.Screen
         name="Profile"
-        component={ProfileDriverScreen}
+        component={PrivateAccountScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused, color, size }) => {

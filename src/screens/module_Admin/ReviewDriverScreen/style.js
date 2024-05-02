@@ -11,13 +11,13 @@ const styles = ScaledSheet.create({
   },
   header: {
     width: '100%',
-    height: verticalScale(60),
+    height: verticalScale(50),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: CUSTOM_COLOR.Primary,
   },
   title: {
-    fontSize: scale(16),
+    fontSize: scale(14),
     fontWeight: 'bold',
     color: '#ffffff',
   },

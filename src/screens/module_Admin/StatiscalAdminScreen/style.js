@@ -11,13 +11,13 @@ const styles = ScaledSheet.create({
   },
   header: {
     width: '100%',
-    height: verticalScale(60),
+    height: verticalScale(50),
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: CUSTOM_COLOR.Primary,
   },
   title: {
-    fontSize: scale(16),
+    fontSize: scale(14),
     fontWeight: 'bold',
     color: '#ffffff',
   },
@@ -48,7 +48,40 @@ const styles = ScaledSheet.create({
     color: '#818181'
   },
   container_charts: {
-    margin: moderateScale(20),
+    margin: moderateScale(10),
+  },
+  container_final: {
+    paddingHorizontal: moderateScale(30),
+    marginBottom: verticalScale(40),
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flex: 1,
+  },
+  container_hoahong: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  title_hoahong: {
+    fontSize: scale(15),
+    color: '#000000',
+    fontWeight: 'bold',
+    marginRight: scale(10),
+  },
+  tyle: {
+    fontSize: scale(14),
+    color: '#818181'
+  },
+  btn_edit: {
+    paddingVertical: verticalScale(6),
+    paddingHorizontal: scale(10),
+    backgroundColor: CUSTOM_COLOR.Primary,
+    borderRadius: scale(4),
+  },
+  text_btn: {
+    color: CUSTOM_COLOR.White,
+    textAlign: 'center',
+    fontSize: scale(10),
   }
   
 });

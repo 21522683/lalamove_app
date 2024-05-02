@@ -10,16 +10,18 @@ const styles = ScaledSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: moderateScale(20),
+    padding: moderateScale(16),
     borderBottomColor: '#AEAEAE',
     borderBottomWidth: verticalScale(1.5),
     width: '100%',
   },
   back_button: {
     padding: moderateScale(10),
+    width: scale(20),
+    height: verticalScale(20),
   },
   title_header: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     color: CUSTOM_COLOR.Black,
     flex: 1,

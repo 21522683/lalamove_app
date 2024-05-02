@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react'
 import styles from './style.js'
 import Dropdown from './Dropdown/index.js';
 import formatMoney from '../../../constants/formatMoney.js';
-import {LineChart} from "react-native-chart-kit";
+import { LineChart } from "react-native-chart-kit";
 import { moderateScale, scale, ScaledSheet, verticalScale } from 'react-native-size-matters';
+import Dialog from "react-native-dialog";
 import CUSTOM_COLOR from '../../../constants/colors.js';
 
 const StatiscalAdminScreen = () => {
@@ -32,7 +33,7 @@ const StatiscalAdminScreen = () => {
                 datasets: [
                     {
                         data: [
-                            230, 480, 120, 903, 345, 256, 678, 345, 678, 678, 1123, 2231, 890, 569, 789, 990, 
+                            230, 480, 120, 903, 345, 256, 678, 345, 678, 678, 1123, 2231, 890, 569, 789, 990,
                             230, 480, 120, 903, 345, 256, 678, 345, 678, 678, 1123, 2231, 890, 569, 789
                         ]
                     }
@@ -47,7 +48,7 @@ const StatiscalAdminScreen = () => {
                 datasets: [
                     {
                         data: [
-                            230000/1000, 400000/1000, 1200000/1000, 8000000/1000, 370000/1000, 290000/1000, 230000/1000, 400000/1000, 1200000/1000, 8000000/1000, 370000/1000, 290000/1000,
+                            230000 / 1000, 400000 / 1000, 1200000 / 1000, 8000000 / 1000, 370000 / 1000, 290000 / 1000, 230000 / 1000, 400000 / 1000, 1200000 / 1000, 8000000 / 1000, 370000 / 1000, 290000 / 1000,
                         ]
                     }
                 ]
@@ -60,7 +61,7 @@ const StatiscalAdminScreen = () => {
                 datasets: [
                     {
                         data: [
-                            23089000/1000
+                            23089000 / 1000
                         ]
                     }
                 ]
@@ -68,7 +69,15 @@ const StatiscalAdminScreen = () => {
             setDataChart(data);
         }
     };
+    const handleSend = () => {
 
+    }
+  
+    const handleClose = () => {
+      setShowDialog(false)
+    }
+
+    const [showDialog, setShowDialog] = useState(false);
     return (
         <SafeAreaView style={styles.container}>
 
@@ -103,10 +112,10 @@ const StatiscalAdminScreen = () => {
                     </View>
 
                     <View style={styles.container_charts}>
-                        <Text style={{fontSize: scale(12), color: CUSTOM_COLOR.Primary, textAlign: 'center'}}>Biểu đồ doanh thu</Text>
+                        <Text style={{ fontSize: scale(12), color: CUSTOM_COLOR.Primary, textAlign: 'center' }}>Biểu đồ doanh thu</Text>
                         <LineChart
                             data={dataChart}
-                            width={scale(Dimensions.get("window").width*0.8)} // from react-native
+                            width={scale(Dimensions.get("window").width * 0.8)} // from react-native
                             height={verticalScale(260)}
                             yAxisLabel=""
                             yAxisSuffix="k"
@@ -134,7 +143,31 @@ const StatiscalAdminScreen = () => {
                             }}
                         />
                     </View>
+
+
                 </View>
+                <View style={styles.container_final}>
+                    <View style={styles.container_hoahong}>
+                        <Text style={styles.title_hoahong}>Hoa hồng tài xế:</Text>
+                        <Text style={styles.tyle}>0.8</Text>
+                    </View>
+                    <TouchableOpacity style={styles.btn_edit} onPress={() => setShowDialog(true)}>
+                        <Text style={styles.text_btn}>Chỉnh sửa</Text>
+                    </TouchableOpacity>
+                </View>
+                {
+                    showDialog && (
+                        <Dialog.Container visible={true}>
+                            <Dialog.Title>Chỉnh sửa tỷ lệ hoa hồng</Dialog.Title>
+                            <Dialog.Description>
+                                Vui lòng nhập tỷ lệ hoa hồng bạn muốn chỉnh sửa. Tỷ lệ hoa hồng cho tài xế phải đảm bảo lớn hơn 50% và nhỏ hơn 100% (từ 0.5 đến 1).
+                            </Dialog.Description>
+                            <Dialog.Input />
+                            <Dialog.Button label="Đóng" onPress={handleClose} />
+                            <Dialog.Button label="Lưu" onPress={handleSend} />
+                        </Dialog.Container>
+                    )
+                }
             </ScrollView>
         </SafeAreaView>
     )
