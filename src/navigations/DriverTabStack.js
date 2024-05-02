@@ -22,6 +22,8 @@ import ReceiverDetailDriverScreen from '../screens/module_Driver/screens/Receive
 import DriverReviewMap from '../screens/module_Driver/screens/ReviewMap';
 import VerifyOrderDriverScreen from '../screens/module_Driver/screens/VerifyOrderScreen';
 import { Polygon } from 'react-native-svg';
+import ReceivedDriverOrderDetailScreen from '../screens/module_Driver/OrderDetailScreen';
+import DriverReceivedOrdersScreen from '../screens/module_Driver/ReceivedOrdersScreen';
 const DriverTabStack = createBottomTabNavigator();
 
 
@@ -33,7 +35,7 @@ export default function DriverStackScreens() {
       <DriverStack.Screen
         name="application-driver"
         component={DriverTabStackScreens}
-        options={{ headerTitle: '' }}
+        options={{ headerTitle: '' , headerShown: false}}
       />
       <DriverStack.Screen
         name="infor-driver"
@@ -107,6 +109,11 @@ export default function DriverStackScreens() {
         component={VerifyOrderDriverScreen}
         options={{ headerShown: false }}
       />
+       <DriverStack.Screen
+        name="ReceivedDriverOrderDetailScreen"
+        component={ReceivedDriverOrderDetailScreen}
+        options={{ headerShown: false }}
+      />
     </DriverStack.Navigator>
   );
 }
@@ -132,7 +139,7 @@ function DriverTabStackScreens() {
       />
       <DriverTabStack.Screen
         name="Order"
-        component={DriverOrdersScreen}
+        component={DriverReceivedOrdersScreen}
         options={{
           headerShown: false,
           tabBarLabel:'Đơn hàng',
