@@ -49,7 +49,7 @@ Trong kỷ nguyên kỹ thuật số hiện đại, việc giao nhận hàng hó
 
 * Kiến trúc Monolithic là một kiểu kiến trúc trong đó toàn bộ ứng dụng được xây dựng và triển khai như một đơn vị duy nhất. Trong một ứng dụng monolithic, các thành phần như giao diện người dùng, logic kinh doanh và cơ sở dữ liệu được kết hợp trong một gói duy nhất và chạy trong cùng một môi trường thực thi. Do đó, ứng dụng monolithic thường được quản lý như một khối duy nhất và triển khai như một thực thể duy nhất..
   
-<img src="./src/assets/images/monolithic.png" width="800"/>
+<img src="./src/assets/images/monolithic.png" width="500"/>
 
 ### Sơ đồ Usecase
 
