@@ -1,9 +1,9 @@
-# Quản lí rạp chiếu phim
-<img src="./ImageApp/FatFilmFoo.png" width="800"/>
+# Xây dựng ứng dụng giao hàng
+<img src="./src/assets/images/delivery_app.jpg" width="800"/>
 
 ## Mô tả 
 
-* Trong kỷ nguyên kỹ thuật số hiện đại, việc giao nhận hàng hóa đã không còn bó hẹp trong phạm vi của các đơn vị bưu chính truyền thống. Sự cấp bách trong việc chuyển phát nhanh và linh hoạt đã trở thành yêu cầu không thể thiếu trong cuộc sống hàng ngày. Đối diện với những thách thức như đảm bảo an toàn hàng hóa, giảm thiểu thời gian trễ nải, và tối ưu hóa quá trình vận chuyển. Vì vậy, nhóm chúng em quyết định phát triển một ứng dụng giao hàng nhằm cung cấp dịch vụ giao hàng tức thì, vượt trội về tốc độ và hiệu quả so với phương thức truyền thống, đem lại giải pháp hoàn hảo cho nhu cầu giao hàng trong thời đại mới.
+Trong kỷ nguyên kỹ thuật số hiện đại, việc giao nhận hàng hóa đã không còn bó hẹp trong phạm vi của các đơn vị bưu chính truyền thống. Sự cấp bách trong việc chuyển phát nhanh và linh hoạt đã trở thành yêu cầu không thể thiếu trong cuộc sống hàng ngày. Đối diện với những thách thức như đảm bảo an toàn hàng hóa, giảm thiểu thời gian trễ nải, và tối ưu hóa quá trình vận chuyển. Vì vậy, nhóm chúng em quyết định phát triển một ứng dụng giao hàng nhằm cung cấp dịch vụ giao hàng tức thì, vượt trội về tốc độ và hiệu quả so với phương thức truyền thống, đem lại giải pháp hoàn hảo cho nhu cầu giao hàng trong thời đại mới.
 
 
 
@@ -22,7 +22,8 @@
 * Đáp ứng những tính năng tiêu chuẩn cần có trên những ứng dụng giao hàng hiện có trên thị trường. Mở rộng và phát triển những tính năng mới hỗ trợ tối đa cho người dùng, khắc phục những hạn chế và yếu kém của hệ thống giao hàng hiện nay.
 * Báo cáo, thống kê, thêm, cập nhật dữ liệu, phải diễn ra nhanh chóng, chính xác.
 * Dễ dàng tra cứu, tìm kiếm các thông tin.
-* Dễ dàng tra cứu đơn trên map
+* Dễ dàng theo dõi đơn trên map
+* Hỗ trợ người dùng đăng ký trở thành tài xế
 * Giao diện thân thiện, dễ sử dụng, bố cục hợp lý, hài hoà về màu sắc và mang tính đồng bộ cao, phân quyền cho người dùng thông qua tài khoản.
 
 #### Người dùng 
@@ -33,33 +34,33 @@
 
 ### Công nghệ 
 
-*	Công nghệ sử dụng: 
-**	Front-end: Language Javascript, Framework React Native 
-**	Back-end: Language Typescript, Framework NestJs
-**	Database: MongoDB
-*	Công cụ hỗ trợ: 
-**	Visual Studio Code: môi trường phát triển
-**	Figma: Thiết kế giao diện, hình ảnh, icon, ...
-**	Postman: Tạo các request, test API, ...
-**	StarUML: Thiết kế các sơ đồ Usecase, Class, ...
-**	Github: Quản lý và lưu trữ source code
+#### Công nghệ sử dụng:
+  - Front_end: Language Javascript, Framework React Native 
+  - Back_end: Language Typescript, Framework NestJs
+  - Database: MongoDB
+#### Công cụ hỗ trợ:
+  - Visual Studio Code: môi trường phát triển
+  - Figma: Thiết kế giao diện, hình ảnh, icon, ...
+  - Postman: Tạo các request, test API, ...
+  - StarUML: Thiết kế các sơ đồ Usecase, Class, ...
+  - Github: Quản lý và lưu trữ source code
 
 ### Kiến trúc phát triển phần mềm
 
 * Kiến trúc Monolithic là một kiểu kiến trúc trong đó toàn bộ ứng dụng được xây dựng và triển khai như một đơn vị duy nhất. Trong một ứng dụng monolithic, các thành phần như giao diện người dùng, logic kinh doanh và cơ sở dữ liệu được kết hợp trong một gói duy nhất và chạy trong cùng một môi trường thực thi. Do đó, ứng dụng monolithic thường được quản lý như một khối duy nhất và triển khai như một thực thể duy nhất..
   
-<img src="./ImageApp/FatFilmFoo.png" width="800"/>
+<img src="./src/assets/images/monolithic.png" width="800"/>
 
 ### Sơ đồ Usecase
 
 #### Sơ đồ Usecase Role User
-<img src="./ImageApp/FatFilmFoo.png" width="800"/>
+<img src="./src/assets/images/roleUser.png" width="500"/>
 
 #### Sơ đồ Usecase Role Driver
-<img src="./ImageApp/FatFilmFoo.png" width="800"/>
+<img src="./src/assets/images/roleDriver.png" width="500"/>
 
 #### Sơ đồ Usecase Role Admin
-<img src="./ImageApp/FatFilmFoo.png" width="800"/>
+<img src="./src/assets/images/roleAdmin.png" width="500"/>
  	
 ## Tác giả 
 
@@ -71,7 +72,7 @@
 
 * [Phan Trọng Tính](https://www.facebook.com/profile.php?id=100073316952962) - 21522683
 
- * Sinh viên khoa Công nghệ Phần mềm, trường Đại học Công nghệ Thông tin, Đại học Quốc gia thành phố Hồ Chí Minh 
+* Sinh viên khoa Công nghệ Phần mềm, trường Đại học Công nghệ Thông tin, Đại học Quốc gia thành phố Hồ Chí Minh 
 
 ## Giảng viên hướng dẫn 
 
