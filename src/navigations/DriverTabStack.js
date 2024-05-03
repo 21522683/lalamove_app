@@ -123,6 +123,7 @@ function DriverTabStackScreens() {
         component={DriverOrdersScreen}
         options={{
           headerShown: false,
+          tabBarLabel:'Nhận đơn',
           tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'download' : 'download-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -134,6 +135,7 @@ function DriverTabStackScreens() {
         component={DriverOrdersScreen}
         options={{
           headerShown: false,
+          tabBarLabel:'Đơn hàng',
           tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'reader' : 'reader-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -145,6 +147,7 @@ function DriverTabStackScreens() {
         component={StatiscalDriverScreen}
         options={{
           headerShown: false,
+          tabBarLabel:'Thống kê',
           tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'stats-chart' : 'stats-chart-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -156,6 +159,7 @@ function DriverTabStackScreens() {
         component={ProfileDriverScreen}
         options={{
           headerShown: false,
+          tabBarLabel:'Hồ sơ',
           tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'person' : 'person-outline';
             return <Ionicons name={iconName} size={size} color={color} />;

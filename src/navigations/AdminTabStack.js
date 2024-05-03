@@ -11,6 +11,7 @@ import DetailReviewDriverScreen from "../screens/module_Admin/DetailReviewDriver
 import DriverManageScreen from "../screens/module_Admin/DriverManageScreen";
 import DetailDriverScreen from "../screens/module_Admin/DetailDriverScreen";
 import ProfileDriverScreen from '../screens/module_Driver/ProfileScreen';
+import ProfileAdminScreen from '../screens/module_Admin/ProfileScreen';
 const AdminTabStack = createBottomTabNavigator();
 
 
@@ -42,6 +43,7 @@ function AdminTabStackScreens() {
         component={ReviewDriverScreen}
         options={{
           headerShown: false,
+          tabBarLabel: 'Xét duyệt',
           tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'home' : 'home-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -53,6 +55,7 @@ function AdminTabStackScreens() {
         component={ComplainManagementScreen}
         options={{
           headerShown: false,
+          tabBarLabel: 'Khiếu nại',
           tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'home' : 'home-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -60,13 +63,14 @@ function AdminTabStackScreens() {
         }}
       />
       <AdminTabStack.Screen name="statisticalAdmin" component={StatiscalAdminScreen} options={{
-                headerShown: false,
-                tabBarIcon: ({ focused, color, size }) => {
-                    let iconName = focused ? 'home' : 'home-outline';
-                    return <Ionicons name={iconName} size={size} color={color} />;
-                },
-            }} />
-            {/* <AdminTabStack.Screen name="profileAdmin" component={AdminProfileStackScreens} options={{
+        headerShown: false,
+        tabBarLabel:'Thống kê',
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName = focused ? 'home' : 'home-outline';
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+      }} />
+      {/* <AdminTabStack.Screen name="profileAdmin" component={AdminProfileStackScreens} options={{
                 headerShown: false,
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName = focused ? 'home' : 'home-outline';
@@ -78,6 +82,7 @@ function AdminTabStackScreens() {
         component={VehicleManagementScreen}
         options={{
           headerShown: false,
+          tabBarLabel:'Phương tiện',
           tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'home' : 'home-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -86,9 +91,10 @@ function AdminTabStackScreens() {
       />
       <AdminTabStack.Screen
         name="admin-profile"
-        component={ProfileDriverScreen}
+        component={ProfileAdminScreen}
         options={{
           headerShown: false,
+          tabBarLabel:'Hồ sơ',
           tabBarIcon: ({ focused, color, size }) => {
             let iconName = focused ? 'home' : 'home-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
