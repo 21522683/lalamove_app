@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
+import { View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Dimensions, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import styles from './style.js'
 import Dropdown from './Dropdown/index.js';
@@ -7,6 +7,8 @@ import { LineChart } from "react-native-chart-kit";
 import { moderateScale, scale, ScaledSheet, verticalScale } from 'react-native-size-matters';
 import Dialog from "react-native-dialog";
 import CUSTOM_COLOR from '../../../constants/colors.js';
+import { IMAGES } from '../../../assets/images'
+import ItemReportDriver from './ItemReportDriver/index.js';
 
 const StatiscalAdminScreen = () => {
     const [dataChart, setDataChart] = useState({
@@ -72,9 +74,9 @@ const StatiscalAdminScreen = () => {
     const handleSend = () => {
 
     }
-  
+
     const handleClose = () => {
-      setShowDialog(false)
+        setShowDialog(false)
     }
 
     const [showDialog, setShowDialog] = useState(false);
@@ -168,6 +170,23 @@ const StatiscalAdminScreen = () => {
                         </Dialog.Container>
                     )
                 }
+
+                <View style={styles.container_driver}>
+                    <Text style={styles.title_list}>DANH SÁCH THỐNG KÊ CỦA TÀI XẾ</Text>
+                    <View style={styles.search_bar}>
+                        <TextInput style={styles.search_input} placeholder='Nhập tên tài xế để tìm kiếm' />
+                        <Image source={IMAGES.search_icon} style={styles.icon_search} />
+                    </View>
+                    <ScrollView style={styles.list}>
+                        {
+                            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(() => {
+                                return (
+                                    <ItemReportDriver/>
+                                )
+                            })
+                        }
+                    </ScrollView>
+                </View>
             </ScrollView>
         </SafeAreaView>
     )

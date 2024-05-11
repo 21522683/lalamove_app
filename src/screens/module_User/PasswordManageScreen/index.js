@@ -35,7 +35,9 @@ const PasswordManageScreen = () => {
                 keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}
             >
                 <View style={styles.header}>
-                    <Image source={IMAGES.back_icon} style={styles.back_button} onPress={() => {navigation.goBack()}}/>
+                    <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                        <Image source={IMAGES.back_icon} style={styles.back_button} />
+                    </TouchableOpacity>
                     <Text style={styles.title_header}>Quản lý mật khẩu</Text>
                 </View>
 

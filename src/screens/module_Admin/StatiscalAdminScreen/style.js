@@ -34,7 +34,7 @@ const styles = ScaledSheet.create({
   item_info: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
     marginVertical: verticalScale(10),
     width: '100%',
   },
@@ -82,8 +82,41 @@ const styles = ScaledSheet.create({
     color: CUSTOM_COLOR.White,
     textAlign: 'center',
     fontSize: scale(10),
+  },
+  search_bar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#BABABA',
+    marginHorizontal: scale(20),
+    marginVertical: verticalScale(20),
+    borderRadius: scale(4),
+    padding: moderateScale(2),
+  },
+  search_input: {
+    flex: 1,
+    fontSize: scale(12),
+    color: '#000000',
+    backgroundColor: '#ffffff',
+    borderColor: '#ffffff',
+    paddingHorizontal: scale(20),
+    paddingVertical: verticalScale(8),
+  },
+  icon_search: {
+    width: scale(14),
+    height: scale(14),
+    marginRight: scale(20),
+  },
+  title_list: {
+    marginHorizontal: scale(20),
+    color: CUSTOM_COLOR.Primary,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  list: {
+    flexDirection: 'column',
+    margin: moderateScale(20),
   }
-  
 });
 
 export default styles;

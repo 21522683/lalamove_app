@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform , TextInput} from 'react-native';
+import { View, Text, TouchableOpacity, Image, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import styles from './style.js';
 import { IMAGES } from '../../../assets/images/index.js';
@@ -46,7 +46,9 @@ const ProfileScreen = () => {
         keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}
       >
         <View style={styles.header}>
-          <Image source={IMAGES.back_icon} style={styles.back_button} onPress={() => {navigation.goBack()}}/>
+          <TouchableOpacity onPress={() => { navigation.goBack() }}>
+            <Image source={IMAGES.back_icon} style={styles.back_button} />
+          </TouchableOpacity>
           <Text style={styles.title_header}>Thông tin cá nhân</Text>
         </View>
 
