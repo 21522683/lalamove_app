@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, ScrollView } from 'react-native'
+import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity} from 'react-native'
 import React from 'react'
 import styles from './style.js';
 import { IMAGES } from '../../../assets/images/index.js';
