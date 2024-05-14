@@ -1,79 +1,83 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Xây dựng ứng dụng giao hàng
+<img src="./src/assets/images/delivery_app.jpg" width="800"/>
 
-# Getting Started
+## Mô tả 
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+Trong kỷ nguyên kỹ thuật số hiện đại, việc giao nhận hàng hóa đã không còn bó hẹp trong phạm vi của các đơn vị bưu chính truyền thống. Sự cấp bách trong việc chuyển phát nhanh và linh hoạt đã trở thành yêu cầu không thể thiếu trong cuộc sống hàng ngày. Đối diện với những thách thức như đảm bảo an toàn hàng hóa, giảm thiểu thời gian trễ nải, và tối ưu hóa quá trình vận chuyển. Vì vậy, nhóm chúng em quyết định phát triển một ứng dụng giao hàng nhằm cung cấp dịch vụ giao hàng tức thì, vượt trội về tốc độ và hiệu quả so với phương thức truyền thống, đem lại giải pháp hoàn hảo cho nhu cầu giao hàng trong thời đại mới.
 
-## Step 1: Start the Metro Server
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+### Mục đích ứng dụng
 
-```bash
-# using npm
-npm start
+#### Hiện trạng và yêu cầu thực tế
 
-# OR using Yarn
-yarn start
-```
+* Mặc dù trên thị trường phần mềm đã xuất hiện nhiều ứng dụng giao hàng, nhưng nhận thấy chúng đều phức tạp, cầu kì, không thân thiện với người dùng. 
 
-## Step 2: Start your Application
+#### Mục đích 
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+* Mục tiêu chính của đề tài là phát triển một ứng dụng giao hàng toàn diện, tiếp cận được với đa dạng đối tượng khách hàng, kể cả những người không có kinh nghiệm về công nghệ. Với giao diện người dùng trực quan và dễ dàng sử dụng, ứng dụng sẽ tối ưu hóa trải nghiệm người dùng, đồng thời cung cấp một dịch vụ giao hàng nhanh chóng, tin cậy và linh hoạt, phù hợp với yêu cầu đa dạng và ngày càng phức tạp của thị trường hiện đại. Ngoài ra, mục tiêu của đề tài còn tạo cơ hội hợp tác cho các tài xế có nhu cầu trở thành đối tác với bên phát triển ứng dụng, đảm bảo lợi ích giữa các bên thông qua quá trình xác minh chặt chẽ. 
 
-### For Android
+#### Yêu cầu
 
-```bash
-# using npm
-npm run android
+* Đáp ứng những tính năng tiêu chuẩn cần có trên những ứng dụng giao hàng hiện có trên thị trường. Mở rộng và phát triển những tính năng mới hỗ trợ tối đa cho người dùng, khắc phục những hạn chế và yếu kém của hệ thống giao hàng hiện nay.
+* Báo cáo, thống kê, thêm, cập nhật dữ liệu, phải diễn ra nhanh chóng, chính xác.
+* Dễ dàng tra cứu, tìm kiếm các thông tin.
+* Dễ dàng theo dõi đơn trên map
+* Hỗ trợ người dùng đăng ký trở thành tài xế
+* Giao diện thân thiện, dễ sử dụng, bố cục hợp lý, hài hoà về màu sắc và mang tính đồng bộ cao, phân quyền cho người dùng thông qua tài khoản.
 
-# OR using Yarn
-yarn android
-```
+#### Người dùng 
 
-### For iOS
+* Người quản lý
+* Tài xế
+* Người dùng
 
-```bash
-# using npm
-npm run ios
+### Công nghệ 
 
-# OR using Yarn
-yarn ios
-```
+#### Công nghệ sử dụng:
+  - Front_end: Language Javascript, Framework React Native 
+  - Back_end: Language Typescript, Framework NestJs
+  - Database: MongoDB
+#### Công cụ hỗ trợ:
+  - Visual Studio Code: môi trường phát triển
+  - Figma: Thiết kế giao diện, hình ảnh, icon, ...
+  - Postman: Tạo các request, test API, ...
+  - StarUML: Thiết kế các sơ đồ Usecase, Class, ...
+  - Github: Quản lý và lưu trữ source code
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+### Kiến trúc phát triển phần mềm
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+* Kiến trúc Monolithic là một kiểu kiến trúc trong đó toàn bộ ứng dụng được xây dựng và triển khai như một đơn vị duy nhất. Trong một ứng dụng monolithic, các thành phần như giao diện người dùng, logic kinh doanh và cơ sở dữ liệu được kết hợp trong một gói duy nhất và chạy trong cùng một môi trường thực thi. Do đó, ứng dụng monolithic thường được quản lý như một khối duy nhất và triển khai như một thực thể duy nhất..
+  
+<img src="./src/assets/images/monolithic.png" width="500"/>
 
-## Step 3: Modifying your App
+### Sơ đồ Usecase
 
-Now that you have successfully run the app, let's modify it.
+#### Sơ đồ Usecase Role User
+<img src="./src/assets/images/roleUser.png" width="500"/>
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+#### Sơ đồ Usecase Role Driver
+<img src="./src/assets/images/roleDriver.png" width="500"/>
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+#### Sơ đồ Usecase Role Admin
+<img src="./src/assets/images/roleAdmin.png" width="500"/>
+ 	
+## Tác giả 
 
-## Congratulations! :tada:
+* [Lê Quang Nhân](https://www.facebook.com/profile.php?id=100040989546712) - 21522402
 
-You've successfully run and modified your React Native App. :partying_face:
+* [Nguyễn Văn Phát](https://www.facebook.com/profile.php?id=100009796787588) - 21522448
 
-### Now what?
+* [Huỳnh Ngọc Quí](https://www.facebook.com/quichua333) - 21520417
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+* [Phan Trọng Tính](https://www.facebook.com/profile.php?id=100073316952962) - 21522683
 
-# Troubleshooting
+* Sinh viên khoa Công nghệ Phần mềm, trường Đại học Công nghệ Thông tin, Đại học Quốc gia thành phố Hồ Chí Minh 
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## Giảng viên hướng dẫn 
 
-# Learn More
+* Cô Trần Thị Hồng Nghi, giảng viên trường Đại học Công nghệ Thông tin, Đại học Quốc gia Thành phố Hồ Chí Minh 
 
-To learn more about React Native, take a look at the following resources:
+## Phản hồi 
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Tạo phản hồi ở mục Issues, mỗi phản hồi của bạn sẽ giúp chúng tôi cải thiện ứng dụng tốt hơn. Cảm ơn vì sự giúp đỡ! 
