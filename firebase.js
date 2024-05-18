@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp } from "@react-native-firebase/app";
+import { getAuth } from "@react-native-firebase/auth";
+import { getFirestore } from "@react-native-firebase/firestore";
 // Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyAgo0EeXlFfsakybPn-4K_K6j4R2m-9Okk",

@@ -72,7 +72,7 @@ const LoginScreen = ({ navigation }) => {
         idToken,
         accessToken,
       );
-      await auth.signInWithCredential(credential);
+      await auth().signInWithCredential(credential);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
