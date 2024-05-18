@@ -7,6 +7,12 @@ import React, { useMemo, useState } from 'react';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { useDispatch } from 'react-redux';
 import { loginUserAction } from '../../../redux/slices/usersSlices.js';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from 'react-native-google-signin';
+import { auth } from '../../../../firebase.js';
 const LoginScreen = ({ navigation }) => {
   const [inputs, setInputs] = useState({ phoneNumber: '', password: '', userType: 'User' });
   const [errors, setErrors] = useState({});
@@ -56,6 +62,32 @@ const LoginScreen = ({ navigation }) => {
       dispatch(loginUserAction(pl));
     }
   };
+  _signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const {accessToken, idToken} = await GoogleSignin.signIn();
+      // setloggedIn(true);
+      console.log(accessToken, idToken)
+      const credential = auth.GoogleAuthProvider.credential(
+        idToken,
+        accessToken,
+      );
+      await auth.signInWithCredential(credential);
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+        alert('Cancel');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        alert('Signin in progress');
+        // operation (f.e. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        alert('PLAY_SERVICES_NOT_AVAILABLE');
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>Chào mừng bạn trở lại</Text>
@@ -92,9 +124,7 @@ const LoginScreen = ({ navigation }) => {
       <MyButton text={'Đăng nhập'} onPress={validate} />
       <View style={{ alignSelf: 'center', width: '100%' }}>
         <Text style={{ ...styles.subText }}>Hoặc tiếp tục với</Text>
-        <LoginGoogleBtn text={'Đăng nhập bằng Google'} onPress={() => {
-            
-         }} />
+        <LoginGoogleBtn text={'Đăng nhập bằng Google'} onPress={this._signIn} />
       </View>
 
       <View style={{ width: '100%', flex: 1, justifyContent: 'flex-end', }}>

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* client_lalamoveTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* client_lalamoveTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-client_lalamove.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-client_lalamove.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -18,15 +17,17 @@
 		4C70976902ED4869B2D4F486 /* PublicSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D96CE28EBF85410BBCC26EE5 /* PublicSans-Italic.ttf */; };
 		54F1E267375E4613B1E3980F /* PublicSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A85186546ADB4AFDBCB478DD /* PublicSans-Medium.ttf */; };
 		5D21B1D3C4D64862B808B27A /* PublicSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB0D63ED8A934866992E97E8 /* PublicSans-Bold.ttf */; };
-		7699B88040F8A987B510C191 /* libPods-client_lalamove-client_lalamoveTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-client_lalamove-client_lalamoveTests.a */; };
+		7ABDA3D848840EA362564F48 /* libPods-client_lalamove.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3572955D92E67B48CCDF9CA6 /* libPods-client_lalamove.a */; };
 		7CA4B7725E284621877EE3D8 /* PublicSans-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAD92C8A16AF4A5989E7BABD /* PublicSans-ThinItalic.ttf */; };
 		7E20D5F921AD4249BF4CE013 /* PublicSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FDDCA8BE9334C6CAA891E94 /* PublicSans-Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		827645A3B4E045F48F564691 /* PublicSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0D1B39898D44294B4DC4C59 /* PublicSans-ExtraLight.ttf */; };
 		9E3C15F915BC47D8A953218D /* PublicSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 004CE983AAC9481B990E854F /* PublicSans-MediumItalic.ttf */; };
 		A397C95C589344F4B749ADAA /* PublicSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84DD693E9DA34CBC844E373B /* PublicSans-ExtraBold.ttf */; };
+		B4DC18C47720E8FE03EC4B07 /* libPods-client_lalamove-client_lalamoveTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C05BE4B6666ACC4A75029A /* libPods-client_lalamove-client_lalamoveTests.a */; };
 		B9892FE7E8CA44088D86CE6F /* PublicSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B43DDE28EC9545DC80A9C985 /* PublicSans-Light.ttf */; };
 		CABBF9E79C954EB0A687750F /* PublicSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4452E59304A441E88E886EE2 /* PublicSans-Black.ttf */; };
+		DF8137202BF79F5D00CC21E0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF81371F2BF79F5D00CC21E0 /* GoogleService-Info.plist */; };
 		E25ECBA0F96043A488E3E054 /* PublicSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6156046BF4E4F7AA831EE2E /* PublicSans-SemiBold.ttf */; };
 		E3937718A2034F0C9478C904 /* PublicSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72576C9ACB09458EB1CA44B6 /* PublicSans-LightItalic.ttf */; };
 		F78491F545B246F0AA844EB3 /* PublicSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5672E6F34CE543E38F99FCC5 /* PublicSans-Thin.ttf */; };
@@ -45,7 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		004CE983AAC9481B990E854F /* PublicSans-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-MediumItalic.ttf"; path = "../src/assets/fonts/PublicSans-MediumItalic.ttf"; sourceTree = "<group>"; };
+		004CE983AAC9481B990E854F /* PublicSans-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-MediumItalic.ttf"; path = "../src/assets/fonts/PublicSans-MediumItalic.ttf"; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* client_lalamoveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = client_lalamoveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* client_lalamoveTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = client_lalamoveTests.m; sourceTree = "<group>"; };
@@ -55,31 +56,32 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = client_lalamove/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = client_lalamove/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = client_lalamove/main.m; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-client_lalamove-client_lalamoveTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-client_lalamove-client_lalamoveTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B4392A12AC88292D35C810B /* Pods-client_lalamove.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client_lalamove.debug.xcconfig"; path = "Target Support Files/Pods-client_lalamove/Pods-client_lalamove.debug.xcconfig"; sourceTree = "<group>"; };
-		4452E59304A441E88E886EE2 /* PublicSans-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-Black.ttf"; path = "../src/assets/fonts/PublicSans-Black.ttf"; sourceTree = "<group>"; };
-		54CB2E36CA4E4C5CA02EB1FD /* PublicSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-BoldItalic.ttf"; path = "../src/assets/fonts/PublicSans-BoldItalic.ttf"; sourceTree = "<group>"; };
-		5672E6F34CE543E38F99FCC5 /* PublicSans-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-Thin.ttf"; path = "../src/assets/fonts/PublicSans-Thin.ttf"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-client_lalamove.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client_lalamove.release.xcconfig"; path = "Target Support Files/Pods-client_lalamove/Pods-client_lalamove.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-client_lalamove-client_lalamoveTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client_lalamove-client_lalamoveTests.debug.xcconfig"; path = "Target Support Files/Pods-client_lalamove-client_lalamoveTests/Pods-client_lalamove-client_lalamoveTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-client_lalamove.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-client_lalamove.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		63526FBCD2BA41CAB7495DF5 /* PublicSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-ExtraBoldItalic.ttf"; path = "../src/assets/fonts/PublicSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
-		67DE1EB8D2D0466F8F511FBA /* PublicSans-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-BlackItalic.ttf"; path = "../src/assets/fonts/PublicSans-BlackItalic.ttf"; sourceTree = "<group>"; };
-		72576C9ACB09458EB1CA44B6 /* PublicSans-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-LightItalic.ttf"; path = "../src/assets/fonts/PublicSans-LightItalic.ttf"; sourceTree = "<group>"; };
-		78DDEBC8B3A04B0C81072C21 /* PublicSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-SemiBoldItalic.ttf"; path = "../src/assets/fonts/PublicSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		7FDDCA8BE9334C6CAA891E94 /* PublicSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-Regular.ttf"; path = "../src/assets/fonts/PublicSans-Regular.ttf"; sourceTree = "<group>"; };
+		26C05BE4B6666ACC4A75029A /* libPods-client_lalamove-client_lalamoveTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-client_lalamove-client_lalamoveTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		31AF9EAF86F59F8D35204932 /* Pods-client_lalamove.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client_lalamove.debug.xcconfig"; path = "Target Support Files/Pods-client_lalamove/Pods-client_lalamove.debug.xcconfig"; sourceTree = "<group>"; };
+		3572955D92E67B48CCDF9CA6 /* libPods-client_lalamove.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-client_lalamove.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4452E59304A441E88E886EE2 /* PublicSans-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-Black.ttf"; path = "../src/assets/fonts/PublicSans-Black.ttf"; sourceTree = "<group>"; };
+		54CB2E36CA4E4C5CA02EB1FD /* PublicSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-BoldItalic.ttf"; path = "../src/assets/fonts/PublicSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		5672E6F34CE543E38F99FCC5 /* PublicSans-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-Thin.ttf"; path = "../src/assets/fonts/PublicSans-Thin.ttf"; sourceTree = "<group>"; };
+		63526FBCD2BA41CAB7495DF5 /* PublicSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-ExtraBoldItalic.ttf"; path = "../src/assets/fonts/PublicSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		67DE1EB8D2D0466F8F511FBA /* PublicSans-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-BlackItalic.ttf"; path = "../src/assets/fonts/PublicSans-BlackItalic.ttf"; sourceTree = "<group>"; };
+		72576C9ACB09458EB1CA44B6 /* PublicSans-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-LightItalic.ttf"; path = "../src/assets/fonts/PublicSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		78DDEBC8B3A04B0C81072C21 /* PublicSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-SemiBoldItalic.ttf"; path = "../src/assets/fonts/PublicSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		7FDDCA8BE9334C6CAA891E94 /* PublicSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-Regular.ttf"; path = "../src/assets/fonts/PublicSans-Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = client_lalamove/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		84DD693E9DA34CBC844E373B /* PublicSans-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-ExtraBold.ttf"; path = "../src/assets/fonts/PublicSans-ExtraBold.ttf"; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-client_lalamove-client_lalamoveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client_lalamove-client_lalamoveTests.release.xcconfig"; path = "Target Support Files/Pods-client_lalamove-client_lalamoveTests/Pods-client_lalamove-client_lalamoveTests.release.xcconfig"; sourceTree = "<group>"; };
-		A85186546ADB4AFDBCB478DD /* PublicSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-Medium.ttf"; path = "../src/assets/fonts/PublicSans-Medium.ttf"; sourceTree = "<group>"; };
-		B18CB3FB9E18459F962A782B /* PublicSans-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-ExtraLightItalic.ttf"; path = "../src/assets/fonts/PublicSans-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
-		B43DDE28EC9545DC80A9C985 /* PublicSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-Light.ttf"; path = "../src/assets/fonts/PublicSans-Light.ttf"; sourceTree = "<group>"; };
-		B6156046BF4E4F7AA831EE2E /* PublicSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-SemiBold.ttf"; path = "../src/assets/fonts/PublicSans-SemiBold.ttf"; sourceTree = "<group>"; };
-		D96CE28EBF85410BBCC26EE5 /* PublicSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-Italic.ttf"; path = "../src/assets/fonts/PublicSans-Italic.ttf"; sourceTree = "<group>"; };
-		DB0D63ED8A934866992E97E8 /* PublicSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-Bold.ttf"; path = "../src/assets/fonts/PublicSans-Bold.ttf"; sourceTree = "<group>"; };
-		EAD92C8A16AF4A5989E7BABD /* PublicSans-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-ThinItalic.ttf"; path = "../src/assets/fonts/PublicSans-ThinItalic.ttf"; sourceTree = "<group>"; };
+		84DD693E9DA34CBC844E373B /* PublicSans-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-ExtraBold.ttf"; path = "../src/assets/fonts/PublicSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		A663A178C7FF12C9432F8436 /* Pods-client_lalamove.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client_lalamove.release.xcconfig"; path = "Target Support Files/Pods-client_lalamove/Pods-client_lalamove.release.xcconfig"; sourceTree = "<group>"; };
+		A85186546ADB4AFDBCB478DD /* PublicSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-Medium.ttf"; path = "../src/assets/fonts/PublicSans-Medium.ttf"; sourceTree = "<group>"; };
+		B18CB3FB9E18459F962A782B /* PublicSans-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-ExtraLightItalic.ttf"; path = "../src/assets/fonts/PublicSans-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		B43DDE28EC9545DC80A9C985 /* PublicSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-Light.ttf"; path = "../src/assets/fonts/PublicSans-Light.ttf"; sourceTree = "<group>"; };
+		B6156046BF4E4F7AA831EE2E /* PublicSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-SemiBold.ttf"; path = "../src/assets/fonts/PublicSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		BAB177A65001B7983B793CC1 /* Pods-client_lalamove-client_lalamoveTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client_lalamove-client_lalamoveTests.release.xcconfig"; path = "Target Support Files/Pods-client_lalamove-client_lalamoveTests/Pods-client_lalamove-client_lalamoveTests.release.xcconfig"; sourceTree = "<group>"; };
+		CD3D1D570312AB7CDFBBDE46 /* Pods-client_lalamove-client_lalamoveTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client_lalamove-client_lalamoveTests.debug.xcconfig"; path = "Target Support Files/Pods-client_lalamove-client_lalamoveTests/Pods-client_lalamove-client_lalamoveTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D96CE28EBF85410BBCC26EE5 /* PublicSans-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-Italic.ttf"; path = "../src/assets/fonts/PublicSans-Italic.ttf"; sourceTree = "<group>"; };
+		DB0D63ED8A934866992E97E8 /* PublicSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-Bold.ttf"; path = "../src/assets/fonts/PublicSans-Bold.ttf"; sourceTree = "<group>"; };
+		DF81371F2BF79F5D00CC21E0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EAD92C8A16AF4A5989E7BABD /* PublicSans-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-ThinItalic.ttf"; path = "../src/assets/fonts/PublicSans-ThinItalic.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F0D1B39898D44294B4DC4C59 /* PublicSans-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-ExtraLight.ttf"; path = "../src/assets/fonts/PublicSans-ExtraLight.ttf"; sourceTree = "<group>"; };
+		F0D1B39898D44294B4DC4C59 /* PublicSans-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "PublicSans-ExtraLight.ttf"; path = "../src/assets/fonts/PublicSans-ExtraLight.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-client_lalamove-client_lalamoveTests.a in Frameworks */,
+				B4DC18C47720E8FE03EC4B07 /* libPods-client_lalamove-client_lalamoveTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-client_lalamove.a in Frameworks */,
+				7ABDA3D848840EA362564F48 /* libPods-client_lalamove.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +144,6 @@
 				EAD92C8A16AF4A5989E7BABD /* PublicSans-ThinItalic.ttf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		13B07FAE1A68108700A75B9A /* client_lalamove */ = {
@@ -162,8 +163,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-client_lalamove.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-client_lalamove-client_lalamoveTests.a */,
+				3572955D92E67B48CCDF9CA6 /* libPods-client_lalamove.a */,
+				26C05BE4B6666ACC4A75029A /* libPods-client_lalamove-client_lalamoveTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -178,6 +179,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				DF81371F2BF79F5D00CC21E0 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* client_lalamove */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* client_lalamoveTests */,
@@ -203,10 +205,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-client_lalamove.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-client_lalamove.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-client_lalamove-client_lalamoveTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-client_lalamove-client_lalamoveTests.release.xcconfig */,
+				31AF9EAF86F59F8D35204932 /* Pods-client_lalamove.debug.xcconfig */,
+				A663A178C7FF12C9432F8436 /* Pods-client_lalamove.release.xcconfig */,
+				CD3D1D570312AB7CDFBBDE46 /* Pods-client_lalamove-client_lalamoveTests.debug.xcconfig */,
+				BAB177A65001B7983B793CC1 /* Pods-client_lalamove-client_lalamoveTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -218,12 +220,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "client_lalamoveTests" */;
 			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				6FC807DAE18C07FD59F88034 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+				0B84D98C1CFC4E3FF9CD342E /* [CP] Embed Pods Frameworks */,
+				B60AFDE1247512F2E6F4C6D8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -239,13 +241,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "client_lalamove" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				0B2E1D9AF0B4D4CF06BF188B /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				48F474A22781788DD08310AB /* [CP] Embed Pods Frameworks */,
+				146B5BD7F4F51D9FEEF4CE00 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -324,6 +326,7 @@
 				296E19DA111D4462B3AC5154 /* PublicSans-SemiBoldItalic.ttf in Resources */,
 				F78491F545B246F0AA844EB3 /* PublicSans-Thin.ttf in Resources */,
 				7CA4B7725E284621877EE3D8 /* PublicSans-ThinItalic.ttf in Resources */,
+				DF8137202BF79F5D00CC21E0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,46 +349,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-client_lalamove/Pods-client_lalamove-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-client_lalamove/Pods-client_lalamove-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-client_lalamove/Pods-client_lalamove-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-client_lalamove-client_lalamoveTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		0B2E1D9AF0B4D4CF06BF188B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -407,7 +371,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
+		0B84D98C1CFC4E3FF9CD342E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -424,7 +388,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-client_lalamove-client_lalamoveTests/Pods-client_lalamove-client_lalamoveTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
+		146B5BD7F4F51D9FEEF4CE00 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -441,7 +405,46 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-client_lalamove/Pods-client_lalamove-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
+		48F474A22781788DD08310AB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-client_lalamove/Pods-client_lalamove-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-client_lalamove/Pods-client_lalamove-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-client_lalamove/Pods-client_lalamove-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6FC807DAE18C07FD59F88034 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-client_lalamove-client_lalamoveTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B60AFDE1247512F2E6F4C6D8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -491,7 +494,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-client_lalamove-client_lalamoveTests.debug.xcconfig */;
+			baseConfigurationReference = CD3D1D570312AB7CDFBBDE46 /* Pods-client_lalamove-client_lalamoveTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -518,7 +521,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-client_lalamove-client_lalamoveTests.release.xcconfig */;
+			baseConfigurationReference = BAB177A65001B7983B793CC1 /* Pods-client_lalamove-client_lalamoveTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -542,7 +545,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-client_lalamove.debug.xcconfig */;
+			baseConfigurationReference = 31AF9EAF86F59F8D35204932 /* Pods-client_lalamove.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -569,7 +572,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-client_lalamove.release.xcconfig */;
+			baseConfigurationReference = A663A178C7FF12C9432F8436 /* Pods-client_lalamove.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
