@@ -3,7 +3,8 @@ import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { templateHTMLResetPassword } from 'src/constants/template_email';
+import { templateHTMLResetPassword } from 'src/constants/template_email_resetpass';
+import { templateHTMLVerifyEmail } from 'src/constants/template_email_verify_email';
 import { CreateDriver, CreateUser, LoginUserDto } from 'src/dtos';
 import { User } from 'src/schemas';
 import { VehicleType } from 'src/schemas/VehicleType.schema';
@@ -21,12 +22,25 @@ export class AuthService {
     const exitedUser = await this.userModel.findOne({
       phoneNumber: createUserDto.phoneNumber,
     });
-    if (exitedUser && exitedUser.userType === createUserDto.userType) throw new BadRequestException('Số điện thoại đã tồn tại.');
+    if (exitedUser && exitedUser.userType === createUserDto.userType) throw new BadRequestException('Username đã tồn tại.');
     try {
       const newUser = new this.userModel(createUserDto);
-      return newUser.save();
+      const u = await newUser.save();
+      await sendEmail(createUserDto.email, templateHTMLVerifyEmail(u?.id, createUserDto.email), "Xác thực email");
+      return u;
     } catch (error) {
       return error;
+    }
+  }
+  async verifyMail(id: string) {
+    const exitedUser = await this.userModel.findById(id);
+    if (!exitedUser) throw new BadRequestException('Người dùng không tồn tại.');
+    try {
+      exitedUser.isActive = true;
+      await exitedUser.save();
+      return "Xác thực email thành công. Vui lòng đăng nhập lại để vào được hệ thống.";
+    } catch (error) {
+      return "Xác thực email thất bại!";
     }
   }
   async createVehicleType() {
@@ -70,7 +84,7 @@ export class AuthService {
           vehicleImage: createDriver.vehicleImage,
           cavetImage: createDriver.cavetImage,
           cavetText: createDriver.cavetText,
-          vehicleType:'66305002c1dde724a48e01d5'
+          vehicleType: '66305002c1dde724a48e01d5'
         }],
         isWaitingAccepted: true,
         isActive: false,
@@ -85,26 +99,69 @@ export class AuthService {
     const exitedUser = await this.userModel.findOne({
       phoneNumber: loginUserDto.phoneNumber,
     });
-    if (!exitedUser) throw new UnauthorizedException();
+    if (!exitedUser) throw new BadRequestException('Sai tài khoản hoặc mật khẩu.');
     if (exitedUser && !(await exitedUser.checkPassword(loginUserDto.password))) {
       console.log(loginUserDto)
-      throw new UnauthorizedException();
+      throw new BadRequestException('Sai tài khoản hoặc mật khẩu.');
     }
-    
-
     if (exitedUser.userType !== loginUserDto.userType) {
-      throw new UnauthorizedException();
+      throw new BadRequestException('Sai tài khoản hoặc mật khẩu.');
     }
+    if (!exitedUser.isActive && exitedUser.userType === 'User') {
+      await sendEmail(exitedUser.email, templateHTMLVerifyEmail(exitedUser?.id, exitedUser.email), "Xác thực email");
+
+      throw new BadRequestException('Tài khoản chưa được xác thực email. Vui lòng xác minh email chúng tôi vừa gửi.');
+    }
+
     const payload = { sub: exitedUser.id, username: exitedUser.phoneNumber };
 
     return {
-      phoneNumber: exitedUser.phoneNumber,
+      id: exitedUser.id,
+      fullname: exitedUser.fullName,
       avatar: exitedUser.avatar,
       userType: exitedUser.userType,
       access_token: this.jwtService.sign(payload),
     };
   }
+  async loginByGG(loginUserDto: any): Promise<Record<string, string>> {
+    console.log('hehe')
+    const exitedUser = await this.userModel.findOne({
+      phoneNumber: loginUserDto?.id,
+      email: loginUserDto?.email
+    });
 
+    if (!exitedUser) {
+      const newUser = new this.userModel({
+        phoneNumber: loginUserDto?.id,
+        password: '1',
+        email: loginUserDto?.email,
+        userType: 'User',
+        fullName: loginUserDto?.name,
+        isActive: true,
+        avatar: loginUserDto?.photo
+      });
+      const u = await newUser.save();
+      const payload = { sub: u.id, username: u.phoneNumber };
+
+      return {
+        id: u.id,
+        fullname: u.fullName,
+        avatar: u.avatar,
+        userType: u.userType,
+        access_token: this.jwtService.sign(payload),
+      };
+    };
+
+    const payload = { sub: exitedUser.id, username: exitedUser.phoneNumber };
+
+    return {
+      id: exitedUser.id,
+      fullname: exitedUser.fullName,
+      avatar: exitedUser.avatar,
+      userType: exitedUser.userType,
+      access_token: this.jwtService.sign(payload),
+    };
+  }
   async sendEmailReset(phoneNumber: string): Promise<Record<string, string>> {
     const exitedUser = await this.userModel.findOne({ phoneNumber: phoneNumber });
     if (!exitedUser) throw new BadRequestException("Người dùng không tồn tại.");

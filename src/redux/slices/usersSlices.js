@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice, createAction} from '@reduxjs/toolkit';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import baseUrl from '../../constants/baseUrl';
+import { Alert } from 'react-native';
 const resetPasswordAction = createAction('password/reset');
 //register action
 export const registerUserAction = createAsyncThunk(
@@ -28,6 +29,35 @@ export const registerUserAction = createAsyncThunk(
       if (!error.response) {
         throw error;
       }
+      console.log(error.response.data.response.message);
+      if (payload.setError) {
+        payload.setError(error.response.data.response.message);
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  },
+);
+export const loginUserByGoogleAction = createAsyncThunk(
+  'users/loginUserByGoogle',
+  async (payload, {rejectWithValue, getState, dispatch}) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    //http call
+    try {
+      const {data} = await axios.post(`${baseUrl}/auth/login-by-google`, payload,config);
+      await AsyncStorage.setItem('userStorage', JSON.stringify(data));
+
+      console.log(data);
+      return data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      console.log(error.response.data.response.message);
+      alert(error.response.data.response.message)
       return rejectWithValue(error?.response?.data);
     }
   },
@@ -52,6 +82,8 @@ export const loginUserAction = createAsyncThunk(
       if (!error.response) {
         throw error;
       }
+      alert(error.response.data.response.message)
+
       return rejectWithValue(error?.response?.data);
     }
   },
@@ -203,6 +235,21 @@ const usersSlices = createSlice({
       state.error = undefined;
     });
     builder.addCase(loginUserAction.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action?.error?.message;
+    });
+    //login
+    builder.addCase(loginUserByGoogleAction.pending, (state, action) => {
+      state.loading = true;
+      state.error = undefined;
+    });
+    builder.addCase(loginUserByGoogleAction.fulfilled, (state, action) => {
+      state.loading = false;
+      console.log(action);
+      state.userAuth = action?.payload;
+      state.error = undefined;
+    });
+    builder.addCase(loginUserByGoogleAction.rejected, (state, action) => {
       state.loading = false;
       state.error = action?.error?.message;
     });

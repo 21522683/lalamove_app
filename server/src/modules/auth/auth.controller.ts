@@ -25,12 +25,13 @@ export class AuthController {
   @Post('register-user')
   @UsePipes(new ValidationPipe())
   async createUser(@Body() createUserDto: CreateUser, @Res() res : Response) {
-    const user = await this.authService.createUser(createUserDto)
+    const user = await this.authService.createUser(createUserDto);
     if (!user) throw new HttpException('Invalid Credentials', 401);
     console.log(user)
     res.status(200).json(user);
-
   }
+
+
 
   @Public()
   @Post('register-driver')
@@ -51,7 +52,17 @@ export class AuthController {
     if (!user) throw new HttpException('Invalid Credentials', 401);
     console.log(user)
     res.status(200).json(user);
+  }
 
+  @Public()
+  @HttpCode(HttpStatus.OK)
+  @Post('login-by-google')
+  async loginUserByGG(@Body() body: any, @Res() res : Response) {
+    console.log('hehe')
+    const user = await this.authService.loginByGG(body);
+    if (!user) throw new HttpException('Invalid Credentials', 401);
+    console.log(user)
+    res.status(200).json(user);
   }
 
   @Public()
@@ -80,5 +91,11 @@ export class AuthController {
   async resetPassword(@Req() req: Request,  @Res() res : Response) {
     const u = await this.authService.resetPassword(req?.body?.phoneNumber, req?.body?.password)
     res.status(200).json(u);
+  }
+  @Public()
+  @Get(':id/verify-email')
+  async verifyMail(@Param("id") id: string, @Res() res : Response) {
+    const user = await this.authService.verifyMail(id);
+    res.status(200).json(user);
   }
 }

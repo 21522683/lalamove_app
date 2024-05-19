@@ -65,7 +65,7 @@ export class User {
   @Prop({ default: '', required: false })
   address?: string;
 
-  @Prop({ default: '', required: false })
+  @Prop({ default: 'https://inkythuatso.com/uploads/thumbnails/800/2023/03/9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg', required: false })
   avatar?: string;
 
   @Prop({ required: false })
@@ -80,7 +80,7 @@ export class User {
   @Prop({ default: false, required: false })
   isWaitingAccepted?: boolean;
 
-  @Prop({ required: false })
+  @Prop({ required: false, default: false })
   isActive?: boolean;
 
   @Prop({ required: false })
