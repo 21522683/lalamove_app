@@ -14,11 +14,13 @@ class Vehicle {
   @Prop()
   vehicleImage: string;
   @Prop({ required: true, type: Types.ObjectId, ref: 'VehicleType' })
-  vehicleType?: VehicleType;
+  vehicleType:string
   @Prop()
   cavetImage: string;
   @Prop()
   cavetText: string;
+  @Prop()
+  status: string;
 }
 
 // class driverLisence
@@ -30,6 +32,8 @@ class DriverLisence {
   driverLisenceImage: string;
   @Prop()
   driverLisenceType: string;
+  @Prop()
+  status: string;
 }
 
 // user

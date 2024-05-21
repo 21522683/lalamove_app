@@ -119,8 +119,8 @@ const LoginScreen = ({ navigation }) => {
             <Input
               onChangeText={text => handleOnchange(text, 'phoneNumber')}
               onFocus={() => handleError(null, 'phoneNumber')}
-              label="Username"
-              placeholder="Nhập username"
+              label="Tên đăng nhập"
+              placeholder="Nhập tên đăng nhập"
               error={errors.phoneNumber}
             />
             <Input

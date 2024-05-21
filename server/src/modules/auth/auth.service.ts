@@ -62,6 +62,7 @@ export class AuthService {
     });
     if (exitedUser && exitedUser.userType === createDriver.userType) throw new BadRequestException('Số điện thoại đã tồn tại.');
     try {
+      
       const newUser = new this.userModel({
         phoneNumber: createDriver.phoneNumber,
         email: createDriver.email,
@@ -76,7 +77,8 @@ export class AuthService {
         driverLisences: [{
           driverLisenceImage: createDriver.driverLisenceImage,
           driverLisenceNumber: createDriver.driverLisenceNumber,
-          driverLisenceType: createDriver.driverLisenceType
+          driverLisenceType: createDriver.driverLisenceType,
+          status:'Đang kiểm tra'
         }],
         vehicles: [{
           vehicleName: createDriver.vehicleName,
@@ -84,7 +86,9 @@ export class AuthService {
           vehicleImage: createDriver.vehicleImage,
           cavetImage: createDriver.cavetImage,
           cavetText: createDriver.cavetText,
-          vehicleType: '66305002c1dde724a48e01d5'
+          vehicleType: '66305002c1dde724a48e01d5',
+          status:'Đang kiểm tra'
+
         }],
         isWaitingAccepted: true,
         isActive: false,
@@ -165,6 +169,8 @@ export class AuthService {
   async sendEmailReset(phoneNumber: string): Promise<Record<string, string>> {
     const exitedUser = await this.userModel.findOne({ phoneNumber: phoneNumber });
     if (!exitedUser) throw new BadRequestException("Người dùng không tồn tại.");
+    if (exitedUser && exitedUser.isWaitingAccepted) throw new BadRequestException("Tài khoản đang được xét duyệt.");
+
     try {
       let randomString = '';
       for (let i = 0; i < 4; i++) {
