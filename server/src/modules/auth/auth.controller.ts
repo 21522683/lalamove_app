@@ -63,15 +63,26 @@ export class AuthController {
   }
 
   @Public()
-  @Get('profile')
+  @Get('vehicle-type')
   @HttpCode(HttpStatus.OK)
-  getProfile(@Req() req) {
-    this.authService.createVehicleType();
+  async getAllVehicleType(@Res() res: Response) {
+    const a = await this.authService.getAllVehicleType();
+    if (!a) throw new HttpException('Invalid Credentials', 401);
+    res.status(200).json(a);
   }
 
   @Public()
   @Get('check-phone')
   async checkEmail(@Query() queryParams: any, @Res() res: Response) {
+    const u = await this.authService.sendEmailReset(queryParams.phoneNumber);
+    res.status(200).json(u);
+  }
+  @Public()
+  @Get('check-phone-driver')
+  async checkPhoneNumberDriver(
+    @Query() queryParams: any,
+    @Res() res: Response,
+  ) {
     const u = await this.authService.sendEmailReset(queryParams.phoneNumber);
     res.status(200).json(u);
   }

@@ -4,8 +4,9 @@ import { Types } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
 // class vehicle
-@Schema() // will create _id filed
 class Vehicle {
+  @Prop()
+  id: string;
   @Prop()
   vehicleName: string;
   @Prop()
@@ -23,8 +24,9 @@ class Vehicle {
 }
 
 // class driverLisence
-@Schema() // will create _id filed
 class DriverLisence {
+  @Prop()
+  id: string;
   @Prop()
   driverLisenceNumber: string;
   @Prop()

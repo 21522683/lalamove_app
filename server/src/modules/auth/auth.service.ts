@@ -2,18 +2,17 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-  UnauthorizedException,
 } from '@nestjs/common';
-import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { templateHTMLResetPassword } from 'src/constants/template_email_resetpass';
 import { templateHTMLVerifyEmail } from 'src/constants/template_email_verify_email';
 import { CreateDriver, CreateUser, LoginUserDto } from 'src/dtos';
 import { User } from 'src/schemas';
 import { VehicleType } from 'src/schemas/VehicleType.schema';
 import { sendEmail } from 'src/utils/email.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class AuthService {
@@ -61,10 +60,14 @@ export class AuthService {
       minPrice: 16200,
       minLength: 3,
       priceAddIfOut: 4320,
-      suitableFor: 'Giao hàng hóa nhỏ như tài liệu, thực phẩm, mỹ phẩm, quần áo hoặc phụ kiện.',
+      suitableFor:
+        'Giao hàng hóa nhỏ như tài liệu, thực phẩm, mỹ phẩm, quần áo hoặc phụ kiện.',
       note: 'Phí dịch vụ được dựa trên nhiều yếu tố như tình hình giao thông, kích thước hàng hóa, khả năng nhận đơn của đối tác tài xế, phí cầu đường, các phụ phí,... Vì vậy tổng giá dịch vụ có thể thay đổi. Giá hiển thị tại thời điểm đặt đơn có thể không giữ nguyên nếu có thay đổi về chi tiết đơn hàng.',
     });
     return newVehicleType.save();
+  }
+  async getAllVehicleType() {
+    return await this.vehicleModel.find({});
   }
   async sendRegisterDriver(createDriver: CreateDriver) {
     const exitedUser = await this.userModel.findOne({
@@ -73,7 +76,6 @@ export class AuthService {
     if (exitedUser && exitedUser.userType === createDriver.userType)
       throw new BadRequestException('Số điện thoại đã tồn tại.');
     try {
-      
       const newUser = new this.userModel({
         phoneNumber: createDriver.phoneNumber,
         email: createDriver.email,
@@ -85,22 +87,27 @@ export class AuthService {
         address: createDriver.address,
         avatar: createDriver.avatar,
         dob: createDriver.dob,
-        driverLisences: [{
-          driverLisenceImage: createDriver.driverLisenceImage,
-          driverLisenceNumber: createDriver.driverLisenceNumber,
-          driverLisenceType: createDriver.driverLisenceType,
-          status:'Đang kiểm tra'
-        }],
-        vehicles: [{
-          vehicleName: createDriver.vehicleName,
-          lisencePlate: createDriver.lisencePlate,
-          vehicleImage: createDriver.vehicleImage,
-          cavetImage: createDriver.cavetImage,
-          cavetText: createDriver.cavetText,
-          vehicleType: '66305002c1dde724a48e01d5',
-          status:'Đang kiểm tra'
-
-        }],
+        driverLisences: [
+          {
+            id: uuidv4(),
+            driverLisenceImage: createDriver.driverLisenceImage,
+            driverLisenceNumber: createDriver.driverLisenceNumber,
+            driverLisenceType: createDriver.driverLisenceType,
+            status: 'Đang kiểm tra',
+          },
+        ],
+        vehicles: [
+          {
+            id: uuidv4(),
+            vehicleName: createDriver.vehicleName,
+            lisencePlate: createDriver.lisencePlate,
+            vehicleImage: createDriver.vehicleImage,
+            cavetImage: createDriver.cavetImage,
+            cavetText: createDriver.cavetText,
+            vehicleType: '66305002c1dde724a48e01d5',
+            status: 'Đang kiểm tra',
+          },
+        ],
         isWaitingAccepted: true,
         isActive: false,
       });
@@ -188,9 +195,12 @@ export class AuthService {
     };
   }
   async sendEmailReset(phoneNumber: string): Promise<Record<string, string>> {
-    const exitedUser = await this.userModel.findOne({ phoneNumber: phoneNumber });
-    if (!exitedUser) throw new BadRequestException("Người dùng không tồn tại.");
-    if (exitedUser && exitedUser.isWaitingAccepted) throw new BadRequestException("Tài khoản đang được xét duyệt.");
+    const exitedUser = await this.userModel.findOne({
+      phoneNumber: phoneNumber,
+    });
+    if (!exitedUser) throw new BadRequestException('Người dùng không tồn tại.');
+    if (exitedUser && exitedUser.isWaitingAccepted)
+      throw new BadRequestException('Tài khoản đang được xét duyệt.');
 
     try {
       let randomString = '';
@@ -210,6 +220,21 @@ export class AuthService {
     } catch (error) {
       throw new BadRequestException('Lỗi kết nối.');
     }
+  }
+  async checkPhoneNumberDriver(
+    phoneNumber: string,
+  ): Promise<Record<string, string>> {
+    const exitedUser = await this.userModel.findOne({
+      phoneNumber: phoneNumber,
+    });
+    if (
+      exitedUser &&
+      exitedUser.userType === 'Driver' &&
+      exitedUser.isWaitingAccepted
+    )
+      throw new BadRequestException('Tài khoản đang được xét duyệt.');
+
+    return { message: 'Ok' };
   }
 
   async checkOtp(
