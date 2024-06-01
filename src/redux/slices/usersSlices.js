@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice, createAction} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import baseUrl from '../../constants/baseUrl';
@@ -6,7 +6,7 @@ const resetPasswordAction = createAction('password/reset');
 //register action
 export const registerUserAction = createAsyncThunk(
   'users/registerUser',
-  async (payload, {rejectWithValue, getState, dispatch}) => {
+  async (payload, { rejectWithValue, getState, dispatch }) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -14,7 +14,7 @@ export const registerUserAction = createAsyncThunk(
     };
     //http call
     try {
-      const {data} = await axios.post(
+      const { data } = await axios.post(
         `${baseUrl}/auth/register-user`,
         payload.bd,
         config,
@@ -35,7 +35,7 @@ export const registerUserAction = createAsyncThunk(
 // login
 export const loginUserAction = createAsyncThunk(
   'users/loginUser',
-  async (user, {rejectWithValue, getState, dispatch}) => {
+  async (user, { rejectWithValue, getState, dispatch }) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -43,8 +43,9 @@ export const loginUserAction = createAsyncThunk(
     };
     //http call
     try {
-      const {data} = await axios.post(`${baseUrl}/auth/login`, user, config);
-
+      console.log("data 1: ", user);
+      const { data } = await axios.post(`${baseUrl}/auth/login`, user, config);
+      console.log("data 2: ", user);
       await AsyncStorage.setItem('userStorage', JSON.stringify(data));
 
       return data;
@@ -52,6 +53,7 @@ export const loginUserAction = createAsyncThunk(
       if (!error.response) {
         throw error;
       }
+      console.log("lỗi: ", error.response);
       return rejectWithValue(error?.response?.data);
     }
   },
@@ -59,7 +61,7 @@ export const loginUserAction = createAsyncThunk(
 // Logout user
 export const logoutUserAction = createAsyncThunk(
   'users/logout',
-  async (payload, {rejectWithValue, getState, dispatch}) => {
+  async (payload, { rejectWithValue, getState, dispatch }) => {
     try {
       await AsyncStorage.removeItem('userStorage');
     } catch (error) {
@@ -73,7 +75,7 @@ export const logoutUserAction = createAsyncThunk(
 // send request reset
 export const sendRequestResetAction = createAsyncThunk(
   'users/send-reset-req',
-  async (payload, {rejectWithValue, getState, dispatch}) => {
+  async (payload, { rejectWithValue, getState, dispatch }) => {
     try {
       const config = {
         headers: {
@@ -82,7 +84,7 @@ export const sendRequestResetAction = createAsyncThunk(
       };
       //http call
 
-      const {data} = await axios.get(
+      const { data } = await axios.get(
         `${baseUrl}/auth/check-phone?phoneNumber=${payload.pn}`,
         config,
       );
@@ -90,7 +92,7 @@ export const sendRequestResetAction = createAsyncThunk(
       console.log('call', data);
 
       if (payload.navigation) {
-        payload.navigation.navigate('VerifyEmail', {phoneNumber: payload.pn});
+        payload.navigation.navigate('VerifyEmail', { phoneNumber: payload.pn });
       }
       return data;
     } catch (error) {
@@ -105,7 +107,7 @@ export const sendRequestResetAction = createAsyncThunk(
 // check otp
 export const checkOtpAction = createAsyncThunk(
   'users/check-otp',
-  async (payload, {rejectWithValue, getState, dispatch}) => {
+  async (payload, { rejectWithValue, getState, dispatch }) => {
     try {
       const config = {
         headers: {
@@ -114,7 +116,7 @@ export const checkOtpAction = createAsyncThunk(
       };
       //http call
 
-      const {data} = await axios.get(
+      const { data } = await axios.get(
         `${baseUrl}/auth/${payload.pn}/check-otp?otp=${payload.otp}`,
         config,
       );
@@ -122,7 +124,7 @@ export const checkOtpAction = createAsyncThunk(
       console.log('call', data);
 
       if (payload.navigation) {
-        payload.navigation.navigate('Reset-pass', {phoneNumber: payload.pn});
+        payload.navigation.navigate('Reset-pass', { phoneNumber: payload.pn });
       }
       return data;
     } catch (error) {
@@ -136,7 +138,7 @@ export const checkOtpAction = createAsyncThunk(
 // reset password
 export const resetPassAction = createAsyncThunk(
   'users/resetPass',
-  async (payload, {rejectWithValue, getState, dispatch}) => {
+  async (payload, { rejectWithValue, getState, dispatch }) => {
     try {
       const config = {
         headers: {
@@ -145,7 +147,7 @@ export const resetPassAction = createAsyncThunk(
       };
       //http call
 
-      const {data} = await axios.post(
+      const { data } = await axios.post(
         `${baseUrl}/auth/reset-password`,
         payload.body,
         config,
@@ -167,10 +169,41 @@ export const resetPassAction = createAsyncThunk(
 );
 export const setUserAuth = createAction('users/set');
 
+export const getCurrentUserAction = createAsyncThunk(
+  'users/getCurrentUser',
+  async (_,{ rejectWithValue, getState, dispatch }) => {
+    try {
+      const user = getState()?.users;
+      const { userAuth } = user;
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const { data } = await axios.get(`${baseUrl}/users/current-user`, config);
+      dispatch(setCurrentUser(data));
+      return data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  },
+);
 const usersSlices = createSlice({
   name: 'users',
   initialState: {
     userAuth: {},
+    currentUser: {},
+  },
+  reducers: {
+    setCurrentUser: (state, action) => {
+      state.currentUser = {
+        ...action.payload
+      };
+    },
   },
   extraReducers: builder => {
     //register
@@ -247,6 +280,18 @@ const usersSlices = createSlice({
       console.log('rf', action.payload);
       state.error = action?.payload?.response?.message;
     });
+    //get currentUser
+    builder.addCase(getCurrentUserAction.pending, (state, action) => {
+    });
+    builder.addCase(getCurrentUserAction.fulfilled, (state, action) => {
+      state.currentUser = action?.payload;
+    });
+    builder.addCase(getCurrentUserAction.rejected, (state, action) => {
+    });
   },
+
 });
 export default usersSlices.reducer;
+export const {
+  setCurrentUser,
+} = usersSlices.actions;

@@ -9,7 +9,6 @@ import {
   Post,
   Query,
   Req,
-
   Res,
   UsePipes,
   ValidationPipe,
@@ -29,7 +28,6 @@ export class AuthController {
     if (!user) throw new HttpException('Invalid Credentials', 401);
     console.log(user)
     res.status(200).json(user);
-
   }
 
   @Public()
