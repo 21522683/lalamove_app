@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice, createAction} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import baseUrl from '../../constants/baseUrl';
@@ -7,7 +7,7 @@ const resetPasswordAction = createAction('password/reset');
 //register action
 export const registerUserAction = createAsyncThunk(
   'users/registerUser',
-  async (payload, {rejectWithValue, getState, dispatch}) => {
+  async (payload, { rejectWithValue, getState, dispatch }) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -15,8 +15,41 @@ export const registerUserAction = createAsyncThunk(
     };
     //http call
     try {
-      const {data} = await axios.post(
+      const { data } = await axios.post(
         `${baseUrl}/auth/register-user`,
+        payload.bd,
+        config,
+      );
+      if (payload.setShowDialog) {
+        payload.setShowDialog(true);
+      }
+      console.log(data);
+      return data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      console.log(error.response.data.response.message);
+      if (payload.setError) {
+        payload.setError(error.response.data.response.message);
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  },
+);
+//register action
+export const registerDriverAction = createAsyncThunk(
+  'users/registerDriver',
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    //http call
+    try {
+      const { data } = await axios.post(
+        `${baseUrl}/auth/register-driver`,
         payload.bd,
         config,
       );
@@ -39,7 +72,7 @@ export const registerUserAction = createAsyncThunk(
 );
 export const loginUserByGoogleAction = createAsyncThunk(
   'users/loginUserByGoogle',
-  async (payload, {rejectWithValue, getState, dispatch}) => {
+  async (payload, { rejectWithValue, getState, dispatch }) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -47,7 +80,7 @@ export const loginUserByGoogleAction = createAsyncThunk(
     };
     //http call
     try {
-      const {data} = await axios.post(`${baseUrl}/auth/login-by-google`, payload,config);
+      const { data } = await axios.post(`${baseUrl}/auth/login-by-google`, payload, config);
       await AsyncStorage.setItem('userStorage', JSON.stringify(data));
 
       console.log(data);
@@ -83,7 +116,28 @@ export const loginUserAction = createAsyncThunk(
         throw error;
       }
       alert(error.response.data.response.message)
-
+      return rejectWithValue(error?.response?.data);
+    }
+  },
+);
+// get all vehicle type
+export const getAllVehicleTypeAction = createAsyncThunk(
+  'users/getAllVehicleType',
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    //http call
+    try {
+      const { data } = await axios.get(`${baseUrl}/auth/vehicle-type`,  config);
+      console.log(data)
+      return data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
       return rejectWithValue(error?.response?.data);
     }
   },
@@ -91,7 +145,7 @@ export const loginUserAction = createAsyncThunk(
 // Logout user
 export const logoutUserAction = createAsyncThunk(
   'users/logout',
-  async (payload, {rejectWithValue, getState, dispatch}) => {
+  async (payload, { rejectWithValue, getState, dispatch }) => {
     try {
       await AsyncStorage.removeItem('userStorage');
     } catch (error) {
@@ -105,7 +159,7 @@ export const logoutUserAction = createAsyncThunk(
 // send request reset
 export const sendRequestResetAction = createAsyncThunk(
   'users/send-reset-req',
-  async (payload, {rejectWithValue, getState, dispatch}) => {
+  async (payload, { rejectWithValue, getState, dispatch }) => {
     try {
       const config = {
         headers: {
@@ -114,7 +168,7 @@ export const sendRequestResetAction = createAsyncThunk(
       };
       //http call
 
-      const {data} = await axios.get(
+      const { data } = await axios.get(
         `${baseUrl}/auth/check-phone?phoneNumber=${payload.pn}`,
         config,
       );
@@ -122,7 +176,7 @@ export const sendRequestResetAction = createAsyncThunk(
       console.log('call', data);
 
       if (payload.navigation) {
-        payload.navigation.navigate('VerifyEmail', {phoneNumber: payload.pn});
+        payload.navigation.navigate('VerifyEmail', { phoneNumber: payload.pn });
       }
       return data;
     } catch (error) {
@@ -137,7 +191,7 @@ export const sendRequestResetAction = createAsyncThunk(
 // check otp
 export const checkOtpAction = createAsyncThunk(
   'users/check-otp',
-  async (payload, {rejectWithValue, getState, dispatch}) => {
+  async (payload, { rejectWithValue, getState, dispatch }) => {
     try {
       const config = {
         headers: {
@@ -146,7 +200,7 @@ export const checkOtpAction = createAsyncThunk(
       };
       //http call
 
-      const {data} = await axios.get(
+      const { data } = await axios.get(
         `${baseUrl}/auth/${payload.pn}/check-otp?otp=${payload.otp}`,
         config,
       );
@@ -154,7 +208,7 @@ export const checkOtpAction = createAsyncThunk(
       console.log('call', data);
 
       if (payload.navigation) {
-        payload.navigation.navigate('Reset-pass', {phoneNumber: payload.pn});
+        payload.navigation.navigate('Reset-pass', { phoneNumber: payload.pn });
       }
       return data;
     } catch (error) {
@@ -168,7 +222,7 @@ export const checkOtpAction = createAsyncThunk(
 // reset password
 export const resetPassAction = createAsyncThunk(
   'users/resetPass',
-  async (payload, {rejectWithValue, getState, dispatch}) => {
+  async (payload, { rejectWithValue, getState, dispatch }) => {
     try {
       const config = {
         headers: {
@@ -177,7 +231,7 @@ export const resetPassAction = createAsyncThunk(
       };
       //http call
 
-      const {data} = await axios.post(
+      const { data } = await axios.post(
         `${baseUrl}/auth/reset-password`,
         payload.body,
         config,
@@ -203,6 +257,7 @@ const usersSlices = createSlice({
   name: 'users',
   initialState: {
     userAuth: {},
+    vehicleTypes:[]
   },
   extraReducers: builder => {
     //register
@@ -263,7 +318,12 @@ const usersSlices = createSlice({
       state.userAuth = {};
       state.appErr = undefined;
     });
-
+    // get all vehicle type 
+    builder.addCase(getAllVehicleTypeAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.vehicleTypes = action?.payload;
+      state.appErr = undefined;
+    });
     //send Request Reset
     builder.addCase(sendRequestResetAction.pending, (state, action) => {
       state.loading = true;

@@ -5,7 +5,7 @@ import { User } from 'src/schemas';
 import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(@InjectModel(User.name) private userModel: Model<User>) { }
   async getDriverInfor(id: string, query: string) {
     try {
       if (!id) throw new BadRequestException('Người dùng không tồn tại.');

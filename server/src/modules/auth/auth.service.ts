@@ -20,7 +20,7 @@ export class AuthService {
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(VehicleType.name) private vehicleModel: Model<VehicleType>,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   async createUser(createUserDto: CreateUser) {
     const exitedUser = await this.userModel.findOne({
@@ -233,7 +233,12 @@ export class AuthService {
       exitedUser.isWaitingAccepted
     )
       throw new BadRequestException('Tài khoản đang được xét duyệt.');
-
+      if (
+        exitedUser &&
+        exitedUser.userType === 'Driver' &&
+        !exitedUser.isWaitingAccepted
+      )
+        throw new BadRequestException('Số điện thoại đã được đăng ký.');
     return { message: 'Ok' };
   }
 

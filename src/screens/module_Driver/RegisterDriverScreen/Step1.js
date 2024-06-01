@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import Input from '../../../components/Input.js';
 import MyButton from '../../../components/MyButton.js';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { validateCCCD, validateEmail } from '../../../constants/validate.js';
 
-const Step1Screen = ({ navigation }) => {
+const Step1Screen = ({ navigation, route }) => {
     const [inputs, setInputs] = useState({ fullName: '', email: '', CCCD: '', birthday: '', address: '' });
     const [errors, setErrors] = useState({});
     const handleOnchange = (text, input) => {
@@ -18,7 +19,7 @@ const Step1Screen = ({ navigation }) => {
         const day = date.getDate().toString().padStart(2, '0'); // Lấy ngày và thêm '0' nếu cần
         const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Lấy tháng và thêm '0' nếu cần
         const year = date.getFullYear();
-
+        
         return `${day}/${month}/${year}`;
     }
     const onChange = ({ type }, selectedDate) => {
@@ -27,6 +28,8 @@ const Step1Screen = ({ navigation }) => {
             console.log(currentDate)
             setDate(currentDate);
             // toggleDatePicker();
+            handleError(null, 'birthday')
+
             handleOnchange(formatDateString(currentDate), "birthday");
 
         }
@@ -44,27 +47,38 @@ const Step1Screen = ({ navigation }) => {
         Keyboard.dismiss();
         let isValid = true;
         if (!inputs.fullName) {
-            handleError('Please input full Name', 'fullName');
+            handleError('Làm ơn nhập họ và tên', 'fullName');
             isValid = false;
         }
         if (!inputs.email) {
-            handleError('Please input email', 'email');
+            handleError('Làm ơn nhập email', 'email');
+            isValid = false;
+        }
+        else if (!validateEmail(inputs.email)) {
+            handleError('Email không đúng định dạng', 'email');
             isValid = false;
         }
         if (!inputs.CCCD) {
-            handleError('Please input CCCD', 'CCCD');
+            handleError('Làm ơn nhập CCCD', 'CCCD');
+            isValid = false;
+        }
+        else if (!validateCCCD(inputs.CCCD)) {
+            handleError('CCCD không đúng định dạng', 'CCCD');
             isValid = false;
         }
         if (!inputs.birthday) {
-            handleError('Please input birthday', 'birthday');
+            handleError('Làm ơn nhập ngày sinh', 'birthday');
             isValid = false;
         }
         if (!inputs.address) {
-            handleError('Please input address', 'address');
+            handleError('Làm ơn nhập địa chỉ', 'address');
             isValid = false;
         }
-        if (!isValid) {
-            navigation.navigate('Step2')
+        if (isValid) {
+            navigation.navigate('Step2',{
+                ...route.params,
+                ...inputs
+            })
         }
     };
     return (

@@ -19,7 +19,7 @@ import { Public } from './authPublic.decorator';
 import { Request, Response } from 'express';
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
   @Public()
   @Post('register-user')
   @UsePipes(new ValidationPipe())
@@ -45,6 +45,7 @@ export class AuthController {
   @Post('login')
   @UsePipes(new ValidationPipe())
   async loginUser(@Body() loginUserDto: LoginUserDto, @Res() res: Response) {
+    console.log('nhuhu')
     const user = await this.authService.loginUser(loginUserDto);
     if (!user) throw new HttpException('Invalid Credentials', 401);
     console.log(user);
@@ -83,7 +84,7 @@ export class AuthController {
     @Query() queryParams: any,
     @Res() res: Response,
   ) {
-    const u = await this.authService.sendEmailReset(queryParams.phoneNumber);
+    const u = await this.authService.checkPhoneNumberDriver(queryParams.phoneNumber);
     res.status(200).json(u);
   }
 
