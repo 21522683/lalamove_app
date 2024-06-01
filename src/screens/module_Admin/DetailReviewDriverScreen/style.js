@@ -62,6 +62,26 @@ const styles = ScaledSheet.create({
     fontWeight: '500',
     fontSize: scale(14),
   },
+  container_text_2: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginVertical: verticalScale(6),
+  },
+  title_text_2: {
+    fontSize: scale(12),
+    color: CUSTOM_COLOR.Grey,
+  },
+  content_text_2: {
+    color: CUSTOM_COLOR.Black,
+    fontWeight: '500',
+    fontSize: scale(12),
+  },
+  status_text_2: {
+    color: CUSTOM_COLOR.Primary,
+    fontWeight: '500',
+    fontSize: scale(12),
+  },
   status_text: {
     color: CUSTOM_COLOR.Primary,
     fontWeight: '500',
@@ -70,6 +90,14 @@ const styles = ScaledSheet.create({
   container_img: {
     flexDirection: 'column',
     marginVertical: verticalScale(14),
+  },
+  container_img_2: {
+    flexDirection: 'column',
+    marginVertical: verticalScale(8),
+  },
+  title_text_2: {
+    fontSize: scale(12),
+    color: CUSTOM_COLOR.Grey,
   },
   img: {
     width: '100%',
@@ -81,7 +109,7 @@ const styles = ScaledSheet.create({
     borderColor: CUSTOM_COLOR.Grey,
   },
   container_button: {
-    marginVertical: verticalScale(30),
+    marginVertical: verticalScale(10),
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -102,7 +130,46 @@ const styles = ScaledSheet.create({
     color: CUSTOM_COLOR.White,
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: scale(14),
+    fontSize: scale(12),
+  },
+  tab_nav_container: {
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    padding: verticalScale(5),
+    marginVertical: moderateScale(30),
+    marginHorizontal: moderateScale(20),
+    justifyContent:'space-around',
+    alignItems: 'center',
+  },
+  btn_tab: {
+    width: '33%',
+    borderRadius: 4,
+  },
+  item_tab: {
+    paddingVertical: moderateScale(8),
+    paddingHorizontal: moderateScale(8),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 2,
+  },
+  text_tab: {
+    color: '#000000',
+    fontSize: 15,
+  },
+  item_tab_active: {
+    paddingVertical: moderateScale(8),
+    paddingHorizontal: moderateScale(8),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 2,
+    backgroundColor: CUSTOM_COLOR.Primary
+  },
+  text_tab_active: {
+    color: '#ffffff',
+    fontSize: 15,
+    fontWeight: 'bold',
   }
 });
 

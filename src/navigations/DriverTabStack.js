@@ -8,7 +8,6 @@ import Feather from 'react-native-vector-icons/Feather';
 import { createStackNavigator } from '@react-navigation/stack';
 import ProfileDriverScreen from '../screens/module_Driver/ProfileScreen';
 import PrivatePolicyScreen from '../screens/module_User/PrivatePolicyScreen';
-import DetailDriverScreen from '../screens/module_Admin/DetailDriverScreen';
 import DriverInformationScreen from '../screens/module_Driver/ProfileScreen/DriverInformationScreen';
 import LisenceDriverManageScreen from '../screens/module_Driver/ProfileScreen/LisenceDriverManageScreen';
 import LicenseDriverInforScreen from '../screens/module_Driver/ProfileScreen/LisenceDriverManageScreen/LicenseDriverInforScreen';

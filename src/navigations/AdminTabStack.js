@@ -8,7 +8,6 @@ import VehicleManagementScreen from "../screens/module_Admin/VehicleManagement/V
 import DetaiVehicleScreen from "../screens/module_Admin/VehicleManagement/DetaiVehicleScreen";
 import ReviewDriverScreen from "../screens/module_Admin/ReviewDriverScreen";
 import DetailReviewDriverScreen from "../screens/module_Admin/DetailReviewDriverScreen";
-import DetailDriverScreen from "../screens/module_Admin/DetailDriverScreen";
 import ProfileAdminScreen from '../screens/module_Admin/ProfileScreen';
 import DetailReportDriverScreen from '../screens/module_Admin/StatiscalAdminScreen/DetailReportDriverScreen';
 const AdminTabStack = createBottomTabNavigator();
@@ -21,7 +20,6 @@ export default function AdminStatiscalStackScreens() {
       <AdminStatiscalStack.Screen name="home-admin" component={AdminTabStackScreens} options={{ headerShown: false }} />
       <AdminStatiscalStack.Screen name="DetaiVehicleScreen" component={DetaiVehicleScreen} options={{ headerShown: false }} />
       <AdminStatiscalStack.Screen name="DetailReviewDriverScreen" component={DetailReviewDriverScreen} options={{ headerShown: false }} />
-      <AdminStatiscalStack.Screen name="DetailDriverScreen" component={DetailDriverScreen} options={{ headerShown: false }} />
       <AdminStatiscalStack.Screen name="DetailReportDriverScreen" component={DetailReportDriverScreen} options={{ headerShown: false }} />
       
     </AdminStatiscalStack.Navigator>

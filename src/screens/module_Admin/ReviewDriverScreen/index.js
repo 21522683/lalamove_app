@@ -12,14 +12,14 @@ const ReviewDriverScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Xét duyệt tài xế</Text>
+        <Text style={styles.title}>Quản lý tài xế</Text>
       </View>
       <View style={styles.search_bar}>
         <TextInput style={styles.search_input} placeholder='Nhập tên tài xế để tìm kiếm' />
         <Image source={IMAGES.search_icon} style={styles.icon_search} />
       </View>
 
-      <Text style={styles.title_list}>DANH SÁCH TÀI XẾ CHỜ XÉT DUYỆT</Text>
+      <Text style={styles.title_list}>DANH SÁCH TÀI XẾ</Text>
 
       <ScrollView style={styles.list_diver}>
         {
