@@ -9,6 +9,10 @@ import { APP_GUARD } from '@nestjs/core';
 import { MyLoggerModule } from './my-logger/my-logger.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthGuard } from './modules/auth/auth.guard';
+import { AddressModule } from './modules/address/address.module';
+import { ComplainModule } from './modules/complain/complain.module';
+import { OrderModule } from './modules/order/order.module';
+import { VehicleTypeModule } from './modules/vehicle-type/vehicle-type.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -26,6 +30,10 @@ import { AuthGuard } from './modules/auth/auth.guard';
     }]),
     MyLoggerModule,
     AuthModule,
+    AddressModule,
+    ComplainModule,
+    OrderModule,
+    VehicleTypeModule,
   ],
   controllers: [AppController],
   providers: [
