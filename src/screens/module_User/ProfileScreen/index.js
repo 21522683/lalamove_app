@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, Image, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform, TextInput, Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import styles from './style.js';
 import { IMAGES } from '../../../assets/images/index.js';
@@ -7,8 +7,9 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentUserAction } from '../../../redux/slices/usersSlices.js';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
+import { getCurrentUserAction, updateInfoUserAction, clearSuccessMessage } from '../../../redux/slices/usersSlices.js';
+import storage from '@react-native-firebase/storage';
+import { ActivityIndicator } from 'react-native-paper';
 
 
 
@@ -17,10 +18,18 @@ const ProfileScreen = () => {
 
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.users.currentUser);
+  const loading = useSelector(state => state.users.loading);
+  const successMessage = useSelector(state => state.users.successMessage);
 
   useEffect(() => {
     dispatch(getCurrentUserAction());
   }, []);
+  useEffect(() => {
+    if (successMessage) {
+      Alert.alert('Thông báo', successMessage);
+      dispatch(clearSuccessMessage());
+    }
+  }, [successMessage, dispatch]);
 
   const formatDateString = (date) => {
     const day = date.getDate().toString().padStart(2, '0');
@@ -28,13 +37,14 @@ const ProfileScreen = () => {
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
-  const [date, setDate] = useState(new Date(currentUser.dob) || new Date());
+  const initialDate = currentUser.dob ? new Date(currentUser.dob) : new Date();
+  const [date, setDate] = useState(initialDate);
   const [showPicker, setShowPicker] = useState(false);
   const [birthday, setBirthday] = useState(formatDateString(new Date(currentUser.dob)) || '');
-  const [avatar, setAvatar] = useState(currentUser.avatar || IMAGES.avatar);
+  const [avatar, setAvatar] = useState(currentUser.avatar);
   const [name, setName] = useState(currentUser.fullName || '');
   const [phone, setPhone] = useState(currentUser.phoneNumber || '');
-  const [email, setEmail] = useState( currentUser.email || '');
+  const [email, setEmail] = useState(currentUser.email || '');
   const [textValidateName, setTextValidateName] = useState('');
   const validateName = (value) => {
     if (!value || value.trim().length === 0) {
@@ -130,33 +140,52 @@ const ProfileScreen = () => {
       }
     });
   }
-  async function uploadImg(file) {
-    try {
-        const uid = Date.now();
-        const reference = useAsyncStorage().ref(`/images/img_${uid}`);
-
-        await reference.putFile(file);
-        const url = await reference.getDownloadURL();
-        setAvatar(url);
-    } catch (error) {
-        console.log(error);
+  const uploadImg = async (uri) => {
+    if (!uri) {
+      console.log('No image selected');
+      return false;
     }
-}
+
+    const uid = Date.now();
+    const filename = `img_${uid}`;
+
+    // Convert URI to the correct format based on the platform
+    const path = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+
+    const reference = storage().ref(`images/${filename}`);
+
+    try {
+      // Upload file to Firebase Storage
+      await reference.putFile(path);
+
+      // Get the download URL
+      const url = await reference.getDownloadURL();
+      setAvatar(url);
+      console.log('Image uploaded successfully:', url);
+      return url;
+    } catch (error) {
+      console.error('Image upload failed:', error);
+      return avatar;
+    }
+  }
 
   const handleUpdate = async () => {
     const isValid = validateName(name) && validateEmail(email) && validatePhone(phone) && validateBirthday(birthday);
     if (isValid) {
-      // uploadImg(avatar);
-      const data = {
-        fullName: name,
-        phoneNumber: phone,
-        email: email,
-        dob: date,
-        avatar: avatar,
+      const url = await uploadImg(avatar);
+      const dataUpdate = {
+        id: currentUser._id,
+        info: {
+          fullName: name,
+          phoneNumber: phone,
+          email: email,
+          dob: date.toISOString(),
+          avatar: url,
+        }
       }
-      console.log("data update: ", data);
+      dispatch(updateInfoUserAction(dataUpdate));
     }
-  }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -174,7 +203,7 @@ const ProfileScreen = () => {
 
         <ScrollView style={styles.container_body}>
           <View style={styles.container_avatar}>
-            <Image source={avatar} style={styles.avatar} />
+            <Image source={{ uri: avatar }} style={styles.avatar} />
             <TouchableOpacity style={styles.button_change} onPress={selectImage}>
               <Text style={styles.text_change}>Chọn ảnh</Text>
             </TouchableOpacity>
@@ -214,10 +243,17 @@ const ProfileScreen = () => {
               textValidateBirthday && <Text style={styles.text_validation}>{textValidateBirthday}</Text>
             }
           </View>
-
-          <TouchableOpacity style={styles.button_update} onPress={handleUpdate}>
-            <Text style={styles.title_button}>Cập nhật</Text>
-          </TouchableOpacity>
+          {
+            loading ? (
+              <View style={[styles.containerLoading, styles.horizontal]}>
+                <ActivityIndicator size="large" color="#FF5900" />
+              </View>
+            ) : (
+              <TouchableOpacity style={styles.button_update} onPress={handleUpdate} disabled={loading}>
+                <Text style={styles.title_button}>Cập nhật</Text>
+              </TouchableOpacity>
+            )
+          }
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

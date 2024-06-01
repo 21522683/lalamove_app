@@ -25,7 +25,7 @@ const PrivateAccountScreen = () => {
       <View style={styles.body_container}>
 
         <TouchableOpacity style={styles.item_profile} onPress={() => { navigation.navigate('ProfileScreen') }}>
-          <Image style={styles.avatar} source={currentUser.avatar} />
+          <Image style={styles.avatar} source={{ uri: currentUser.avatar }} />
           <View style={styles.info}>
             <Text style={styles.name}>{currentUser.fullName}</Text>
             <Text style={styles.email}>
@@ -91,22 +91,11 @@ const PrivateAccountScreen = () => {
               <Image source={IMAGES.foward_icon_orage} style={styles.icon_next} />
             </TouchableOpacity>
           </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => { dispatch(logoutUserAction()) }}>
-            <View style={styles.item_selection}>
-              <Image source={IMAGES.logout} style={styles.icon_selection} />
-              <Text style={styles.title_selection}>Đăng xuất</Text>
-              <TouchableOpacity style={styles.button_foward}>
-                <Image source={IMAGES.foward_icon_orage} style={styles.icon_next} />
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-
         </View>
 
-        <TouchableOpacity style={styles.button_lock}>
+        <TouchableOpacity style={styles.button_lock} onPress={() => { dispatch(logoutUserAction()) }}>
           <Text style={styles.title_button}>
-            Khóa tài khoản
+            Đăng xuất
           </Text>
         </TouchableOpacity>
       </View>
