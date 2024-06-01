@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "339993089151",
+    "project_id": "hihimove-84962",
+    "storage_bucket": "hihimove-84962.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339993089151:android:819f46fd4ba46b806a9b4a",
+        "android_client_info": {
+          "package_name": "com.client_lalamove"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339993089151-ocrqokloneg68aq66l1s2kr126lv4pvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmqQZgs6BjY5_N-Kqx3opbJ4aQoqdPfvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339993089151-ocrqokloneg68aq66l1s2kr126lv4pvr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "339993089151-ju0a0sgalg5o3hq24s5rqojfamb89opb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.client-lalamove"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

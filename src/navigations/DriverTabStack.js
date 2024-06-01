@@ -24,6 +24,7 @@ import VerifyOrderDriverScreen from '../screens/module_Driver/screens/VerifyOrde
 import { Polygon } from 'react-native-svg';
 import ReceivedDriverOrderDetailScreen from '../screens/module_Driver/OrderDetailScreen';
 import DriverReceivedOrdersScreen from '../screens/module_Driver/ReceivedOrdersScreen';
+import ChatDriverScreen from '../screens/module_Driver/ChatDriverScreen';
 const DriverTabStack = createBottomTabNavigator();
 
 
@@ -93,6 +94,11 @@ export default function DriverStackScreens() {
         name="OrderDetailDriverScreen"
         component={OrderDetailDriverScreen}
         options={{ headerShown: false }}
+      />
+      <DriverStack.Screen
+        name="ChatDriverScreen"
+        component={ChatDriverScreen}
+        options={{title:'Chat', headerBackTitle:''}}
       />
       <DriverStack.Screen
         name="ReceiverDetailDriverScreen"

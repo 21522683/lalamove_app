@@ -7,10 +7,13 @@ import LoginGoogleBtn from '../../../components/LoginGgBtn.js';
 import { useDispatch } from 'react-redux';
 import { registerUserAction } from '../../../redux/slices/usersSlices.js';
 import Dialog from "react-native-dialog";
-
+import CUSTOM_COLOR from '../../../constants/colors.js';
+import auth from '@react-native-firebase/auth'
 const RegisterUserScreen = ({ navigation }) => {
   const [inputs, setInputs] = useState({ email: '', phoneNumber: '', password: '' });
   const [errors, setErrors] = useState({});
+  const [error, setError] = useState();
+
   const [showDialog, setShowDialog] = useState(false);
   const handleLogin = () => {
     setShowDialog(false)
@@ -49,10 +52,20 @@ const RegisterUserScreen = ({ navigation }) => {
 
       dispatch(registerUserAction({
         bd: bd,
-        setShowDialog: setShowDialog
+        setShowDialog: setShowDialog,
+        setError: setError
       }));
     }
   };
+
+  signUpFirebase = async (email, password) => {
+    auth().createUserWithEmailAndPassword(email, password).then((userCredential) => {
+
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView
@@ -62,7 +75,7 @@ const RegisterUserScreen = ({ navigation }) => {
       >
         <Text style={styles.titleText}>Tạo tài khoản người dùng mới</Text>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={{ marginTop: 20, width: '100%', height: '52%' }}>
+          <View style={{ marginTop: 20, width: '100%', height: '60%' }}>
             <Input
               onChangeText={text => handleOnchange(text, 'email')}
               onFocus={() => handleError(null, 'email')}
@@ -73,8 +86,8 @@ const RegisterUserScreen = ({ navigation }) => {
             <Input
               onChangeText={text => handleOnchange(text, 'phoneNumber')}
               onFocus={() => handleError(null, 'phoneNumber')}
-              label="Số điện thoại"
-              placeholder="Nhập số điện thoại"
+              label="Tên đăng nhập"
+              placeholder="Nhập tên đăng nhập"
               error={errors.phoneNumber}
             />
             <Input
@@ -85,6 +98,11 @@ const RegisterUserScreen = ({ navigation }) => {
               error={errors.password}
               password
             />
+            {error && (
+              <Text style={{ marginTop: 7, color: CUSTOM_COLOR.Primary, fontSize: 14 }}>
+                {error}
+              </Text>
+            )}
           </View>
 
           <MyButton text={'Đăng ký'} onPress={validate} />
@@ -101,7 +119,7 @@ const RegisterUserScreen = ({ navigation }) => {
               <Dialog.Container visible={true}>
                 <Dialog.Title>Đăng ký tài khoản thành công</Dialog.Title>
                 <Dialog.Description>
-                  Vui lòng đăng nhập lại để dùng chức năng của app
+                  Vui lòng xác thực email và đăng nhập lại để dùng chức năng của app.
                 </Dialog.Description>
 
                 <Dialog.Button label="Đăng nhập" onPress={handleLogin} />

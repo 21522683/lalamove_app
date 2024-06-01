@@ -23,20 +23,20 @@ export class AuthController {
   @Public()
   @Post('register-user')
   @UsePipes(new ValidationPipe())
-  async createUser(@Body() createUserDto: CreateUser, @Res() res : Response) {
-    const user = await this.authService.createUser(createUserDto)
+  async createUser(@Body() createUserDto: CreateUser, @Res() res: Response) {
+    const user = await this.authService.createUser(createUserDto);
     if (!user) throw new HttpException('Invalid Credentials', 401);
-    console.log(user)
+    console.log(user);
     res.status(200).json(user);
   }
 
   @Public()
   @Post('register-driver')
   @UsePipes(new ValidationPipe())
-  async createDriver(@Body()createDriver : CreateDriver, @Res() res : Response) {
+  async createDriver(@Body() createDriver: CreateDriver, @Res() res: Response) {
     const user = await this.authService.sendRegisterDriver(createDriver);
     if (!user) throw new HttpException('Invalid Credentials', 401);
-    console.log(user)
+    console.log(user);
     res.status(200).json(user);
   }
 
@@ -44,39 +44,74 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   @UsePipes(new ValidationPipe())
-  async loginUser(@Body() loginUserDto: LoginUserDto, @Res() res : Response) {
+  async loginUser(@Body() loginUserDto: LoginUserDto, @Res() res: Response) {
+    console.log('nhuhu')
     const user = await this.authService.loginUser(loginUserDto);
     if (!user) throw new HttpException('Invalid Credentials', 401);
-    console.log(user)
+    console.log(user);
     res.status(200).json(user);
-
   }
 
   @Public()
-  @Get('profile')
   @HttpCode(HttpStatus.OK)
-  getProfile(@Req() req) {
-    this.authService.createVehicleType();
+  @Post('login-by-google')
+  async loginUserByGG(@Body() body: any, @Res() res: Response) {
+    console.log('hehe');
+    const user = await this.authService.loginByGG(body);
+    if (!user) throw new HttpException('Invalid Credentials', 401);
+    console.log(user);
+    res.status(200).json(user);
+  }
+
+  @Public()
+  @Get('vehicle-type')
+  @HttpCode(HttpStatus.OK)
+  async getAllVehicleType(@Res() res: Response) {
+    const a = await this.authService.getAllVehicleType();
+    if (!a) throw new HttpException('Invalid Credentials', 401);
+    res.status(200).json(a);
   }
 
   @Public()
   @Get('check-phone')
-  async checkEmail( @Query() queryParams: any, @Res() res : Response) {
-     const u = await this.authService.sendEmailReset(queryParams.phoneNumber);
-     res.status(200).json(u);
+  async checkEmail(@Query() queryParams: any, @Res() res: Response) {
+    const u = await this.authService.sendEmailReset(queryParams.phoneNumber);
+    res.status(200).json(u);
+  }
+  @Public()
+  @Get('check-phone-driver')
+  async checkPhoneNumberDriver(
+    @Query() queryParams: any,
+    @Res() res: Response,
+  ) {
+    const u = await this.authService.checkPhoneNumberDriver(queryParams.phoneNumber);
+    res.status(200).json(u);
   }
 
   @Public()
   @Get(':phoneNumber/check-otp')
-  async checkOtpReset(@Param("phoneNumber") phoneNumber: string, @Query() queryParams: any, @Res() res : Response) {
-    const u = await this.authService.checkOtp(queryParams.otp, phoneNumber)
+  async checkOtpReset(
+    @Param('phoneNumber') phoneNumber: string,
+    @Query() queryParams: any,
+    @Res() res: Response,
+  ) {
+    const u = await this.authService.checkOtp(queryParams.otp, phoneNumber);
     res.status(200).json(u);
   }
 
   @Public()
   @Post('reset-password')
-  async resetPassword(@Req() req: Request,  @Res() res : Response) {
-    const u = await this.authService.resetPassword(req?.body?.phoneNumber, req?.body?.password)
+  async resetPassword(@Req() req: Request, @Res() res: Response) {
+    const u = await this.authService.resetPassword(
+      req?.body?.phoneNumber,
+      req?.body?.password,
+    );
     res.status(200).json(u);
+  }
+  @Public()
+  @Get(':id/verify-email')
+  async verifyMail(@Param('id') id: string, @Res() res: Response) {
+    const user = await this.authService.verifyMail(id);
+    res.status(200).json(user);
   }
 }

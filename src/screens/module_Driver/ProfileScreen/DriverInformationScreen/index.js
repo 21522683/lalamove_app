@@ -59,8 +59,10 @@ const DriverInformationScreen = () => {
           <Text style={styles.title_text}>Trạng thái</Text>
           <Text style={styles.status_text}>Đang hoạt động</Text>
         </View>
-
-        
+        <View style={styles.container_img}>
+          <Text style={styles.title_text}>Hình ảnh CCCD</Text>
+          <Image source={IMAGES.gplx} style={styles.img} />
+        </View>
 
       </ScrollView>
     </SafeAreaView>

@@ -34,12 +34,12 @@ const ForgotPasswordScreen = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Nhập số điện thoại đã đăng ký để lại mật khẩu</Text>
+      <Text style={styles.titleText}>Nhập tên đăng nhập đã đăng ký để lại mật khẩu</Text>
       <View style={{ marginTop: 20, width: '100%' }}>
         <Input
           onChangeText={text => handleOnchange(text, 'phoneNumber')}
           onFocus={() => handleError(null, 'phoneNumber')}
-          label="Số điện thoại"
+          label="Tên đăng nhập"
           placeholder=""
           error={errors.phoneNumber}
         />
@@ -51,7 +51,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
       </View>
       <MyButton text={'Tiếp tục'} onPress={validate} />
       <View style={{ alignSelf: 'flex-start', width: '100%' }}>
-        <Text style={{ ...styles.subText, color: '#878787', alignContent: 'flex-start' }}>Nhập số điện thoại của bạn.</Text>
+        <Text style={{ ...styles.subText, color: '#878787', alignContent: 'flex-start' }}>Nhập tên đăng nhập của bạn.</Text>
       </View>
     </View>
   );

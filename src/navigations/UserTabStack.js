@@ -19,6 +19,7 @@ import PrivatePolicyScreen from '../screens/module_User/PrivatePolicyScreen';
 import UserOrdersScreen from '../screens/module_User/OrdersScreen';
 import OrderDetailScreen from '../screens/module_User/OrderDetailScreen';
 import ProfileDriverScreen from '../screens/module_Driver/ProfileScreen';
+import ChatUserScreen from '../screens/module_User/ChatUserScreen';
 
 const UserStack = createStackNavigator();
 export default function UserStackScreens() {
@@ -41,6 +42,11 @@ export default function UserStackScreens() {
         name="GoodsInformationScreen"
         component={GoodsInformationScreen}
         options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="ChatUserScreen"
+        component={ChatUserScreen}
+        options={{title:'Chat', headerBackTitle:''}}
       />
       <UserStack.Screen
         name="ChooseVehicleScreen"

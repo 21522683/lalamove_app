@@ -1,10 +1,12 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/Fontisto';
 import CUSTOM_COLOR from '../../../../constants/colors';
+import { useNavigation } from '@react-navigation/native';
 
 const ContactItem = props => {
+  const navigator = useNavigation();
   return (
     <View
       style={{
@@ -59,7 +61,7 @@ const ContactItem = props => {
           }}>
           <Icon name="phone" size={20} color={CUSTOM_COLOR.Primary} />
         </View>
-        <View
+        <TouchableOpacity
           style={{
             width: 40,
             height: 40,
@@ -68,9 +70,12 @@ const ContactItem = props => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+          }}
+          onPress={()=>{
+            navigator.navigate('ChatUserScreen',{name: props.name, uid: props.uid, avatar:props.avatar})
           }}>
           <Icon2 name="messenger" size={20} color="#F2AB58" />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import baseUrl from '../../constants/baseUrl';
+import { Alert } from 'react-native';
 const resetPasswordAction = createAction('password/reset');
 //register action
 export const registerUserAction = createAsyncThunk(
@@ -28,14 +29,18 @@ export const registerUserAction = createAsyncThunk(
       if (!error.response) {
         throw error;
       }
+      console.log(error.response.data.response.message);
+      if (payload.setError) {
+        payload.setError(error.response.data.response.message);
+      }
       return rejectWithValue(error?.response?.data);
     }
   },
 );
-// login
-export const loginUserAction = createAsyncThunk(
-  'users/loginUser',
-  async (user, { rejectWithValue, getState, dispatch }) => {
+//register action
+export const registerDriverAction = createAsyncThunk(
+  'users/registerDriver',
+  async (payload, { rejectWithValue, getState, dispatch }) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -43,9 +48,66 @@ export const loginUserAction = createAsyncThunk(
     };
     //http call
     try {
-      console.log("data 1: ", user);
-      const { data } = await axios.post(`${baseUrl}/auth/login`, user, config);
-      console.log("data 2: ", user);
+      const { data } = await axios.post(
+        `${baseUrl}/auth/register-driver`,
+        payload.bd,
+        config,
+      );
+      if (payload.setShowDialog) {
+        payload.setShowDialog(true);
+      }
+      console.log(data);
+      return data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      console.log(error.response.data.response.message);
+      if (payload.setError) {
+        payload.setError(error.response.data.response.message);
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  },
+);
+export const loginUserByGoogleAction = createAsyncThunk(
+  'users/loginUserByGoogle',
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    //http call
+    try {
+      const { data } = await axios.post(`${baseUrl}/auth/login-by-google`, payload, config);
+      await AsyncStorage.setItem('userStorage', JSON.stringify(data));
+
+      console.log(data);
+      return data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      console.log(error.response.data.response.message);
+      alert(error.response.data.response.message)
+      return rejectWithValue(error?.response?.data);
+    }
+  },
+);
+// login
+export const loginUserAction = createAsyncThunk(
+  'users/loginUser',
+  async (user, {rejectWithValue, getState, dispatch}) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    //http call
+    try {
+      const {data} = await axios.post(`${baseUrl}/auth/login`, user, config);
+
       await AsyncStorage.setItem('userStorage', JSON.stringify(data));
 
       return data;
@@ -53,7 +115,29 @@ export const loginUserAction = createAsyncThunk(
       if (!error.response) {
         throw error;
       }
-      console.log("lỗi: ", error.response);
+      alert(error.response.data.response.message)
+      return rejectWithValue(error?.response?.data);
+    }
+  },
+);
+// get all vehicle type
+export const getAllVehicleTypeAction = createAsyncThunk(
+  'users/getAllVehicleType',
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    //http call
+    try {
+      const { data } = await axios.get(`${baseUrl}/auth/vehicle-type`,  config);
+      console.log(data)
+      return data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
       return rejectWithValue(error?.response?.data);
     }
   },
@@ -168,7 +252,6 @@ export const resetPassAction = createAsyncThunk(
   },
 );
 export const setUserAuth = createAction('users/set');
-
 export const getCurrentUserAction = createAsyncThunk(
   'users/getCurrentUser',
   async (_,{ rejectWithValue, getState, dispatch }) => {
@@ -196,6 +279,7 @@ const usersSlices = createSlice({
   name: 'users',
   initialState: {
     userAuth: {},
+    vehicleTypes:[]
     currentUser: {},
   },
   reducers: {
@@ -239,6 +323,21 @@ const usersSlices = createSlice({
       state.loading = false;
       state.error = action?.error?.message;
     });
+    //login
+    builder.addCase(loginUserByGoogleAction.pending, (state, action) => {
+      state.loading = true;
+      state.error = undefined;
+    });
+    builder.addCase(loginUserByGoogleAction.fulfilled, (state, action) => {
+      state.loading = false;
+      console.log(action);
+      state.userAuth = action?.payload;
+      state.error = undefined;
+    });
+    builder.addCase(loginUserByGoogleAction.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action?.error?.message;
+    });
     // set user auth
     builder.addCase(setUserAuth, (state, action) => {
       state.userAuth = action?.payload;
@@ -249,7 +348,12 @@ const usersSlices = createSlice({
       state.userAuth = {};
       state.appErr = undefined;
     });
-
+    // get all vehicle type 
+    builder.addCase(getAllVehicleTypeAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.vehicleTypes = action?.payload;
+      state.appErr = undefined;
+    });
     //send Request Reset
     builder.addCase(sendRequestResetAction.pending, (state, action) => {
       state.loading = true;
@@ -280,7 +384,6 @@ const usersSlices = createSlice({
       console.log('rf', action.payload);
       state.error = action?.payload?.response?.message;
     });
-    //get currentUser
     builder.addCase(getCurrentUserAction.pending, (state, action) => {
     });
     builder.addCase(getCurrentUserAction.fulfilled, (state, action) => {
@@ -289,7 +392,6 @@ const usersSlices = createSlice({
     builder.addCase(getCurrentUserAction.rejected, (state, action) => {
     });
   },
-
 });
 export default usersSlices.reducer;
 export const {

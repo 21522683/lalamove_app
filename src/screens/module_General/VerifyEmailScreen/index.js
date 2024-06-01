@@ -2,20 +2,37 @@ import { View, Text, Keyboard } from 'react-native';
 import styles from './style.js';
 import Input from '../../../components/Input.js';
 import MyButton from '../../../components/MyButton.js';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkOtpAction, sendRequestResetAction } from '../../../redux/slices/usersSlices.js';
+import CUSTOM_COLOR from '../../../constants/colors.js';
+
 const VerifyEmailScreen = ({ route, navigation }) => {
   const [inputs, setInputs] = useState({ st1: '', st2: '', st3: '', st4: '' });
   const [errors, setErrors] = useState({});
   const { phoneNumber } = route.params;
   const { error } = useSelector(state => state?.users)
-
+  const [timer, setTimer] = useState(600)
+  const countRef = useRef(null)
   const dispatch = useDispatch();
   const handleOnchange = (text, input) => {
     setInputs(prevState => ({ ...prevState, [input]: text }));
   };
+  const formatTime = () => {
+    const getSeconds = `0${(timer % 60)}`.slice(-2)
+    const minutes = `${Math.floor(timer / 60)}`
+    const getMinutes = `0${minutes % 60}`.slice(-2)
 
+    return `${getMinutes} : ${getSeconds}`
+  }
+  useEffect(() => {
+    countRef.current = setInterval(() => {
+      setTimer((timer) => {
+        if (timer === 0) return 0
+        else return timer - 1
+      })
+    }, 1000)
+  }, []);
   const handleError = (error, input) => {
     setErrors(prevState => ({ ...prevState, [input]: error }));
   };
@@ -39,11 +56,12 @@ const VerifyEmailScreen = ({ route, navigation }) => {
     if (isValid) {
       dispatch(checkOtpAction({
         pn: phoneNumber,
-        otp:''+inputs.st1+inputs.st2+inputs.st3+inputs.st4,
+        otp: '' + inputs.st1 + inputs.st2 + inputs.st3 + inputs.st4,
         navigation: navigation
       }))
     }
   };
+
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>Nhập mã OTP</Text>
@@ -104,7 +122,11 @@ const VerifyEmailScreen = ({ route, navigation }) => {
       }} style={{ ...styles.subText, color: '#F16722', fontWeight: '700' }}>Gửi lại mã!</Text>
 
       <MyButton text={'Tiếp tục'} onPress={validate} />
-
+      <Text style={{
+        marginTop: 20, fontSize: 20, alignItems: 'center',
+      }}>
+        Vui lòng nhập mã trong vòng  {formatTime()}
+      </Text>
     </View>
   );
 };

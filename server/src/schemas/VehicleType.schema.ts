@@ -1,6 +1,5 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 
-
 @Schema({
   timestamps: true,
 })
@@ -15,20 +14,18 @@ export class VehicleType {
   size: string;
 
   @Prop({ default: '', required: true })
-  minPrice: Number;
+  minPrice: number;
 
   @Prop({ default: '', required: true })
-  minLength: Number;
+  minLength: number;
 
   @Prop({ default: '', required: true })
-  priceAddIfOut: Number;
+  priceAddIfOut: number;
 
   @Prop({ default: '', required: true })
   suitableFor: string;
 
   @Prop({ required: true })
   note: string;
-
-  
 }
 export const VehicleTypeSchema = SchemaFactory.createForClass(VehicleType);

@@ -2,11 +2,11 @@ import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { VehicleType } from './VehicleType.schema';
 import { Types } from 'mongoose';
 import * as bcrypt from 'bcrypt';
-import * as crypto from 'crypto'
 
 // class vehicle
-@Schema() // will create _id filed
 class Vehicle {
+  @Prop()
+  id: string;
   @Prop()
   vehicleName: string;
   @Prop()
@@ -14,22 +14,27 @@ class Vehicle {
   @Prop()
   vehicleImage: string;
   @Prop({ required: true, type: Types.ObjectId, ref: 'VehicleType' })
-  vehicleType?: VehicleType;
+  vehicleType?: VehicleType | string;
   @Prop()
   cavetImage: string;
   @Prop()
   cavetText: string;
+  @Prop()
+  status: string;
 }
 
 // class driverLisence
-@Schema() // will create _id filed
 class DriverLisence {
+  @Prop()
+  id: string;
   @Prop()
   driverLisenceNumber: string;
   @Prop()
   driverLisenceImage: string;
   @Prop()
   driverLisenceType: string;
+  @Prop()
+  status: string;
 }
 
 // user
@@ -65,7 +70,11 @@ export class User {
   @Prop({ default: '', required: false })
   address?: string;
 
-  @Prop({ default: '', required: false })
+  @Prop({
+    default:
+      'https://inkythuatso.com/uploads/thumbnails/800/2023/03/9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg',
+    required: false,
+  })
   avatar?: string;
 
   @Prop({ required: false })
@@ -80,7 +89,7 @@ export class User {
   @Prop({ default: false, required: false })
   isWaitingAccepted?: boolean;
 
-  @Prop({ required: false })
+  @Prop({ required: false, default: false })
   isActive?: boolean;
 
   @Prop({ required: false })
@@ -92,17 +101,14 @@ export class User {
   @Prop({ required: false })
   passwordResetExpires?: Date;
 
-
   // method
-  checkPassword:Function;
-  createResetPassToken:Function;
-
-
+  checkPassword: Function;
+  createResetPassToken: Function;
 }
 
 const UserSchema = SchemaFactory.createForClass(User);
-UserSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
     next();
   }
   const salt = await bcrypt.genSalt(10);
@@ -111,17 +117,18 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 // method
-UserSchema.method("checkPassword", async function (enteredPassword: string): Promise<boolean> {
-  return await bcrypt.compare(enteredPassword, this.password);
-});
+UserSchema.method(
+  'checkPassword',
+  async function (enteredPassword: string): Promise<boolean> {
+    return await bcrypt.compare(enteredPassword, this.password);
+  },
+);
 
-UserSchema.method("createResetPassToken", function (otp : string) {
-  
+UserSchema.method('createResetPassToken', function (otp: string) {
   this.passwordResetToken = otp;
   const now = new Date();
   now.setMinutes(now.getMinutes() + 10);
-  this.passwordResetExpires =  now;
- 
+  this.passwordResetExpires = now;
 });
 
 export { UserSchema };

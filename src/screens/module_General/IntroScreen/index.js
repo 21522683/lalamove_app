@@ -2,8 +2,11 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import styles from './style.js';
 import { IMAGES } from '../../../assets/images/index.js';
+import { useDispatch } from 'react-redux';
+import { getAllVehicleTypeAction } from '../../../redux/slices/usersSlices.js';
 
 const IntroScreen = ({ navigation }) => {
+    const dispatch = useDispatch();
     return (
         <View style={styles.container}>
 
@@ -16,7 +19,10 @@ const IntroScreen = ({ navigation }) => {
 
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('Login')}>
+                onPress={async() => {
+                     dispatch(getAllVehicleTypeAction())
+                    navigation.navigate('Login')
+                    }}>
                 <Text style={styles.btnText}>Bắt đầu</Text>
                     
             </TouchableOpacity>
