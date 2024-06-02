@@ -8,13 +8,11 @@ import VehicleManagementScreen from "../screens/module_Admin/VehicleManagement/V
 import DetaiVehicleScreen from "../screens/module_Admin/VehicleManagement/DetaiVehicleScreen";
 import ReviewDriverScreen from "../screens/module_Admin/ReviewDriverScreen";
 import DetailReviewDriverScreen from "../screens/module_Admin/DetailReviewDriverScreen";
-import DriverManageScreen from "../screens/module_Admin/DriverManageScreen";
-import DetailDriverScreen from "../screens/module_Admin/DetailDriverScreen";
-import ProfileDriverScreen from '../screens/module_Driver/ProfileScreen';
 import ProfileAdminScreen from '../screens/module_Admin/ProfileScreen';
 import VoucherManageScreen from '../screens/module_Admin/ProfileScreen/VoucherManageScreen';
 import VoucherInforScreen from '../screens/module_Admin/ProfileScreen/VoucherManageScreen/VoucherInforScreen';
 import VoucherForm from '../screens/module_Admin/ProfileScreen/VoucherManageScreen/VoucherForm';
+import DetailReportDriverScreen from '../screens/module_Admin/StatiscalAdminScreen/DetailReportDriverScreen';
 const AdminTabStack = createBottomTabNavigator();
 
 
@@ -25,7 +23,7 @@ export default function AdminStatiscalStackScreens() {
       <AdminStatiscalStack.Screen name="home-admin" component={AdminTabStackScreens} options={{ headerShown: false }} />
       <AdminStatiscalStack.Screen name="DetaiVehicleScreen" component={DetaiVehicleScreen} options={{ headerShown: false }} />
       <AdminStatiscalStack.Screen name="DetailReviewDriverScreen" component={DetailReviewDriverScreen} options={{ headerShown: false }} />
-      <AdminStatiscalStack.Screen name="DetailDriverScreen" component={DetailDriverScreen} options={{ headerShown: false }} />
+      <AdminStatiscalStack.Screen name="DetailReportDriverScreen" component={DetailReportDriverScreen} options={{ headerShown: false }} />
       <AdminStatiscalStack.Screen name="VoucherManageScreen" component={VoucherManageScreen} options={{ title: 'Quản lý vouchers', headerBackTitle: '' }} />
       <AdminStatiscalStack.Screen name="VoucherInforScreen" component={VoucherInforScreen} options={{ title: 'Thông tin voucher', headerBackTitle: '' }} />
       <AdminStatiscalStack.Screen name="VoucherForm" component={VoucherForm} options={({ route }) => ({
@@ -33,7 +31,7 @@ export default function AdminStatiscalStackScreens() {
         headerBackTitle: '',
       })} />
 
-
+      
     </AdminStatiscalStack.Navigator>
   );
 }

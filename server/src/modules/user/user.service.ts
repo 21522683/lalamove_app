@@ -1,11 +1,18 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { User } from 'src/schemas';
+import { Model, ObjectId } from 'mongoose';
+import { User, VehicleType } from 'src/schemas';
 import { v4 as uuidv4 } from 'uuid';
+import { JwtService } from '@nestjs/jwt';
+import { updateInfoUserDto } from 'src/dtos/UpdateInfoUser.dto';
+import { updatePassUserDto } from 'src/dtos/updatePassUser.dto';
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) { }
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(VehicleType.name) private readonly vehicleTypeModel: Model<VehicleType>,
+    private jwtService: JwtService,
+  ) { }
   async getDriverInfor(id: string, query: string) {
     try {
       if (!id) throw new BadRequestException('Người dùng không tồn tại.');
@@ -90,5 +97,78 @@ export class UserService {
     } catch (error) {
       throw new BadRequestException(error);
     }
+  }
+  async currentUser(id: ObjectId) {
+    const exitedUser = await this.userModel.findById(id);
+    if (!exitedUser) {
+      throw new NotFoundException('Người dùng không tồn tại.');
+    }
+    return exitedUser.toObject();
+  }
+
+  async updateUser(userId: string, updateInfoUserDto: updateInfoUserDto): Promise<User> {
+    const updatedUser = await this.userModel.findByIdAndUpdate(
+      { _id: userId },
+      { $set: updateInfoUserDto },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+
+    return updatedUser;
+  }
+
+  async updatePasswordUser(userId: string, updatePassUserDto: updatePassUserDto) {
+    const updatedUser = await this.userModel.findOne({ _id: userId });
+    updatedUser.password = updatePassUserDto.password;
+    await updatedUser.save();
+    if (!updatedUser) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+
+    return updatedUser;
+  }
+
+  async getAllDriver(query: any) {
+    const { textSearch, option } = query;
+    let filter: any = {};
+
+    if (textSearch) {
+      filter.fullName = { $regex: textSearch, $options: 'i' };
+    }
+
+    switch (option) {
+      case 'Đang bị khóa':
+        filter.isActive = false;
+        break;
+      case 'Đang hoạt động':
+        filter.isActive = true;
+        filter.isWaitingAccepted = true;
+        break;
+      case 'Chờ xét duyệt':
+        filter.isActive = true;
+        filter.isWaitingAccepted = false;
+        break;
+      default:
+        // If option is "Tất cả" or any other value, no additional filter is added
+        break;
+    }
+
+    filter.userType = "Driver";
+
+    const listDriver = await this.userModel
+      .find(filter)
+      .populate({
+        path: 'vehicles',
+        populate: {
+          path: 'vehicleType',
+          model: this.vehicleTypeModel,
+        },
+      })
+      .exec();
+
+    return listDriver;
   }
 }

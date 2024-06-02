@@ -67,9 +67,27 @@ const styles = ScaledSheet.create({
     fontWeight: '500',
     fontSize: scale(14),
   },
+  status_text_red: {
+    color: 'red',
+    fontWeight: '500',
+    fontSize: scale(14),
+  },
+  status_text_green: {
+    color: 'green',
+    fontWeight: '500',
+    fontSize: scale(14),
+  },
   container_img: {
     flexDirection: 'column',
     marginVertical: verticalScale(14),
+  },
+  container_img_2: {
+    flexDirection: 'column',
+    marginVertical: verticalScale(8),
+  },
+  title_text_2: {
+    fontSize: scale(12),
+    color: CUSTOM_COLOR.Grey,
   },
   img: {
     width: '100%',
@@ -81,7 +99,7 @@ const styles = ScaledSheet.create({
     borderColor: CUSTOM_COLOR.Grey,
   },
   container_button: {
-    marginVertical: verticalScale(30),
+    marginVertical: verticalScale(10),
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -102,8 +120,67 @@ const styles = ScaledSheet.create({
     color: CUSTOM_COLOR.White,
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: scale(14),
-  }
+    fontSize: scale(12),
+  },
+  tab_nav_container: {
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    padding: verticalScale(5),
+    marginVertical: moderateScale(20),
+    marginHorizontal: moderateScale(20),
+    justifyContent:'space-around',
+    alignItems: 'center',
+  },
+  btn_tab: {
+    width: '33%',
+    borderRadius: 4,
+  },
+  item_tab: {
+    paddingVertical: moderateScale(8),
+    paddingHorizontal: moderateScale(8),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 2,
+  },
+  text_tab: {
+    color: '#000000',
+    fontSize: 15,
+  },
+  item_tab_active: {
+    paddingVertical: moderateScale(8),
+    paddingHorizontal: moderateScale(8),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 2,
+    backgroundColor: CUSTOM_COLOR.Primary
+  },
+  text_tab_active: {
+    color: '#ffffff',
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  search_bar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#BABABA',
+    marginHorizontal: scale(20),
+    borderRadius: scale(4),
+  },
+  search_input: {
+    flex: 1,
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: scale(20),
+    fontSize: scale(12),
+    color: '#000000',
+  },
+  icon_search: {
+    width: scale(14),
+    height: scale(14),
+    marginRight: scale(20),
+  },
 });
 
 export default styles;

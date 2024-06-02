@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, ScrollView } from 'react-native'
+import { View, Text, SafeAreaView, Image, ScrollView, TouchableOpacity} from 'react-native'
 import React from 'react'
 import styles from './style.js';
 import { IMAGES } from '../../../assets/images/index.js';
@@ -17,7 +17,9 @@ const PrivatePolicyScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Image source={IMAGES.back_icon} style={styles.back_button} onPress={() => {navigation.goBack()}}/>
+                <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                    <Image source={IMAGES.back_icon} style={styles.back_button} />
+                </TouchableOpacity>
                 <Text style={styles.title_header}>Chính sách người dùng</Text>
             </View>
 

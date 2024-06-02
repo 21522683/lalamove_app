@@ -75,6 +75,13 @@ const styles = ScaledSheet.create({
     backgroundColor: 'green',
     marginHorizontal: scale(6)
   },
+  status_color_red: {
+    width: scale(10),
+    height: scale(10),
+    borderRadius: scale(5),
+    backgroundColor: 'red',
+    marginHorizontal: scale(6)
+  },
   status: {
     fontSize: scale(11),
     color: '#919191',

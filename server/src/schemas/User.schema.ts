@@ -5,6 +5,7 @@ import * as bcrypt from 'bcrypt';
 
 @Schema()
 // class vehicle
+@Schema()
 class Vehicle {
   @Prop()
   id: string;

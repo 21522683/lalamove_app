@@ -2,10 +2,21 @@ import { moderateScale, scale, ScaledSheet, verticalScale } from 'react-native-s
 import CUSTOM_COLOR from '../../../constants/colors';
 
 const styles = ScaledSheet.create({
+  containerLoading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
     backgroundColor: CUSTOM_COLOR.White,
+    position: 'relative',
   },
   header: {
     flexDirection: 'row',
@@ -72,7 +83,7 @@ const styles = ScaledSheet.create({
     paddingHorizontal: moderateScale(20),
     marginVertical: verticalScale(6),
     width: '100%',
-    
+    color: CUSTOM_COLOR.Black,
   },
   text_validation: {
     fontSize: scale(10),

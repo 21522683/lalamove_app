@@ -130,7 +130,7 @@ export const loginUserByGoogleAction = createAsyncThunk(
 // login
 export const loginUserAction = createAsyncThunk(
   'users/loginUser',
-  async (user, { rejectWithValue, getState, dispatch }) => {
+  async (user, {  rejectWithValue, getState, dispatch  }) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -138,7 +138,7 @@ export const loginUserAction = createAsyncThunk(
     };
     //http call
     try {
-      const { data } = await axios.post(`${baseUrl}/auth/login`, user, config);
+      const {  data  } = await axios.post(`${baseUrl}/auth/login`, user, config);
 
       await AsyncStorage.setItem('userStorage', JSON.stringify(data));
 
@@ -305,13 +305,105 @@ export const resetPassAction = createAsyncThunk(
   },
 );
 export const setUserAuth = createAction('users/set');
-
+export const getCurrentUserAction = createAsyncThunk(
+  'users/getCurrentUser',
+  async (_, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const user = getState()?.users;
+      const { userAuth } = user;
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const { data } = await axios.get(`${baseUrl}/users/current-user`, config);
+      dispatch(setCurrentUser(data));
+      return data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  },
+);
+export const updatePassUserAction = createAsyncThunk(
+  'users/updatePassUser',
+  async (dataUpdate, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const user = getState()?.users;
+      const { userAuth } = user;
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const { data } = await axios.put(`${baseUrl}/users/update-pass/${dataUpdate.id}`, dataUpdate.info, config);
+      return data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  },
+);
+export const updateInfoUserAction = createAsyncThunk(
+  'users/updateInfoUser',
+  async (dataUpdate, { rejectWithValue, getState, dispatch }) => {
+    try {
+      const user = getState()?.users;
+      const { userAuth } = user;
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const { data } = await axios.put(`${baseUrl}/users/update-info/${dataUpdate.id}`, dataUpdate.info, config);
+      return data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  },
+);
 const usersSlices = createSlice({
   name: 'users',
   initialState: {
     userAuth: {},
     vehicleTypes: [],
-    userInfor: {}
+    currentUser: {},
+    loading: false,
+    error: null,
+    successMessage: '',
+
+    listAllDriver: [],
+    indexSelectedDriver: -1,
+
+  },
+  reducers: {
+    setCurrentUser: (state, action) => {
+      state.currentUser = {
+        ...action.payload
+      };
+    },
+    clearSuccessMessage: (state, action) => {
+      state.successMessage = '';
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
+    setListAllDriver: (state, action) => {
+      state.listAllDriver = action.payload;
+    },
+    setIndexSelectedDriver: (state, action) => {
+      state.indexSelectedDriver = action.payload;
+    }
   },
   extraReducers: builder => {
     //register
@@ -429,6 +521,50 @@ const usersSlices = createSlice({
       console.log('rf', action.payload);
       state.error = action?.payload?.response?.message;
     });
+    // get current user
+    builder.addCase(getCurrentUserAction.pending, (state, action) => {
+    });
+    builder.addCase(getCurrentUserAction.fulfilled, (state, action) => {
+      state.currentUser = action?.payload;
+    });
+    builder.addCase(getCurrentUserAction.rejected, (state, action) => {
+    });
+    // get update info user
+    builder.addCase(updateInfoUserAction.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
+      state.successMessage = '';
+    });
+    builder.addCase(updateInfoUserAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.currentUser = action.payload;
+      state.successMessage = 'Cập nhật thông tin thành công';
+    });
+    builder.addCase(updateInfoUserAction.rejected, (state, action) => {
+      state.loading = false;
+    });
+    // updatePassUserAction
+    builder.addCase(updatePassUserAction.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
+      state.successMessage = '';
+    });
+    builder.addCase(updatePassUserAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.currentUser = action.payload;
+      state.successMessage = 'Cập nhật mật khẩu thành công';
+    });
+    builder.addCase(updatePassUserAction.rejected, (state, action) => {
+      state.loading = false;
+    });
   },
 });
 export default usersSlices.reducer;
+export const {
+  setCurrentUser,
+  clearSuccessMessage,
+  setLoading,
+  setListAllDriver,
+  setIndexSelectedDriver
+  
+} = usersSlices.actions;
