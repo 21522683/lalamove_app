@@ -62,28 +62,18 @@ const styles = ScaledSheet.create({
     fontWeight: '500',
     fontSize: scale(14),
   },
-  container_text_2: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginVertical: verticalScale(6),
-  },
-  title_text_2: {
-    fontSize: scale(12),
-    color: CUSTOM_COLOR.Grey,
-  },
-  content_text_2: {
-    color: CUSTOM_COLOR.Black,
-    fontWeight: '500',
-    fontSize: scale(12),
-  },
-  status_text_2: {
-    color: CUSTOM_COLOR.Primary,
-    fontWeight: '500',
-    fontSize: scale(12),
-  },
   status_text: {
     color: CUSTOM_COLOR.Primary,
+    fontWeight: '500',
+    fontSize: scale(14),
+  },
+  status_text_red: {
+    color: 'red',
+    fontWeight: '500',
+    fontSize: scale(14),
+  },
+  status_text_green: {
+    color: 'green',
     fontWeight: '500',
     fontSize: scale(14),
   },
@@ -138,7 +128,7 @@ const styles = ScaledSheet.create({
     borderColor: '#ccc',
     borderRadius: 4,
     padding: verticalScale(5),
-    marginVertical: moderateScale(30),
+    marginVertical: moderateScale(20),
     marginHorizontal: moderateScale(20),
     justifyContent:'space-around',
     alignItems: 'center',
@@ -170,7 +160,27 @@ const styles = ScaledSheet.create({
     color: '#ffffff',
     fontSize: 15,
     fontWeight: 'bold',
-  }
+  },
+  search_bar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#BABABA',
+    marginHorizontal: scale(20),
+    borderRadius: scale(4),
+  },
+  search_input: {
+    flex: 1,
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: scale(20),
+    fontSize: scale(12),
+    color: '#000000',
+  },
+  icon_search: {
+    width: scale(14),
+    height: scale(14),
+    marginRight: scale(20),
+  },
 });
 
 export default styles;

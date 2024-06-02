@@ -328,6 +328,10 @@ const usersSlices = createSlice({
     loading: false,
     error: null,
     successMessage: '',
+
+    listAllDriver: [],
+    indexSelectedDriver: -1,
+
   },
   reducers: {
     setCurrentUser: (state, action) => {
@@ -335,11 +339,17 @@ const usersSlices = createSlice({
         ...action.payload
       };
     },
-    clearSuccessMessage: (state) => {
+    clearSuccessMessage: (state, action) => {
       state.successMessage = '';
     },
-    setLoading: (state) => {
-      state.loading = state.payload;
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
+    setListAllDriver: (state, action) => {
+      state.listAllDriver = action.payload;
+    },
+    setIndexSelectedDriver: (state, action) => {
+      state.indexSelectedDriver = action.payload;
     }
   },
   extraReducers: builder => {
@@ -479,5 +489,8 @@ export default usersSlices.reducer;
 export const {
   setCurrentUser,
   clearSuccessMessage,
-  setLoading
+  setLoading,
+  setListAllDriver,
+  setIndexSelectedDriver
+  
 } = usersSlices.actions;

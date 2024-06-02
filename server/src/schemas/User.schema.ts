@@ -4,6 +4,7 @@ import { Types } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
 // class vehicle
+@Schema()
 class Vehicle {
   @Prop()
   id: string;

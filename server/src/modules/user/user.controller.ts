@@ -13,11 +13,8 @@ import {
     Req, 
     Request, 
     Res, 
-    UsePipes, 
-    ValidationPipe 
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUser, LoginUserDto, } from '../../dtos';
 import { Response } from 'express';
 import { updateInfoUserDto } from 'src/dtos/UpdateInfoUser.dto';
 import { updatePassUserDto } from 'src/dtos/updatePassUser.dto';
@@ -66,6 +63,11 @@ export class UserController {
         @Body() updatePassUserDto: updatePassUserDto
     ) {
         return this.userService.updatePasswordUser(id, updatePassUserDto);
+    }
+
+    @Get('/get-all-drivers')
+    async getAllDriver(@Query() query: any) {
+        return this.userService.getAllDriver(query);
     }
     
 }
