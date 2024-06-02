@@ -8,7 +8,7 @@ import Dialog from "react-native-dialog";
 
 
 const ItemVehicle = ({ index, item }) => {
-    
+
     const [showDialog, setShowDialog] = useState(false);
     const [valueReject, setValueReject] = useState("");
 
@@ -64,7 +64,17 @@ const ItemVehicle = ({ index, item }) => {
                     <>
                         <View style={styles.container_img_2}>
                             <Text style={styles.title_text_2}>Hình ảnh xe</Text>
-                            <Image source={{uri: item.vehicleImage}} style={styles.img} />
+                            <Image source={{ uri: item.vehicleImage }} style={styles.img} />
+                        </View>
+
+                        <View style={styles.container_text_2}>
+                            <Text style={styles.title_text_2}>Mã số cà vẹt xe</Text>
+                            <Text style={styles.content_text_2}>{item.cavetText}</Text>
+                        </View>
+
+                        <View style={styles.container_img_2}>
+                            <Text style={styles.title_text_2}>Hình ảnh cà vẹt xe</Text>
+                            <Image source={{ uri: item.cavetImage }} style={styles.img} />
                         </View>
 
                         <View style={styles.container_text_2}>

@@ -110,6 +110,12 @@ const styles = ScaledSheet.create({
     padding: scale(10),
     width: scale(120),
   },
+  btn_accept_lock: {
+    backgroundColor: CUSTOM_COLOR.Primary,
+    borderRadius: scale(4),
+    padding: scale(10),
+    width: scale(140),
+  },
   btn_reject: {
     backgroundColor: CUSTOM_COLOR.Primary,
     borderRadius: scale(4),
@@ -180,6 +186,16 @@ const styles = ScaledSheet.create({
     width: scale(14),
     height: scale(14),
     marginRight: scale(20),
+  },
+  containerLoading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
   },
 });
 

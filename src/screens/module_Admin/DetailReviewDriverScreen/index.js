@@ -1,5 +1,5 @@
 import { View, Text, Image, SafeAreaView, ScrollView, TouchableOpacity, TextInput } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './style'
 import { IMAGES } from '../../../assets/images'
 import Dialog from "react-native-dialog";
@@ -10,6 +10,9 @@ import CUSTOM_COLOR from '../../../constants/colors';
 import { scale, verticalScale } from 'react-native-size-matters';
 import { useDispatch, useSelector } from 'react-redux';
 import convertDate from '../../../constants/converDate';
+import baseUrl from '../../../constants/baseUrl';
+import axios from 'axios';
+import { ActivityIndicator } from 'react-native-paper';
 
 
 const DetailReviewDriverScreen = () => {
@@ -37,11 +40,67 @@ const DetailReviewDriverScreen = () => {
     setShowDialog(false)
   }
 
-  const dispatch = useDispatch();
   const userAuth = useSelector(state => state.users.userAuth);
   const listAllDriver = useSelector(state => state.users.listAllDriver);
   const indexSelectedDriver = useSelector(state => state.users.indexSelectedDriver);
   const itemSelected = listAllDriver[indexSelectedDriver];
+
+  const [listDriverLisences, setListDriverLisences] = useState(itemSelected.driverLisences);
+  const [textSearchLisences, setTextSearchLisences] = useState('');
+
+  const getListDriverLisences = async () => {
+    try {
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const params = new URLSearchParams({ textSearchLisences }).toString();
+      const url = `${baseUrl}/users/get-all-lisences-user/${itemSelected._id}/?${params}`;
+      const data = await axios.get(url, config);
+      setListDriverLisences(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getListDriverLisences();
+  }, [textSearchLisences]);
+
+
+  const [listVehicles, setListVehicles] = useState(itemSelected.vehicles);
+  const [textSearchVehicles, setTextSearchVehicles] = useState('');
+
+  const getListVehicles = async () => {
+    try {
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const params = new URLSearchParams({ textSearchVehicles }).toString();
+      const url = `${baseUrl}/users/get-all-vehicles-user/${itemSelected._id}/?${params}`;
+      const data = await axios.get(url, config);
+      setListVehicles(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getListVehicles();
+  }, [textSearchVehicles]);
+
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.users.loading);
+  const successMessage = useSelector(state => state.users.successMessage);
+
+  const handleAccept = () => {
+
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -126,24 +185,29 @@ const DetailReviewDriverScreen = () => {
               <Text style={styles.title_text}>Hình ảnh căn cước công dân</Text>
               <Image source={{ uri: itemSelected.CCCDImage }} style={styles.img} />
             </View>
-
             {
-              (itemSelected.isActive === true && itemSelected.isWaitingAccepted === false) ? (
-                <View style={styles.container_button}>
-                  <TouchableOpacity style={styles.btn_accept}>
-                    <Text style={styles.text_btn}>Duyệt</Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity style={styles.btn_reject} onPress={() => setShowDialog(true)}>
-                    <Text style={styles.text_btn}>Từ chối</Text>
-                  </TouchableOpacity>
+              loading ? (
+                <View style={[styles.containerLoading, styles.horizontal]}>
+                  <ActivityIndicator size="large" color="#FF5900"/>
                 </View>
               ) : (
-                <View style={styles.container_button}>
-                  <TouchableOpacity style={styles.btn_accept}>
-                    <Text style={styles.text_btn}>Khóa tài khoản</Text>
-                  </TouchableOpacity>
-                </View>
+                (itemSelected.isActive === true && itemSelected.isWaitingAccepted === false) ? (
+                  <View style={styles.container_button}>
+                    <TouchableOpacity style={styles.btn_accept} onPress={handleAccept}>
+                      <Text style={styles.text_btn}>Duyệt</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.btn_reject} onPress={() => setShowDialog(true)}>
+                      <Text style={styles.text_btn}>Từ chối</Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : (
+                  <View style={styles.container_button}>
+                    <TouchableOpacity style={styles.btn_accept_lock}>
+                      <Text style={styles.text_btn}>{itemSelected.isActive === false ? "Mở khóa tài khoản" : "Khóa tài khoản"}</Text>
+                    </TouchableOpacity>
+                  </View>
+                )
               )
             }
             {
@@ -168,19 +232,22 @@ const DetailReviewDriverScreen = () => {
         selectedOption === 'Giấy tờ xe' && (
           <>
             <View style={styles.search_bar}>
-              <TextInput style={styles.search_input} placeholder='Nhập mã số để tìm kiếm' />
+              <TextInput value={textSearchLisences} onChangeText={(text) => setTextSearchLisences(text)} style={styles.search_input} placeholder='Nhập mã số để tìm kiếm' />
               <Image source={IMAGES.search_icon} style={styles.icon_search} />
             </View>
             <Text style={{ color: CUSTOM_COLOR.Primary, marginHorizontal: scale(20), marginVertical: verticalScale(10), fontWeight: 'bold' }}>DANH SÁCH GPLX</Text>
             <ScrollView style={styles.scroll_body} showsVerticalScrollIndicator={false}>
               {
-                itemSelected.driverLisences.map((element, index) => {
-                  return (
-                    <ItemLisences key={element._id} index={index} item={element}/>
-                  )
-                })
+                listDriverLisences.length === 0 ? (
+                  <Text style={{ textAlign: 'center' }}>Không tìm thấy kết quả tìm kiếm</Text>
+                ) : (
+                  listDriverLisences.map((element, index) => {
+                    return (
+                      <ItemLisences key={index} index={index} item={element} />
+                    )
+                  })
+                )
               }
-
             </ScrollView>
           </>
         )
@@ -190,17 +257,21 @@ const DetailReviewDriverScreen = () => {
         selectedOption === 'Phương tiện' && (
           <>
             <View style={styles.search_bar}>
-              <TextInput style={styles.search_input} placeholder='Nhập tên hoặc biển số xe để tìm kiếm' />
+              <TextInput value={textSearchVehicles} onChangeText={(text) => setTextSearchVehicles(text)} style={styles.search_input} placeholder='Nhập tên hoặc biển số xe để tìm kiếm' />
               <Image source={IMAGES.search_icon} style={styles.icon_search} />
             </View>
             <Text style={{ color: CUSTOM_COLOR.Primary, marginHorizontal: scale(20), marginVertical: verticalScale(10), fontWeight: 'bold' }}>DANH SÁCH PHƯƠNG TIỆN</Text>
             <ScrollView style={styles.scroll_body} showsVerticalScrollIndicator={false}>
               {
-                itemSelected.vehicles.map((item, index) => {
-                  return (
-                    <ItemVehicle index={index} key={index} item={item}/>
-                  )
-                })
+                listVehicles.length === 0 ? (
+                  <Text style={{ textAlign: 'center' }}>Không tìm thấy kết quả tìm kiếm</Text>
+                ) : (
+                  listVehicles.map((item, index) => {
+                    return (
+                      <ItemVehicle index={index} key={index} item={item} />
+                    )
+                  })
+                )
               }
             </ScrollView>
           </>
