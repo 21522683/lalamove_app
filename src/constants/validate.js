@@ -9,3 +9,6 @@ export const validatePhone = (value) => {
 export const validateCCCD = (value) => {
     return value.match(/\d/g).length === 12;
 };
+export function numbersOnly(e) {
+    return /^\d+$/.test(e.toString()) ? true : false
+}

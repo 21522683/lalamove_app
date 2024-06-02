@@ -1,8 +1,9 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { VehicleType } from './VehicleType.schema';
-import { Types } from 'mongoose';
+import * as  mongoose from 'mongoose';
 import * as bcrypt from 'bcrypt';
 
+@Schema()
 // class vehicle
 class Vehicle {
   @Prop()
@@ -13,8 +14,8 @@ class Vehicle {
   lisencePlate: string;
   @Prop()
   vehicleImage: string;
-  @Prop({ required: true, type: Types.ObjectId, ref: 'VehicleType' })
-  vehicleType?: VehicleType | string;
+  @Prop({ required: true, type:  mongoose.Schema.Types.ObjectId, ref: 'VehicleType' })
+  vehicleType: VehicleType | string;
   @Prop()
   cavetImage: string;
   @Prop()

@@ -14,7 +14,7 @@ import { Response } from 'express';
 import { VoucherDto } from 'src/dtos';
 import { VoucherService } from './voucher.service';
 
-@Controller('voucher')
+@Controller('vouchers')
 export class VoucherController {
   constructor(private voucherService: VoucherService) {}
   @Get('')

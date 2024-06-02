@@ -16,13 +16,16 @@ export class UserService {
       if (!exitedUser)
         throw new BadRequestException('Người dùng không tồn tại.');
 
-      const { password, driverLisences, vehicles } = exitedUser;
+      const { password, driverLisences, vehicles} = exitedUser;
 
       if (query === 'license') {
         return driverLisences;
       }
       if (query === 'vehicles') {
         return vehicles;
+      }
+      if (query === 'reviews') {
+        return ;
       }
 
       return exitedUser;
@@ -32,7 +35,7 @@ export class UserService {
   }
   async updateDriverInfor(body: any) {
     // {
-    //     userid?
+    //     id?
     //     action: 'add vehicle', 'update vehicle', 'add license', 'update license',
     //     data:{
     //         id? (if update)
@@ -53,13 +56,14 @@ export class UserService {
           vehicleImage: body?.data.vehicleImage,
           cavetImage: body?.data.cavetImage,
           cavetText: body?.data.cavetText,
-          vehicleType: '66305002c1dde724a48e01d5',
+          vehicleType: body?.data.vehicleType,
           status: 'Đang kiểm tra',
         });
       } else if (body?.action === 'update vehicle') {
-        exitedUser.vehicles.forEach((v) => {
+        exitedUser.vehicles.forEach((v, index) => {
           if (v.id === body?.data?.id) {
-            v = { ...body?.data };
+            v = { ...body?.data, status: 'Đang kiểm tra' };
+            exitedUser.vehicles[index] = {...v}
           }
         });
       } else if (body?.action === 'add license') {
@@ -71,11 +75,15 @@ export class UserService {
           status: 'Đang kiểm tra',
         });
       } else if (body?.action === 'update license') {
-        exitedUser.driverLisences.forEach((d) => {
+        console.log(body)
+        exitedUser.driverLisences.forEach((d, index) => {
           if (d.id === body?.data?.id) {
-            d = { ...body?.data };
+            d = { ...body?.data, status: 'Đang kiểm tra' };
+            exitedUser.driverLisences[index] = {...d};
+            
           }
         });
+        
       }
       await exitedUser.save();
       return 'OK';

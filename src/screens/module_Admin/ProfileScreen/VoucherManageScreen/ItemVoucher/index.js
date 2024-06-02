@@ -3,7 +3,7 @@ import React from 'react'
 import styles from './style'
 import { IMAGES } from '../../../../../assets/images'
 
-const ItemLicenseDriver = ({ item, navigation }) => {
+const ItemVoucher = ({ item, navigation }) => {
   return (
     <View style={styles.container_item_diver}>
       <View style={styles.container_info}>
@@ -43,4 +43,4 @@ const ItemLicenseDriver = ({ item, navigation }) => {
   )
 }
 
-export default ItemLicenseDriver
+export default ItemVoucher

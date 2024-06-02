@@ -32,17 +32,26 @@ const Step2Screen = ({ navigation, route }) => {
                 path: 'image'
             }
         }
-        launchImageLibrary(options, response => {
-            if (typeImg === 'vehicleImg') {
-                setVehicleImg(response.assets[0].uri);
-                setTypeImg('');
-            }
-            if (typeImg === 'cavetImg') {
-                setCavetImg(response.assets[0].uri);
-                setTypeImg('');
-            }
-            setShowBs(false)
-        })
+        try {
+            launchImageLibrary(options, response => {
+                if (!!response.assets) {
+                    if (typeImg === 'vehicleImg') {
+                        setVehicleImg(response ? response?.assets[0]?.uri : '');
+                        setTypeImg('');
+                    }
+                    if (typeImg === 'cavetImg') {
+                        setCavetImg(response ? response?.assets[0]?.uri : '');
+                        setTypeImg('');
+                    }
+                    setShowBs(false)
+
+                }
+                else { return; }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
     }
     const pickImgFromCamera = async () => {
         try {
@@ -92,12 +101,12 @@ const Step2Screen = ({ navigation, route }) => {
         }
         // console.log('Photo upload!');
 
-       
+
         // }
         // console.log('Photo uploaded successfully!');
         // setImage(null);
         if (isValid) {
-            navigation.navigate('Step3',{
+            navigation.navigate('Step3', {
                 ...route.params,
                 vehicleImg,
                 cavetImg,
@@ -288,14 +297,13 @@ const Step2Screen = ({ navigation, route }) => {
                             width: '100%',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            marginBottom: 20, 
+                            marginBottom: 20,
                             borderColor: inputs.vehicleType === item.vehicleTypeName ? CUSTOM_COLOR.Primary : '#C3C7E5'
                         }}
-                        onPress={() => { 
-                            handleOnchange(item.vehicleTypeName, 'vehicleType') 
-                            handleOnchange(item._id, 'vehicleTypeId') 
-
-                            }}>
+                        onPress={() => {
+                            handleOnchange(item.vehicleTypeName, 'vehicleType')
+                            handleOnchange(item._id, 'vehicleTypeId')
+                        }}>
                         <View style={{ flexDirection: 'row', flex: 1, height: 90, padding: 20, }}>
                             <View style={{ flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
                                 <Image source={IMAGES.userAcc} style={{

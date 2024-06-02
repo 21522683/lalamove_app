@@ -37,6 +37,41 @@ export const registerUserAction = createAsyncThunk(
     }
   },
 );
+//update driver infor
+export const updateDriverInforAction = createAsyncThunk(
+  'users/updateDriverInfor',
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    const user = getState()?.users;
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user?.userAuth?.access_token}`,
+      },
+    };
+    //http call
+    try {
+      const { data } = await axios.post(
+        `${baseUrl}/users/update-driver-infor`,
+        {...payload.bd, id: user?.userAuth?.id},
+        config,
+      );
+      if (payload.navigation) {
+        dispatch(getDriverInforAction(payload?.type));
+        payload.navigation.goBack();
+      }
+      console.log(data);
+      return data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      console.log(error.response.data.response.message);
+      alert(error.response.data.response.message)
+
+      return rejectWithValue(error?.response?.data);
+    }
+  },
+);
 //register action
 export const registerDriverAction = createAsyncThunk(
   'users/registerDriver',
@@ -63,9 +98,6 @@ export const registerDriverAction = createAsyncThunk(
         throw error;
       }
       console.log(error.response.data.response.message);
-      if (payload.setError) {
-        payload.setError(error.response.data.response.message);
-      }
       return rejectWithValue(error?.response?.data);
     }
   },
@@ -98,7 +130,7 @@ export const loginUserByGoogleAction = createAsyncThunk(
 // login
 export const loginUserAction = createAsyncThunk(
   'users/loginUser',
-  async (user, {rejectWithValue, getState, dispatch}) => {
+  async (user, { rejectWithValue, getState, dispatch }) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -106,7 +138,7 @@ export const loginUserAction = createAsyncThunk(
     };
     //http call
     try {
-      const {data} = await axios.post(`${baseUrl}/auth/login`, user, config);
+      const { data } = await axios.post(`${baseUrl}/auth/login`, user, config);
 
       await AsyncStorage.setItem('userStorage', JSON.stringify(data));
 
@@ -131,9 +163,33 @@ export const getAllVehicleTypeAction = createAsyncThunk(
     };
     //http call
     try {
-      const { data } = await axios.get(`${baseUrl}/auth/vehicle-type`,  config);
+      const { data } = await axios.get(`${baseUrl}/auth/vehicle-type`, config);
       console.log(data)
       return data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  },
+);
+// get driver infor
+export const getDriverInforAction = createAsyncThunk(
+  'users/getDriverInfor',
+  async (qr, { rejectWithValue, getState, dispatch }) => {
+    const user = getState()?.users;
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user?.userAuth?.access_token}`,
+      },
+    };
+    //http call
+    try {
+      const { data } = await axios.get(`${baseUrl}/users/get-driver-infor?query=${qr}`, config);
+      console.log(data)
+      return { data, qr };
     } catch (error) {
       if (!error.response) {
         throw error;
@@ -199,14 +255,11 @@ export const checkOtpAction = createAsyncThunk(
         },
       };
       //http call
-
       const { data } = await axios.get(
         `${baseUrl}/auth/${payload.pn}/check-otp?otp=${payload.otp}`,
         config,
       );
-
       console.log('call', data);
-
       if (payload.navigation) {
         payload.navigation.navigate('Reset-pass', { phoneNumber: payload.pn });
       }
@@ -257,7 +310,8 @@ const usersSlices = createSlice({
   name: 'users',
   initialState: {
     userAuth: {},
-    vehicleTypes:[]
+    vehicleTypes: [],
+    userInfor: {}
   },
   extraReducers: builder => {
     //register
@@ -335,6 +389,27 @@ const usersSlices = createSlice({
       state.error = undefined;
     });
     builder.addCase(sendRequestResetAction.rejected, (state, action) => {
+      state.loading = false;
+      console.log('rf', action.payload);
+      state.error = action?.payload?.response?.message;
+    });
+    //get user infor
+    builder.addCase(getDriverInforAction.pending, (state, action) => {
+      state.loading = true;
+      state.error = undefined;
+    });
+    builder.addCase(getDriverInforAction.fulfilled, (state, action) => {
+      state.loading = false;
+      if (action?.payload?.qr === "vehicles") {
+        state.userInfor = { ...state.userInfor, vehicles: [...action?.payload?.data] }
+      } else if (action?.payload?.qr === "license") {
+        state.userInfor = { ...state.userInfor, driverLisences: [...action?.payload?.data] }
+      } else {
+        state.userInfor = { ...action?.payload?.data }
+      }
+      state.error = undefined;
+    });
+    builder.addCase(getDriverInforAction.rejected, (state, action) => {
       state.loading = false;
       console.log('rf', action.payload);
       state.error = action?.payload?.response?.message;

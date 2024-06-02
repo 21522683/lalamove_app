@@ -1,17 +1,16 @@
 import { View, Text, Keyboard, ScrollView, TouchableOpacity, Image, PermissionsAndroid, FlatList } from 'react-native';
 import styles from './style.js';
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Input from '../../../components/Input.js';
 import MyButton from '../../../components/MyButton.js';
 import { IMAGES } from '../../../assets/images/index.js';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import CUSTOM_COLOR from '../../../constants/colors.js';
-import FONT_FAMILY from '../../../constants/font.js';
-import { scale } from 'react-native-size-matters';
 import storage from '@react-native-firebase/storage';
 import { Promise } from "bluebird";
 import { registerDriverAction } from '../../../redux/slices/usersSlices.js';
 import { useDispatch } from 'react-redux';
+import Dialog from "react-native-dialog";
 
 const Step3Screen = ({ navigation, route }) => {
     const [driverLisenceImage, setDriverLisenceImage] = useState('')
@@ -41,21 +40,29 @@ const Step3Screen = ({ navigation, route }) => {
                 path: 'image'
             }
         }
-        launchImageLibrary(options, response => {
-            if (typeImg === 'cccd') {
-                setCCCDImage(response.assets[0].uri);
-                setTypeImg('');
-            }
-            if (typeImg === 'avt') {
-                setAvatarImg(response.assets[0].uri);
-                setTypeImg('');
-            }
-            if (typeImg === 'dlimg') {
-                setDriverLisenceImage(response.assets[0].uri);
-                setTypeImg('');
-            }
-            setShowBs(false)
-        })
+        try {
+            launchImageLibrary(options, response => {
+                if (!!response.assets) {
+                    if (typeImg === 'cccd') {
+                        setCCCDImage(response.assets[0].uri);
+                        setTypeImg('');
+                    }
+                    if (typeImg === 'avt') {
+                        setAvatarImg(response.assets[0].uri);
+                        setTypeImg('');
+                    }
+                    if (typeImg === 'dlimg') {
+                        setDriverLisenceImage(response.assets[0].uri);
+                        setTypeImg('');
+                    }
+                    setShowBs(false)
+                }
+                else return;
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
     }
     const pickImgFromCamera = async () => {
         try {
@@ -96,7 +103,7 @@ const Step3Screen = ({ navigation, route }) => {
             isValid = false;
         }
         if (isValid) {
-            await Promise.all([
+            const [a, b, c, d, e] = await Promise.all([
                 uploadImg(route.params.vehicleImg, "vehicleImgUrl", route.params.lisencePlate),
                 uploadImg(route.params.cavetImg, "cavetImgUrl", route.params.cavetText),
                 uploadImg(CCCDImage, "CCCDImageUrl", route.params.CCCD),
@@ -112,17 +119,18 @@ const Step3Screen = ({ navigation, route }) => {
                 fullName: route.params.fullName,
                 dob: formatDob(route.params.birthday),
                 driverLisenceNumber: inputs.driverLisenceNumber,
-                driverLisenceImage: inputs.driverLisenceImageUrl,
+                driverLisenceImage: e,
                 driverLisenceType: inputs.driverLisenceType,
-                avatar: inputs.avatarImgUrl,
-                CCCDImage: inputs.CCCDImageUrl,
+                avatar: d,
+                CCCDImage: c,
                 vehicleName: route.params.vehicleName,
                 lisencePlate: route.params.lisencePlate,
-                vehicleImage: inputs.vehicleImgUrl,
-                cavetImage: inputs.cavetImgUrl,
+                vehicleImage: a,
+                cavetImage: b,
                 cavetText: route.params.cavetText,
                 vehicleTypeId: route.params.vehicleTypeId,
             }
+            console.log(pl)
             dispatch(registerDriverAction({
                 bd: pl,
                 setShowDialog: setShowDialog,
@@ -145,7 +153,7 @@ const Step3Screen = ({ navigation, route }) => {
             await reference.putFile(file);
             const url = await reference.getDownloadURL();
             // console.log(url)
-            handleOnchange(url, type);
+            return url;
         } catch (error) {
             console.log(error);
         }

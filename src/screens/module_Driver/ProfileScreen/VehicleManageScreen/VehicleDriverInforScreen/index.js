@@ -19,7 +19,7 @@ const VehicleDriverInforScreen = ({route, navigation}) => {
         </View>
         <View style={styles.container_text}>
           <Text style={styles.title_text}>Loại phương tiện</Text>
-          <Text style={styles.content_text}>{item?.vehicleType}</Text>
+          <Text style={styles.content_text}>{item?.vehicleType?.vehicleTypeName}</Text>
         </View>
         <View style={styles.container_text}>
           <Text style={styles.title_text}>Số đăng ký phương tiện</Text>
@@ -27,7 +27,7 @@ const VehicleDriverInforScreen = ({route, navigation}) => {
         </View>
         <View style={styles.container_text}>
           <Text style={styles.title_text}>Trạng thái</Text>
-          <Text style={{fontWeight:500, fontSize:15, color:item.status==='Đã xác minh'?'green':'#222221' }}>{item?.status}</Text>
+          <Text style={{fontWeight:500, fontSize:15, color:item?.status==='Đã xác minh'?'green':'#222221' }}>{item?.status}</Text>
         </View>
 
         <View style={styles.container_img}>

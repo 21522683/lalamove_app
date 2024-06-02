@@ -1,29 +1,29 @@
 import { SafeAreaView, ScrollView, TouchableOpacity, } from 'react-native'
 import React, { useEffect } from 'react'
 import styles from './style'
-import ItemVehicleDriver from './ItemVehicleDriver'
 import CUSTOM_COLOR from '../../../../constants/colors'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux'
-import { getDriverInforAction } from '../../../../redux/slices/usersSlices'
+import ItemVoucher from './ItemVoucher'
+import { getAllVouchersAction } from '../../../../redux/slices/voucherSlices';
 
-const VehicleManageScreen = ({ navigation }) => {
-  const userInfor = useSelector(state => state?.users?.userInfor);
-  const { vehicles } = userInfor
+const VoucherManageScreen = ({ navigation }) => {
+  
+  const vouchers = useSelector(state => state?.vouchers?.vouchers);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getDriverInforAction("vehicles"));
+    dispatch(getAllVouchersAction());
   }, [dispatch])
   return (
     <SafeAreaView style={styles.container}>
 
       <ScrollView style={styles.list_diver}>
         {
-          vehicles?.map((item, index) => {
-            return (
-              <ItemVehicleDriver key={item.id} item={item} navigation={navigation} />
-            )
-          })
+          // vouchers?.map((item, index) => {
+          //   return (
+          //     <ItemVoucher key={item._id} item={item} navigation={navigation} />
+          //   )
+          // })
         }
       </ScrollView>
       <TouchableOpacity
@@ -42,8 +42,8 @@ const VehicleManageScreen = ({ navigation }) => {
         }}
 
         onPress={() => {
-          navigation.navigate('vehicle-driver-form', {
-            name: 'Thêm phương tiện',
+          navigation.navigate('VoucherForm', {
+            name: 'Thêm voucher',
             type: 'add'
           })
         }}
@@ -54,4 +54,4 @@ const VehicleManageScreen = ({ navigation }) => {
   )
 }
 
-export default VehicleManageScreen
+export default VoucherManageScreen

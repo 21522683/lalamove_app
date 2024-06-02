@@ -2,7 +2,7 @@ import { View, Text, Image, SafeAreaView } from 'react-native'
 import React from 'react'
 import styles from './style'
 
-const LicenseDriverInforScreen = ({ route, navigation }) => {
+const VoucherInforScreen = ({ route, navigation }) => {
   const params = route.params;
   return (
     <SafeAreaView style={styles.container}>
@@ -32,4 +32,4 @@ const LicenseDriverInforScreen = ({ route, navigation }) => {
   )
 }
 
-export default LicenseDriverInforScreen
+export default VoucherInforScreen

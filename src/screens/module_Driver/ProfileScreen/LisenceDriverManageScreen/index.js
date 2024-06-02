@@ -1,10 +1,12 @@
 import { SafeAreaView, ScrollView, TouchableOpacity, } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './style'
 import ItemLicenseDriver from './ItemLicenseDriver'
 import CUSTOM_COLOR from '../../../../constants/colors'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { IMAGES } from '../../../../assets/images'
+import { useDispatch, useSelector } from 'react-redux'
+import { getDriverInforAction } from '../../../../redux/slices/usersSlices'
 
 const LisenceDriverManageScreen = ({ navigation }) => {
   const listLicenseDriver = [
@@ -32,12 +34,18 @@ const LisenceDriverManageScreen = ({ navigation }) => {
 
     }
   ];
+  const userInfor = useSelector(state => state?.users?.userInfor);
+  const { driverLisences } = userInfor
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getDriverInforAction("license"));
+  }, [dispatch])
   return (
     <SafeAreaView style={styles.container}>
 
       <ScrollView style={styles.list_diver}>
         {
-          listLicenseDriver.map((item, index) => {
+          driverLisences?.map((item, index) => {
             return (
               <ItemLicenseDriver key={item.id} item={item} navigation={navigation} />
             )
