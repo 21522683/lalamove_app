@@ -1,4 +1,4 @@
-import { View, Text, Image, SafeAreaView, ScrollView, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, Image, SafeAreaView, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import styles from './style'
 import { IMAGES } from '../../../assets/images'
@@ -13,6 +13,7 @@ import convertDate from '../../../constants/converDate';
 import baseUrl from '../../../constants/baseUrl';
 import axios from 'axios';
 import { ActivityIndicator } from 'react-native-paper';
+import { setListAllDriver, setLoading } from '../../../redux/slices/usersSlices';
 
 
 const DetailReviewDriverScreen = () => {
@@ -32,9 +33,6 @@ const DetailReviewDriverScreen = () => {
 
   const [showDialog, setShowDialog] = useState(false);
   const [valueReject, setValueReject] = useState("");
-  const handleSend = () => {
-
-  }
 
   const handleClose = () => {
     setShowDialog(false)
@@ -96,10 +94,117 @@ const DetailReviewDriverScreen = () => {
 
   const dispatch = useDispatch();
   const loading = useSelector(state => state.users.loading);
-  const successMessage = useSelector(state => state.users.successMessage);
 
-  const handleAccept = () => {
+  const getAllDrivers = async () => {
+    try {
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const params = new URLSearchParams({
+        textSearch: '',
+        option: 'Tất cả',
+      }).toString();
+      const url = `${baseUrl}/users/get-all-drivers?${params}`;
+      const data = await axios.get(url, config);
+      dispatch(setListAllDriver(data.data));
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
+  const handleAccept = async () => {
+    try {
+      dispatch(setLoading(true));
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const url = `${baseUrl}/users/accept-driver/${itemSelected._id}`;
+      const data = await axios.put(url, {}, config);
+      dispatch(setLoading(false));
+      getAllDrivers();
+      Alert.alert('Thông báo', "Xét duyệt tài xế thành công.");
+    } catch (error) {
+      console.log(error.message);
+      Alert.alert('Lỗi', error.message);
+      dispatch(setLoading(false));
+    }
+  }
+  const handleSend = async () => {
+    try {
+      dispatch(setLoading(true));
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const url = `${baseUrl}/users/reject-driver/${itemSelected._id}`;
+      const data = await axios.put(url, { reason: valueReject }, config);
+      getAllDrivers();
+      Alert.alert('Thông báo', "Đã từ chối và gửi mail thông báo đến người dùng thành công.");
+      setShowDialog(false);
+      setValueReject('');
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.log(error.message);
+      Alert.alert('Lỗi', error.message);
+      setShowDialog(false);
+      setValueReject('');
+      dispatch(setLoading(false));
+    }
+  }
+
+  const handleOpenAccount = async () => {
+    try {
+      dispatch(setLoading(true));
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const url = `${baseUrl}/users/restore-driver/${itemSelected._id}`;
+      const data = await axios.put(url, {}, config);
+      dispatch(setLoading(false));
+      getAllDrivers();
+      Alert.alert('Thông báo', "Khôi phục tài khoản cho tài xế thành công.");
+    } catch (error) {
+      console.log(error.message);
+      Alert.alert('Lỗi', error.message);
+      dispatch(setLoading(false));
+    }
+  }
+  const [showDialog2, setShowDialog2] = useState(false);
+  const [valueReject2, setValueReject2] = useState("");
+  const handleSend2 = async () => {
+    try {
+      dispatch(setLoading(true));
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const url = `${baseUrl}/users/lock-driver/${itemSelected._id}`;
+      const data = await axios.put(url, { reason: valueReject2 }, config);
+      getAllDrivers();
+      Alert.alert('Thông báo', "Khóa tài khoản tài xế và gửi mail thông báo đến tài xế thành công.");
+      setShowDialog2(false);
+      setValueReject2('');
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.log(error.message);
+      Alert.alert('Lỗi', error.message);
+      setShowDialog2(false);
+      setValueReject2('');
+      dispatch(setLoading(false));
+    }
   }
 
   return (
@@ -188,7 +293,7 @@ const DetailReviewDriverScreen = () => {
             {
               loading ? (
                 <View style={[styles.containerLoading, styles.horizontal]}>
-                  <ActivityIndicator size="large" color="#FF5900"/>
+                  <ActivityIndicator size="large" color="#FF5900" />
                 </View>
               ) : (
                 (itemSelected.isActive === true && itemSelected.isWaitingAccepted === false) ? (
@@ -202,25 +307,60 @@ const DetailReviewDriverScreen = () => {
                     </TouchableOpacity>
                   </View>
                 ) : (
-                  <View style={styles.container_button}>
-                    <TouchableOpacity style={styles.btn_accept_lock}>
-                      <Text style={styles.text_btn}>{itemSelected.isActive === false ? "Mở khóa tài khoản" : "Khóa tài khoản"}</Text>
-                    </TouchableOpacity>
-                  </View>
+                  itemSelected.isActive === false ? (
+                    <View style={styles.container_button}>
+                      <TouchableOpacity style={styles.btn_accept_lock} onPress={handleOpenAccount}>
+                        <Text style={styles.text_btn}>Mở khóa tài khoản</Text>
+                      </TouchableOpacity>
+                    </View>
+
+                  ) : (
+                    <View style={styles.container_button}>
+                      <TouchableOpacity style={styles.btn_accept_lock} onPress={() => setShowDialog2(true)}>
+                        <Text style={styles.text_btn}>Khóa tài khoản</Text>
+                      </TouchableOpacity>
+                    </View>
+                  )
+
                 )
               )
             }
             {
               showDialog && (
-                <Dialog.Container visible={true}>
-                  <Dialog.Title>Thông báo đến người dùng</Dialog.Title>
-                  <Dialog.Description>
-                    Vui lòng nhập lý do từ chối đơn xét duyệt này, hệ thống sẽ gửi đến người dùng.
-                  </Dialog.Description>
-                  <Dialog.Input value={valueReject} onChangeText={(text) => setValueReject(text)} />
-                  <Dialog.Button label="Đóng" onPress={handleClose} />
-                  <Dialog.Button label="Gửi đi" onPress={handleSend} />
-                </Dialog.Container>
+                loading ? (
+                  <View style={[styles.containerLoading, styles.horizontal]}>
+                    <ActivityIndicator size="large" color="#FF5900" />
+                  </View>
+                ) : (
+                  <Dialog.Container visible={true}>
+                    <Dialog.Title>Thông báo đến người dùng</Dialog.Title>
+                    <Dialog.Description>
+                      Vui lòng nhập lý do từ chối đơn xét duyệt này, hệ thống sẽ gửi đến người dùng.
+                    </Dialog.Description>
+                    <Dialog.Input value={valueReject} onChangeText={(text) => setValueReject(text)} />
+                    <Dialog.Button label="Đóng" onPress={handleClose} />
+                    <Dialog.Button label="Gửi đi" onPress={handleSend} />
+                  </Dialog.Container>
+                )
+              )
+            }
+            {
+              showDialog2 && (
+                loading ? (
+                  <View style={[styles.containerLoading, styles.horizontal]}>
+                    <ActivityIndicator size="large" color="#FF5900" />
+                  </View>
+                ) : (
+                  <Dialog.Container visible={true}>
+                    <Dialog.Title>Thông báo đến người dùng</Dialog.Title>
+                    <Dialog.Description>
+                      Vui lòng nhập lý do khóa tài khoản tài xế này, hệ thống sẽ gửi đến người dùng.
+                    </Dialog.Description>
+                    <Dialog.Input value={valueReject2} onChangeText={(text) => setValueReject2(text)} />
+                    <Dialog.Button label="Đóng" onPress={() => setShowDialog2(false)} />
+                    <Dialog.Button label="Gửi đi" onPress={handleSend2} />
+                  </Dialog.Container>
+                )
               )
             }
 
@@ -243,7 +383,7 @@ const DetailReviewDriverScreen = () => {
                 ) : (
                   listDriverLisences.map((element, index) => {
                     return (
-                      <ItemLisences key={index} index={index} item={element} />
+                      <ItemLisences key={index} index={index} item={element} setListDriverLisences={setListDriverLisences}/>
                     )
                   })
                 )
@@ -268,7 +408,7 @@ const DetailReviewDriverScreen = () => {
                 ) : (
                   listVehicles.map((item, index) => {
                     return (
-                      <ItemVehicle index={index} key={index} item={item} />
+                      <ItemVehicle index={index} key={index} item={item} setListVehicles={setListVehicles}/>
                     )
                   })
                 )

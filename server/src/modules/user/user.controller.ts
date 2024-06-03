@@ -94,7 +94,7 @@ export class UserController {
         @Param('id') id: string,
         @Body() reason: string
     ) {
-        return this.userService.rejectDriver(id, reason);
+        return this.userService.rejectDriver(id, reason['reason']);
     }
 
     @Put('/lock-driver/:id')
@@ -102,7 +102,7 @@ export class UserController {
         @Param('id') id: string,
         @Body() reason: string
     ) {
-        return this.userService.lockDriver(id, reason);
+        return this.userService.lockDriver(id, reason['reason']);
     }
 
     @Put('/restore-driver/:id')
@@ -117,7 +117,8 @@ export class UserController {
         @Param('id') id: string,
         @Body() idLisences: string
     ) {
-        return this.userService.acceptLisencesDriver(id, idLisences);
+        const idLisence = idLisences['idLisences'];
+        return this.userService.acceptLisencesDriver(id, idLisence);
     }
 
     @Put('/reject-lisences-driver/:id')
@@ -133,7 +134,7 @@ export class UserController {
         @Param('id') id: string,
         @Body() idVehicles: string
     ) {
-        return this.userService.acceptVehiclesDriver(id, idVehicles);
+        return this.userService.acceptVehiclesDriver(id, idVehicles['idVehicles']);
     }
     
     @Put('/reject-vehicles-driver/:id')

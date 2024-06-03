@@ -237,14 +237,9 @@ export class UserService {
     }
   }
 
-  
+
   async acceptDriver(id: string) {
-    const updatedUser = await this.userModel.findById(id);
-
-    if (!updatedUser) {
-      throw new NotFoundException(`User with ID ${id} not found`);
-    }
-
+    const updatedUser = await this.userModel.findOne({ _id: id });
     updatedUser.isWaitingAccepted = true;
     // sendmail
     await sendEmail(
@@ -260,11 +255,6 @@ export class UserService {
 
   async rejectDriver(id: string, reason: string) {
     const updatedUser = await this.userModel.findById(id);
-
-    if (!updatedUser) {
-      throw new NotFoundException(`User with ID ${id} not found`);
-    }
-
     updatedUser.isWaitingAccepted = false;
     // send mail
     await sendEmail(
@@ -317,9 +307,13 @@ export class UserService {
 
     return updatedUser;
   }
-  
+
   async acceptLisencesDriver(id: string, idLisences: string) {
-    const updatedUser = await this.userModel.findById(id);
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: id, 'driverLisences.id': idLisences },
+      { $set: { 'driverLisences.$.status': 'Đã xác minh' } },
+      { new: true }
+    );
 
     if (!updatedUser) {
       throw new NotFoundException(`User with ID ${id} not found`);
@@ -327,7 +321,6 @@ export class UserService {
 
     for (const itemLisences of updatedUser.driverLisences) {
       if (itemLisences.id === idLisences) {
-        itemLisences.status = "Đã xác minh";
         await sendEmail(
           updatedUser.email,
           templateEmailAcceptLisencesDriver(updatedUser.fullName, itemLisences.driverLisenceNumber, itemLisences.driverLisenceType),
@@ -336,23 +329,22 @@ export class UserService {
       }
     }
 
-    await updatedUser.save();
-
     return updatedUser;
   }
 
   async rejectLisencesDriver(id: string, idLisences: string, reason: string) {
-    const updatedUser = await this.userModel.findById(id);
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: id, 'driverLisences.id': idLisences },
+      { $set: { 'driverLisences.$.status': 'Không hợp lệ' } },
+      { new: true }
+    );
 
     if (!updatedUser) {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
-
-    updatedUser.isWaitingAccepted = false;
     // send mail
     for (const itemLisences of updatedUser.driverLisences) {
       if (itemLisences.id === idLisences) {
-        itemLisences.status = "Không hợp lệ";
         await sendEmail(
           updatedUser.email,
           templateEmailRejectLisencesDriver(updatedUser.fullName, itemLisences.driverLisenceNumber, itemLisences.driverLisenceType, reason),
@@ -361,13 +353,15 @@ export class UserService {
       }
     }
 
-    await updatedUser.save();
-
     return updatedUser;
   }
 
   async acceptVehiclesDriver(id: string, idVehicles: string) {
-    const updatedUser = await this.userModel.findById(id);
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: id, 'vehicles.id': idVehicles },
+      { $set: { 'vehicles.$.status': 'Đã xác minh' } },
+      { new: true }
+    );
 
     if (!updatedUser) {
       throw new NotFoundException(`User with ID ${id} not found`);
@@ -375,7 +369,6 @@ export class UserService {
 
     for (const itemVehicles of updatedUser.vehicles) {
       if (itemVehicles.id === idVehicles) {
-        itemVehicles.status = "Đã xác minh";
         await sendEmail(
           updatedUser.email,
           templateEmailAcceptVehiclesDriver(updatedUser.fullName, itemVehicles.vehicleName, itemVehicles.lisencePlate, itemVehicles.cavetText),
@@ -384,14 +377,16 @@ export class UserService {
       }
     }
 
-    await updatedUser.save();
-
     return updatedUser;
   }
 
-  
+
   async rejectVehiclesDriver(id: string, idVehicles: string, reason: string) {
-    const updatedUser = await this.userModel.findById(id);
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: id, 'vehicles.id': idVehicles },
+      { $set: { 'vehicles.$.status': 'Không hợp lệ' } },
+      { new: true }
+    );
 
     if (!updatedUser) {
       throw new NotFoundException(`User with ID ${id} not found`);
@@ -408,10 +403,8 @@ export class UserService {
       }
     }
 
-    await updatedUser.save();
-
     return updatedUser;
   }
-  
-   
+
+
 }
