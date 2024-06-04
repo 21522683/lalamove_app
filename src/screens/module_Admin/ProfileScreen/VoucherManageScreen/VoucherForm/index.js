@@ -11,7 +11,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { scale } from 'react-native-size-matters';
 import FONT_FAMILY from '../../../../../constants/font.js';
 import { numbersOnly } from '../../../../../constants/validate.js';
-import { addVoucherAction } from '../../../../../redux/slices/voucherSlices.js';
+import { addVoucherAction, updateVoucherAction } from '../../../../../redux/slices/voucherSlices.js';
 
 
 const VoucherForm = ({ navigation, route }) => {
@@ -64,14 +64,14 @@ const VoucherForm = ({ navigation, route }) => {
     const dispatch = useDispatch();
     const [inputs, setInputs] = useState({
         voucherCode: item?.voucherCode ?? '',
-        voucherPrice: item?.voucherPrice ?? '',
+        voucherPrice: item?.voucherPrice?.toString() ?? '',
         isPercent: item?.isPercent ?? false,
-        minPrice: item?.minPrice ?? '',
-        quality: item?.quality ?? '',
+        minPrice: item?.minPrice?.toString() ?? '',
+        quality: item?.quality?.toString() ?? '',
         applyFor: item?.applyFor ?? '',
         description: item?.description ?? '',
-        startDate: item?.startDate ?? '',
-        expiredDate: item?.expiredDate ?? '',
+        startDate: formatDateString(new Date(item?.startDate)) ?? '',
+        expiredDate: formatDateString(new Date(item?.expiredDate)) ?? '',
 
     });
     const [date, setDate] = useState(new Date);
@@ -139,26 +139,49 @@ const VoucherForm = ({ navigation, route }) => {
             isValid = false;
         }
         if (isValid) {
-            console.log('isValid')
-            try {
-                const pl = {
-                    bd: {
-                        voucherCode: inputs?.voucherCode,
-                        voucherPrice: inputs?.voucherPrice,
-                        isPercent: inputs?.isPercent ?? false,
-                        minPrice: inputs?.minPrice,
-                        quality: inputs?.quality,
-                        applyFor: inputs?.applyFor,
-                        description: inputs?.description,
-                        startDate: formatDob(inputs?.startDate),
-                        expiredDate: formatDob(inputs?.expiredDate),
-                    },
-                    navigation: navigation,
+            if (type == 'add') {
+                try {
+                    const pl = {
+                        bd: {
+                            voucherCode: inputs?.voucherCode,
+                            voucherPrice: inputs?.voucherPrice,
+                            isPercent: inputs?.isPercent ?? false,
+                            minPrice: inputs?.minPrice,
+                            quality: inputs?.quality,
+                            applyFor: inputs?.applyFor,
+                            description: inputs?.description,
+                            startDate: formatDob(inputs?.startDate),
+                            expiredDate: formatDob(inputs?.expiredDate),
+                        },
+                        navigation: navigation,
+                    }
+                    console.log(pl)
+                    dispatch(addVoucherAction(pl));
+                } catch (error) {
+                    console.log(error)
                 }
-                console.log(pl)
-                dispatch(addVoucherAction(pl));
-            } catch (error) {
-                console.log(error)
+            }
+            if (type == 'update') {
+                try {
+                    const pl = {
+                        voucherId: item?._id,
+                        bd: {
+                            voucherCode: inputs?.voucherCode,
+                            voucherPrice: inputs?.voucherPrice,
+                            isPercent: inputs?.isPercent ?? false,
+                            minPrice: inputs?.minPrice,
+                            quality: inputs?.quality,
+                            applyFor: inputs?.applyFor,
+                            description: inputs?.description,
+                            startDate: formatDob(inputs?.startDate),
+                            expiredDate: formatDob(inputs?.expiredDate),
+                        },
+                        navigation: navigation,
+                    }
+                    dispatch(updateVoucherAction(pl));
+                } catch (error) {
+                    console.log(error)
+                }
             }
 
         }

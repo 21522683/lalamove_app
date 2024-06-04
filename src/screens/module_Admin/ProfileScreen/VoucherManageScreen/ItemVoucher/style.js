@@ -2,47 +2,38 @@ import { moderateScale, scale, ScaledSheet, verticalScale } from 'react-native-s
 import CUSTOM_COLOR from '../../../../../constants/colors';
 
 const styles = ScaledSheet.create({
-  container_item_diver: {
+  container_item:{
+    borderRadius: 8, 
+    backgroundColor:'white', 
+    width:'100%', 
+    height:'auto',
+    display:'flex',
+    flexDirection:'column',
+    padding: verticalScale(10),
+    marginVertical:verticalScale(8),
+    borderColor:'#ccc',
+    borderWidth:1
+  },
+  row_item_voucher: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     flex: 1,
-    paddingVertical: verticalScale(12),
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#cccccc',
+    paddingVertical: verticalScale(5),
   },
-  container_info: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+  voucher_code:{
+    fontSize:16,
+    fontWeight:'600'
   },
-  license_number: {
-    fontSize: scale(15),
-    color: CUSTOM_COLOR.Black,
-    fontWeight: '400'
+  normal_font:{
+    fontSize:14,
+    color:'#a3a3a3'
   },
-  type: {
-    fontSize: scale(12),
-    color: 'grey',
-    marginTop:5,
-    fontWeight: '300'
-  },
-  info_more: {
-    flexDirection: 'row',
-    marginTop: verticalScale(5),
-    padding:2,
-    paddingHorizontal:8,
-    borderRadius:8
-  },
-  status: {
-    color: 'green'
-  },
-  button_foward: {
-    borderRadius: moderateScale(40),
-  },
-  icon_next: {
-    width: scale(18),
-    height: scale(15),
-  },
+  bold_font:{
+    fontSize:14,
+    color:'black'
+  }
+  
 });
 
 export default styles;
