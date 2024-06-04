@@ -60,8 +60,6 @@ const ReviewDriverScreen = () => {
     getAllDrivers();
   }, [filter]);
 
-
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -89,14 +87,18 @@ const ReviewDriverScreen = () => {
 
       <ScrollView style={styles.list_diver}>
         {
-          listAllDriver.map((item, index) => {
-            return (
-              <ItemDriver item={item} key={item._id} onClicked={() => {
-                dispatch(setIndexSelectedDriver(index));
-                navigation.navigate('DetailReviewDriverScreen');
-              }} />
-            )
-          })
+          listAllDriver.length === 0 ? (
+            <Text style={{ textAlign: 'center' }}>Không tìm thấy kết quả tìm kiếm</Text>
+          ) : (
+            listAllDriver.map((item, index) => {
+              return (
+                <ItemDriver item={item} key={item._id} onClicked={() => {
+                  dispatch(setIndexSelectedDriver(index));
+                  navigation.navigate('DetailReviewDriverScreen');
+                }} />
+              )
+            })
+          )
         }
       </ScrollView>
     </SafeAreaView>

@@ -18,6 +18,8 @@ import { UserService } from './user.service';
 import { Response } from 'express';
 import { updateInfoUserDto } from 'src/dtos/UpdateInfoUser.dto';
 import { updatePassUserDto } from 'src/dtos/updatePassUser.dto';
+import { rejectLisencesDriverDto } from 'src/dtos/rejectLisencesDriver.dto';
+import { rejectVehiclesDriverDto } from 'src/dtos/rejectVehiclesDriver.dto';
 
 @Controller('users')
 export class UserController {
@@ -69,5 +71,77 @@ export class UserController {
     async getAllDriver(@Query() query: any) {
         return this.userService.getAllDriver(query);
     }
+
+    @Get('/get-all-lisences-user/:id')
+    async getAllLisencesOfUser(@Param('id') id: string, @Query() query: any) {
+        return this.userService.getAllLisencesOfUser(id, query);
+    }
+
+    @Get('/get-all-vehicles-user/:id')
+    async getAllVehiclesOfUser(@Param('id') id: string, @Query() query: any) {
+        return this.userService.getAllVehiclesOfUser(id, query);
+    }
+
+    @Put('/accept-driver/:id')
+    async acceptDriver(
+        @Param('id') id: string,
+    ) {
+        return this.userService.acceptDriver(id);
+    }
+
+    @Put('/reject-driver/:id')
+    async rejectDriver(
+        @Param('id') id: string,
+        @Body() reason: string
+    ) {
+        return this.userService.rejectDriver(id, reason['reason']);
+    }
+
+    @Put('/lock-driver/:id')
+    async lockDriver(
+        @Param('id') id: string,
+        @Body() reason: string
+    ) {
+        return this.userService.lockDriver(id, reason['reason']);
+    }
+
+    @Put('/restore-driver/:id')
+    async restoreDriver(
+        @Param('id') id: string,
+    ) {
+        return this.userService.restoreDriver(id);
+    }
+
+    @Put('/accept-lisences-driver/:id')
+    async acceptLisencesDriver(
+        @Param('id') id: string,
+        @Body() idLisences: string
+    ) {
+        const idLisence = idLisences['idLisences'];
+        return this.userService.acceptLisencesDriver(id, idLisence);
+    }
+
+    @Put('/reject-lisences-driver/:id')
+    async rejectLisencesDriver(
+        @Param('id') id: string,
+        @Body() rejectLisencesDriverDto: rejectLisencesDriverDto
+    ) {
+        return this.userService.rejectLisencesDriver(id, rejectLisencesDriverDto.idLisences, rejectLisencesDriverDto.reason);
+    }
+
+    @Put('/accept-vehicles-driver/:id')
+    async acceptVehiclesDriver(
+        @Param('id') id: string,
+        @Body() idVehicles: string
+    ) {
+        return this.userService.acceptVehiclesDriver(id, idVehicles['idVehicles']);
+    }
     
+    @Put('/reject-vehicles-driver/:id')
+    async rejectVehiclesDriver(
+        @Param('id') id: string,
+        @Body() rejectVehiclesDriverDto: rejectVehiclesDriverDto
+    ) {
+        return this.userService.rejectVehiclesDriver(id, rejectVehiclesDriverDto.idVehicles, rejectVehiclesDriverDto.reason);
+    }
 }

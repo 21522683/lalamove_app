@@ -52,7 +52,7 @@ export const updateDriverInforAction = createAsyncThunk(
     try {
       const { data } = await axios.post(
         `${baseUrl}/users/update-driver-infor`,
-        {...payload.bd, id: user?.userAuth?.id},
+        { ...payload.bd, id: user?.userAuth?.id },
         config,
       );
       if (payload.navigation) {
@@ -130,7 +130,7 @@ export const loginUserByGoogleAction = createAsyncThunk(
 // login
 export const loginUserAction = createAsyncThunk(
   'users/loginUser',
-  async (user, {  rejectWithValue, getState, dispatch  }) => {
+  async (user, { rejectWithValue, getState, dispatch }) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -138,7 +138,7 @@ export const loginUserAction = createAsyncThunk(
     };
     //http call
     try {
-      const {  data  } = await axios.post(`${baseUrl}/auth/login`, user, config);
+      const { data } = await axios.post(`${baseUrl}/auth/login`, user, config);
 
       await AsyncStorage.setItem('userStorage', JSON.stringify(data));
 
@@ -398,6 +398,9 @@ const usersSlices = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    setSuccessMessage: (state, action) => {
+      state.successMessage = action.payload;
+    }, 
     setListAllDriver: (state, action) => {
       state.listAllDriver = action.payload;
     },
@@ -565,6 +568,7 @@ export const {
   clearSuccessMessage,
   setLoading,
   setListAllDriver,
-  setIndexSelectedDriver
-  
+  setIndexSelectedDriver,
+  setSuccessMessage
+
 } = usersSlices.actions;

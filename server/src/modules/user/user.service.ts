@@ -6,6 +6,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { JwtService } from '@nestjs/jwt';
 import { updateInfoUserDto } from 'src/dtos/UpdateInfoUser.dto';
 import { updatePassUserDto } from 'src/dtos/updatePassUser.dto';
+import { sendEmail } from 'src/utils/email.service';
+import { templateEmailAcceptDriver } from 'src/constants/template_email_accept_driver';
+import { templateEmailRejectDriver } from 'src/constants/template_email_reject_driver';
+import { templateEmailLockDriver } from 'src/constants/template_email_lock_account';
+import { templateEmailRestoreDriver } from 'src/constants/template_email_restore';
+import { templateEmailAcceptLisencesDriver } from 'src/constants/template_email_accept_lisences_driver';
+import { templateEmailRejectLisencesDriver } from 'src/constants/template_email_reject_lisences_driver';
+import { templateEmailAcceptVehiclesDriver } from 'src/constants/template_email_accept_vehicles_driver';
+import { templateEmailRejectVehiclesDriver } from 'src/constants/template_email_reject_vehicles_driver';
 @Injectable()
 export class UserService {
   constructor(
@@ -23,7 +32,7 @@ export class UserService {
       if (!exitedUser)
         throw new BadRequestException('Người dùng không tồn tại.');
 
-      const { password, driverLisences, vehicles} = exitedUser;
+      const { password, driverLisences, vehicles } = exitedUser;
 
       if (query === 'license') {
         return driverLisences;
@@ -32,7 +41,7 @@ export class UserService {
         return vehicles;
       }
       if (query === 'reviews') {
-        return ;
+        return;
       }
 
       return exitedUser;
@@ -70,7 +79,7 @@ export class UserService {
         exitedUser.vehicles.forEach((v, index) => {
           if (v.id === body?.data?.id) {
             v = { ...body?.data, status: 'Đang kiểm tra' };
-            exitedUser.vehicles[index] = {...v}
+            exitedUser.vehicles[index] = { ...v }
           }
         });
       } else if (body?.action === 'add license') {
@@ -86,11 +95,11 @@ export class UserService {
         exitedUser.driverLisences.forEach((d, index) => {
           if (d.id === body?.data?.id) {
             d = { ...body?.data, status: 'Đang kiểm tra' };
-            exitedUser.driverLisences[index] = {...d};
-            
+            exitedUser.driverLisences[index] = { ...d };
+
           }
         });
-        
+
       }
       await exitedUser.save();
       return 'OK';
@@ -171,4 +180,231 @@ export class UserService {
 
     return listDriver;
   }
+
+  async getAllLisencesOfUser(id: string, query: any) {
+    const { textSearchLisences } = query;
+    let filter: any = {};
+
+    filter._id = id;
+
+    filter.userType = "Driver";
+
+    const listDriver = await this.userModel
+      .findOne(filter)
+      .populate({
+        path: 'vehicles',
+        populate: {
+          path: 'vehicleType',
+          model: this.vehicleTypeModel,
+        },
+      })
+      .exec();
+    if (textSearchLisences === '' || textSearchLisences.trim().length === 0) {
+      return listDriver.driverLisences;
+    } else {
+      const filteredLicenses = listDriver.driverLisences.filter(license =>
+        license.driverLisenceNumber.includes(textSearchLisences)
+      );
+      return filteredLicenses;
+    }
+  }
+
+  async getAllVehiclesOfUser(id: string, query: any) {
+    const { textSearchVehicles } = query;
+    let filter: any = {};
+
+    filter._id = id;
+
+    filter.userType = "Driver";
+
+    const listDriver = await this.userModel
+      .findOne(filter)
+      .populate({
+        path: 'vehicles',
+        populate: {
+          path: 'vehicleType',
+          model: this.vehicleTypeModel,
+        },
+      })
+      .exec();
+    if (textSearchVehicles === '' || textSearchVehicles.trim().length === 0) {
+      return listDriver.vehicles;
+    } else {
+      const filteredVehicles = listDriver.vehicles.filter(item =>
+        item.vehicleName.includes(textSearchVehicles) || item.lisencePlate.includes(textSearchVehicles)
+      );
+      return filteredVehicles;
+    }
+  }
+
+
+  async acceptDriver(id: string) {
+    const updatedUser = await this.userModel.findOne({ _id: id });
+    updatedUser.isWaitingAccepted = true;
+    // sendmail
+    await sendEmail(
+      updatedUser.email,
+      templateEmailAcceptDriver(updatedUser.fullName),
+      'Kết quả xét duyệt tài xế từ Shipmate',
+    );
+
+    await updatedUser.save();
+
+    return updatedUser;
+  }
+
+  async rejectDriver(id: string, reason: string) {
+    const updatedUser = await this.userModel.findById(id);
+    updatedUser.isWaitingAccepted = false;
+    // send mail
+    await sendEmail(
+      updatedUser.email,
+      templateEmailRejectDriver(updatedUser.fullName, reason),
+      'Kết quả xét duyệt tài xế từ Shipmate',
+    );
+
+    await updatedUser.save();
+
+    return updatedUser;
+  }
+
+  async lockDriver(id: string, reason: string) {
+    const updatedUser = await this.userModel.findById(id);
+
+    if (!updatedUser) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
+    updatedUser.isActive = false;
+    // send mail
+    await sendEmail(
+      updatedUser.email,
+      templateEmailLockDriver(updatedUser.fullName, reason),
+      'Thông báo từ Shipmate',
+    );
+
+    await updatedUser.save();
+
+    return updatedUser;
+  }
+
+  async restoreDriver(id: string) {
+    const updatedUser = await this.userModel.findById(id);
+
+    if (!updatedUser) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
+    updatedUser.isActive = true;
+    // send mail
+    await sendEmail(
+      updatedUser.email,
+      templateEmailRestoreDriver(updatedUser.fullName),
+      'Thông báo từ Shipmate',
+    );
+
+    await updatedUser.save();
+
+    return updatedUser;
+  }
+
+  async acceptLisencesDriver(id: string, idLisences: string) {
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: id, 'driverLisences.id': idLisences },
+      { $set: { 'driverLisences.$.status': 'Đã xác minh' } },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
+    for (const itemLisences of updatedUser.driverLisences) {
+      if (itemLisences.id === idLisences) {
+        await sendEmail(
+          updatedUser.email,
+          templateEmailAcceptLisencesDriver(updatedUser.fullName, itemLisences.driverLisenceNumber, itemLisences.driverLisenceType),
+          'Kết quả xét duyệt GPLX từ Shipmate',
+        );
+      }
+    }
+
+    return updatedUser;
+  }
+
+  async rejectLisencesDriver(id: string, idLisences: string, reason: string) {
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: id, 'driverLisences.id': idLisences },
+      { $set: { 'driverLisences.$.status': 'Không hợp lệ' } },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    // send mail
+    for (const itemLisences of updatedUser.driverLisences) {
+      if (itemLisences.id === idLisences) {
+        await sendEmail(
+          updatedUser.email,
+          templateEmailRejectLisencesDriver(updatedUser.fullName, itemLisences.driverLisenceNumber, itemLisences.driverLisenceType, reason),
+          'Kết quả xét duyệt GPLX từ Shipmate',
+        );
+      }
+    }
+
+    return updatedUser;
+  }
+
+  async acceptVehiclesDriver(id: string, idVehicles: string) {
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: id, 'vehicles.id': idVehicles },
+      { $set: { 'vehicles.$.status': 'Đã xác minh' } },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
+    for (const itemVehicles of updatedUser.vehicles) {
+      if (itemVehicles.id === idVehicles) {
+        await sendEmail(
+          updatedUser.email,
+          templateEmailAcceptVehiclesDriver(updatedUser.fullName, itemVehicles.vehicleName, itemVehicles.lisencePlate, itemVehicles.cavetText),
+          'Kết quả xét duyệt phương tiện từ Shipmate',
+        );
+      }
+    }
+
+    return updatedUser;
+  }
+
+
+  async rejectVehiclesDriver(id: string, idVehicles: string, reason: string) {
+    const updatedUser = await this.userModel.findOneAndUpdate(
+      { _id: id, 'vehicles.id': idVehicles },
+      { $set: { 'vehicles.$.status': 'Không hợp lệ' } },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+
+    for (const itemVehicles of updatedUser.vehicles) {
+      if (itemVehicles.id === idVehicles) {
+        itemVehicles.status = "Không hợp lệ";
+        await sendEmail(
+          updatedUser.email,
+          templateEmailRejectVehiclesDriver(updatedUser.fullName, itemVehicles.vehicleName, itemVehicles.lisencePlate, itemVehicles.cavetText, reason),
+          'Kết quả xét duyệt phương tiện từ Shipmate',
+        );
+      }
+    }
+
+    return updatedUser;
+  }
+
+
 }

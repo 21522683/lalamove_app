@@ -120,7 +120,17 @@ const styles = ScaledSheet.create({
     color: '#ffffff',
     fontSize: 15,
     fontWeight: 'bold',
-  }
+  },
+  containerLoading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
 });
 
 export default styles;
