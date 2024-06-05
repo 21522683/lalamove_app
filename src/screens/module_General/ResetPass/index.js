@@ -10,7 +10,7 @@ const ResetPasswordScreen = ({ route, navigation }) => {
   const [errors, setErrors] = useState({});
   const { phoneNumber } = route?.params ?? { phoneNumber: '' };
 
-  const [showNav, setShowNav] = useState(true)
+  const [showNav, setShowNav] = useState(false)
   const handleOnchange = (text, input) => {
     setInputs(prevState => ({ ...prevState, [input]: text }));
   };

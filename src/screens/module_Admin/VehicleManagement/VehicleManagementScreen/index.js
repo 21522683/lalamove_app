@@ -64,9 +64,7 @@ const VehicleManagementScreen = () => {
   
                                 </Picker.Item>
                                 
-                              </Picker>
-                   
-                       
+                              </Picker>     
            </View>
   
            <FlatList 

@@ -8,23 +8,30 @@ import Input from '../../../../../components/Input.js';
 import MyButton from '../../../../../components/MyButton.js';
 import { scale } from 'react-native-size-matters';
 import FONT_FAMILY from '../../../../../constants/font.js';
+import { Promise } from "bluebird";
+import { useDispatch, useSelector } from 'react-redux';
+import { updateDriverInforAction } from '../../../../../redux/slices/usersSlices.js';
+import storage from '@react-native-firebase/storage';
 
 
 const VehicleDriverForm = ({ navigation, route }) => {
     const { type, item } = route.params
-    const [vehicleImg, setVehicleImg] = useState(item?.vehicleImage??'')
-    const [cavetImg, setCavetImg] = useState(item?.cavetImage??'')
+    const [vehicleImg, setVehicleImg] = useState(item?.vehicleImage ?? '')
+    const [cavetImg, setCavetImg] = useState(item?.cavetImage ?? '')
     const [showBs, setShowBs] = useState(false)
     const [showchosenType, setShowchosenType] = useState(false)
+    const vehicleTypes = useSelector(state => state?.users?.vehicleTypes)
+    const dispatch = useDispatch();
 
     const [typeImg, setTypeImg] = useState('')
     const [inputs, setInputs] = useState({
-        lisencePlate:item?.lisencePlate?? '',
-        vehicleName: item?.vehicleName??'',
-        vehicleType: item?.vehicleType??'',
-        cavetText: item?.cavetText??'',
+        lisencePlate: item?.lisencePlate ?? '',
+        vehicleName: item?.vehicleName ?? '',
+        vehicleType: item?.vehicleType?.vehicleTypeName ?? '',
+        cavetText: item?.cavetText ?? '',
         vehicleImage: '',
-        cavetImage: ''
+        cavetImage: '',
+        vehicleTypeId: item?.vehicleType?.id ?? '',
     });
     const pickImg = () => {
         let options = {
@@ -33,15 +40,17 @@ const VehicleDriverForm = ({ navigation, route }) => {
             }
         }
         launchImageLibrary(options, response => {
-            if (typeImg === 'vehicleImg') {
-                setVehicleImg(response.assets[0].uri);
-                setTypeImg('');
-            }
-            if (typeImg === 'cavetImg') {
-                setCavetImg(response.assets[0].uri);
-                setTypeImg('');
-            }
-            setShowBs(false)
+            if (!!response.assets) {
+                if (typeImg === 'vehicleImg') {
+                    setVehicleImg(response.assets[0].uri);
+                    setTypeImg('');
+                }
+                if (typeImg === 'cavetImg') {
+                    setCavetImg(response.assets[0].uri);
+                    setTypeImg('');
+                }
+                setShowBs(false)
+            } else return;
         })
     }
     const pickImgFromCamera = async () => {
@@ -59,6 +68,32 @@ const VehicleDriverForm = ({ navigation, route }) => {
             console.log(e)
         }
     }
+    async function uploadImg(file, type, name) {
+        try {
+            if (file.startsWith('file:')) {
+                if (type) {
+                    try {
+                        let imageRef = storage().refFromURL(type);
+                        await imageRef.delete();
+                    } catch (error) {
+                        console.log(error)
+                    }
+                }
+                const uid = Date.now();
+                const reference = storage().ref(`/images/img_${name}_${uid}`);
+
+                await reference.putFile(file);
+                const url = await reference.getDownloadURL();
+                console.log(url)
+                return url;
+
+            } else {
+                return file;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
     const [errors, setErrors] = useState({});
     const handleOnchange = (text, input) => {
         setInputs(prevState => ({ ...prevState, [input]: text }));
@@ -71,27 +106,48 @@ const VehicleDriverForm = ({ navigation, route }) => {
         Keyboard.dismiss();
         let isValid = true;
         if (!inputs.lisencePlate) {
-            handleError('Please input lisencePlate', 'lisencePlate');
+            handleError('Làm ơn nhập biển số', 'lisencePlate');
             isValid = false;
         }
         if (!inputs.vehicleName) {
-            handleError('Please input email', 'vehicleName');
+            handleError('Làm ơn nhập tên phương tiện', 'vehicleName');
             isValid = false;
         }
         if (!inputs.vehicleType) {
-            handleError('Please input vehicleType', 'vehicleType');
+            handleError('Làm ơn nhập loại phương tiện', 'vehicleType');
             isValid = false;
         }
         if (!inputs.cavetText) {
-            handleError('Please input cavetText', 'cavetText');
+            handleError('Làm ơn nhập số đăng ký phương tiện', 'cavetText');
             isValid = false;
         }
+        console.log(vehicleImg, cavetImg)
         if (vehicleImg === '' || cavetImg === '') {
-            handleError('Please input address', 'img');
+            handleError('Làm ơn nhập hình ảnh', 'img');
             isValid = false;
         }
         if (isValid) {
-            navigation.navigate('Step3')
+            const [a, b] = await Promise.all([
+                uploadImg(vehicleImg, item?.vehicleImage, inputs.lisencePlate),
+                uploadImg(cavetImg, item?.cavetImage, inputs.cavetText),
+            ])
+            const pl = {
+                bd: {
+                    action: type + ' vehicle',
+                    data: {
+                        id: item?.id,
+                        vehicleName: inputs?.vehicleName,
+                        lisencePlate: inputs?.lisencePlate,
+                        cavetText: inputs?.cavetText,
+                        cavetImage: b,
+                        vehicleImage: a,
+                        vehicleType: inputs?.vehicleTypeId
+                    }
+                },
+                navigation: navigation,
+                type:'vehicles'
+            }
+            dispatch(updateDriverInforAction(pl));
         }
     };
 
@@ -147,7 +203,7 @@ const VehicleDriverForm = ({ navigation, route }) => {
                         defaultValue={inputs.cavetText}
                         error={errors.cavetText}
                     />
-                    <Text style={{ fontSize: 14, marginVertical: 5, color: '#2F394E', marginBottom:10 }}>Ảnh phương tiện của bạn với biển số xe</Text>
+                    <Text style={{ fontSize: 14, marginVertical: 5, color: '#2F394E', marginBottom: 10 }}>Ảnh phương tiện của bạn với biển số xe</Text>
 
                     <TouchableOpacity
                         style={{
@@ -163,8 +219,8 @@ const VehicleDriverForm = ({ navigation, route }) => {
                             setTypeImg('vehicleImg');
                             setShowBs(true);
                         }}>
-                          <View style={{ flexDirection: 'row', flex: 1, height: 250, padding: 10,justifyContent:'center', alignContent:'center', alignItems:'center' }}>
-                            <View style={{ flex: 1, width: 50, borderStyle: 'dashed', borderWidth: 1, borderRadius: 4, height: '90%', alignItems: 'center', marginHorizontal: 5, justifyContent:'center' }}>
+                        <View style={{ flexDirection: 'row', flex: 1, height: 250, padding: 10, justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
+                            <View style={{ flex: 1, width: 50, borderStyle: 'dashed', borderWidth: 1, borderRadius: 4, height: '90%', alignItems: 'center', marginHorizontal: 5, justifyContent: 'center' }}>
                                 {
                                     vehicleImg == '' ?
                                         <Image source={IMAGES.plus_icon} style={{
@@ -179,10 +235,10 @@ const VehicleDriverForm = ({ navigation, route }) => {
                                         }} />
                                 }
                             </View>
-                            
+
                         </View>
                     </TouchableOpacity>
-                    <Text style={{ fontSize: 14, marginVertical: 5, color: '#2F394E' , marginBottom:10}}>Ảnh đăng ký xe</Text>
+                    <Text style={{ fontSize: 14, marginVertical: 5, color: '#2F394E', marginBottom: 10 }}>Ảnh đăng ký xe</Text>
 
                     <TouchableOpacity
                         style={{
@@ -198,8 +254,8 @@ const VehicleDriverForm = ({ navigation, route }) => {
                             setTypeImg('cavetImg');
                             setShowBs(true);
                         }}>
-                         <View style={{ flexDirection: 'row', flex: 1, height: 250, padding: 10,justifyContent:'center', alignContent:'center', alignItems:'center' }}>
-                            <View style={{ flex: 1, width: 50, borderStyle: 'dashed', borderWidth: 1, borderRadius: 4, height: '90%', alignItems: 'center', marginHorizontal: 5, justifyContent:'center' }}>
+                        <View style={{ flexDirection: 'row', flex: 1, height: 250, padding: 10, justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
+                            <View style={{ flex: 1, width: 50, borderStyle: 'dashed', borderWidth: 1, borderRadius: 4, height: '90%', alignItems: 'center', marginHorizontal: 5, justifyContent: 'center' }}>
                                 {
                                     cavetImg == '' ?
                                         <Image source={IMAGES.plus_icon} style={{
@@ -214,7 +270,7 @@ const VehicleDriverForm = ({ navigation, route }) => {
                                         }} />
                                 }
                             </View>
-                            
+
                         </View>
                     </TouchableOpacity>
                     {errors.img && (
@@ -227,7 +283,7 @@ const VehicleDriverForm = ({ navigation, route }) => {
 
 
                 <View style={{ width: '100%', flex: 1, justifyContent: 'flex-end', }}>
-                    <MyButton text={'Tiếp tục'} onPress={validate} />
+                    <MyButton text={'Gửi'} onPress={validate} />
                 </View>
             </View>
 
@@ -266,18 +322,7 @@ const VehicleDriverForm = ({ navigation, route }) => {
                 </TouchableOpacity>
                 <FlatList
                     style={{ padding: 20 }}
-                    data={[
-                        { key: 'Bike', type: 'Van từ 400kg - 500kg' },
-                        { key: 'Van 500kg', type: 'Van từ 400kg - 500kg' },
-                        { key: 'Dominic', type: 'Van từ 400kg - 500kg' },
-                        { key: 'Jackson', type: 'Van từ 400kg - 500kg' },
-                        { key: 'James', type: 'Van từ 400kg - 500kg' },
-                        { key: 'Joel', type: 'Van từ 400kg - 500kg' },
-                        { key: 'John', type: 'Van từ 400kg - 500kg' },
-                        { key: 'Jillian', type: 'Van từ 400kg - 500kg' },
-                        { key: 'Jimmy', type: 'Van từ 400kg - 500kg' },
-                        { key: 'Julie', type: 'Van từ 400kg - 500kg' },
-                    ]}
+                    data={vehicleTypes}
                     renderItem={({ item }) => <TouchableOpacity
                         style={{
                             backgroundColor: 'white',
@@ -288,9 +333,14 @@ const VehicleDriverForm = ({ navigation, route }) => {
                             width: '100%',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            marginBottom: 20, borderColor: inputs.vehicleType === item.key ? CUSTOM_COLOR.Primary : '#C3C7E5'
+                            marginBottom: 20,
+                            borderColor: inputs.vehicleType === item.vehicleTypeName ? CUSTOM_COLOR.Primary : '#C3C7E5'
                         }}
-                        onPress={() => { handleOnchange(item.key, 'vehicleType') }}>
+                        onPress={() => {
+                            handleOnchange(item.vehicleTypeName, 'vehicleType')
+                            handleOnchange(item._id, 'vehicleTypeId')
+
+                        }}>
                         <View style={{ flexDirection: 'row', flex: 1, height: 90, padding: 20, }}>
                             <View style={{ flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
                                 <Image source={IMAGES.userAcc} style={{
@@ -305,12 +355,12 @@ const VehicleDriverForm = ({ navigation, route }) => {
                                     fontSize: scale(16),
                                     fontWeight: '400',
                                     fontFamily: FONT_FAMILY.Light, fontSize: 18, fontWeight: '700', marginBottom: 5
-                                }}>{item.key}</Text>
+                                }}>{item?.vehicleTypeName}</Text>
                                 <Text style={{
                                     fontSize: scale(16),
                                     fontWeight: '400',
                                     fontFamily: FONT_FAMILY.Light, color: '#8D929C'
-                                }}>{item.type}</Text>
+                                }}>{item?.size}</Text>
 
                             </View>
                         </View>

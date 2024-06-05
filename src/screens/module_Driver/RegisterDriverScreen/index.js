@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import Input from '../../../components/Input.js';
 import MyButton from '../../../components/MyButton.js';
 import LoginGoogleBtn from '../../../components/LoginGgBtn.js';
+import axios from 'axios';
+import baseUrl from '../../../constants/baseUrl.js';
+import { validatePhone } from '../../../constants/validate.js';
 
 const RegisterDriverScreen = ({ navigation }) => {
   const [inputs, setInputs] = useState({ phoneNumber: '', city: 'Thành phố Hồ Chí Minh' });
@@ -19,24 +22,41 @@ const RegisterDriverScreen = ({ navigation }) => {
     Keyboard.dismiss();
     let isValid = true;
     if (!inputs.phoneNumber) {
-      handleError('Please input phoneNumber', 'phoneNumber');
+      handleError('Làm ơn nhập số điện thoại', 'phoneNumber');
+      isValid = false;
+    }
+    else if (!validatePhone(inputs.phoneNumber)) {
+      handleError('Số điện thoại không đúng định dạng', 'phoneNumber');
       isValid = false;
     }
     if (isValid) {
-      navigation.navigate('Step1')
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      await axios.get(`${baseUrl}/auth/check-phone-driver?phoneNumber=${inputs.phoneNumber}`, config)
+        .then((res) => {
+          if (res.data.message === "Ok") {
+            navigation.navigate('Step1', {
+              phoneNumber: inputs.phoneNumber
+            })
+          }
+        }).catch(err => {
+          alert(err.response.data.response.message)
+        });
     }
   };
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        style={{ flex: 1, width: '100%' }}
         behavior={Platform.OS === "ios" ? "padding" : null}
         keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 100}
       >
         <Text style={styles.titleText}>Trở thành đối tác của chúng tôi</Text>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={{ marginTop: 20, width: '100%', height: '35%' }}>
-
+        <View showsVerticalScrollIndicator={false}>
+          <View style={{ marginTop: 20, width: '100%' }}>
             <Input
               onChangeText={text => handleOnchange(text, 'phoneNumber')}
               onFocus={() => handleError(null, 'phoneNumber')}
@@ -60,7 +80,7 @@ const RegisterDriverScreen = ({ navigation }) => {
           <View style={{ width: '100%', flex: 1, justifyContent: 'flex-end', }}>
             <Text onPress={() => { navigation.navigate('LoginScreen') }} style={{ ...styles.subText, color: '#F16722', fontWeight: '700' }}>Đã có tài khoản?</Text>
           </View>
-        </ScrollView>
+        </View>
 
       </KeyboardAvoidingView>
 

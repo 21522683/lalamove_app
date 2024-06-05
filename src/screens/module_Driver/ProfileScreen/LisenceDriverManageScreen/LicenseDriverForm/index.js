@@ -6,18 +6,22 @@ import { IMAGES } from '../../../../../assets/images/index.js';
 import CUSTOM_COLOR from '../../../../../constants/colors.js';
 import Input from '../../../../../components/Input.js';
 import MyButton from '../../../../../components/MyButton.js';
+import storage from '@react-native-firebase/storage';
+import { Promise } from "bluebird";
+import { updateDriverInforAction } from '../../../../../redux/slices/usersSlices.js';
+import { useDispatch } from 'react-redux';
 
 
 const LicenseDriverForm = ({ navigation, route }) => {
     const { type, item } = route.params
-    const [driverLisenceImage, setDriverLisenceImage] = useState(item?.img ?? '')
+    const [driverLisenceImage, setDriverLisenceImage] = useState(item?.driverLisenceImage ?? '')
     const [showBs, setShowBs] = useState(false)
     const [typeImg, setTypeImg] = useState('')
-
+    const dispatch = useDispatch();
     const [inputs, setInputs] = useState({
-        driverLisenceNumber: item?.license_number ?? '',
-        driverLisenceImage: item?.img ?? '',
-        driverLisenceType: item?.type ?? '',
+        driverLisenceNumber: item?.driverLisenceNumber ?? '',
+        driverLisenceImage: item?.driverLisenceImage ?? '',
+        driverLisenceType: item?.driverLisenceType ?? '',
     });
     const pickImg = () => {
         let options = {
@@ -26,12 +30,40 @@ const LicenseDriverForm = ({ navigation, route }) => {
             }
         }
         launchImageLibrary(options, response => {
-            if (typeImg === 'dlimg') {
-                setDriverLisenceImage(response.assets[0].uri);
-                setTypeImg('');
-            }
-            setShowBs(false)
+            if (!!response.assets) {
+                if (typeImg === 'dlimg') {
+                    setDriverLisenceImage(response.assets[0].uri);
+                    setTypeImg('');
+                }
+                setShowBs(false)
+            } else return;
         })
+    }
+    async function uploadImg(file, type, name) {
+        try {
+            if (file.startsWith('file:')) {
+                if (type) {
+                    try {
+                        let imageRef = storage().refFromURL(type);
+                        await imageRef.delete();
+                    } catch (error) {
+                        console.log(error)
+                    }
+                }
+                const uid = Date.now();
+                const reference = storage().ref(`/images/img_${name}_${uid}`);
+
+                await reference.putFile(file);
+                const url = await reference.getDownloadURL();
+                console.log(url)
+                return url;
+
+            } else {
+                return file;
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
     const pickImgFromCamera = async () => {
         try {
@@ -60,19 +92,37 @@ const LicenseDriverForm = ({ navigation, route }) => {
         Keyboard.dismiss();
         let isValid = true;
         if (!inputs.driverLisenceNumber) {
-            handleError('Please input driverLisenceNumber', 'driverLisenceNumber');
+            handleError('Làm ơn nhập số giấy phép lái xe', 'driverLisenceNumber');
             isValid = false;
         }
         if (!inputs.driverLisenceType) {
-            handleError('Please input driverLisenceType', 'driverLisenceType');
+            handleError('Làm ơn nhập loại bằng lái', 'driverLisenceType');
             isValid = false;
         }
         if (driverLisenceImage === '') {
-            handleError('Please input image', 'img');
+            handleError('Làm ơn nhập hình ảnh', 'img');
             isValid = false;
         }
         if (isValid) {
+            const [a] = await Promise.all([
+                uploadImg(driverLisenceImage, item?.driverLisenceImage, inputs.driverLisenceNumber),
+            ])
+            const pl = {
+                bd: {
+                    action: type + ' license',
+                    data: {
+                        id: item?.id,
+                        driverLisenceImage: a,
+                        driverLisenceNumber: inputs?.driverLisenceNumber,
+                        driverLisenceType: inputs?.driverLisenceType
+                    }
+                },
+                navigation: navigation,
+                type: 'license'
 
+            }
+            console.log(pl)
+            dispatch(updateDriverInforAction(pl));
         }
     };
 
@@ -126,8 +176,8 @@ const LicenseDriverForm = ({ navigation, route }) => {
                             setTypeImg('dlimg');
                             setShowBs(true);
                         }}>
-                        <View style={{ flexDirection: 'row', flex: 1, height: 250, padding: 10,justifyContent:'center', alignContent:'center', alignItems:'center' }}>
-                            <View style={{ flex: 1, width: 50, borderStyle: 'dashed', borderWidth: 1, borderRadius: 4, height: '90%', alignItems: 'center', marginHorizontal: 5, justifyContent:'center' }}>
+                        <View style={{ flexDirection: 'row', flex: 1, height: 250, padding: 10, justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
+                            <View style={{ flex: 1, width: 50, borderStyle: 'dashed', borderWidth: 1, borderRadius: 4, height: '90%', alignItems: 'center', marginHorizontal: 5, justifyContent: 'center' }}>
                                 {
                                     driverLisenceImage == '' ?
                                         <Image source={IMAGES.plus_icon} style={{
@@ -142,7 +192,7 @@ const LicenseDriverForm = ({ navigation, route }) => {
                                         }} />
                                 }
                             </View>
-                           
+
                         </View>
                     </TouchableOpacity>
 

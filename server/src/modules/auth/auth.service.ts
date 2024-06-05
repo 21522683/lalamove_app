@@ -2,17 +2,17 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-  UnauthorizedException,
 } from '@nestjs/common';
-import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
-import { templateHTMLResetPassword } from 'src/constants/template_email';
+import { Model } from 'mongoose';
+import { templateHTMLResetPassword } from 'src/constants/template_email_resetpass';
+import { templateHTMLVerifyEmail } from 'src/constants/template_email_verify_email';
 import { CreateDriver, CreateUser, LoginUserDto } from 'src/dtos';
 import { User } from 'src/schemas';
 import { VehicleType } from 'src/schemas/VehicleType.schema';
 import { sendEmail } from 'src/utils/email.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class AuthService {
@@ -27,12 +27,29 @@ export class AuthService {
       phoneNumber: createUserDto.phoneNumber,
     });
     if (exitedUser && exitedUser.userType === createUserDto.userType)
-      throw new BadRequestException('Số điện thoại đã tồn tại.');
+      throw new BadRequestException('Username đã tồn tại.');
     try {
       const newUser = new this.userModel(createUserDto);
-      return newUser.save();
+      const u = await newUser.save();
+      await sendEmail(
+        createUserDto.email,
+        templateHTMLVerifyEmail(u?.id, createUserDto.email),
+        'Xác thực email',
+      );
+      return u;
     } catch (error) {
       return error;
+    }
+  }
+  async verifyMail(id: string) {
+    const exitedUser = await this.userModel.findById(id);
+    if (!exitedUser) throw new BadRequestException('Người dùng không tồn tại.');
+    try {
+      exitedUser.isActive = true;
+      await exitedUser.save();
+      return 'Xác thực email thành công. Vui lòng đăng nhập lại để vào được hệ thống.';
+    } catch (error) {
+      return 'Xác thực email thất bại!';
     }
   }
   async createVehicleType() {
@@ -48,6 +65,9 @@ export class AuthService {
       note: 'Phí dịch vụ được dựa trên nhiều yếu tố như tình hình giao thông, kích thước hàng hóa, khả năng nhận đơn của đối tác tài xế, phí cầu đường, các phụ phí,... Vì vậy tổng giá dịch vụ có thể thay đổi. Giá hiển thị tại thời điểm đặt đơn có thể không giữ nguyên nếu có thay đổi về chi tiết đơn hàng.',
     });
     return newVehicleType.save();
+  }
+  async getAllVehicleType() {
+    return await this.vehicleModel.find({});
   }
   async sendRegisterDriver(createDriver: CreateDriver) {
     const exitedUser = await this.userModel.findOne({
@@ -69,19 +89,23 @@ export class AuthService {
         dob: createDriver.dob,
         driverLisences: [
           {
+            id: uuidv4(),
             driverLisenceImage: createDriver.driverLisenceImage,
             driverLisenceNumber: createDriver.driverLisenceNumber,
             driverLisenceType: createDriver.driverLisenceType,
+            status: 'Đang kiểm tra',
           },
         ],
         vehicles: [
           {
+            id: uuidv4(),
             vehicleName: createDriver.vehicleName,
             lisencePlate: createDriver.lisencePlate,
             vehicleImage: createDriver.vehicleImage,
             cavetImage: createDriver.cavetImage,
             cavetText: createDriver.cavetText,
             vehicleType: '66305002c1dde724a48e01d5',
+            status: 'Đang kiểm tra',
           },
         ],
         isWaitingAccepted: true,
@@ -97,34 +121,88 @@ export class AuthService {
     const exitedUser = await this.userModel.findOne({
       phoneNumber: loginUserDto.phoneNumber,
     });
-    if (!exitedUser) throw new UnauthorizedException();
+    if (!exitedUser)
+      throw new BadRequestException('Sai tài khoản hoặc mật khẩu.');
     if (
       exitedUser &&
       !(await exitedUser.checkPassword(loginUserDto.password))
     ) {
       console.log(loginUserDto);
-      throw new UnauthorizedException();
+      throw new BadRequestException('Sai tài khoản hoặc mật khẩu.');
+    }
+    if (exitedUser.userType !== loginUserDto.userType) {
+      throw new BadRequestException('Sai tài khoản hoặc mật khẩu.');
+    }
+    if (!exitedUser.isActive && exitedUser.userType === 'User') {
+      await sendEmail(
+        exitedUser.email,
+        templateHTMLVerifyEmail(exitedUser?.id, exitedUser.email),
+        'Xác thực email',
+      );
+
+      throw new BadRequestException(
+        'Tài khoản chưa được xác thực email. Vui lòng xác minh email chúng tôi vừa gửi.',
+      );
     }
 
-    if (exitedUser.userType !== loginUserDto.userType) {
-      throw new UnauthorizedException();
-    }
     const payload = { sub: exitedUser.id, username: exitedUser.phoneNumber };
     const access_token = this.jwtService.sign(payload);
     console.log(access_token);
     return {
-      phoneNumber: exitedUser.phoneNumber,
+      id: exitedUser.id,
+      fullname: exitedUser.fullName,
       avatar: exitedUser.avatar,
       userType: exitedUser.userType,
       access_token: access_token,
     };
   }
+  async loginByGG(loginUserDto: any): Promise<Record<string, string>> {
+    console.log('hehe');
+    const exitedUser = await this.userModel.findOne({
+      phoneNumber: loginUserDto?.id,
+      email: loginUserDto?.email,
+    });
 
+    if (!exitedUser) {
+      const newUser = new this.userModel({
+        phoneNumber: loginUserDto?.id,
+        password: '1',
+        email: loginUserDto?.email,
+        userType: 'User',
+        fullName: loginUserDto?.name,
+        isActive: true,
+        avatar: loginUserDto?.photo,
+      });
+      const u = await newUser.save();
+      const payload = { sub: u.id, username: u.phoneNumber };
+
+      return {
+        id: u.id,
+        fullname: u.fullName,
+        avatar: u.avatar,
+        userType: u.userType,
+        access_token: this.jwtService.sign(payload),
+      };
+    }
+
+    const payload = { sub: exitedUser.id, username: exitedUser.phoneNumber };
+
+    return {
+      id: exitedUser.id,
+      fullname: exitedUser.fullName,
+      avatar: exitedUser.avatar,
+      userType: exitedUser.userType,
+      access_token: this.jwtService.sign(payload),
+    };
+  }
   async sendEmailReset(phoneNumber: string): Promise<Record<string, string>> {
     const exitedUser = await this.userModel.findOne({
       phoneNumber: phoneNumber,
     });
     if (!exitedUser) throw new BadRequestException('Người dùng không tồn tại.');
+    if (exitedUser && exitedUser.isWaitingAccepted)
+      throw new BadRequestException('Tài khoản đang được xét duyệt.');
+
     try {
       let randomString = '';
       for (let i = 0; i < 4; i++) {
@@ -143,6 +221,26 @@ export class AuthService {
     } catch (error) {
       throw new BadRequestException('Lỗi kết nối.');
     }
+  }
+  async checkPhoneNumberDriver(
+    phoneNumber: string,
+  ): Promise<Record<string, string>> {
+    const exitedUser = await this.userModel.findOne({
+      phoneNumber: phoneNumber,
+    });
+    if (
+      exitedUser &&
+      exitedUser.userType === 'Driver' &&
+      exitedUser.isWaitingAccepted
+    )
+      throw new BadRequestException('Tài khoản đang được xét duyệt.');
+    if (
+      exitedUser &&
+      exitedUser.userType === 'Driver' &&
+      !exitedUser.isWaitingAccepted
+    )
+      throw new BadRequestException('Số điện thoại đã được đăng ký.');
+    return { message: 'Ok' };
   }
 
   async checkOtp(

@@ -11,6 +11,7 @@ const Input = ({
   enalble,
   dropdown,
   showMd,
+  numLines=1,
   onFocus = () => { },
   ...props
 }) => {
@@ -30,6 +31,7 @@ const Input = ({
                 : '#C3C7E5',
             alignItems: 'center',
           },
+          {height: 55*numLines},
           {
             backgroundColor: enalble ? props?.c : 'white'
           }
@@ -84,7 +86,7 @@ const style = StyleSheet.create({
     color: '#2F394E',
   },
   inputContainer: {
-    height: 55,
+    
     fontFamily: FONT_FAMILY.Regular,
     backgroundColor: '#fff',
     flexDirection: 'row',

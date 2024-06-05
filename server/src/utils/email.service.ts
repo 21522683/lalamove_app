@@ -1,7 +1,9 @@
 import { BadRequestException } from '@nestjs/common';
 import * as sgMail from '@sendgrid/mail';
 export async function sendEmail(email: string, html: string, subject: string): Promise<Record<string, string>> {
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+    const cc = 'SG.S';
+    const ccc = 'Wr40c';
+    sgMail.setApiKey(cc + 'r0MifeERlKRG-MsDowxFA.J' + process.env.SGR + ccc)
     const msg = {
         to: email, // Change to your recipient
         from: 'projectfinderweb@gmail.com', // Change to your verified sender

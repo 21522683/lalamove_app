@@ -6,6 +6,7 @@ const WINDOW_HEIGHT = Dimensions.get('window').height
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
+    width:'100%',
     alignItems: 'flex-start',
     paddingHorizontal: 20,
     paddingVertical: 20,

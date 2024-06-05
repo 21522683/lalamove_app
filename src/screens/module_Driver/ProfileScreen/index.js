@@ -1,22 +1,27 @@
 import { View, Text, TouchableOpacity, Image, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform, TextInput } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './style.js';
 import { IMAGES } from '../../../assets/images/index.js';
 import CUSTOM_COLOR from '../../../constants/colors.js';
 import { Rating } from 'react-native-ratings';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useDispatch } from 'react-redux';
-import { logoutUserAction } from '../../../redux/slices/usersSlices.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllVehicleTypeAction, getDriverInforAction, logoutUserAction } from '../../../redux/slices/usersSlices.js';
 
 const ProfileDriverScreen = ({ navigation }) => {
+  const userInfor = useSelector(state => state?.users?.userInfor);
+
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllVehicleTypeAction())
+    dispatch(getDriverInforAction(""));
+}, [dispatch])
   return (
     <SafeAreaView style={styles.container}>
 
       <View style={styles.header}>
-        <Image style={styles.avatar} source={IMAGES.avatar} />
+        <Image style={styles.avatar} src={userInfor?.avatar} />
 
-        <Text style={styles.title}>Bác tài Lalamove</Text>
+        <Text style={styles.title}>{userInfor?.fullName}</Text>
         <Text style={{ marginBottom: 10 }}>Tp. Hồ Chí Minh</Text>
         <Rating
           ratingColor={CUSTOM_COLOR.Primary}
@@ -62,7 +67,7 @@ const ProfileDriverScreen = ({ navigation }) => {
               <Image source={IMAGES.key_security_icon} style={styles.icon_selection} />
               <Text style={styles.title_selection}>Quản lý thông tin tài xế</Text>
             </View>
-            <TouchableOpacity style={styles.button_foward} onPress={() => { navigation.navigate('infor-driver')}}>
+            <TouchableOpacity style={styles.button_foward} onPress={() => { navigation.navigate('infor-driver', {...userInfor})}}>
               <Image source={IMAGES.foward_icon_orage} style={styles.icon_next} />
             </TouchableOpacity>
           </View>

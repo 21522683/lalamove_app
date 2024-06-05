@@ -1,26 +1,38 @@
 import { View, Text, Keyboard, ScrollView, TouchableOpacity, Image, PermissionsAndroid, FlatList } from 'react-native';
 import styles from './style.js';
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Input from '../../../components/Input.js';
 import MyButton from '../../../components/MyButton.js';
 import { IMAGES } from '../../../assets/images/index.js';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import CUSTOM_COLOR from '../../../constants/colors.js';
-import FONT_FAMILY from '../../../constants/font.js';
-import { scale } from 'react-native-size-matters';
+import storage from '@react-native-firebase/storage';
+import { Promise } from "bluebird";
+import { registerDriverAction } from '../../../redux/slices/usersSlices.js';
+import { useDispatch } from 'react-redux';
+import Dialog from "react-native-dialog";
 
-const Step3Screen = ({ navigation }) => {
+const Step3Screen = ({ navigation, route }) => {
     const [driverLisenceImage, setDriverLisenceImage] = useState('')
     const [avatarImg, setAvatarImg] = useState('')
     const [CCCDImage, setCCCDImage] = useState('')
+    const [showDialog, setShowDialog] = useState(false);
+    const handleLogin = () => {
+        setShowDialog(false)
+        navigation.navigate('Login')
+    }
+    const dispatch = useDispatch();
+
     const [showBs, setShowBs] = useState(false)
     const [typeImg, setTypeImg] = useState('')
     const [inputs, setInputs] = useState({
         driverLisenceNumber: '',
-        driverLisenceImage: '',
         driverLisenceType: '',
-        CCCDImage: '',
-        avatarImg: '',
+        driverLisenceImageUrl: '',
+        CCCDImageUrl: '',
+        avatarImgUrl: '',
+        vehicleImgUrl: '',
+        cavetImgUrl: ''
     });
     const pickImg = () => {
         let options = {
@@ -28,21 +40,29 @@ const Step3Screen = ({ navigation }) => {
                 path: 'image'
             }
         }
-        launchImageLibrary(options, response => {
-            if (typeImg === 'cccd') {
-                setCCCDImage(response.assets[0].uri);
-                setTypeImg('');
-            }
-            if (typeImg === 'avt') {
-                setAvatarImg(response.assets[0].uri);
-                setTypeImg('');
-            }
-            if (typeImg === 'dlimg') {
-                setDriverLisenceImage(response.assets[0].uri);
-                setTypeImg('');
-            }
-            setShowBs(false)
-        })
+        try {
+            launchImageLibrary(options, response => {
+                if (!!response.assets) {
+                    if (typeImg === 'cccd') {
+                        setCCCDImage(response.assets[0].uri);
+                        setTypeImg('');
+                    }
+                    if (typeImg === 'avt') {
+                        setAvatarImg(response.assets[0].uri);
+                        setTypeImg('');
+                    }
+                    if (typeImg === 'dlimg') {
+                        setDriverLisenceImage(response.assets[0].uri);
+                        setTypeImg('');
+                    }
+                    setShowBs(false)
+                }
+                else return;
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
     }
     const pickImgFromCamera = async () => {
         try {
@@ -71,22 +91,73 @@ const Step3Screen = ({ navigation }) => {
         Keyboard.dismiss();
         let isValid = true;
         if (!inputs.driverLisenceNumber) {
-            handleError('Please input driverLisenceNumber', 'driverLisenceNumber');
+            handleError('Làm ơn nhập số giấy phép lái xe', 'driverLisenceNumber');
             isValid = false;
         }
         if (!inputs.driverLisenceType) {
-            handleError('Please input driverLisenceType', 'driverLisenceType');
+            handleError('Làm ơn nhập loại bằng lái', 'driverLisenceType');
             isValid = false;
         }
         if (CCCDImage === '' || avatarImg === '' || driverLisenceImage === '') {
-            handleError('Please input image', 'img');
+            handleError('Làm ơn nhập hình ảnh', 'img');
             isValid = false;
         }
         if (isValid) {
-            navigation.navigate('Step3')
+            const [a, b, c, d, e] = await Promise.all([
+                uploadImg(route.params.vehicleImg, "vehicleImgUrl", route.params.lisencePlate),
+                uploadImg(route.params.cavetImg, "cavetImgUrl", route.params.cavetText),
+                uploadImg(CCCDImage, "CCCDImageUrl", route.params.CCCD),
+                uploadImg(avatarImg, "avatarImgUrl", 'avt'),
+                uploadImg(driverLisenceImage, "driverLisenceImageUrl", inputs.driverLisenceNumber),
+            ])
+            const pl = {
+                phoneNumber: route.params.phoneNumber,
+                email: route.params.email,
+                userType: "Driver",
+                CCCDText: route.params.CCCD,
+                address: route.params.address,
+                fullName: route.params.fullName,
+                dob: formatDob(route.params.birthday),
+                driverLisenceNumber: inputs.driverLisenceNumber,
+                driverLisenceImage: e,
+                driverLisenceType: inputs.driverLisenceType,
+                avatar: d,
+                CCCDImage: c,
+                vehicleName: route.params.vehicleName,
+                lisencePlate: route.params.lisencePlate,
+                vehicleImage: a,
+                cavetImage: b,
+                cavetText: route.params.cavetText,
+                vehicleTypeId: route.params.vehicleTypeId,
+            }
+            console.log(pl)
+            dispatch(registerDriverAction({
+                bd: pl,
+                setShowDialog: setShowDialog,
+            }));
+            // navigation.navigate('Step3')
         }
     };
+    function formatDob(val) {
+        let [day, month, year] = val.split('/');
+        let date = new Date(`${year}-${month}-${day}`);
 
+        // Format the date into ISO 8601 format without milliseconds
+        return date.toISOString().split('.')[0];
+    }
+    async function uploadImg(file, type, name) {
+        try {
+            const uid = Date.now();
+            const reference = storage().ref(`/images/img_${name}_${uid}`);
+
+            await reference.putFile(file);
+            const url = await reference.getDownloadURL();
+            // console.log(url)
+            return url;
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return (
         <View style={{
             ...styles.container, paddingHorizontal: 0,
@@ -261,7 +332,18 @@ const Step3Screen = ({ navigation }) => {
                 </View>
 
             </View>
+            {
+                showDialog && (
+                    <Dialog.Container visible={true}>
+                        <Dialog.Title>Đã gửi yêu cầu xét duyệt tài khoản</Dialog.Title>
+                        <Dialog.Description>
+                            Vui lòng chờ admin duyệt tài khoản của bạn. Sẽ có mail gửi đến kết quả cho bạn trong vài ngày.
+                        </Dialog.Description>
 
+                        <Dialog.Button label="OK" onPress={handleLogin} />
+                    </Dialog.Container>
+                )
+            }
         </View>
     );
 };

@@ -8,18 +8,20 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import CUSTOM_COLOR from '../../../constants/colors.js';
 import FONT_FAMILY from '../../../constants/font.js';
 import { scale } from 'react-native-size-matters';
+import { useSelector } from 'react-redux';
 
-const Step2Screen = ({ navigation }) => {
+const Step2Screen = ({ navigation, route }) => {
     const [vehicleImg, setVehicleImg] = useState('')
     const [cavetImg, setCavetImg] = useState('')
     const [showBs, setShowBs] = useState(false)
     const [showchosenType, setShowchosenType] = useState(false)
-
+    const vehicleTypes = useSelector(state => state?.users?.vehicleTypes)
     const [typeImg, setTypeImg] = useState('')
     const [inputs, setInputs] = useState({
         lisencePlate: '',
         vehicleName: '',
         vehicleType: '',
+        vehicleTypeId: '',
         cavetText: '',
         vehicleImage: '',
         cavetImage: ''
@@ -30,17 +32,26 @@ const Step2Screen = ({ navigation }) => {
                 path: 'image'
             }
         }
-        launchImageLibrary(options, response => {
-            if (typeImg === 'vehicleImg') {
-                setVehicleImg(response.assets[0].uri);
-                setTypeImg('');
-            }
-            if (typeImg === 'cavetImg') {
-                setCavetImg(response.assets[0].uri);
-                setTypeImg('');
-            }
-            setShowBs(false)
-        })
+        try {
+            launchImageLibrary(options, response => {
+                if (!!response.assets) {
+                    if (typeImg === 'vehicleImg') {
+                        setVehicleImg(response ? response?.assets[0]?.uri : '');
+                        setTypeImg('');
+                    }
+                    if (typeImg === 'cavetImg') {
+                        setCavetImg(response ? response?.assets[0]?.uri : '');
+                        setTypeImg('');
+                    }
+                    setShowBs(false)
+
+                }
+                else { return; }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
     }
     const pickImgFromCamera = async () => {
         try {
@@ -69,27 +80,38 @@ const Step2Screen = ({ navigation }) => {
         Keyboard.dismiss();
         let isValid = true;
         if (!inputs.lisencePlate) {
-            handleError('Please input lisencePlate', 'lisencePlate');
+            handleError('Làm ơn nhập biến số phương tiện', 'lisencePlate');
             isValid = false;
         }
         if (!inputs.vehicleName) {
-            handleError('Please input email', 'vehicleName');
+            handleError('Làm ơn nhập tên phương tiện', 'vehicleName');
             isValid = false;
         }
         if (!inputs.vehicleType) {
-            handleError('Please input vehicleType', 'vehicleType');
+            handleError('Làm ơn nhập loại phương tiện', 'vehicleType');
             isValid = false;
         }
         if (!inputs.cavetText) {
-            handleError('Please input cavetText', 'cavetText');
+            handleError('Làm ơn nhập số đăng ký phương tiện', 'cavetText');
             isValid = false;
         }
         if (vehicleImg === '' || cavetImg === '') {
-            handleError('Please input address', 'img');
+            handleError('Làm ơn nhập hình ảnh', 'img');
             isValid = false;
         }
+        // console.log('Photo upload!');
+
+
+        // }
+        // console.log('Photo uploaded successfully!');
+        // setImage(null);
         if (isValid) {
-            navigation.navigate('Step3')
+            navigation.navigate('Step3', {
+                ...route.params,
+                vehicleImg,
+                cavetImg,
+                ...inputs
+            })
         }
     };
 
@@ -264,18 +286,7 @@ const Step2Screen = ({ navigation }) => {
                 </TouchableOpacity>
                 <FlatList
                     style={{ padding: 20 }}
-                    data={[
-                        { key: 'Bike', type: 'Van từ 400kg - 500kg' },
-                        { key: 'Van 500kg', type: 'Van từ 400kg - 500kg' },
-                        { key: 'Dominic', type: 'Van từ 400kg - 500kg' },
-                        { key: 'Jackson', type: 'Van từ 400kg - 500kg' },
-                        { key: 'James', type: 'Van từ 400kg - 500kg' },
-                        { key: 'Joel', type: 'Van từ 400kg - 500kg' },
-                        { key: 'John', type: 'Van từ 400kg - 500kg' },
-                        { key: 'Jillian', type: 'Van từ 400kg - 500kg' },
-                        { key: 'Jimmy', type: 'Van từ 400kg - 500kg' },
-                        { key: 'Julie', type: 'Van từ 400kg - 500kg' },
-                    ]}
+                    data={vehicleTypes}
                     renderItem={({ item }) => <TouchableOpacity
                         style={{
                             backgroundColor: 'white',
@@ -286,9 +297,13 @@ const Step2Screen = ({ navigation }) => {
                             width: '100%',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            marginBottom: 20, borderColor: inputs.vehicleType === item.key ? CUSTOM_COLOR.Primary : '#C3C7E5'
+                            marginBottom: 20,
+                            borderColor: inputs.vehicleType === item.vehicleTypeName ? CUSTOM_COLOR.Primary : '#C3C7E5'
                         }}
-                        onPress={() => { handleOnchange(item.key, 'vehicleType') }}>
+                        onPress={() => {
+                            handleOnchange(item.vehicleTypeName, 'vehicleType')
+                            handleOnchange(item._id, 'vehicleTypeId')
+                        }}>
                         <View style={{ flexDirection: 'row', flex: 1, height: 90, padding: 20, }}>
                             <View style={{ flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
                                 <Image source={IMAGES.userAcc} style={{
@@ -303,12 +318,12 @@ const Step2Screen = ({ navigation }) => {
                                     fontSize: scale(16),
                                     fontWeight: '400',
                                     fontFamily: FONT_FAMILY.Light, fontSize: 18, fontWeight: '700', marginBottom: 5
-                                }}>{item.key}</Text>
+                                }}>{item?.vehicleTypeName}</Text>
                                 <Text style={{
                                     fontSize: scale(16),
                                     fontWeight: '400',
                                     fontFamily: FONT_FAMILY.Light, color: '#8D929C'
-                                }}>{item.type}</Text>
+                                }}>{item?.size}</Text>
 
                             </View>
                         </View>

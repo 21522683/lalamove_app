@@ -12,7 +12,9 @@ const AddressManageScreen = () => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Image source={IMAGES.back_icon} style={styles.back_button} onPress={() => {navigation.goBack()}}/>
+                <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                    <Image source={IMAGES.back_icon} style={styles.back_button} />
+                </TouchableOpacity>
                 <Text style={styles.title_header}>Địa chỉ đã lưu</Text>
             </View>
 
@@ -43,7 +45,7 @@ const AddressManageScreen = () => {
                     {
                         [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
                             return (
-                                <ItemAddress key={index}/>
+                                <ItemAddress key={index} />
                             )
                         })
                     }

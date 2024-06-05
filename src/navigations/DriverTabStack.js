@@ -8,7 +8,6 @@ import Feather from 'react-native-vector-icons/Feather';
 import { createStackNavigator } from '@react-navigation/stack';
 import ProfileDriverScreen from '../screens/module_Driver/ProfileScreen';
 import PrivatePolicyScreen from '../screens/module_User/PrivatePolicyScreen';
-import DetailDriverScreen from '../screens/module_Admin/DetailDriverScreen';
 import DriverInformationScreen from '../screens/module_Driver/ProfileScreen/DriverInformationScreen';
 import LisenceDriverManageScreen from '../screens/module_Driver/ProfileScreen/LisenceDriverManageScreen';
 import LicenseDriverInforScreen from '../screens/module_Driver/ProfileScreen/LisenceDriverManageScreen/LicenseDriverInforScreen';
@@ -24,6 +23,7 @@ import VerifyOrderDriverScreen from '../screens/module_Driver/screens/VerifyOrde
 import { Polygon } from 'react-native-svg';
 import ReceivedDriverOrderDetailScreen from '../screens/module_Driver/OrderDetailScreen';
 import DriverReceivedOrdersScreen from '../screens/module_Driver/ReceivedOrdersScreen';
+import ChatDriverScreen from '../screens/module_Driver/ChatDriverScreen';
 const DriverTabStack = createBottomTabNavigator();
 
 
@@ -93,6 +93,11 @@ export default function DriverStackScreens() {
         name="OrderDetailDriverScreen"
         component={OrderDetailDriverScreen}
         options={{ headerShown: false }}
+      />
+      <DriverStack.Screen
+        name="ChatDriverScreen"
+        component={ChatDriverScreen}
+        options={{title:'Chat', headerBackTitle:''}}
       />
       <DriverStack.Screen
         name="ReceiverDetailDriverScreen"
