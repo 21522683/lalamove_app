@@ -157,11 +157,11 @@ const OrderDetailScreen = ({navigation, route}) => {
               style={{width: 24, height: 24, marginRight: 10}}
             />
             <View>
-              <Text style={styles.main_type_good}>{order.vehicleType}</Text>
+              <Text style={styles.main_type_good}>{order.vehicleType?.vehicleTypeName}</Text>
               <View style={{height: 7}} />
               <View style={{width: '90%'}}>
                 <Text style={styles.title_good_info_item}>
-                  {goodInfo.vehicleDescription}
+                {`Giao hàng với kích thước ${order.vehicleType?.size}, lên đến ${order.vehicleType?.mount}`}
                 </Text>
               </View>
             </View>

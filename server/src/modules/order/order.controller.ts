@@ -3,7 +3,9 @@ import {
   Controller,
   Get,
   HttpStatus,
+  Param,
   Post,
+  Put,
   Req,
   Res,
 } from '@nestjs/common';
@@ -13,11 +15,50 @@ import { Response } from 'express';
 
 @Controller('order')
 export class OrderController {
-  constructor(private readonly orderService: OrderService) {}
+  constructor(private readonly orderService: OrderService) { }
 
   @Get()
-  welcome(@Req() req) {
-    return 'Welcome';
+  async getAllPendingOrders(@Res() res: Response) {
+    try {
+      const orders = await this.orderService.getAllPendingOrders();
+      res.status(HttpStatus.OK).json({
+        message: 'Get all pending orders successfully',
+        data: orders,
+      });
+    } catch (error) {
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+  @Get(":id/get-user-orders")
+  async getAllUserOrders(@Param('id') id: string, @Res() res: Response) {
+    try {
+      const orders = await this.orderService.getAllUserOrders(id);
+      res.status(HttpStatus.OK).json({
+        message: 'Get all user orders successfully',
+        data: orders,
+      });
+    } catch (error) {
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Put("update-status-order")
+  async updateStatusOrder(@Body() body: any, @Res() res: Response) {
+    try {
+      const order = await this.orderService.updateStatusOrder(body.orderId, body.action, body.driverId);
+      res.status(HttpStatus.OK).json({
+        message: 'Update order status successfully',
+        data: order,
+      });
+    } catch (error) {
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
   }
 
   @Post('addNewOrder')

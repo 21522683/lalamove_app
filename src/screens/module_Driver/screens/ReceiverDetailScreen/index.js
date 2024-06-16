@@ -1,7 +1,7 @@
-import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
+import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import React from 'react';
 import styles from './style';
-import {ICONS} from '../../../../assets/icons';
+import { ICONS } from '../../../../assets/icons';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/Feather';
@@ -11,8 +11,8 @@ import cs from '../../CustomStyle';
 import CUSTOM_COLOR from '../../../../constants/colors';
 import AddressItem from '../../components/AddressItem';
 
-const ReceiverDetailDriverScreen = ({navigation, route}) => {
-  var order = {...route.params};
+const ReceiverDetailDriverScreen = ({ navigation, route }) => {
+  var order = { ...route.params };
 
   var goodInfo = {
     type: 'Thực phẩm và đồ uống',
@@ -26,6 +26,30 @@ const ReceiverDetailDriverScreen = ({navigation, route}) => {
     style: 'currency',
     currency: 'VND',
   });
+  const receiveOrder = () => {
+    // dispatch(updateOrderStatusAction({
+    //   body:{
+    //     orderId: order?._id,
+    //     action: 'Delivering',
+    //     driverId: '',
+    //   },
+    //   isSuccess: handleIfSuccess
+    // }));
+    handleIfSuccess();
+  }
+  const unReceiveOrder = () => {
+    // dispatch(updateOrderStatusAction({
+    //   body:{
+    //     orderId: order?._id,
+    //     action: 'UnReceive',
+    //     driverId: '',
+    //   },
+    //   isSuccess: handleIfUnReceiveSuccess 
+    // }));
+  }
+  function handleIfSuccess() {
+    navigation.navigate('DriverReviewMap', { ...order });
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header_container}>
@@ -58,13 +82,13 @@ const ReceiverDetailDriverScreen = ({navigation, route}) => {
         <View style={styles.outer_good}>
           <Image
             source={ICONS.dollarMoneyIcon}
-            style={{width: 24, height: 24, marginRight: 10}}
+            style={{ width: 24, height: 24, marginRight: 10 }}
           />
           <View>
             <Text style={styles.main_type_good}>
               {VND.format(order.charge)}
             </Text>
-            <View style={{height: 7}} />
+            <View style={{ height: 7 }} />
             <Text style={styles.title_good_info_item}>Thu tiền mặt</Text>
           </View>
         </View>
@@ -85,17 +109,17 @@ const ReceiverDetailDriverScreen = ({navigation, route}) => {
         <View style={styles.outer_good}>
           <Image
             source={ICONS.vehicleIcon}
-            style={{width: 24, height: 24, marginRight: 10}}
+            style={{ width: 24, height: 24, marginRight: 10 }}
           />
           <View>
-            <Text style={styles.main_type_good}>{order.vehicleType}</Text>
-            <View style={{height: 7}} />
+            <Text style={styles.main_type_good}>{order.vehicleType?.vehicleTypeName}</Text>
+            <View style={{ height: 7 }} />
             <Text style={styles.title_good_info_item}>
-              {goodInfo.vehicleDescription}
+              {`Giao hàng với kích thước ${order.vehicleType?.size}, lên đến ${order.vehicleType?.mount}`}
             </Text>
           </View>
         </View>
-        <View style={{height: 110}}></View>
+        <View style={{ height: 110 }}></View>
       </ScrollView>
       <View
         style={{
@@ -129,7 +153,7 @@ const ReceiverDetailDriverScreen = ({navigation, route}) => {
           </View>
           <TouchableOpacity
             style={[styles.outer_receiver_slider, styles.width_50]}
-            onPress={() => navigation.navigate('DriverReviewMap', {...order})}>
+            onPress={() => receiveOrder()}>
             <View>
               <Text
                 style={{

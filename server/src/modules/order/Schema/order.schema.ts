@@ -35,6 +35,15 @@ export class Order {
   status: string;
 
   @Prop()
+  orderType?: string;
+  
+  @Prop()
+  orderImage?: string;
+
+  @Prop()
+  orderNote?: string;
+
+  @Prop()
   charge?: number;
 
   @Prop()

@@ -8,16 +8,20 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './style';
 import CUSTOM_COLOR from '../../../../constants/colors';
 import cs from '../../CustomStyle';
-import {ICONS} from '../../../../assets/icons';
+import { ICONS } from '../../../../assets/icons';
 import AddressItem from '../../components/AddressItem';
+import { useDispatch } from 'react-redux';
+import { updateOrderStatusAction } from '../../../../redux/slices/orderSlices';
 
-const OrderDetailDriverScreen = ({navigation, route}) => {
-  var order = {...route.params};
+const OrderDetailDriverScreen = ({ navigation, route }) => {
+  const dispatch = useDispatch();
+
+  var order = { ...route.params };
 
   var goodInfo = {
     type: 'Thực phẩm và đồ uống',
@@ -39,21 +43,33 @@ const OrderDetailDriverScreen = ({navigation, route}) => {
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gesture) => {
-        animatedValue.setValue({x: gesture.dx, y: gesture.dy});
+        animatedValue.setValue({ x: gesture.dx, y: gesture.dy });
         opacityValue.setValue(1 - gesture.dx / (windowWidth - 85));
       },
       onPanResponderRelease: (event, gesture) => {
         if (gesture.dx < windowWidth - 85) {
-          animatedValue.setValue({x: 0, y: gesture.dy});
+          animatedValue.setValue({ x: 0, y: gesture.dy });
           opacityValue.setValue(1);
         } else {
-          navigation.navigate('ReceiverDetailDriverScreen', {...order});
-          animatedValue.setValue({x: 0, y: gesture.dy});
+          // dispatch(updateOrderStatusAction({
+          //   body:{
+          //     orderId: order?._id,
+          //     action: 'Recieve',
+          //     driverId: '',
+          //   },
+          //   isSuccess: handleIfSuccess
+          // }));
+          animatedValue.setValue({ x: 0, y: gesture.dy });
           opacityValue.setValue(1);
+          handleIfSuccess();
         }
       },
     }),
   ).current;
+
+  function handleIfSuccess() {
+    navigation.navigate('ReceiverDetailDriverScreen', { ...order });
+  }
 
   const swipeAnimation = {
     transform: [
@@ -72,38 +88,32 @@ const OrderDetailDriverScreen = ({navigation, route}) => {
           <Icon name="arrow-back" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.receive_instance}>Nhận đơn ngay</Text>
-        <Text style={styles.distance}>Cách ~{order.distance} Kilomet</Text>
+        <Text style={styles.distance}>Cách ~{order?.distance} Kilomet</Text>
         <Text style={styles.status_text}>{order.status}</Text>
       </View>
-      <ScrollView style={{marginTop: -20}}>
+      <ScrollView style={{ marginTop: -20 }}>
         <View style={styles.outer_addresses}>
           <AddressItem props={order} hide />
         </View>
         <View style={styles.outer_good}>
           <Image
             source={ICONS.goodIcon}
-            style={{width: 24, height: 24, marginRight: 10}}
+            style={{ width: 24, height: 24, marginRight: 10 }}
           />
           <View>
-            <Text style={styles.main_type_good}>{goodInfo.type}</Text>
+            <Text style={styles.main_type_good}>{order?.orderType}</Text>
 
             <View style={styles.outer_good_info_item}>
               <Text style={styles.title_good_info_item}>Tổng khối lượng: </Text>
               <Text style={styles.content_good_info_item}>
-                {goodInfo.amount}
-              </Text>
-            </View>
-            <View style={styles.outer_good_info_item}>
-              <Text style={styles.title_good_info_item}>Số lượng: </Text>
-              <Text style={styles.content_good_info_item}>
-                {goodInfo.quantity}
+                {order?.shortDescription}
               </Text>
             </View>
             <View style={styles.outer_good_info_item}>
               <Text style={styles.title_good_info_item}>Mô tả: </Text>
-              <View style={{width: '85%'}}>
+              <View style={{ width: '85%' }}>
                 <Text style={styles.content_good_info_item}>
-                  {goodInfo.description}
+                  {order?.orderNote}
                 </Text>
               </View>
             </View>
@@ -113,14 +123,14 @@ const OrderDetailDriverScreen = ({navigation, route}) => {
         <View style={styles.outer_good}>
           <Image
             source={ICONS.vehicleIcon}
-            style={{width: 24, height: 24, marginRight: 10}}
+            style={{ width: 24, height: 24, marginRight: 10 }}
           />
           <View>
-            <Text style={styles.main_type_good}>{order.vehicleType}</Text>
-            <View style={{height: 7}} />
-            <View style={{width: '90%'}}>
+            <Text style={styles.main_type_good}>{order.vehicleType?.vehicleTypeName}</Text>
+            <View style={{ height: 7 }} />
+            <View style={{ width: '90%' }}>
               <Text style={styles.title_good_info_item}>
-                {goodInfo.vehicleDescription}
+                {`Giao hàng với kích thước ${order.vehicleType?.size}, lên đến ${order.vehicleType?.mount}`}
               </Text>
             </View>
           </View>
@@ -128,17 +138,17 @@ const OrderDetailDriverScreen = ({navigation, route}) => {
         <View style={styles.outer_good}>
           <Image
             source={ICONS.dollarMoneyIcon}
-            style={{width: 24, height: 24, marginRight: 10}}
+            style={{ width: 24, height: 24, marginRight: 10 }}
           />
           <View>
             <Text style={styles.main_type_good}>
               {VND.format(order.charge)}
             </Text>
-            <View style={{height: 7}} />
+            <View style={{ height: 7 }} />
             <Text style={styles.title_good_info_item}>Thu tiền mặt</Text>
           </View>
         </View>
-        <View style={{height: 90}}></View>
+        <View style={{ height: 90 }}></View>
       </ScrollView>
 
       <View {...panResponder.panHandlers} style={styles.outer_receiver_slider}>
@@ -153,7 +163,7 @@ const OrderDetailDriverScreen = ({navigation, route}) => {
             Trượt để nhận đơn
           </Text>
         </Animated.View>
-        <View style={{position: 'absolute', left: 10}}>
+        <View style={{ position: 'absolute', left: 10 }}>
           <Animated.View style={swipeAnimation}>
             <View
               style={{

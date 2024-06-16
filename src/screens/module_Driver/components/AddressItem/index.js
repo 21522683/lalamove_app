@@ -26,7 +26,7 @@ const AddressItem = ({props, hide, current}) => {
             marginLeft: 14,
           }}>
           <Text style={styles.address_detail}>
-            {hide ? props.sourceAddress.detail : props.sourceAddress.name}
+            {hide ? props.sourceAddress.detail : props.sourceAddress.fullNname}
           </Text>
           <View style={{width: hide ? '95%' : '90%'}}>
             <Text style={styles.address_info}>
@@ -55,7 +55,7 @@ const AddressItem = ({props, hide, current}) => {
           <Text style={styles.address_detail}>
             {hide
               ? props.destinationAddress.detail
-              : props.destinationAddress.name}
+              : props.destinationAddress.fullName}
           </Text>
           <View style={{width: hide ? '95%' : '90%'}}>
             <Text style={styles.address_info}>

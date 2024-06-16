@@ -53,14 +53,14 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
         onPress={() => navigation.goBack()}>
         <Icon name="arrow-back" size={24} color="#575757" />
       </TouchableOpacity>
-      {order.status === 'Đang giao' && (
+      {order.status === 'Đang giao hàng' && (
         <Image
           source={IMAGES.map}
           style={{position: 'absolute', zIndex: -1}}></Image>
       )}
 
       <ScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef}>
-        {order.status === 'Đang giao' && (
+        {order.status === 'Đang giao hàng' && (
           <View>
             <View style={{height: windowHeight / 2}}></View>
             {/* <ContactItem {...order.sourceAddress} /> */}
@@ -80,7 +80,7 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
               </View>
             </View>
           )}
-          {order.status === 'Hoàn thành' && (
+          {order.status === 'Đã hoàn thành' && (
             <View style={styles.outer_good}>
               <Image
                 source={ICONS.receiverTimeIcon}
@@ -116,20 +116,14 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
               style={{width: 24, height: 24, marginRight: 10}}
             />
             <View>
-              <Text style={styles.main_type_good}>{goodInfo.type}</Text>
+              <Text style={styles.main_type_good}>{order.orderType}</Text>
 
               <View style={styles.outer_good_info_item}>
                 <Text style={styles.title_good_info_item}>
                   Tổng khối lượng:{' '}
                 </Text>
                 <Text style={styles.content_good_info_item}>
-                  {goodInfo.amount}
-                </Text>
-              </View>
-              <View style={styles.outer_good_info_item}>
-                <Text style={styles.title_good_info_item}>Số lượng: </Text>
-                <Text style={styles.content_good_info_item}>
-                  {goodInfo.quantity}
+                  {order?.shortDescription}
                 </Text>
               </View>
               <View style={styles.outer_good_info_item}>
@@ -148,11 +142,11 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
               style={{width: 24, height: 24, marginRight: 10}}
             />
             <View>
-              <Text style={styles.main_type_good}>{order.vehicleType}</Text>
+              <Text style={styles.main_type_good}>{order.vehicleType?.vehicleTypeName}</Text>
               <View style={{height: 7}} />
               <View style={{width: '90%'}}>
                 <Text style={styles.title_good_info_item}>
-                  {goodInfo.vehicleDescription}
+                {`Giao hàng với kích thước ${order.vehicleType?.size}, lên đến ${order.vehicleType?.mount}`}
                 </Text>
               </View>
             </View>
