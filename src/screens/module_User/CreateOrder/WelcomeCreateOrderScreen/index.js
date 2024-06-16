@@ -17,13 +17,22 @@ import {Surface} from 'react-native-paper';
 import styles from '../style';
 import {useNavigation} from '@react-navigation/native';
 import {IMAGES} from '../../../../assets/images';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {setStatusChooseAddress} from '../../../../redux/slices/createOrderSlice';
 
 const WelcomeCreateOrderScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const state = useSelector(state => state.createOrder);
-  const sourceAddressString = state.sourceAddress.string;
-  const destinationAddressString = state.destinationAddress.string;
+  const isHasSourceAddress = JSON.stringify(state.sourceAddress) !== '{}';
+  const isHasDestinationAddress =
+    JSON.stringify(state.destinationAddress) !== '{}';
+  const sourceAddressString = isHasSourceAddress
+    ? `${state.sourceAddress?.detail}, ${state.sourceAddress?.ward}, ${state.sourceAddress?.district}, ${state.sourceAddress?.province}`
+    : '';
+  const destinationAddressString = isHasSourceAddress
+    ? `${state.destinationAddress?.detail}, ${state.destinationAddress?.ward}, ${state.destinationAddress?.district}, ${state.sourceAddress?.province}`
+    : '';
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Surface style={styles.header}>
@@ -94,7 +103,10 @@ const WelcomeCreateOrderScreen = () => {
               />
               <View style={{gap: 8, flex: 1}}>
                 <Pressable
-                  onPress={() => navigation.navigate('ChooseAddressScreen')}>
+                  onPress={() => {
+                    dispatch(setStatusChooseAddress('Nhận hàng'));
+                    navigation.navigate('ChooseAddressScreen');
+                  }}>
                   <View
                     style={{
                       flexDirection: 'row',
@@ -109,7 +121,7 @@ const WelcomeCreateOrderScreen = () => {
                 </Pressable>
                 <Text>{sourceAddressString}</Text>
               </View>
-              {sourceAddressString && (
+              {isHasSourceAddress && (
                 <Icon name="download" size={20} style={{alignSelf: 'center'}} />
               )}
             </View>
@@ -127,30 +139,40 @@ const WelcomeCreateOrderScreen = () => {
                 style={{marginTop: 3, marginRight: 12}}
               />
               <View style={{gap: 8, flex: 1}}>
-                <View
-                  style={{flexDirection: 'row', alignItems: 'center', gap: 4}}>
-                  <Text style={{color: '#2F2E36', fontSize: 15}}>
-                    Địa điểm trả hàng
-                  </Text>
-                  <Icon4 name="chevron-right" size={20} />
-                </View>
+                <Pressable
+                  onPress={() => {
+                    dispatch(setStatusChooseAddress('Trả hàng'));
+                    navigation.navigate('ChooseAddressScreen');
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 4,
+                    }}>
+                    <Text style={{color: '#2F2E36', fontSize: 15}}>
+                      Địa điểm trả hàng
+                    </Text>
+                    <Icon4 name="chevron-right" size={20} />
+                  </View>
+                </Pressable>
 
                 <Text>{destinationAddressString}</Text>
               </View>
-              {destinationAddressString && (
+              {isHasDestinationAddress && (
                 <Icon name="download" size={20} style={{alignSelf: 'center'}} />
               )}
             </View>
 
             <Pressable
               onPress={() => {
-                if (!(sourceAddressString && destinationAddressString)) return;
+                if (!(isHasSourceAddress && isHasDestinationAddress)) return;
                 navigation.navigate('GoodsInformationScreen');
               }}>
               <View
                 style={{
                   backgroundColor:
-                    sourceAddressString && destinationAddressString
+                    isHasSourceAddress && isHasDestinationAddress
                       ? '#F16722'
                       : '#ccc',
                   height: 45,

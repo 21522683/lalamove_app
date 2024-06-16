@@ -21,8 +21,6 @@ import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
 // @react-native-firebase/firestore
 import io.invertase.firebase.firestore.ReactNativeFirebaseFirestorePackage;
-// @react-native-firebase/storage
-import io.invertase.firebase.storage.ReactNativeFirebaseStoragePackage;
 // @react-native-google-signin/google-signin
 import com.reactnativegooglesignin.RNGoogleSigninPackage;
 // @react-native-masked-view/masked-view
@@ -95,7 +93,6 @@ public class PackageList {
       new ReactNativeFirebaseAppPackage(),
       new ReactNativeFirebaseAuthPackage(),
       new ReactNativeFirebaseFirestorePackage(),
-      new ReactNativeFirebaseStoragePackage(),
       new RNGoogleSigninPackage(),
       new RNCMaskedViewPackage(),
       new RNCPickerPackage(),

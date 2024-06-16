@@ -93,6 +93,7 @@ export class AddressController {
       const userId: string = req.user.sub;
       const addresses =
         await this.addressService.getAddressesOfCurrentUser(userId);
+
       res.status(HttpStatus.CREATED).json({
         message: 'Get addresses successfully',
         data: addresses,
