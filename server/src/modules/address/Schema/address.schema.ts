@@ -13,6 +13,9 @@ export class Address {
   user: User;
 
   @Prop()
+  fullName?: string;
+
+  @Prop()
   province?: string;
 
   @Prop()

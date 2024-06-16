@@ -20,7 +20,7 @@ export class AuthService {
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(VehicleType.name) private vehicleModel: Model<VehicleType>,
     private jwtService: JwtService,
-  ) { }
+  ) {}
 
   async createUser(createUserDto: CreateUser) {
     const exitedUser = await this.userModel.findOne({
@@ -146,13 +146,14 @@ export class AuthService {
     }
 
     const payload = { sub: exitedUser.id, username: exitedUser.phoneNumber };
-
+    const access_token = this.jwtService.sign(payload);
+    console.log(access_token);
     return {
       id: exitedUser.id,
       fullname: exitedUser.fullName,
       avatar: exitedUser.avatar,
       userType: exitedUser.userType,
-      access_token: this.jwtService.sign(payload),
+      access_token: access_token,
     };
   }
   async loginByGG(loginUserDto: any): Promise<Record<string, string>> {
@@ -233,12 +234,12 @@ export class AuthService {
       exitedUser.isWaitingAccepted
     )
       throw new BadRequestException('Tài khoản đang được xét duyệt.');
-      if (
-        exitedUser &&
-        exitedUser.userType === 'Driver' &&
-        !exitedUser.isWaitingAccepted
-      )
-        throw new BadRequestException('Số điện thoại đã được đăng ký.');
+    if (
+      exitedUser &&
+      exitedUser.userType === 'Driver' &&
+      !exitedUser.isWaitingAccepted
+    )
+      throw new BadRequestException('Số điện thoại đã được đăng ký.');
     return { message: 'Ok' };
   }
 
