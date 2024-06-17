@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView, Dimensions, Image } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, Dimensions, Image, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import styles from './style.js'
 import Dropdown from './Dropdown/index.js';
@@ -6,7 +6,9 @@ import formatMoney from '../../../../constants/formatMoney.js';
 import { LineChart } from "react-native-chart-kit";
 import { scale, verticalScale } from 'react-native-size-matters';
 import CUSTOM_COLOR from '../../../../constants/colors.js';
+import ItemOrderStatiscal from './ItemReportOrderDriver/index.js';
 import { IMAGES } from '../../../../assets/images/index.js';
+import ItemReportOrderDriver from './ItemReportOrderDriver/index.js';
 
 
 const DetailReportDriverScreen = () => {
@@ -146,6 +148,22 @@ const DetailReportDriverScreen = () => {
                             }}
                         />
                     </View>
+                </View>
+                <View style={styles.container_driver}>
+                    <Text style={styles.title_list}>DANH SÁCH ĐƠN HÀNG CỦA TÀI XẾ</Text>
+                    <View style={styles.search_bar}>
+                        <TextInput style={styles.search_input} placeholder='Nhập thông tin để tìm kiếm' />
+                        <Image source={IMAGES.search_icon} style={styles.icon_search} />
+                    </View>
+                    <ScrollView style={styles.list}>
+                        {
+                            [1, 2, 3, 4, 5, 6, 7].map(() => {
+                                return (
+                                    <ItemReportOrderDriver/>
+                                )
+                            })
+                        }
+                    </ScrollView>
                 </View>
             </ScrollView>
         </SafeAreaView>

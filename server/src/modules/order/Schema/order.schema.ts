@@ -30,7 +30,7 @@ export class Order {
   destinationAddress: Address;
 
   @Prop({
-    default: 'Đang chờ nhận',
+    default: 'Đang chờ nhận', // Giao hoàn thành - Đang giao 
   })
   status: string;
 
