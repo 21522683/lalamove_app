@@ -43,5 +43,9 @@
     cavet: require('./cavet.png'),
     gplx: require('./gplx.png'),
     logout: require('./logout.png'),
+
+    image_gallery: require('./image_gallery.png'),
+    send: require('./send_mail.png'),
+
 }
     

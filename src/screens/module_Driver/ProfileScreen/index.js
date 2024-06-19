@@ -36,7 +36,7 @@ const ProfileDriverScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.body_container}>
-        <View style={styles.item_profile}>
+        <TouchableOpacity style={styles.item_profile} onPress={()=> navigation.navigate("ChatDriverScreen",{name: userInfor?.fullName, uid: userInfor?.id, avatar:userInfor?.avatar})}>
           <View style={{ ...styles.info, marginRight: 20 }}>
             <Text style={styles.num}>2</Text>
             <Text style={styles.email}> Đánh giá</Text>
@@ -48,7 +48,7 @@ const ProfileDriverScreen = ({ navigation }) => {
             <Text style={styles.num}>3.5</Text>
             <Text style={styles.email}> Sao trung bình</Text>
           </View>
-        </View>
+        </TouchableOpacity>
 
         <View style={styles.container_selection}>
           <View style={styles.item_selection}>

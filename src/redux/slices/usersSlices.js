@@ -467,10 +467,18 @@ const usersSlices = createSlice({
       state.userAuth = {};
       state.appErr = undefined;
     });
-    // get all vehicle type 
+    builder.addCase(getAllVehicleTypeAction.pending, (state, action) => {
+      state.loading = true;
+      state.appErr = undefined;
+    });
     builder.addCase(getAllVehicleTypeAction.fulfilled, (state, action) => {
       state.loading = false;
       state.vehicleTypes = action?.payload;
+      state.appErr = undefined;
+    });
+    // get all vehicle type 
+    builder.addCase(getAllVehicleTypeAction.rejected, (state, action) => {
+      state.loading = false;
       state.appErr = undefined;
     });
     //send Request Reset

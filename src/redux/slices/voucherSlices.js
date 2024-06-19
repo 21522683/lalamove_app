@@ -99,7 +99,7 @@ export const getAllVouchersAction = createAsyncThunk(
 const vouchersSlices = createSlice({
   name: 'vouchers',
   initialState: {
-    vouchers: {}
+    vouchers: []
   },
   extraReducers: builder => {
     
