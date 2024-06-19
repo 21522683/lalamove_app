@@ -150,15 +150,15 @@ export class UserService {
 
     switch (option) {
       case 'Đang bị khóa':
-        filter.isActive = false;
+        filter.isLocked = true;
         break;
       case 'Đang hoạt động':
-        filter.isActive = true;
-        filter.isWaitingAccepted = true;
+        filter.isLocked = false;
+        filter.isWaitingAccepted = false;
         break;
       case 'Chờ xét duyệt':
-        filter.isActive = true;
-        filter.isWaitingAccepted = false;
+        filter.isLocked = false;
+        filter.isWaitingAccepted = true;
         break;
       default:
         // If option is "Tất cả" or any other value, no additional filter is added
@@ -240,7 +240,7 @@ export class UserService {
 
   async acceptDriver(id: string) {
     const updatedUser = await this.userModel.findOne({ _id: id });
-    updatedUser.isWaitingAccepted = true;
+    updatedUser.isWaitingAccepted = false;
     // sendmail
     await sendEmail(
       updatedUser.email,
@@ -255,7 +255,7 @@ export class UserService {
 
   async rejectDriver(id: string, reason: string) {
     const updatedUser = await this.userModel.findById(id);
-    updatedUser.isWaitingAccepted = false;
+    updatedUser.isWaitingAccepted = true;
     // send mail
     await sendEmail(
       updatedUser.email,
@@ -275,7 +275,7 @@ export class UserService {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
 
-    updatedUser.isActive = false;
+    updatedUser.isLocked = true;
     // send mail
     await sendEmail(
       updatedUser.email,
@@ -295,7 +295,7 @@ export class UserService {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
 
-    updatedUser.isActive = true;
+    updatedUser.isLocked = false;
     // send mail
     await sendEmail(
       updatedUser.email,
