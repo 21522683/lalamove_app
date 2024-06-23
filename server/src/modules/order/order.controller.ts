@@ -3,7 +3,9 @@ import {
   Controller,
   Get,
   HttpStatus,
+  Param,
   Post,
+  Query,
   Req,
   Res,
 } from '@nestjs/common';
@@ -13,7 +15,7 @@ import { Response } from 'express';
 
 @Controller('order')
 export class OrderController {
-  constructor(private readonly orderService: OrderService) {}
+  constructor(private readonly orderService: OrderService) { }
 
   @Get()
   welcome(@Req() req) {
@@ -42,5 +44,10 @@ export class OrderController {
         message: error.message,
       });
     }
+  }
+
+  @Get('/get-info-report-driver/:id')
+  async getInfoReportDriver(@Param('id') id: string, @Query() query: any) {
+    return this.orderService.getInfoReportDriver(id, query);
   }
 }

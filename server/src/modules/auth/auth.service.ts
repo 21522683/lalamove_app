@@ -147,6 +147,7 @@ export class AuthService {
 
     const payload = { sub: exitedUser.id, username: exitedUser.phoneNumber };
 
+    console.log("token nè: ",this.jwtService.sign(payload));
     return {
       id: exitedUser.id,
       fullname: exitedUser.fullName,
