@@ -20,6 +20,7 @@ const styles = ScaledSheet.create({
 
   outer_dot: {
     display: 'flex',
+    marginRight: 5,
     flexDirection: 'column',
     alignItems: 'center',
   },

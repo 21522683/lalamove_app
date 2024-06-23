@@ -9,7 +9,6 @@ const initialState = {
   charge: 0,
   discountPrice: '',
   date: new Date(),
-
   statusChooseAddress: '',
 };
 

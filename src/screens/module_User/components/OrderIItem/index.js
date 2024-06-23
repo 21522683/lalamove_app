@@ -12,7 +12,9 @@ const OrderItem = props => {
   return (
     <View style={styles.container}>
       <View style={styles.outer__header_distance}>
-        <Text style={styles.inner_header_distance_text}>{props.date}</Text>
+        <Text style={styles.inner_header_distance_text}>
+          {new Date(props.date).toLocaleString()}
+        </Text>
         <Text style={styles.status_text}>{props.status}</Text>
       </View>
       <View style={{paddingHorizontal: 17, marginTop: 10}}>
@@ -21,7 +23,7 @@ const OrderItem = props => {
 
       <View style={styles.horizontal_line}></View>
       <View style={styles.outer_money}>
-        <Text style={{fontSize: 16}}>{props.vehicleType}</Text>
+        <Text style={{fontSize: 16}}>{props.vehicleType.vehicleTypeName}</Text>
         <Text style={{fontSize: 16, fontWeight: '700', color: '#333333'}}>
           {VND.format(props.charge)}
         </Text>

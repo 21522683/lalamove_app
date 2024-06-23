@@ -23,10 +23,10 @@ export class Order {
   @Prop()
   shortDescription?: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Address' })
+  @Prop()
   sourceAddress: Address;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Address' })
+  @Prop()
   destinationAddress: Address;
 
   @Prop({

@@ -1,4 +1,11 @@
-import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  Linking,
+} from 'react-native';
 import React from 'react';
 import styles from './style';
 import {ICONS} from '../../../../assets/icons';
@@ -14,22 +21,17 @@ import AddressItem from '../../components/AddressItem';
 const ReceiverDetailDriverScreen = ({navigation, route}) => {
   var order = {...route.params};
 
-  var goodInfo = {
-    type: 'Thực phẩm và đồ uống',
-    amount: '10kg đến 30kg',
-    quantity: 2,
-    description:
-      'Giữ hàng cần thận nha, khi giao đến nhắn bạn nhận là chúc mừng ngày cá tháng tư',
-    vehicleDescription: 'Giao hàng cồng kềnh, 60x50x60 cm, lên đến 50 kg',
-  };
   const VND = new Intl.NumberFormat('vi-VN', {
     style: 'currency',
     currency: 'VND',
   });
+
   return (
     <View style={styles.container}>
       <View style={styles.header_container}>
-        <Text style={styles.text_receiver_time}>Nhận lúc 10:38</Text>
+        <Text style={styles.text_receiver_time}>
+          Nhận lúc {new Date().toLocaleTimeString()}
+        </Text>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Icon
             name="arrow-back"
@@ -42,14 +44,28 @@ const ReceiverDetailDriverScreen = ({navigation, route}) => {
       <ScrollView>
         <View style={styles.outer_good}>
           <Text style={styles.contact_phone_text}>
-            Liên hệ khách gửi hàng ******460
+            Liên hệ khách gửi hàng{' ****'}
+            {order.sourceAddress.phoneNumber.substr(
+              order.sourceAddress.phoneNumber.length - 3,
+              order.sourceAddress.phoneNumber.length,
+            )}
           </Text>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('ChatDriverScreen', {
+                name: order.customer?.fullName,
+                uid: order.customer?._id,
+                avatar: order.customer?.avatar,
+              })
+            }>
             <View style={styles.outer_contact_icon}>
               <Icon2 name="message1" size={24} color={CUSTOM_COLOR.Primary} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity
+            onPress={() =>
+              Linking.openURL(`tel:${order.sourceAddress.phoneNumber}`)
+            }>
             <View style={styles.outer_contact_icon}>
               <Icon3 name="phone" size={24} color={CUSTOM_COLOR.Primary} />
             </View>
@@ -71,10 +87,10 @@ const ReceiverDetailDriverScreen = ({navigation, route}) => {
         <View style={styles.outer_addresses}>
           <View style={[cs.horizontal_flex, styles.space_between]}>
             <Text>Hôm nay, 10:38</Text>
-            <Text>#19892381233593</Text>
+            <Text>#{order._id.substr(order._id.length - 12)}</Text>
           </View>
           <Text style={styles.status_text}>{order.status}</Text>
-          <View style={[cs.horizontal_flex, styles.sign_outer]}>
+          <View style={[styles.sign_outer]}>
             <Icon2 name="edit" size={24} color="#2F2F2F" />
             <Text style={styles.signal_text}>
               Cần xác nhận giao hàng thành công tại điểm trả hàng
@@ -88,11 +104,15 @@ const ReceiverDetailDriverScreen = ({navigation, route}) => {
             style={{width: 24, height: 24, marginRight: 10}}
           />
           <View>
-            <Text style={styles.main_type_good}>{order.vehicleType}</Text>
-            <View style={{height: 7}} />
-            <Text style={styles.title_good_info_item}>
-              {goodInfo.vehicleDescription}
+            <Text style={styles.main_type_good}>
+              {order.vehicleType.vehicleTypeName}
             </Text>
+            <View style={{width: '90%'}}>
+              <Text style={styles.title_good_info_item}>
+                {order.vehicleType.size} {'\n'}
+                {order.vehicleType.suitableFor}
+              </Text>
+            </View>
           </View>
         </View>
         <View style={{height: 110}}></View>
@@ -129,7 +149,12 @@ const ReceiverDetailDriverScreen = ({navigation, route}) => {
           </View>
           <TouchableOpacity
             style={[styles.outer_receiver_slider, styles.width_50]}
-            onPress={() => navigation.navigate('DriverReviewMap', {...order})}>
+            onPress={() =>
+              navigation.navigate('DriverReviewMap', {
+                order: {...order},
+                isToSource: true,
+              })
+            }>
             <View>
               <Text
                 style={{
