@@ -1,20 +1,34 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { IMAGES } from '../../../../assets/images'
 import styles from './style'
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { setIdDriverSelected } from '../../../../redux/slices/reportSlice';
 
-const ItemReportDriver = () => {
+const ItemReportDriver = ({ item }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const handleClickSee = () => {
+    dispatch(setIdDriverSelected(item._id));
+    navigation.navigate('DetailReportDriverScreen');
+  }
+
   return (
     <View style={styles.container_item_diver} >
-      <Image source={IMAGES.avatar} style={styles.avatar} />
+      <Image source={{ uri: item.avatar }} style={styles.avatar} />
       <View style={styles.container_info}>
-        <Text style={styles.name_diver}>Tài xế: Phan Trọng Tính</Text>
-        <Text style={styles.email}>phantrongtinh15082003@gmail.com</Text>
-        <Text style={styles.status}>Đang hoạt động</Text>
+        <Text style={styles.name_diver}>Tài xế: {item.fullName}</Text>
+        <Text style={styles.email}>{item.email}</Text>
+        {
+          item.isLocked === false ? (
+            <Text style={styles.status}>Đang hoạt động</Text>
+          ) : (
+            <Text style={styles.lock}>Đang bị khóa</Text>
+          )
+        }
       </View>
-      <TouchableOpacity style={styles.button_detail} onPress={() => navigation.navigate('DetailReportDriverScreen')}>
+      <TouchableOpacity style={styles.button_detail} onPress={handleClickSee}>
         <Text style={styles.text_button} t>Xem</Text>
       </TouchableOpacity>
     </View>

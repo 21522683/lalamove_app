@@ -4,7 +4,7 @@ import styles from './style.js'
 import Dropdown from './Dropdown/index.js';
 import formatMoney from '../../../constants/formatMoney.js';
 import { LineChart } from "react-native-chart-kit";
-import { moderateScale, scale, ScaledSheet, verticalScale } from 'react-native-size-matters';
+import { scale, verticalScale } from 'react-native-size-matters';
 import CUSTOM_COLOR from '../../../constants/colors.js';
 import { IMAGES } from '../../../assets/images'
 import { Image } from 'react-native-svg';
@@ -16,21 +16,14 @@ import baseUrl from '../../../constants/baseUrl.js';
 
 const StatiscalDriverScreen = () => {
     const [dataChart, setDataChart] = useState({
-        labels: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"],
+        labels: [],
         datasets: [
             {
-                data: [
-                    0, 0, 0, 0, 0, 0, 0
-                ]
+                data: []
             }
         ]
     });
 
-    useEffect(() => {
-        setDataChart(dataChart);
-    }, [dataChart])
-
-    // từ đây
     const [filter, setFilter] = useState(
         {
             textSearch: '',
@@ -39,54 +32,12 @@ const StatiscalDriverScreen = () => {
     );
     const handleSelect = (value) => {
         setFilter(prev => ({ ...prev, option: value }));
-        if (value === 'Theo ngày') {
-            // Xử lý api chỗ này 
-            const data = {
-                labels: [],
-                datasets: [
-                    {
-                        data: [
-                            230, 480, 120, 903, 345, 256, 678, 345, 678, 678, 1123, 2231, 890, 569, 789, 990,
-                            230, 480, 120, 903, 345, 256, 678, 345, 678, 678, 1123, 2231, 890, 569, 789
-                        ]
-                    }
-                ]
-            }
-            setDataChart(data);
-        }
-        else if (value === 'Theo tháng') {
-            // Xử lý api chỗ này 
-            const data = {
-                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-                datasets: [
-                    {
-                        data: [
-                            230000 / 1000, 400000 / 1000, 1200000 / 1000, 8000000 / 1000, 370000 / 1000, 290000 / 1000, 230000 / 1000, 400000 / 1000, 1200000 / 1000, 8000000 / 1000, 370000 / 1000, 290000 / 1000,
-                        ]
-                    }
-                ]
-            }
-            setDataChart(data);
-        }
-        else {
-            const data = {
-                labels: ["2024"],
-                datasets: [
-                    {
-                        data: [
-                            23089000 / 1000
-                        ]
-                    }
-                ]
-            }
-            setDataChart(data);
-        }
     };
     const handleChangeTextSearch = (value) => {
         setFilter(prev => ({ ...prev, textSearch: value }));
     }
 
-    const [data, setData] = useState();
+    const [dataReport, setDataReport] = useState({});
     const userAuth = useSelector(state => state.users.userAuth);
 
     const getDataAPI = async () => {
@@ -100,8 +51,16 @@ const StatiscalDriverScreen = () => {
             const params = new URLSearchParams(filter).toString();
             const url = `${baseUrl}/order/get-info-report-driver/${userAuth.id}/?${params}`;
             const data = await axios.get(url, config);
-            setData(data.data);
-            console.log("url nè: ", url);
+            setDataReport(data.data);
+            const dataOfChart = {
+                labels: data.data.dataOfChart.arrLabelChart,
+                datasets: [
+                    {
+                        data: data.data.dataOfChart.arrValueChart
+                    }
+                ]
+            }
+            setDataChart(dataOfChart);
         } catch (error) {
             console.log(error);
         }
@@ -125,22 +84,22 @@ const StatiscalDriverScreen = () => {
                     <View style={styles.info_container}>
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Tổng thu nhập:</Text>
-                            <Text style={styles.content}>{formatMoney(22890000)}</Text>
+                            <Text style={styles.content}>{formatMoney(dataReport.totalRevenue)}</Text>
                         </View>
 
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Số đơn hàng thành công:</Text>
-                            <Text style={styles.content}>129</Text>
+                            <Text style={styles.content}>{dataReport.totalOrderSuccess}</Text>
                         </View>
 
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Trả lại cho hệ thống:</Text>
-                            <Text style={styles.content}>{formatMoney(21390000)}</Text>
+                            <Text style={styles.content}>{formatMoney(dataReport.totalOfSystem)}</Text>
                         </View>
 
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Số tiền nhận được:</Text>
-                            <Text style={styles.content}>{formatMoney(1500000)}</Text>
+                            <Text style={styles.content}>{formatMoney(dataReport.totalOfDriver)}</Text>
                         </View>
                     </View>
 
@@ -185,9 +144,9 @@ const StatiscalDriverScreen = () => {
                     </View>
                     <ScrollView style={styles.list}>
                         {
-                            [1, 2, 3, 4, 5, 6, 7].map(() => {
+                            dataReport.orders?.map((item, index) => {
                                 return (
-                                    <ItemOrderStatiscal />
+                                    <ItemOrderStatiscal key={index} item={item}/>
                                 )
                             })
                         }

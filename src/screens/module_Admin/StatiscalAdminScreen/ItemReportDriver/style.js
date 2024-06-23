@@ -43,6 +43,10 @@ const styles = ScaledSheet.create({
     color: 'green',
     fontSize: scale(10),
   },
+  lock: {
+    color: 'red',
+    fontSize: scale(10),
+  },
   date_create: {
     marginLeft: scale(8),
     fontSize: scale(10),

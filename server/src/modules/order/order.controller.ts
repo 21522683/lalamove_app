@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
   Query,
   Req,
   Res,
@@ -12,6 +13,7 @@ import {
 import { OrderService } from './order.service';
 import { CreateOrderDTO } from './DTO/create_order.dto';
 import { Response } from 'express';
+import { UpdateHoaHongDTO } from './DTO/update_hoa_hong.dto';
 
 @Controller('order')
 export class OrderController {
@@ -50,4 +52,15 @@ export class OrderController {
   async getInfoReportDriver(@Param('id') id: string, @Query() query: any) {
     return this.orderService.getInfoReportDriver(id, query);
   }
+
+  @Get('/get-info-report-admin')
+  async getInfoReportAdmin(@Query() query: any) {
+    return this.orderService.getInfoReportAdmin(query);
+  }
+
+  @Put('/update-hoa-hong')
+  async updateHoaHong(@Body() body: UpdateHoaHongDTO) {
+    return this.orderService.updateHoaHong(body);
+  }
+
 }

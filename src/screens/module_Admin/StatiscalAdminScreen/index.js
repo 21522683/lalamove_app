@@ -1,85 +1,125 @@
-import { View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Dimensions, TextInput } from 'react-native'
+import { View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, Dimensions, TextInput, Alert } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import styles from './style.js'
 import Dropdown from './Dropdown/index.js';
 import formatMoney from '../../../constants/formatMoney.js';
 import { LineChart } from "react-native-chart-kit";
-import { moderateScale, scale, ScaledSheet, verticalScale } from 'react-native-size-matters';
+import { scale, verticalScale } from 'react-native-size-matters';
 import Dialog from "react-native-dialog";
 import CUSTOM_COLOR from '../../../constants/colors.js';
 import { IMAGES } from '../../../assets/images'
 import ItemReportDriver from './ItemReportDriver/index.js';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import baseUrl from '../../../constants/baseUrl.js';
+import { ActivityIndicator } from 'react-native-paper';
 
 const StatiscalAdminScreen = () => {
     const [dataChart, setDataChart] = useState({
-        labels: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"],
+        labels: ["First"],
         datasets: [
             {
-                data: [
-                    0, 0, 0, 0, 0, 0, 0
-                ]
+                data: [0]
             }
         ]
     });
 
-    useEffect(() => {
-        setDataChart(dataChart);
-    }, [dataChart])
-
+    const [filter, setFilter] = useState(
+        {
+            textSearch: '',
+            option: 'Theo ngày',
+        }
+    );
     const handleSelect = (value) => {
-        // Theo tuần 
-        if (value === 'day') {
-            // Xử lý api chỗ này 
-            const data = {
-                labels: [],
-                datasets: [
-                    {
-                        data: [
-                            230, 480, 120, 903, 345, 256, 678, 345, 678, 678, 1123, 2231, 890, 569, 789, 990,
-                            230, 480, 120, 903, 345, 256, 678, 345, 678, 678, 1123, 2231, 890, 569, 789
-                        ]
-                    }
-                ]
-            }
-            setDataChart(data);
-        }
-        else if (value === 'month') {
-            // Xử lý api chỗ này 
-            const data = {
-                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-                datasets: [
-                    {
-                        data: [
-                            230000 / 1000, 400000 / 1000, 1200000 / 1000, 8000000 / 1000, 370000 / 1000, 290000 / 1000, 230000 / 1000, 400000 / 1000, 1200000 / 1000, 8000000 / 1000, 370000 / 1000, 290000 / 1000,
-                        ]
-                    }
-                ]
-            }
-            setDataChart(data);
-        }
-        else {
-            const data = {
-                labels: ["2024"],
-                datasets: [
-                    {
-                        data: [
-                            23089000 / 1000
-                        ]
-                    }
-                ]
-            }
-            setDataChart(data);
-        }
+        setFilter(prev => ({ ...prev, option: value }));
     };
-    const handleSend = () => {
-
+    const handleChangeTextSearch = (value) => {
+        setFilter(prev => ({ ...prev, textSearch: value }));
     }
+
+    const [dataReport, setDataReport] = useState({});
+    const userAuth = useSelector(state => state.users.userAuth);
+
+    const [list, setList] = useState([]);
+    const getDataAPI = async () => {
+        try {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${userAuth.access_token}`,
+                    'Content-Type': 'application/json',
+                },
+            };
+            const params = new URLSearchParams(filter).toString();
+            const url = `${baseUrl}/order/get-info-report-admin/?${params}`;
+            const data = await axios.get(url, config);
+            setDataReport(data.data);
+            setList(data.data.listDrivers);
+            setTyLe(data.data.hoaHong);
+            const dataOfChart = {
+                labels: data.data.dataOfChart.arrLabelChart,
+                datasets: [
+                    {
+                        data: data.data.dataOfChart.arrValueChart
+                    }
+                ]
+            }
+            setDataChart(dataOfChart);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getDataAPI();
+        console.log("filter: ", filter);
+    }, [filter]);
 
     const handleClose = () => {
         setShowDialog(false)
     }
 
     const [showDialog, setShowDialog] = useState(false);
+    const [tyle, setTyLe] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const handleSend = async () => {
+        if (tyle.toString().trim().length === 0) {
+            Alert.alert('Thông báo', "Vui lòng nhập tỷ lệ hoa hồng");
+            return;
+        } else {
+            if (tyle < 0.5 || tyle > 1) {
+                Alert.alert('Thông báo', "Tỷ lệ hoa hồng phải từ 0.5 đến 1");
+                return;
+            }
+            else {
+                try {
+                    setLoading(true);
+                    const config = {
+                        headers: {
+                            'Authorization': `Bearer ${userAuth.access_token}`,
+                            'Content-Type': 'application/json',
+                        },
+                    };
+                    const url = `${baseUrl}/order/update-hoa-hong`;
+                    const data = await axios.put(url, { hoaHongChoTaiXe: tyle }, config);
+                    getDataAPI();
+                    Alert.alert('Thông báo', "Thay đổi tỷ lệ hoa hồng cho tài xế thành công.");
+                    setShowDialog(false);
+                    setTyLe(0);
+                    setLoading(false);
+                } catch (error) {
+                    console.log(error.message);
+                    Alert.alert('Lỗi', error.message);
+                    setShowDialog(false);
+                    setTyLe(0);
+                    setLoading(false);
+                }
+            }
+        }
+    }
+
+
+
     return (
         <SafeAreaView style={styles.container}>
 
@@ -94,22 +134,22 @@ const StatiscalAdminScreen = () => {
                     <View style={styles.info_container}>
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Tổng doanh thu:</Text>
-                            <Text style={styles.content}>{formatMoney(22890000)}</Text>
+                            <Text style={styles.content}>{formatMoney(dataReport.totalRevenue)}</Text>
                         </View>
 
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Số đơn hàng thành công:</Text>
-                            <Text style={styles.content}>129</Text>
+                            <Text style={styles.content}>{dataReport.totalOrderSuccess}</Text>
                         </View>
 
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Trả cho tài xế:</Text>
-                            <Text style={styles.content}>{formatMoney(21390000)}</Text>
+                            <Text style={styles.content}>{formatMoney(dataReport.totalOfDriver)}</Text>
                         </View>
 
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Lợi nhuận:</Text>
-                            <Text style={styles.content}>{formatMoney(1500000)}</Text>
+                            <Text style={styles.content}>{formatMoney(dataReport.totalOfSystem)}</Text>
                         </View>
                     </View>
 
@@ -117,16 +157,16 @@ const StatiscalAdminScreen = () => {
                         <Text style={{ fontSize: scale(12), color: CUSTOM_COLOR.Primary, textAlign: 'center' }}>Biểu đồ doanh thu</Text>
                         <LineChart
                             data={dataChart}
-                            width={scale(Dimensions.get("window").width * 0.8)} // from react-native
+                            width={scale(Dimensions.get("window").width * 0.8)}
                             height={verticalScale(260)}
                             yAxisLabel=""
                             yAxisSuffix="k"
-                            yAxisInterval={1} // optional, defaults to 1
+                            yAxisInterval={1}
                             chartConfig={{
                                 backgroundColor: CUSTOM_COLOR.Primary,
                                 backgroundGradientFrom: "#fb8c00",
                                 backgroundGradientTo: "#ffa726",
-                                decimalPlaces: 1, // optional, defaults to 2dp
+                                decimalPlaces: 1,
                                 color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                                 labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                                 style: {
@@ -151,7 +191,7 @@ const StatiscalAdminScreen = () => {
                 <View style={styles.container_final}>
                     <View style={styles.container_hoahong}>
                         <Text style={styles.title_hoahong}>Hoa hồng tài xế:</Text>
-                        <Text style={styles.tyle}>0.8</Text>
+                        <Text style={styles.tyle}>{dataReport.hoaHong}</Text>
                     </View>
                     <TouchableOpacity style={styles.btn_edit} onPress={() => setShowDialog(true)}>
                         <Text style={styles.text_btn}>Chỉnh sửa</Text>
@@ -159,29 +199,35 @@ const StatiscalAdminScreen = () => {
                 </View>
                 {
                     showDialog && (
-                        <Dialog.Container visible={true}>
-                            <Dialog.Title>Chỉnh sửa tỷ lệ hoa hồng</Dialog.Title>
-                            <Dialog.Description>
-                                Vui lòng nhập tỷ lệ hoa hồng bạn muốn chỉnh sửa. Tỷ lệ hoa hồng cho tài xế phải đảm bảo lớn hơn 50% và nhỏ hơn 100% (từ 0.5 đến 1).
-                            </Dialog.Description>
-                            <Dialog.Input />
-                            <Dialog.Button label="Đóng" onPress={handleClose} />
-                            <Dialog.Button label="Lưu" onPress={handleSend} />
-                        </Dialog.Container>
+                        loading ? (
+                            <View style={[styles.containerLoading, styles.horizontal]}>
+                                <ActivityIndicator size="large" color="#FF5900" />
+                            </View>
+                        ) : (
+                            <Dialog.Container visible={true}>
+                                <Dialog.Title>Chỉnh sửa tỷ lệ hoa hồng</Dialog.Title>
+                                <Dialog.Description>
+                                    Vui lòng nhập tỷ lệ hoa hồng bạn muốn chỉnh sửa. Tỷ lệ hoa hồng cho tài xế phải đảm bảo lớn hơn 50% và nhỏ hơn 100% (từ 0.5 đến 1).
+                                </Dialog.Description>
+                                <Dialog.Input value={tyle} onChangeText={(text) => setTyLe(text)} />
+                                <Dialog.Button label="Đóng" onPress={handleClose} />
+                                <Dialog.Button label="Lưu" onPress={handleSend} />
+                            </Dialog.Container>
+                        )
                     )
                 }
 
                 <View style={styles.container_driver}>
                     <Text style={styles.title_list}>DANH SÁCH THỐNG KÊ CỦA TÀI XẾ</Text>
                     <View style={styles.search_bar}>
-                        <TextInput style={styles.search_input} placeholder='Nhập tên tài xế để tìm kiếm' />
+                        <TextInput value={filter.textSearch} onChangeText={handleChangeTextSearch} style={styles.search_input} placeholder='Nhập tên tài xế để tìm kiếm' />
                         <Image source={IMAGES.search_icon} style={styles.icon_search} />
                     </View>
                     <ScrollView style={styles.list}>
                         {
-                            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(() => {
+                            list.map((item, index) => {
                                 return (
-                                    <ItemReportDriver/>
+                                    <ItemReportDriver key={index} item={item} />
                                 )
                             })
                         }
