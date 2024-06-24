@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView, Dimensions, Image, TextInput } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, Dimensions, Image, TextInput, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import styles from './style.js'
 import Dropdown from './Dropdown/index.js';
@@ -9,84 +9,94 @@ import CUSTOM_COLOR from '../../../../constants/colors.js';
 import ItemOrderStatiscal from './ItemReportOrderDriver/index.js';
 import { IMAGES } from '../../../../assets/images/index.js';
 import ItemReportOrderDriver from './ItemReportOrderDriver/index.js';
+import { useSelector } from 'react-redux';
+import baseUrl from '../../../../constants/baseUrl.js';
+import axios from 'axios';
 
 
-const DetailReportDriverScreen = () => {
+const DetailReportDriverScreen = ({navigation}) => {
     const [dataChart, setDataChart] = useState({
-        labels: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"],
+        labels: ["First"],
         datasets: [
             {
-                data: [
-                    0, 0, 0, 0, 0, 0, 0
-                ]
+                data: [0]
             }
         ]
     });
 
-    useEffect(() => {
-        setDataChart(dataChart);
-    }, [dataChart])
-
+    const [filter, setFilter] = useState(
+        {
+            textSearch: '',
+            option: 'Theo ngày',
+        }
+    );
     const handleSelect = (value) => {
-        // Theo tuần 
-        if (value === 'day') {
-            // Xử lý api chỗ này 
-            const data = {
-                labels: [],
-                datasets: [
-                    {
-                        data: [
-                            230, 480, 120, 903, 345, 256, 678, 345, 678, 678, 1123, 2231, 890, 569, 789, 990,
-                            230, 480, 120, 903, 345, 256, 678, 345, 678, 678, 1123, 2231, 890, 569, 789
-                        ]
-                    }
-                ]
-            }
-            setDataChart(data);
-        }
-        else if (value === 'month') {
-            // Xử lý api chỗ này 
-            const data = {
-                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-                datasets: [
-                    {
-                        data: [
-                            230000 / 1000, 400000 / 1000, 1200000 / 1000, 8000000 / 1000, 370000 / 1000, 290000 / 1000, 230000 / 1000, 400000 / 1000, 1200000 / 1000, 8000000 / 1000, 370000 / 1000, 290000 / 1000,
-                        ]
-                    }
-                ]
-            }
-            setDataChart(data);
-        }
-        else {
-            const data = {
-                labels: ["2024"],
-                datasets: [
-                    {
-                        data: [
-                            23089000 / 1000
-                        ]
-                    }
-                ]
-            }
-            setDataChart(data);
-        }
+        setFilter(prev => ({ ...prev, option: value }));
     };
+    const handleChangeTextSearch = (value) => {
+        setFilter(prev => ({ ...prev, textSearch: value }));
+    }
+
+    const [dataReport, setDataReport] = useState({});
+    const userAuth = useSelector(state => state.users.userAuth);
+    const idDriver = useSelector(state => state.reports.idDriverSelected);
+    const getDataAPI = async () => {
+        try {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${userAuth.access_token}`,
+                    'Content-Type': 'application/json',
+                },
+            };
+            const params = new URLSearchParams(filter).toString();
+            const url = `${baseUrl}/order/get-info-report-driver/${idDriver}/?${params}`;
+            const data = await axios.get(url, config);
+            setDataReport(data.data);
+            const dataOfChart = {
+                labels: data.data.dataOfChart.arrLabelChart,
+                datasets: [
+                    {
+                        data: data.data.dataOfChart.arrValueChart
+                    }
+                ]
+            }
+            setDataChart(dataOfChart);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getDataAPI();
+    }, [filter]);
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Image source={IMAGES.arrow_back} style={styles.back_button} />
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Image source={IMAGES.arrow_back} style={styles.back_button} />
+                </TouchableOpacity>
                 <Text style={styles.title_header}>Thống kê tài xế</Text>
             </View>
 
             <View style={styles.container_info}>
-                <Image source={IMAGES.avatar} style={styles.img}/>
+                <Image source={{uri: dataReport.infoDriver?.avatar}} style={styles.img} />
                 <View style={styles.info_driver}>
-                    <Text style={styles.name}>Phan Trọng Tính</Text>
-                    <Text style={styles.email}>phantrongtinh15082003@gmail.com</Text>
-                    <Text style={styles.phone}>0379361210</Text>
-                    <Text style={styles.status}>Đang hoạt động</Text>
+                    <Text style={styles.name}>{dataReport.infoDriver?.fullName}</Text>
+                    <Text style={styles.email}>{dataReport.infoDriver?.email}</Text>
+                    <Text style={styles.phone}>{dataReport.infoDriver?.phoneNumber}</Text>
+                    {
+                        (dataReport.infoDriver?.isLocked === true) ? (
+                            <Text style={styles.lock}>Đang bị khóa</Text>
+                        ) : (
+                            (dataReport.infoDriver?.isWaitingAccepted === false) ? (
+                                <Text style={styles.status}>Đang hoạt động</Text>
+                            ) : (
+                                <Text style={styles.waiting}>Chờ xét duyệt</Text>
+                            )
+                        )
+                    }
+                    
                 </View>
             </View>
 
@@ -95,24 +105,24 @@ const DetailReportDriverScreen = () => {
                     <Dropdown onSelect={handleSelect} />
 
                     <View style={styles.info_container}>
-                        <View style={styles.item_info}>
+                    <View style={styles.item_info}>
                             <Text style={styles.title_info}>Tổng thu nhập:</Text>
-                            <Text style={styles.content}>{formatMoney(22890000)}</Text>
+                            <Text style={styles.content}>{formatMoney(dataReport.totalRevenue)}</Text>
                         </View>
 
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Số đơn hàng thành công:</Text>
-                            <Text style={styles.content}>129</Text>
+                            <Text style={styles.content}>{dataReport.totalOrderSuccess}</Text>
                         </View>
 
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Trả lại cho hệ thống:</Text>
-                            <Text style={styles.content}>{formatMoney(21390000)}</Text>
+                            <Text style={styles.content}>{formatMoney(dataReport.totalOfSystem)}</Text>
                         </View>
 
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Số tiền nhận được:</Text>
-                            <Text style={styles.content}>{formatMoney(1500000)}</Text>
+                            <Text style={styles.content}>{formatMoney(dataReport.totalOfDriver)}</Text>
                         </View>
                     </View>
 
@@ -152,14 +162,14 @@ const DetailReportDriverScreen = () => {
                 <View style={styles.container_driver}>
                     <Text style={styles.title_list}>DANH SÁCH ĐƠN HÀNG CỦA TÀI XẾ</Text>
                     <View style={styles.search_bar}>
-                        <TextInput style={styles.search_input} placeholder='Nhập thông tin để tìm kiếm' />
+                        <TextInput value={filter.textSearch} onChangeText={handleChangeTextSearch} style={styles.search_input} placeholder='Nhập thông tin để tìm kiếm' />
                         <Image source={IMAGES.search_icon} style={styles.icon_search} />
                     </View>
                     <ScrollView style={styles.list}>
                         {
-                            [1, 2, 3, 4, 5, 6, 7].map(() => {
+                            dataReport?.orders?.map((item, index) => {
                                 return (
-                                    <ItemReportOrderDriver/>
+                                    <ItemReportOrderDriver key={index} item={item} />
                                 )
                             })
                         }

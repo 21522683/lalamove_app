@@ -3,23 +3,21 @@ import { createSlice } from '@reduxjs/toolkit';
 const reportsSlices = createSlice({
     name: 'reports',
     initialState: {
-        dataStatiscal: {},
         idDriverSelected: null,
+        idOrderSelected: null,
     },
     reducers: {
-        setDataStatiscal: (state, action) => {
-            state.dataStatiscal = {
-                ...action.payload
-            };
-        },
         setIdDriverSelected: (state, action) => {
             state.idDriverSelected = action.payload;
+        },
+        setIdOrderSelected: (state, action) => {
+            state.idOrderSelected = action.payload;
         }
     }
 
 });
 export default reportsSlices.reducer;
 export const {
-    setDataStatiscal,
+    setIdOrderSelected,
     setIdDriverSelected
   } = reportsSlices.actions;

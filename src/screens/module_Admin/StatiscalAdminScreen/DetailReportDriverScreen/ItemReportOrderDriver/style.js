@@ -29,7 +29,7 @@ const styles = ScaledSheet.create({
     justifyContent: 'space-between',
   },
   name_diver: {
-    fontSize: scale(12),
+    fontSize: scale(11),
     color: CUSTOM_COLOR.Black,
     fontWeight: '400'
   },

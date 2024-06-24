@@ -21,10 +21,14 @@ const ItemReportDriver = ({ item }) => {
         <Text style={styles.name_diver}>Tài xế: {item.fullName}</Text>
         <Text style={styles.email}>{item.email}</Text>
         {
-          item.isLocked === false ? (
-            <Text style={styles.status}>Đang hoạt động</Text>
-          ) : (
+          item.isLocked === true ? (
             <Text style={styles.lock}>Đang bị khóa</Text>
+          ) : (
+            item.isWaitingAccepted ? (
+              <Text style={styles.waiting}>Chờ xét duyệt</Text>
+            ) : (
+              <Text style={styles.status}>Đang hoạt động</Text>
+            )
           )
         }
       </View>

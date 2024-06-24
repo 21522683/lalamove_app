@@ -71,7 +71,6 @@ const StatiscalAdminScreen = () => {
 
     useEffect(() => {
         getDataAPI();
-        console.log("filter: ", filter);
     }, [filter]);
 
     const handleClose = () => {
@@ -227,7 +226,7 @@ const StatiscalAdminScreen = () => {
                         {
                             list.map((item, index) => {
                                 return (
-                                    <ItemReportDriver key={index} item={item} />
+                                    <ItemReportDriver key={item.id || index} item={item} />
                                 )
                             })
                         }

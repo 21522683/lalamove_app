@@ -63,4 +63,9 @@ export class OrderController {
     return this.orderService.updateHoaHong(body);
   }
 
+  @Get('/get-info-order/:id')
+  async getInfoOrderById(@Param('id') id: string) {
+    return this.orderService.getInfoOrderById(id);
+  }
+
 }

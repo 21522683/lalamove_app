@@ -47,6 +47,10 @@ const styles = ScaledSheet.create({
     color: 'red',
     fontSize: scale(10),
   },
+  waiting: {
+    color: CUSTOM_COLOR.Primary,
+    fontSize: scale(10),
+  },
   date_create: {
     marginLeft: scale(8),
     fontSize: scale(10),

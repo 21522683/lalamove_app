@@ -7,12 +7,14 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   Req,
   Res,
 } from '@nestjs/common';
 import { CreateAddressDTO } from './DTO/create_address.dto';
 import { AddressService } from './address.service';
 import { Response } from 'express';
+import { SetDefaultAddressDTO } from './DTO/set_default_address.dto';
 
 @Controller('address')
 export class AddressController {
@@ -76,7 +78,7 @@ export class AddressController {
     try {
       const address = await this.addressService.deleteAddress(addressId);
       res.status(HttpStatus.OK).json({
-        message: 'Delete  address successfully',
+        message: 'Delete address successfully',
         data: address,
       });
     } catch (error) {
@@ -91,10 +93,41 @@ export class AddressController {
   async getAddressOfCurrentUser(@Req() req, @Res() res: Response) {
     try {
       const userId: string = req.user.sub;
-      const addresses =
-        await this.addressService.getAddressesOfCurrentUser(userId);
+      const addresses = await this.addressService.getAddressesOfCurrentUser(userId);
       res.status(HttpStatus.CREATED).json({
         message: 'Get addresses successfully',
+        data: addresses,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Put('set-address-default/:id')
+  async setAddressDefault(@Body() body: SetDefaultAddressDTO, @Res() res: Response, @Param() id: string) {
+    try {
+      const addresses = await this.addressService.setAddressDefault(id, body);
+      res.status(HttpStatus.CREATED).json({
+        message: 'Set addresses default successfully',
+        data: addresses,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Delete('delete-address-saved/:id')
+  async deleteAddressSaved(@Res() res: Response, @Param() id: string) {
+    try {
+      const addresses = await this.addressService.deleteAddressSaved(id);
+      res.status(HttpStatus.CREATED).json({
+        message: 'Delete addresses successfully',
         data: addresses,
       });
     } catch (error) {

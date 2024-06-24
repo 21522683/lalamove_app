@@ -127,6 +127,14 @@ const styles = ScaledSheet.create({
     flexDirection: 'column',
     margin: moderateScale(20),
   },
+  lock: {
+    color: 'red',
+    fontSize: scale(10),
+  },
+  waiting: {
+    color: CUSTOM_COLOR.Primary,
+    fontSize: scale(10),
+  },
 });
 
 export default styles;
