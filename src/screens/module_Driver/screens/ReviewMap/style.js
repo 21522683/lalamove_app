@@ -1,11 +1,5 @@
-import {
-  moderateScale,
-  scale,
-  ScaledSheet,
-  verticalScale,
-} from 'react-native-size-matters';
+import {moderateScale, ScaledSheet} from 'react-native-size-matters';
 import CUSTOM_COLOR from '../../../../constants/colors';
-import AddressItem from '../../components/AddressItem';
 const styles = ScaledSheet.create({
   container: {
     flex: 1,
@@ -13,6 +7,13 @@ const styles = ScaledSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#fff',
     position: 'relative',
+  },
+  mapContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    top: 0,
   },
 
   header_container: {

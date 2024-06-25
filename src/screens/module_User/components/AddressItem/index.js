@@ -9,7 +9,7 @@ const AddressItem = ({props, hide, current}) => {
   return (
     <View>
       <View style={[cs.horizontal_flex]}>
-      <View style={styles.outer_dot}>
+        <View style={styles.outer_dot}>
           <View style={styles.inner_dot}>
             <View style={styles.line_under_dot}></View>
           </View>

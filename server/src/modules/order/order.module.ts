@@ -12,6 +12,28 @@ import { Params, ParamsSchema, User, UserSchema, VehicleType, VehicleTypeSchema 
         name: Order.name,
         schema: Orderchema,
       },
+      {
+        name: User.name,
+        schema: UserSchema,
+      },
+    ]),
+    MongooseModule.forFeature([
+      {
+        name: Params.name,
+        schema: ParamsSchema,
+      },
+    ]),
+    MongooseModule.forFeature([
+      {
+        name: User.name,
+        schema: UserSchema,
+      },
+    ]),
+    MongooseModule.forFeature([
+      {
+        name: VehicleType.name,
+        schema: VehicleTypeSchema,
+      },
     ]),
     MongooseModule.forFeature([
       {

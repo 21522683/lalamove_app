@@ -12,8 +12,8 @@ import {
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDTO } from './DTO/create_order.dto';
-import { Response } from 'express';
 import { UpdateHoaHongDTO } from './DTO/update_hoa_hong.dto';
+import { Response, query } from 'express';
 
 @Controller('order')
 export class OrderController {
@@ -66,4 +66,41 @@ export class OrderController {
     return this.orderService.getInfoOrderById(id);
   }
 
+
+  @Get(':id/get-user-orders')
+  async getAllUserOrders(@Param('id') id: string, @Res() res: Response) {
+    try {
+      const orders = await this.orderService.getAllUserOrders(id);
+      res.status(HttpStatus.OK).json({
+        message: 'Get all user orders successfully',
+        data: orders,
+      });
+    } catch (error) {
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Get('driver-orders')
+  async driverOrders(@Query() query, @Res() res: Response) {
+    try {
+      const latitude = query.latitude;
+      const longitude = query.longitude;
+      const radius = query.radius;
+      const orders = await this.orderService.driverOrders(
+        latitude,
+        longitude,
+        radius,
+      );
+      res.status(HttpStatus.OK).json({
+        message: 'Get all user orders successfully',
+        data: orders,
+      });
+    } catch (error) {
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
 }

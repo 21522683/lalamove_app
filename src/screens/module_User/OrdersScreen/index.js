@@ -5,12 +5,14 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './style.js';
 import Icon from 'react-native-vector-icons/AntDesign';
 import OrderItem from '../components/OrderIItem/index.js';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {getAllUserOrdersAction} from '../../../redux/slices/orderSlice.js';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -25,6 +27,10 @@ function UserOrdersScreen(navigation) {
         </View>
       </View>
       <Tab.Navigator>
+        <Tab.Screen
+          name="Chờ nhận"
+          component={() => <OrdersScreen status="Đang chờ nhận" />}
+        />
         <Tab.Screen
           name="Đang giao"
           component={() => <OrdersScreen status="Đang giao" />}
@@ -44,264 +50,39 @@ function UserOrdersScreen(navigation) {
 
 const OrdersScreen = ({navigation, status}) => {
   const navigator = useNavigation();
-  var data = [
-    {
-      orderId: '1289327092384098',
-      driverId: '1',
-      customerId: '1',
-      distance: 3,
-      sourceAddress: {
-        addressId: '1',
-        userId: '1',
-        name: 'Lê Quang Nhân',
-        province: 'Thành phố Hồ Chí Minh',
-        district: 'Bình Tân',
-        ward: 'Tân tạo A',
-        detail: '4519 Nguyễn Cửu Phú',
-        phoneNumber: '0868008460',
-        latitude: 128.168,
-        longtitude: 169.259,
-      },
-      destinationAddress: {
-        addressId: '2',
-        userId: '1',
-        name: 'Nguyễn Văn Quí',
-        province: 'Thành phố Hồ Chí Minh',
-        district: 'Bình Thạnh',
-        ward: 'Thạnh Hòa',
-        detail: '21B Barker Street',
-        phoneNumber: '0868008460',
-        latitude: 68.126,
-        longtitude: 396.156,
-      },
-      vehicleType: 'Xe máy',
-      status: 'Đang giao',
-      charge: 120000,
-      date: 'Web, Apr 23, 23:17',
-    },
-    {
-      orderId: '1289327092384098',
-      driverId: '1',
-      customerId: '1',
-      distance: 3,
-      sourceAddress: {
-        addressId: '1',
-        userId: '1',
-        name: 'Lê Quang Nhân',
-        province: 'Thành phố Hồ Chí Minh',
-        district: 'Bình Tân',
-        ward: 'Tân tạo A',
-        detail: '4519 Nguyễn Cửu Phú',
-        phoneNumber: '0868008460',
-        latitude: 128.168,
-        longtitude: 169.259,
-      },
-      destinationAddress: {
-        addressId: '2',
-        userId: '1',
-        name: 'Nguyễn Văn Quí',
-        province: 'Thành phố Hồ Chí Minh',
-        district: 'Bình Thạnh',
-        ward: 'Thạnh Hòa',
-        detail: '21B Barker Street',
-        phoneNumber: '0868008460',
-        latitude: 68.126,
-        longtitude: 396.156,
-      },
-      vehicleType: 'Xe máy',
-      status: 'Đang giao',
-      charge: 120000,
-      date: 'Web, Apr 23, 23:17',
-    },
-    {
-      orderId: '1289327092384098',
-      driverId: '1',
-      customerId: '1',
-      distance: 3,
-      sourceAddress: {
-        addressId: '1',
-        userId: '1',
-        name: 'Lê Quang Nhân',
-        province: 'Thành phố Hồ Chí Minh',
-        district: 'Bình Tân',
-        ward: 'Tân tạo A',
-        detail: '4519 Nguyễn Cửu Phú',
-        phoneNumber: '0868008460',
-        latitude: 128.168,
-        longtitude: 169.259,
-      },
-      destinationAddress: {
-        addressId: '2',
-        userId: '1',
-        name: 'Nguyễn Văn Quí',
-        province: 'Thành phố Hồ Chí Minh',
-        district: 'Bình Thạnh',
-        ward: 'Thạnh Hòa',
-        detail: '21B Barker Street',
-        phoneNumber: '0868008460',
-        latitude: 68.126,
-        longtitude: 396.156,
-      },
-      vehicleType: 'Xe máy',
-      status: 'Đang giao',
-      charge: 120000,
-      date: 'Web, Apr 23, 23:17',
-    },
-    {
-      orderId: '1289327092384098',
-      driverId: '1',
-      customerId: '1',
-      distance: 3,
-      sourceAddress: {
-        addressId: '1',
-        userId: '1',
-        name: 'Lê Quang Nhân',
-        province: 'Thành phố Hồ Chí Minh',
-        district: 'Bình Tân',
-        ward: 'Tân tạo A',
-        detail: '4519 Nguyễn Cửu Phú',
-        phoneNumber: '0868008460',
-        latitude: 128.168,
-        longtitude: 169.259,
-      },
-      destinationAddress: {
-        addressId: '2',
-        userId: '1',
-        name: 'Nguyễn Văn Quí',
-        province: 'Thành phố Hồ Chí Minh',
-        district: 'Bình Thạnh',
-        ward: 'Thạnh Hòa',
-        detail: '21B Barker Street',
-        phoneNumber: '0868008460',
-        latitude: 68.126,
-        longtitude: 396.156,
-      },
-      vehicleType: 'Xe máy',
-      status: 'Đã hủy',
-      charge: 120000,
-      date: 'Web, Apr 23, 23:17',
-    },
-    {
-      orderId: '1289327092384098',
-      driverId: '1',
-      customerId: '1',
-      distance: 3,
-      sourceAddress: {
-        addressId: '1',
-        userId: '1',
-        name: 'Lê Quang Nhân',
-        province: 'Thành phố Hồ Chí Minh',
-        district: 'Bình Tân',
-        ward: 'Tân tạo A',
-        detail: '4519 Nguyễn Cửu Phú',
-        phoneNumber: '0868008460',
-        latitude: 128.168,
-        longtitude: 169.259,
-      },
-      destinationAddress: {
-        addressId: '2',
-        userId: '1',
-        name: 'Nguyễn Văn Quí',
-        province: 'Thành phố Hồ Chí Minh',
-        district: 'Bình Thạnh',
-        ward: 'Thạnh Hòa',
-        detail: '21B Barker Street',
-        phoneNumber: '0868008460',
-        latitude: 68.126,
-        longtitude: 396.156,
-      },
-      vehicleType: 'Xe máy',
-      status: 'Hoàn thành',
-      charge: 120000,
-      date: 'Web, Apr 23, 23:17',
-    },
-    {
-      orderId: '1289327092384098',
-      driverId: '1',
-      customerId: '1',
-      distance: 3,
-      sourceAddress: {
-        addressId: '1',
-        userId: '1',
-        name: 'Lê Quang Nhân',
-        province: 'Thành phố Hồ Chí Minh',
-        district: 'Bình Tân',
-        ward: 'Tân tạo A',
-        detail: '4519 Nguyễn Cửu Phú',
-        phoneNumber: '0868008460',
-        latitude: 128.168,
-        longtitude: 169.259,
-      },
-      destinationAddress: {
-        addressId: '2',
-        userId: '1',
-        name: 'Nguyễn Văn Quí',
-        province: 'Thành phố Hồ Chí Minh',
-        district: 'Bình Thạnh',
-        ward: 'Thạnh Hòa',
-        detail: '21B Barker Street',
-        phoneNumber: '0868008460',
-        latitude: 68.126,
-        longtitude: 396.156,
-      },
-      vehicleType: 'Xe máy',
-      status: 'Hoàn thành',
-      charge: 120000,
-      date: 'Web, Apr 23, 23:17',
-    },
-    {
-      orderId: '1289327092384098',
-      driverId: '1',
-      customerId: '1',
-      distance: 3,
-      sourceAddress: {
-        addressId: '1',
-        userId: '1',
-        name: 'Lê Quang Nhân',
-        province: 'Thành phố Hồ Chí Minh',
-        district: 'Bình Tân',
-        ward: 'Tân tạo A',
-        detail: '4519 Nguyễn Cửu Phú',
-        phoneNumber: '0868008460',
-        latitude: 128.168,
-        longtitude: 169.259,
-      },
-      destinationAddress: {
-        addressId: '2',
-        userId: '1',
-        name: 'Nguyễn Văn Quí',
-        province: 'Thành phố Hồ Chí Minh',
-        district: 'Bình Thạnh',
-        ward: 'Thạnh Hòa',
-        detail: '21B Barker Street',
-        phoneNumber: '0868008460',
-        latitude: 68.126,
-        longtitude: 396.156,
-      },
-      vehicleType: 'Xe máy',
-      status: 'Đang giao',
-      charge: 120000,
-      date: 'Web, Apr 23, 23:17',
-    },
-  ].filter(item => item.status === status);
+  const dispatch = useDispatch();
+  const orders = useSelector(state => state.orders.userOrders);
+  const [userOrders, setUserOrders] = useState(null);
+  useEffect(() => {
+    dispatch(getAllUserOrdersAction());
+  }, []);
+
+  useEffect(() => {
+    if (orders) {
+      setUserOrders(orders.filter(item => item.status === status));
+    }
+  }, [orders, status]);
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <></>
       <View>
-        <FlatList
-          data={data}
-          keyExtractor={(item, index) => index}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              activeOpacity={0.95}
-              onPress={() =>
-                navigator.navigate('OrderDetailScreen', {...item})
-              }>
-              <OrderItem {...item} />
-            </TouchableOpacity>
-          )}
-        />
+        {userOrders && (
+          <FlatList
+            data={userOrders}
+            keyExtractor={(item, index) => index}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                activeOpacity={0.95}
+                onPress={() =>
+                  navigator.navigate('OrderDetailScreen', {...item})
+                }>
+                <OrderItem {...item} />
+              </TouchableOpacity>
+            )}
+          />
+        )}
       </View>
       <></>
     </SafeAreaView>

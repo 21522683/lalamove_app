@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import UserTabStack from './UserTabStack';
 import {NavigationContainer} from '@react-navigation/native';
