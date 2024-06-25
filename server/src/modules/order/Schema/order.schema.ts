@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Address } from 'src/modules/address/Schema/address.schema';
 import { User } from 'src/schemas';
@@ -23,11 +23,52 @@ export class Order {
   @Prop()
   shortDescription?: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Address' })
-  sourceAddress: Address;
-
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Address' })
-  destinationAddress: Address;
+  @Prop(
+    raw({
+      addressString: {
+        type: String,
+      },
+      fullName: {
+        type: String,
+      },
+      phoneNumber: {
+        type: String,
+      },
+      detail: {
+        type: String,
+      },
+      latitude: {
+        type: Number,
+      },
+      longitude: {
+        type: Number,
+      },
+    }),
+  )
+  sourceAddress: Record<string, any>;
+  @Prop(
+    raw({
+      addressString: {
+        type: String,
+      },
+      fullName: {
+        type: String,
+      },
+      phoneNumber: {
+        type: String,
+      },
+      detail: {
+        type: String,
+      },
+      latitude: {
+        type: Number,
+      },
+      longitude: {
+        type: Number,
+      },
+    }),
+  )
+  destinationAddress: Record<string, any>;
 
   @Prop({
     default: 'Đang chờ nhận', // Giao hoàn thành - Đang giao 
@@ -36,6 +77,15 @@ export class Order {
 
   @Prop()
   charge?: number;
+
+  @Prop()
+  goodsType?: string;
+
+  @Prop()
+  goodsImage: string;
+
+  @Prop()
+  note?: string;
 
   @Prop()
   discountPrice?: number;

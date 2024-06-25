@@ -20,6 +20,8 @@ import UserOrdersScreen from '../screens/module_User/OrdersScreen';
 import OrderDetailScreen from '../screens/module_User/OrderDetailScreen';
 import ProfileDriverScreen from '../screens/module_Driver/ProfileScreen';
 import ChatUserScreen from '../screens/module_User/ChatUserScreen';
+import ChooseMapScreen from '../screens/module_User/AddressManagement/ChooseMapScreen';
+import ChooseMapScreen2 from '../screens/module_User/AddressManagement/ChooseMapScreen2';
 
 const UserStack = createStackNavigator();
 export default function UserStackScreens() {
@@ -35,9 +37,31 @@ export default function UserStackScreens() {
         component={WelcomeCreateOrderScreen}
         options={{headerShown: false}}
       />
-       <UserStack.Screen name="ChooseAddressScreen" component={AddressManagementScreen} options={{ headerShown: false }} />
-      <UserStack.Screen name="AddAddressScreen" component={AddAddressScreen} options={{ headerShown: false }} />
-      <UserStack.Screen name="CreateAddressScreen" component={CreateAddressScreen} options={{ headerShown: false }} />
+      <UserStack.Screen
+        name="ChooseAddressScreen"
+        component={AddressManagementScreen}
+        options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="AddAddressScreen"
+        component={AddAddressScreen}
+        options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="CreateAddressScreen"
+        component={CreateAddressScreen}
+        options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="ChooseMapScreen"
+        component={ChooseMapScreen}
+        options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="ChooseMapScreen2"
+        component={ChooseMapScreen2}
+        options={{headerShown: false}}
+      />
       <UserStack.Screen
         name="GoodsInformationScreen"
         component={GoodsInformationScreen}
@@ -46,7 +70,7 @@ export default function UserStackScreens() {
       <UserStack.Screen
         name="ChatUserScreen"
         component={ChatUserScreen}
-        options={{title:'Chat', headerBackTitle:''}}
+        options={{title: 'Chat', headerBackTitle: ''}}
       />
       <UserStack.Screen
         name="ChooseVehicleScreen"
@@ -73,10 +97,26 @@ export default function UserStackScreens() {
         component={OrderDetailScreen}
         options={{headerShown: false}}
       />
-      <UserStack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
-      <UserStack.Screen name="PasswordManageScreen" component={PasswordManageScreen} options={{ headerShown: false }} />
-      <UserStack.Screen name="AddressManageScreen" component={AddressManageScreen} options={{ headerShown: false }} />
-      <UserStack.Screen name="PrivatePolicyScreen" component={PrivatePolicyScreen} options={{ headerShown: false }} />
+      <UserStack.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}
+        options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="PasswordManageScreen"
+        component={PasswordManageScreen}
+        options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="AddressManageScreen"
+        component={AddressManageScreen}
+        options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="PrivatePolicyScreen"
+        component={PrivatePolicyScreen}
+        options={{headerShown: false}}
+      />
     </UserStack.Navigator>
   );
 }

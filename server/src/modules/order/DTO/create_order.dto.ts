@@ -4,23 +4,41 @@ export class CreateOrderDTO {
   @IsOptional()
   drive: string;
 
-  customer: string;
-
   vehicleType: string;
 
   @IsOptional()
   shortDescription: string;
 
-  sourceAddress: string;
+  sourceAddress: {
+    addressString: string;
+    fullName: string;
+    phoneNumber: string;
+    detail: string;
+    latitude: number;
+    longitude: number;
+  };
 
-  destinationAddress: string;
-
+  destinationAddress: {
+    addressString: string;
+    fullName: string;
+    phoneNumber: string;
+    detail: string;
+    latitude: number;
+    longitude: number;
+  };
   @IsOptional()
   status: string;
 
+  goodsImage: string;
+  goodsType: string;
+
+  @IsOptional()
+  note: string;
+
   charge: number;
 
-  discountPrice?: number;
+  @IsOptional()
+  discountPrice: number;
 
   @IsOptional()
   date: Date;

@@ -16,13 +16,7 @@ export class Address {
   fullName?: string;
 
   @Prop()
-  province?: string;
-
-  @Prop()
-  district?: string;
-
-  @Prop()
-  ward?: string;
+  addressString?: string;
 
   @Prop()
   detail?: string;
@@ -39,7 +33,7 @@ export class Address {
   latitude?: number;
 
   @Prop()
-  longtitude?: number;
+  longitude?: number;
 }
 
 export const Addresschema = SchemaFactory.createForClass(Address);

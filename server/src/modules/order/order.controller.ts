@@ -32,10 +32,8 @@ export class OrderController {
   ) {
     try {
       const { sub: customer } = req.user;
-      const newOrder = await this.orderService.addNewOrder({
-        customer,
-        ...body,
-      });
+      console.log(body);
+      const newOrder = await this.orderService.addNewOrder(customer, body);
       res.status(HttpStatus.CREATED).json({
         message: 'Add new order successfully',
         data: newOrder,

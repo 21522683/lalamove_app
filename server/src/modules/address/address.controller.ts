@@ -8,12 +8,13 @@ import {
   Patch,
   Post,
   Put,
+  Query,
   Req,
   Res,
 } from '@nestjs/common';
 import { CreateAddressDTO } from './DTO/create_address.dto';
 import { AddressService } from './address.service';
-import { Response } from 'express';
+import { Response, query } from 'express';
 import { SetDefaultAddressDTO } from './DTO/set_default_address.dto';
 
 @Controller('address')
@@ -129,6 +130,50 @@ export class AddressController {
       res.status(HttpStatus.CREATED).json({
         message: 'Delete addresses successfully',
         data: addresses,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Get('getDefaultAddress')
+  async getDefaultAddress(@Req() req, @Res() res: Response) {
+    try {
+      const userId: string = req.user.sub;
+      const address = await this.addressService.getDefaultAddress(userId);
+
+      res.status(HttpStatus.OK).json({
+        message: 'Get default addresses successfully',
+        data: address,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Patch(':id/defaultAddress')
+  async changeDefaultAddress(
+    @Req() req,
+    @Res() res: Response,
+    @Param('id') id: string,
+  ) {
+    try {
+      const userId: string = req.user.sub;
+      console.log(userId);
+      const address = await this.addressService.changeDefaultAddress(
+        userId,
+        id,
+      );
+
+      res.status(HttpStatus.OK).json({
+        message: 'Change default addresses successfully',
+        data: address,
       });
     } catch (error) {
       console.log(error);

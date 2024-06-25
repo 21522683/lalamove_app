@@ -16,8 +16,11 @@ export class OrderService {
     @InjectModel(User.name) private userModel: Model<User>,
   ) { }
 
-  async addNewOrder(body: CreateOrderDTO) {
-    const order = new this.orderModel(body);
+  async addNewOrder(customer: string, body: CreateOrderDTO) {
+    const order = new this.orderModel({
+      customer,
+      ...body,
+    });
     await order.save();
     return order;
   }
