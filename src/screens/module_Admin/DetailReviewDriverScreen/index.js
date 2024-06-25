@@ -270,17 +270,17 @@ const DetailReviewDriverScreen = () => {
             <View style={styles.container_text}>
               <Text style={styles.title_text}>Trạng thái</Text>
               {
-                itemSelected.isActive === false && (
+                itemSelected.isLocked === true && (
                   <Text style={styles.status_text_red}>Đang bị khóa</Text>
                 )
               }
               {
-                (itemSelected.isActive === true && itemSelected.isWaitingAccepted === true) && (
+                (itemSelected.isLocked === false && itemSelected.isWaitingAccepted === false) && (
                   <Text style={styles.status_text_green}>Đang hoạt động</Text>
                 )
               }
               {
-                (itemSelected.isActive === true && itemSelected.isWaitingAccepted === false) && (
+                (itemSelected.isLocked === false && itemSelected.isWaitingAccepted === true) && (
                   <Text style={styles.status_text}>Chờ xét duyệt</Text>
                 )
               }
@@ -296,7 +296,7 @@ const DetailReviewDriverScreen = () => {
                   <ActivityIndicator size="large" color="#FF5900" />
                 </View>
               ) : (
-                (itemSelected.isActive === true && itemSelected.isWaitingAccepted === false) ? (
+                (itemSelected.isLocked === false && itemSelected.isWaitingAccepted === true) ? (
                   <View style={styles.container_button}>
                     <TouchableOpacity style={styles.btn_accept} onPress={handleAccept}>
                       <Text style={styles.text_btn}>Duyệt</Text>
@@ -307,7 +307,7 @@ const DetailReviewDriverScreen = () => {
                     </TouchableOpacity>
                   </View>
                 ) : (
-                  itemSelected.isActive === false ? (
+                  itemSelected.isLocked === true ? (
                     <View style={styles.container_button}>
                       <TouchableOpacity style={styles.btn_accept_lock} onPress={handleOpenAccount}>
                         <Text style={styles.text_btn}>Mở khóa tài khoản</Text>

@@ -1,73 +1,74 @@
-import { View, Text, SafeAreaView, ScrollView, Dimensions } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, Dimensions, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import styles from './style.js'
 import Dropdown from './Dropdown/index.js';
 import formatMoney from '../../../constants/formatMoney.js';
-import {LineChart} from "react-native-chart-kit";
-import { moderateScale, scale, ScaledSheet, verticalScale } from 'react-native-size-matters';
+import { LineChart } from "react-native-chart-kit";
+import { scale, verticalScale } from 'react-native-size-matters';
 import CUSTOM_COLOR from '../../../constants/colors.js';
+import { IMAGES } from '../../../assets/images'
+import { Image } from 'react-native-svg';
+import ItemOrderStatiscal from './ItemOrderStatiscal/index.js';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import baseUrl from '../../../constants/baseUrl.js';
+
 
 const StatiscalDriverScreen = () => {
     const [dataChart, setDataChart] = useState({
-        labels: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"],
+        labels: [],
         datasets: [
             {
-                data: [
-                    0, 0, 0, 0, 0, 0, 0
-                ]
+                data: []
             }
         ]
     });
 
-    useEffect(() => {
-        setDataChart(dataChart);
-    }, [dataChart])
-
+    const [filter, setFilter] = useState(
+        {
+            textSearch: '',
+            option: 'Theo ngày',
+        }
+    );
     const handleSelect = (value) => {
-        // Theo tuần 
-        if (value === 'day') {
-            // Xử lý api chỗ này 
-            const data = {
-                labels: [],
-                datasets: [
-                    {
-                        data: [
-                            230, 480, 120, 903, 345, 256, 678, 345, 678, 678, 1123, 2231, 890, 569, 789, 990, 
-                            230, 480, 120, 903, 345, 256, 678, 345, 678, 678, 1123, 2231, 890, 569, 789
-                        ]
-                    }
-                ]
-            }
-            setDataChart(data);
-        }
-        else if (value === 'month') {
-            // Xử lý api chỗ này 
-            const data = {
-                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-                datasets: [
-                    {
-                        data: [
-                            230000/1000, 400000/1000, 1200000/1000, 8000000/1000, 370000/1000, 290000/1000, 230000/1000, 400000/1000, 1200000/1000, 8000000/1000, 370000/1000, 290000/1000,
-                        ]
-                    }
-                ]
-            }
-            setDataChart(data);
-        }
-        else {
-            const data = {
-                labels: ["2024"],
-                datasets: [
-                    {
-                        data: [
-                            23089000/1000
-                        ]
-                    }
-                ]
-            }
-            setDataChart(data);
-        }
+        setFilter(prev => ({ ...prev, option: value }));
     };
+    const handleChangeTextSearch = (value) => {
+        setFilter(prev => ({ ...prev, textSearch: value }));
+    }
+
+    const [dataReport, setDataReport] = useState({});
+    const userAuth = useSelector(state => state.users.userAuth);
+
+    const getDataAPI = async () => {
+        try {
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${userAuth.access_token}`,
+                    'Content-Type': 'application/json',
+                },
+            };
+            const params = new URLSearchParams(filter).toString();
+            const url = `${baseUrl}/order/get-info-report-driver/${userAuth.id}/?${params}`;
+            const data = await axios.get(url, config);
+            setDataReport(data.data);
+            const dataOfChart = {
+                labels: data.data.dataOfChart.arrLabelChart,
+                datasets: [
+                    {
+                        data: data.data.dataOfChart.arrValueChart
+                    }
+                ]
+            }
+            setDataChart(dataOfChart);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getDataAPI();
+    }, [filter]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -83,30 +84,30 @@ const StatiscalDriverScreen = () => {
                     <View style={styles.info_container}>
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Tổng thu nhập:</Text>
-                            <Text style={styles.content}>{formatMoney(22890000)}</Text>
+                            <Text style={styles.content}>{formatMoney(dataReport.totalRevenue)}</Text>
                         </View>
 
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Số đơn hàng thành công:</Text>
-                            <Text style={styles.content}>129</Text>
+                            <Text style={styles.content}>{dataReport.totalOrderSuccess}</Text>
                         </View>
 
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Trả lại cho hệ thống:</Text>
-                            <Text style={styles.content}>{formatMoney(21390000)}</Text>
+                            <Text style={styles.content}>{formatMoney(dataReport.totalOfSystem)}</Text>
                         </View>
 
                         <View style={styles.item_info}>
                             <Text style={styles.title_info}>Số tiền nhận được:</Text>
-                            <Text style={styles.content}>{formatMoney(1500000)}</Text>
+                            <Text style={styles.content}>{formatMoney(dataReport.totalOfDriver)}</Text>
                         </View>
                     </View>
 
                     <View style={styles.container_charts}>
-                        <Text style={{fontSize: scale(12), color: CUSTOM_COLOR.Primary, textAlign: 'center'}}>Biểu đồ doanh thu</Text>
+                        <Text style={{ fontSize: scale(12), color: CUSTOM_COLOR.Primary, textAlign: 'center' }}>Biểu đồ doanh thu</Text>
                         <LineChart
                             data={dataChart}
-                            width={scale(Dimensions.get("window").width*0.8)} // from react-native
+                            width={scale(Dimensions.get("window").width * 0.8)} // from react-native
                             height={verticalScale(260)}
                             yAxisLabel=""
                             yAxisSuffix="k"
@@ -134,6 +135,22 @@ const StatiscalDriverScreen = () => {
                             }}
                         />
                     </View>
+                </View>
+                <View style={styles.container_driver}>
+                    <Text style={styles.title_list}>DANH SÁCH ĐƠN HÀNG CỦA TÀI XẾ</Text>
+                    <View style={styles.search_bar}>
+                        <TextInput value={filter.textSearch} onChangeText={handleChangeTextSearch} style={styles.search_input} placeholder='Nhập thông tin để tìm kiếm' />
+                        <Image source={IMAGES.search_icon} style={styles.icon_search} />
+                    </View>
+                    <ScrollView style={styles.list}>
+                        {
+                            dataReport.orders?.map((item, index) => {
+                                return (
+                                    <ItemOrderStatiscal key={index} item={item}/>
+                                )
+                            })
+                        }
+                    </ScrollView>
                 </View>
             </ScrollView>
         </SafeAreaView>

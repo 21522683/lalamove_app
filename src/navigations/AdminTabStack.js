@@ -13,6 +13,7 @@ import VoucherManageScreen from '../screens/module_Admin/ProfileScreen/VoucherMa
 import VoucherInforScreen from '../screens/module_Admin/ProfileScreen/VoucherManageScreen/VoucherInforScreen';
 import VoucherForm from '../screens/module_Admin/ProfileScreen/VoucherManageScreen/VoucherForm';
 import DetailReportDriverScreen from '../screens/module_Admin/StatiscalAdminScreen/DetailReportDriverScreen';
+import DetailOrderStatiscal from '../screens/module_Admin/StatiscalAdminScreen/DetailReportDriverScreen/DetailOrderStatiscal';
 const AdminTabStack = createBottomTabNavigator();
 
 
@@ -24,6 +25,7 @@ export default function AdminStatiscalStackScreens() {
       <AdminStatiscalStack.Screen name="DetaiVehicleScreen" component={DetaiVehicleScreen} options={{ headerShown: false }} />
       <AdminStatiscalStack.Screen name="DetailReviewDriverScreen" component={DetailReviewDriverScreen} options={{ headerShown: false }} />
       <AdminStatiscalStack.Screen name="DetailReportDriverScreen" component={DetailReportDriverScreen} options={{ headerShown: false }} />
+      <AdminStatiscalStack.Screen name="DetailOrderStatiscal" component={DetailOrderStatiscal} options={{ headerShown: false }} />
       <AdminStatiscalStack.Screen name="VoucherManageScreen" component={VoucherManageScreen} options={{ title: 'Quản lý vouchers', headerBackTitle: '' }} />
       <AdminStatiscalStack.Screen name="VoucherInforScreen" component={VoucherInforScreen} options={{ title: 'Thông tin voucher', headerBackTitle: '' }} />
       <AdminStatiscalStack.Screen name="VoucherForm" component={VoucherForm} options={({ route }) => ({

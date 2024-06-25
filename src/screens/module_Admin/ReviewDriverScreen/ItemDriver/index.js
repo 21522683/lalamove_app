@@ -12,7 +12,7 @@ const ItemDriver = ({ onClicked, item }) => {
       <View style={styles.container_info}>
         <Text style={styles.name_diver}>{item.fullName}</Text>
         {
-          item.isActive === false && (
+          item.isLocked === true && (
             <View style={styles.info_more}>
               <Text style={{color: '#ff0000'}}>Đang bị khóa</Text>
               <Text style={styles.date_create}>{convertDate(item.createdAt)}</Text>
@@ -20,7 +20,7 @@ const ItemDriver = ({ onClicked, item }) => {
           )
         }
         {
-          (item.isActive === true && item.isWaitingAccepted === true) && (
+          (item.isLocked === false && item.isWaitingAccepted === false) && (
             <View style={styles.info_more}>
               <Text style={{color: 'green'}}>Đang hoạt động</Text>
               <Text style={styles.date_create}>{convertDate(item.updatedAt)}</Text>
@@ -28,7 +28,7 @@ const ItemDriver = ({ onClicked, item }) => {
           )
         }
         {
-          (item.isActive === true && item.isWaitingAccepted === false) && (
+          (item.isLocked === false && item.isWaitingAccepted === true) && (
             <View style={styles.info_more}>
               <Text style={{color: CUSTOM_COLOR.Primary}}>Chờ xét duyệt</Text>
               <Text style={styles.date_create}>{convertDate(item.updatedAt)}</Text>

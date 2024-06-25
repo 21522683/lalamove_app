@@ -147,7 +147,6 @@ export class AuthService {
 
     const payload = { sub: exitedUser.id, username: exitedUser.phoneNumber };
     const access_token = this.jwtService.sign(payload);
-    console.log(access_token);
     return {
       id: exitedUser.id,
       fullname: exitedUser.fullName,

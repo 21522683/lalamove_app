@@ -3,17 +3,21 @@ import {
   Controller,
   Get,
   HttpStatus,
+  Param,
   Post,
+  Put,
+  Query,
   Req,
   Res,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDTO } from './DTO/create_order.dto';
 import { Response } from 'express';
+import { UpdateHoaHongDTO } from './DTO/update_hoa_hong.dto';
 
 @Controller('order')
 export class OrderController {
-  constructor(private readonly orderService: OrderService) {}
+  constructor(private readonly orderService: OrderService) { }
 
   @Get()
   welcome(@Req() req) {
@@ -43,4 +47,25 @@ export class OrderController {
       });
     }
   }
+
+  @Get('/get-info-report-driver/:id')
+  async getInfoReportDriver(@Param('id') id: string, @Query() query: any) {
+    return this.orderService.getInfoReportDriver(id, query);
+  }
+
+  @Get('/get-info-report-admin')
+  async getInfoReportAdmin(@Query() query: any) {
+    return this.orderService.getInfoReportAdmin(query);
+  }
+
+  @Put('/update-hoa-hong')
+  async updateHoaHong(@Body() body: UpdateHoaHongDTO) {
+    return this.orderService.updateHoaHong(body);
+  }
+
+  @Get('/get-info-order/:id')
+  async getInfoOrderById(@Param('id') id: string) {
+    return this.orderService.getInfoOrderById(id);
+  }
+
 }

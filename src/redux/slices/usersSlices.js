@@ -384,9 +384,21 @@ const usersSlices = createSlice({
 
     listAllDriver: [],
     indexSelectedDriver: -1,
-
+    
+    listAddressOfUser: [],
+    indexSelectedAddressOfUser: -1,
+    addressDefault: {},
   },
   reducers: {
+    setListAddressOfUser: (state, action) => {
+      state.listAddressOfUser = action.payload;
+    },
+    setIndexSelectedAddressOfUser: (state, action) => {
+      state.indexSelectedAddressOfUser = action.payload;
+    },
+    setAddressDefault: (state, action) => {
+      state.addressDefault = action.payload;
+    },
     setCurrentUser: (state, action) => {
       state.currentUser = {
         ...action.payload
@@ -577,6 +589,9 @@ export const {
   setLoading,
   setListAllDriver,
   setIndexSelectedDriver,
-  setSuccessMessage
+  setSuccessMessage,
+  setListAddressOfUser, 
+  setIndexSelectedAddressOfUser,
+  setAddressDefault,
 
 } = usersSlices.actions;

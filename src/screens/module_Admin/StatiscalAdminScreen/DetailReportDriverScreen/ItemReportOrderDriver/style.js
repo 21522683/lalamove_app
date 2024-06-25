@@ -1,5 +1,5 @@
 import { moderateScale, scale, ScaledSheet, verticalScale } from 'react-native-size-matters';
-import CUSTOM_COLOR from '../../../../constants/colors.js';
+import CUSTOM_COLOR from '../../../../../constants/colors.js';
 
 const styles = ScaledSheet.create({
   container_item_diver: {
@@ -29,7 +29,7 @@ const styles = ScaledSheet.create({
     justifyContent: 'space-between',
   },
   name_diver: {
-    fontSize: scale(12),
+    fontSize: scale(11),
     color: CUSTOM_COLOR.Black,
     fontWeight: '400'
   },
@@ -41,14 +41,6 @@ const styles = ScaledSheet.create({
   },
   status: {
     color: 'green',
-    fontSize: scale(10),
-  },
-  lock: {
-    color: 'red',
-    fontSize: scale(10),
-  },
-  waiting: {
-    color: CUSTOM_COLOR.Primary,
     fontSize: scale(10),
   },
   date_create: {

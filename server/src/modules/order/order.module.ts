@@ -3,6 +3,7 @@ import { OrderController } from './order.controller';
 import { OrderService } from './order.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Order, Orderchema } from './Schema/order.schema';
+import { Params, ParamsSchema, User, UserSchema, VehicleType, VehicleTypeSchema } from 'src/schemas';
 
 @Module({
   imports: [
@@ -10,6 +11,24 @@ import { Order, Orderchema } from './Schema/order.schema';
       {
         name: Order.name,
         schema: Orderchema,
+      },
+    ]),
+    MongooseModule.forFeature([
+      {
+        name: Params.name,
+        schema: ParamsSchema,
+      },
+    ]),
+    MongooseModule.forFeature([
+      {
+        name: User.name,
+        schema: UserSchema,
+      },
+    ]),
+    MongooseModule.forFeature([
+      {
+        name: VehicleType.name,
+        schema: VehicleTypeSchema,
       },
     ]),
   ],
