@@ -16,7 +16,6 @@ const AddressManagementScreen = () => {
   const [allAddress, setAllAddress] = useState([]);
   const getAddressOfCurrentUser = async () => {
     try {
-      console.log('vaoo');
       const config = {
         headers: {
           Authorization: `Bearer ${userAuth.access_token}`,
@@ -28,7 +27,6 @@ const AddressManagementScreen = () => {
         config,
       );
       const allAddress = response.data.data;
-      console.log(allAddress);
       setAllAddress(allAddress);
     } catch (error) {
       console.log(error);

@@ -8,8 +8,11 @@ import { CreateOrderDTO } from './DTO/create_order.dto';
 export class OrderService {
   constructor(@InjectModel(Order.name) private orderModel: Model<Order>) {}
 
-  async addNewOrder(body: CreateOrderDTO) {
-    const order = new this.orderModel(body);
+  async addNewOrder(customer: string, body: CreateOrderDTO) {
+    const order = new this.orderModel({
+      customer,
+      ...body,
+    });
     await order.save();
     return order;
   }

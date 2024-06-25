@@ -9,7 +9,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/EvilIcons';
 import Icon7 from 'react-native-vector-icons/MaterialIcons';
@@ -18,12 +18,15 @@ import {Surface} from 'react-native-paper';
 import styles from '../style';
 import {useNavigation} from '@react-navigation/native';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {setInforText} from '../../../../redux/slices/createOrderSlice';
 
 const GoodsInformationScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const [image, setImage] = useState(null);
+  const state = useSelector(state => state.createOrder);
+
   const selectImage = () => {
     let options = {
       mediaType: 'photo',
@@ -41,8 +44,34 @@ const GoodsInformationScreen = () => {
         return;
       }
 
-      setImage(response.assets[0]);
+      dispatch(
+        setInforText({
+          name: 'goodsImage',
+          text: response.assets[0].uri,
+        }),
+      );
     });
+  };
+  const handleChangeInfo = (name, text) => {
+    dispatch(
+      setInforText({
+        name,
+        text,
+      }),
+    );
+  };
+  const enableContinue = useMemo(() => {
+    if (
+      state.goodsType.trim() &&
+      state.shortDescription.trim() &&
+      state.goodsImage
+    ) {
+      return true;
+    }
+    return false;
+  }, [state.goodsType, state.shortDescription, state.goodsImage]);
+  const handleClickContinue = () => {
+    navigation.navigate('ChooseVehicleScreen');
   };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
@@ -85,7 +114,11 @@ const GoodsInformationScreen = () => {
               <TextInput
                 placeholder="Ex: Dễ vỡ, đông lạnh, ..."
                 selectionColor={'#F16722'}
-                style={styles.textInput}></TextInput>
+                style={styles.textInput}
+                value={state.goodsType}
+                onChangeText={text =>
+                  handleChangeInfo('goodsType', text)
+                }></TextInput>
             </View>
 
             <View style={{gap: 12}}>
@@ -99,9 +132,13 @@ const GoodsInformationScreen = () => {
               </View>
               <TextInput
                 placeholder="Ex: Có 1 giường, 2 ghế, ..."
+                value={state.shortDescription}
                 selectionColor={'#F16722'}
                 multiline={true}
                 numberOfLines={6}
+                onChangeText={text =>
+                  handleChangeInfo('shortDescription', text)
+                }
                 style={[
                   styles.textInput,
                   {height: 'unset', textAlignVertical: 'top'},
@@ -123,7 +160,7 @@ const GoodsInformationScreen = () => {
                     {
                       width: 180,
                       height: 120,
-                      borderWidth: image ? 0 : 1,
+                      borderWidth: state.goodsImage ? 0 : 1,
                       borderStyle: 'dashed',
                       borderColor: '#F16722',
                       overflow: 'hidden',
@@ -132,14 +169,14 @@ const GoodsInformationScreen = () => {
                       justifyContent: 'center',
                     },
                   ]}>
-                  {image ? (
+                  {state.goodsImage ? (
                     <Image
                       style={{
                         width: '100%',
                         height: '100%',
                         resizeMode: 'cover',
                       }}
-                      source={{uri: image.uri}}
+                      source={{uri: state.goodsImage}}
                     />
                   ) : (
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -169,14 +206,15 @@ const GoodsInformationScreen = () => {
               </View>
               <TextInput
                 placeholder="Ex: Giao hàng vào giờ , ..."
+                value={state.note}
+                onChangeText={text => handleChangeInfo('note', text)}
                 selectionColor={'#F16722'}
                 style={styles.textInput}></TextInput>
             </View>
-            <Pressable
-              onPress={() => navigation.navigate('ChooseVehicleScreen')}>
+            <Pressable onPress={handleClickContinue}>
               <View
                 style={{
-                  backgroundColor: '#F16722',
+                  backgroundColor: enableContinue ? '#F16722' : '#ccc',
                   height: 45,
                   marginHorizontal: 12,
                   alignItems: 'center',

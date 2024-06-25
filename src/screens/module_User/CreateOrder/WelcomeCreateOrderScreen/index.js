@@ -7,7 +7,7 @@ import {
   Pressable,
   Image,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Icon6 from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/Ionicons';
@@ -30,18 +30,17 @@ const WelcomeCreateOrderScreen = () => {
   const sourceAddressString = isHasSourceAddress
     ? `${state.sourceAddress?.detail}, ${state.sourceAddress?.ward}, ${state.sourceAddress?.district}, ${state.sourceAddress?.province}`
     : '';
-  const destinationAddressString = isHasSourceAddress
+  const destinationAddressString = isHasDestinationAddress
     ? `${state.destinationAddress?.detail}, ${state.destinationAddress?.ward}, ${state.destinationAddress?.district}, ${state.sourceAddress?.province}`
     : '';
+  useEffect(() => {
+    console.log(state.sourceAddress);
+    console.log(state.destinationAddress);
+  }, [state.sourceAddress, state.destinationAddress]);
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Surface style={styles.header}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}>
-          <Icon name="arrowleft" size={24} />
-        </TouchableOpacity>
+        <View style={{width: 28}}></View>
         <View style={{flexDirection: 'row', alignItems: 'center', gap: 8}}>
           <Image
             source={IMAGES.logo2}
@@ -121,9 +120,9 @@ const WelcomeCreateOrderScreen = () => {
                 </Pressable>
                 <Text>{sourceAddressString}</Text>
               </View>
-              {isHasSourceAddress && (
+              {/* {isHasSourceAddress && (
                 <Icon name="download" size={20} style={{alignSelf: 'center'}} />
-              )}
+              )} */}
             </View>
 
             <View
@@ -159,9 +158,9 @@ const WelcomeCreateOrderScreen = () => {
 
                 <Text>{destinationAddressString}</Text>
               </View>
-              {isHasDestinationAddress && (
+              {/* {isHasDestinationAddress && (
                 <Icon name="download" size={20} style={{alignSelf: 'center'}} />
-              )}
+              )} */}
             </View>
 
             <Pressable

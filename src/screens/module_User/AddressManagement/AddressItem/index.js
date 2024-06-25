@@ -1,5 +1,5 @@
 import {View, Text, Pressable, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Surface} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -14,24 +14,50 @@ import {useNavigation} from '@react-navigation/native';
 
 const AddressItem = ({address, index, handleSetDefault}) => {
   const navigation = useNavigation();
+  const [disable, setDisable] = useState(false);
   const statusChooseAddress = useSelector(
     state => state.createOrder.statusChooseAddress,
+  );
+  const sourceAddress = useSelector(state => state.createOrder.sourceAddress);
+  const destinationAddress = useSelector(
+    state => state.createOrder.destinationAddress,
   );
   const dispatch = useDispatch();
   const handleClickSetDefault = () => {
     handleSetDefault(index);
   };
   const handleChooseAddress = () => {
+    if (disable) return;
     if (statusChooseAddress === 'Nhận hàng') {
       dispatch(setSourceAddress(address));
     } else if (statusChooseAddress === 'Trả hàng') {
       dispatch(setDestinationAddress(address));
     }
-    navigation.replace('WelcomeCreateOrderScreen');
+    navigation.goBack();
   };
+  useEffect(() => {
+    if (
+      (statusChooseAddress === 'Trả hàng' &&
+        address._id === sourceAddress._id) ||
+      (statusChooseAddress === 'Nhận hàng' &&
+        address._id === destinationAddress._id)
+    ) {
+      setDisable(true);
+    }
+  }, []);
   return (
-    <TouchableOpacity onPress={handleChooseAddress}>
+    <Pressable onPress={handleChooseAddress}>
       <View style={[styles.card, styles.shadowCard]}>
+        {sourceAddress._id === address._id && (
+          <View style={styles.markedPoint}>
+            <Text style={styles.textPoint}>Điểm đi</Text>
+          </View>
+        )}
+        {destinationAddress._id === address._id && (
+          <View style={styles.markedPoint}>
+            <Text style={styles.textPoint}>Điểm đến</Text>
+          </View>
+        )}
         <View
           style={{
             flexDirection: 'row',
@@ -69,7 +95,7 @@ const AddressItem = ({address, index, handleSetDefault}) => {
           </View>
         </Pressable>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

@@ -39,7 +39,7 @@ export class Address {
   latitude?: number;
 
   @Prop()
-  longtitude?: number;
+  longitude?: number;
 }
 
 export const Addresschema = SchemaFactory.createForClass(Address);

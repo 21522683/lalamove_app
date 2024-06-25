@@ -1,21 +1,25 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:1:1-28:12
-MERGED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:1:1-28:12
+ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:1:1-31:12
+MERGED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:1:1-31:12
 INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml:2:1-9:12
 INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml:2:1-9:12
 INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.react:flipper-integration:0.73.6] C:\Users\quich\.gradle\caches\transforms-3\abe0554ecf494ecad8556e5fc9e1e02d\transformed\jetified-flipper-integration-0.73.6-debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-async-storage_async-storage] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-community_datetimepicker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-community_geolocation] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\geolocation\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-firebase_auth] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\auth\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-firebase_firestore] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\firestore\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:react-native-firebase_storage] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-firebase_app] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-30:12
 MERGED from [:react-native-google-signin_google-signin] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-google-signin\google-signin\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-masked-view_masked-view] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-masked-view\masked-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-picker_picker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-picker\picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-gesture-handler] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:react-native-get-location] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-get-location\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-image-picker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-19:12
+MERGED from [:react-native-maps] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-maps\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-pager-view] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-pager-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-reanimated] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-reanimated\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:react-native-safe-area-context] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-safe-area-context\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-7:12
@@ -44,6 +48,8 @@ MERGED from [com.facebook.flipper:flipper-network-plugin:0.201.0] C:\Users\quich
 MERGED from [com.facebook.flipper:flipper:0.201.0] C:\Users\quich\.gradle\caches\transforms-3\08c0023a8fcfbbd7fd7189a1149e4186\transformed\jetified-flipper-0.201.0\AndroidManifest.xml:8:1-16:12
 MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\quich\.gradle\caches\transforms-3\cedaefa63313dfd9f64ba909069b51f2\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:17:1-75:12
 MERGED from [com.google.firebase:firebase-firestore:24.11.1] C:\Users\quich\.gradle\caches\transforms-3\1eaf5278b619cb9e174b6c94f5f8e03c\transformed\jetified-firebase-firestore-24.11.1\AndroidManifest.xml:2:1-26:12
+MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:15:1-39:12
+MERGED from [com.google.firebase:firebase-appcheck:17.1.2] C:\Users\quich\.gradle\caches\transforms-3\2f6cfb3aae47c4b8cfcc4407b7837479\transformed\jetified-firebase-appcheck-17.1.2\AndroidManifest.xml:15:1-34:12
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.3] C:\Users\quich\.gradle\caches\transforms-3\7784205a870f56c26bcb60ccabf79f4f\transformed\jetified-firebase-common-ktx-20.4.3\AndroidManifest.xml:2:1-18:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\quich\.gradle\caches\transforms-3\a1f6e94761677b17a86087133afb1311\transformed\jetified-appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.android.material:material:1.6.1] C:\Users\quich\.gradle\caches\transforms-3\6f16ec3d5e1799dd65f6ff82fbbb298e\transformed\material-1.6.1\AndroidManifest.xml:17:1-26:12
@@ -51,13 +57,16 @@ MERGED from [com.facebook.stetho:stetho:1.6.0] C:\Users\quich\.gradle\caches\tra
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\quich\.gradle\caches\transforms-3\39059b08b179196dce51bb142656a6db\transformed\constraintlayout-2.0.1\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\quich\.gradle\caches\transforms-3\858dc591faff319c774fa62ec5f4cdb2\transformed\appcompat-1.6.1\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.android.gms:play-services-auth:21.0.0] C:\Users\quich\.gradle\caches\transforms-3\308593d8d9f57539674ab3eef7ba2a18\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:17:1-40:12
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\7ae3427b5f898390cd4efd969a00b0f3\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-location:21.0.1] C:\Users\quich\.gradle\caches\transforms-3\ae513808a84f823829792f3118b4428a\transformed\jetified-play-services-location-21.0.1\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.maps.android:android-maps-utils:3.8.2] C:\Users\quich\.gradle\caches\transforms-3\d08fe44d4ea0d5045bc8893a7979ff8b\transformed\jetified-android-maps-utils-3.8.2\AndroidManifest.xml:2:1-13:12
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:17:1-44:12
 MERGED from [com.google.android.gms:play-services-auth-api-phone:18.0.2] C:\Users\quich\.gradle\caches\transforms-3\549dd11529dd8e67246c2687ed24bab1\transformed\jetified-play-services-auth-api-phone-18.0.2\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.gms:play-services-auth-base:18.0.10] C:\Users\quich\.gradle\caches\transforms-3\67bf32f491cb6e5501c5e76b47cba4b4\transformed\jetified-play-services-auth-base-18.0.10\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.gms:play-services-fido:20.0.1] C:\Users\quich\.gradle\caches\transforms-3\537d8cabe21edf73fb7cae016ff54d98\transformed\jetified-play-services-fido-20.0.1\AndroidManifest.xml:2:1-10:12
-MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] C:\Users\quich\.gradle\caches\transforms-3\54cc2140f5e474b19481bcada99838a4\transformed\jetified-firebase-appcheck-interop-17.0.0\AndroidManifest.xml:15:1-25:12
 MERGED from [com.google.firebase:firebase-database-collection:18.0.1] C:\Users\quich\.gradle\caches\transforms-3\623522860db3da3fc7557eb33c71698f\transformed\jetified-firebase-database-collection-18.0.1\AndroidManifest.xml:2:1-9:12
-MERGED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\quich\.gradle\caches\transforms-3\e04577146130542fa21f86a14e93a902\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:16:1-24:12
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.1.0] C:\Users\quich\.gradle\caches\transforms-3\59fad8d752d995a964e9fa166af564ce\transformed\jetified-firebase-appcheck-interop-17.1.0\AndroidManifest.xml:15:1-23:12
+MERGED from [com.google.android.gms:play-services-base:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\01c3a4436cf28c86dbe35b7fd3258ed8\transformed\jetified-play-services-base-18.2.0\AndroidManifest.xml:16:1-24:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\7ae3427b5f898390cd4efd969a00b0f3\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\quich\.gradle\caches\transforms-3\ea9e07e110d555a8dc9465fb21932448\transformed\jetified-firebase-auth-interop-20.0.0\AndroidManifest.xml:2:1-10:12
 MERGED from [com.google.firebase:firebase-common:20.4.3] C:\Users\quich\.gradle\caches\transforms-3\c072f32255cf8293d7216c312c904e4a\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:15:1-41:12
 MERGED from [com.google.android.recaptcha:recaptcha:18.4.0] C:\Users\quich\.gradle\caches\transforms-3\7ca6c88ef0e6aea80cde27e96423b814\transformed\jetified-recaptcha-18.4.0\AndroidManifest.xml:2:1-11:12
@@ -74,6 +83,7 @@ MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1] C:\Users\q
 MERGED from [com.facebook.react:hermes-android:0.73.6] C:\Users\quich\.gradle\caches\transforms-3\963d84933b869ef7ae0d2bfe84a9cfb8\transformed\jetified-hermes-android-0.73.6-debug\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.savedstate:savedstate:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\07bcdd74fee851169e18586f5ece6b17\transformed\jetified-savedstate-1.2.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] C:\Users\quich\.gradle\caches\transforms-3\099b99181c79b6824d920bf9cd74d597\transformed\swiperefreshlayout-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:17:1-145:12
 MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\37a50543f75849814456deec0447a5ea\transformed\jetified-emoji2-views-helper-1.2.0\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\fbb2be9dbd6183e8311d3ac006784ffa\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:17:1-35:12
 MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\quich\.gradle\caches\transforms-3\01815581afc1998c7868acd647df806f\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:17:1-37:12
@@ -93,11 +103,14 @@ MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\quich\.gradle\caches\t
 MERGED from [androidx.customview:customview:1.1.0] C:\Users\quich\.gradle\caches\transforms-3\61ddb8c977460cdb7a7cd7b9f378984a\transformed\customview-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.core:core:1.9.0] C:\Users\quich\.gradle\caches\transforms-3\131a14e650442bdc8d41eaaa9e5b4d34\transformed\core-1.9.0\AndroidManifest.xml:17:1-30:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\42537f8165efd22bf9b3fb620b1e8301\transformed\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] C:\Users\quich\.gradle\caches\transforms-3\8124f6e5c0d1c853cf963607a8cddbdd\transformed\jetified-lifecycle-service-2.1.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.1] C:\Users\quich\.gradle\caches\transforms-3\c6ced4d0d0157bb8360a4fb8b074cede\transformed\lifecycle-runtime-2.5.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\90f60693078e03addaaab191eb15df30\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.room:room-runtime:2.2.5] C:\Users\quich\.gradle\caches\transforms-3\2428e2f7428928dd8d03498202e46bb3\transformed\room-runtime-2.2.5\AndroidManifest.xml:17:1-31:12
 MERGED from [androidx.sqlite:sqlite-framework:2.2.0] C:\Users\quich\.gradle\caches\transforms-3\8de971e2418c5b70dbd241e732f7f266\transformed\sqlite-framework-2.2.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\quich\.gradle\caches\transforms-3\3975554c31aa369dad3d8f71abdb7c9a\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\5b80f617554d627031cfc3036b20a3aa\transformed\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] C:\Users\quich\.gradle\caches\transforms-3\fae69b61e7f061e7a377eddea7964dd4\transformed\lifecycle-livedata-2.1.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.1] C:\Users\quich\.gradle\caches\transforms-3\345cccbe22562c7f2e60dce7e3102b70\transformed\lifecycle-livedata-core-2.5.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\quich\.gradle\caches\transforms-3\7786a6ed6629058b406782c500a88926\transformed\core-runtime-2.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.sqlite:sqlite:2.2.0] C:\Users\quich\.gradle\caches\transforms-3\038bf2a72fc715201a4ff520d2f900e7\transformed\sqlite-2.2.0\AndroidManifest.xml:17:1-24:12
@@ -125,12 +138,18 @@ uses-permission#android.permission.INTERNET
 ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:3:5-67
 MERGED from [:react-native-firebase_auth] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\auth\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-67
 MERGED from [:react-native-firebase_auth] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\auth\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-67
+MERGED from [:react-native-firebase_storage] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-67
+MERGED from [:react-native-firebase_storage] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-67
 MERGED from [com.facebook.flipper:flipper:0.201.0] C:\Users\quich\.gradle\caches\transforms-3\08c0023a8fcfbbd7fd7189a1149e4186\transformed\jetified-flipper-0.201.0\AndroidManifest.xml:13:5-67
 MERGED from [com.facebook.flipper:flipper:0.201.0] C:\Users\quich\.gradle\caches\transforms-3\08c0023a8fcfbbd7fd7189a1149e4186\transformed\jetified-flipper-0.201.0\AndroidManifest.xml:13:5-67
 MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\quich\.gradle\caches\transforms-3\cedaefa63313dfd9f64ba909069b51f2\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:25:5-67
 MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\quich\.gradle\caches\transforms-3\cedaefa63313dfd9f64ba909069b51f2\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:25:5-67
 MERGED from [com.google.firebase:firebase-firestore:24.11.1] C:\Users\quich\.gradle\caches\transforms-3\1eaf5278b619cb9e174b6c94f5f8e03c\transformed\jetified-firebase-firestore-24.11.1\AndroidManifest.xml:11:5-67
 MERGED from [com.google.firebase:firebase-firestore:24.11.1] C:\Users\quich\.gradle\caches\transforms-3\1eaf5278b619cb9e174b6c94f5f8e03c\transformed\jetified-firebase-firestore-24.11.1\AndroidManifest.xml:11:5-67
+MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:24:5-67
+MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:24:5-67
 MERGED from [com.google.android.recaptcha:recaptcha:18.4.0] C:\Users\quich\.gradle\caches\transforms-3\7ca6c88ef0e6aea80cde27e96423b814\transformed\jetified-recaptcha-18.4.0\AndroidManifest.xml:7:5-67
 MERGED from [com.google.android.recaptcha:recaptcha:18.4.0] C:\Users\quich\.gradle\caches\transforms-3\7ca6c88ef0e6aea80cde27e96423b814\transformed\jetified-recaptcha-18.4.0\AndroidManifest.xml:7:5-67
 	android:name
@@ -147,10 +166,20 @@ uses-permission#android.permission.CAMERA
 ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:6:5-65
 	android:name
 		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:6:22-62
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:7:5-78
+	android:name
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:7:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:8:5-80
+MERGED from [:react-native-get-location] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-get-location\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-81
+MERGED from [:react-native-get-location] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-get-location\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-81
+	android:name
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:8:22-78
 application
-ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:8:5-27:19
-MERGED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:8:5-27:19
-MERGED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:8:5-27:19
+ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:10:5-30:19
+MERGED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:10:5-30:19
+MERGED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:10:5-30:19
 INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml:5:5-8:50
 MERGED from [:react-native-community_datetimepicker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-20
 MERGED from [:react-native-community_datetimepicker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:7:5-20
@@ -164,6 +193,10 @@ MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\quich\.gradle\ca
 MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\quich\.gradle\caches\transforms-3\cedaefa63313dfd9f64ba909069b51f2\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:28:5-73:19
 MERGED from [com.google.firebase:firebase-firestore:24.11.1] C:\Users\quich\.gradle\caches\transforms-3\1eaf5278b619cb9e174b6c94f5f8e03c\transformed\jetified-firebase-firestore-24.11.1\AndroidManifest.xml:13:5-24:19
 MERGED from [com.google.firebase:firebase-firestore:24.11.1] C:\Users\quich\.gradle\caches\transforms-3\1eaf5278b619cb9e174b6c94f5f8e03c\transformed\jetified-firebase-firestore-24.11.1\AndroidManifest.xml:13:5-24:19
+MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:26:5-37:19
+MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:26:5-37:19
+MERGED from [com.google.firebase:firebase-appcheck:17.1.2] C:\Users\quich\.gradle\caches\transforms-3\2f6cfb3aae47c4b8cfcc4407b7837479\transformed\jetified-firebase-appcheck-17.1.2\AndroidManifest.xml:21:5-32:19
+MERGED from [com.google.firebase:firebase-appcheck:17.1.2] C:\Users\quich\.gradle\caches\transforms-3\2f6cfb3aae47c4b8cfcc4407b7837479\transformed\jetified-firebase-appcheck-17.1.2\AndroidManifest.xml:21:5-32:19
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.3] C:\Users\quich\.gradle\caches\transforms-3\7784205a870f56c26bcb60ccabf79f4f\transformed\jetified-firebase-common-ktx-20.4.3\AndroidManifest.xml:8:5-16:19
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.3] C:\Users\quich\.gradle\caches\transforms-3\7784205a870f56c26bcb60ccabf79f4f\transformed\jetified-firebase-common-ktx-20.4.3\AndroidManifest.xml:8:5-16:19
 MERGED from [com.google.android.material:material:1.6.1] C:\Users\quich\.gradle\caches\transforms-3\6f16ec3d5e1799dd65f6ff82fbbb298e\transformed\material-1.6.1\AndroidManifest.xml:24:5-20
@@ -174,12 +207,18 @@ MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\quich\.g
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\quich\.gradle\caches\transforms-3\39059b08b179196dce51bb142656a6db\transformed\constraintlayout-2.0.1\AndroidManifest.xml:9:5-20
 MERGED from [com.google.android.gms:play-services-auth:21.0.0] C:\Users\quich\.gradle\caches\transforms-3\308593d8d9f57539674ab3eef7ba2a18\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:22:5-38:19
 MERGED from [com.google.android.gms:play-services-auth:21.0.0] C:\Users\quich\.gradle\caches\transforms-3\308593d8d9f57539674ab3eef7ba2a18\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:22:5-38:19
+MERGED from [com.google.android.gms:play-services-location:21.0.1] C:\Users\quich\.gradle\caches\transforms-3\ae513808a84f823829792f3118b4428a\transformed\jetified-play-services-location-21.0.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-location:21.0.1] C:\Users\quich\.gradle\caches\transforms-3\ae513808a84f823829792f3118b4428a\transformed\jetified-play-services-location-21.0.1\AndroidManifest.xml:7:5-20
+MERGED from [com.google.maps.android:android-maps-utils:3.8.2] C:\Users\quich\.gradle\caches\transforms-3\d08fe44d4ea0d5045bc8893a7979ff8b\transformed\jetified-android-maps-utils-3.8.2\AndroidManifest.xml:7:5-11:19
+MERGED from [com.google.maps.android:android-maps-utils:3.8.2] C:\Users\quich\.gradle\caches\transforms-3\d08fe44d4ea0d5045bc8893a7979ff8b\transformed\jetified-android-maps-utils-3.8.2\AndroidManifest.xml:7:5-11:19
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:36:5-42:19
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:36:5-42:19
 MERGED from [com.google.android.gms:play-services-fido:20.0.1] C:\Users\quich\.gradle\caches\transforms-3\537d8cabe21edf73fb7cae016ff54d98\transformed\jetified-play-services-fido-20.0.1\AndroidManifest.xml:7:5-8:19
 MERGED from [com.google.android.gms:play-services-fido:20.0.1] C:\Users\quich\.gradle\caches\transforms-3\537d8cabe21edf73fb7cae016ff54d98\transformed\jetified-play-services-fido-20.0.1\AndroidManifest.xml:7:5-8:19
-MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] C:\Users\quich\.gradle\caches\transforms-3\54cc2140f5e474b19481bcada99838a4\transformed\jetified-firebase-appcheck-interop-17.0.0\AndroidManifest.xml:23:5-20
-MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] C:\Users\quich\.gradle\caches\transforms-3\54cc2140f5e474b19481bcada99838a4\transformed\jetified-firebase-appcheck-interop-17.0.0\AndroidManifest.xml:23:5-20
-MERGED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\quich\.gradle\caches\transforms-3\e04577146130542fa21f86a14e93a902\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:19:5-23:19
-MERGED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\quich\.gradle\caches\transforms-3\e04577146130542fa21f86a14e93a902\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.1.0] C:\Users\quich\.gradle\caches\transforms-3\59fad8d752d995a964e9fa166af564ce\transformed\jetified-firebase-appcheck-interop-17.1.0\AndroidManifest.xml:21:5-20
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.1.0] C:\Users\quich\.gradle\caches\transforms-3\59fad8d752d995a964e9fa166af564ce\transformed\jetified-firebase-appcheck-interop-17.1.0\AndroidManifest.xml:21:5-20
+MERGED from [com.google.android.gms:play-services-base:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\01c3a4436cf28c86dbe35b7fd3258ed8\transformed\jetified-play-services-base-18.2.0\AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-base:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\01c3a4436cf28c86dbe35b7fd3258ed8\transformed\jetified-play-services-base-18.2.0\AndroidManifest.xml:19:5-23:19
 MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\quich\.gradle\caches\transforms-3\ea9e07e110d555a8dc9465fb21932448\transformed\jetified-firebase-auth-interop-20.0.0\AndroidManifest.xml:7:5-8:19
 MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\quich\.gradle\caches\transforms-3\ea9e07e110d555a8dc9465fb21932448\transformed\jetified-firebase-auth-interop-20.0.0\AndroidManifest.xml:7:5-8:19
 MERGED from [com.google.firebase:firebase-common:20.4.3] C:\Users\quich\.gradle\caches\transforms-3\c072f32255cf8293d7216c312c904e4a\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:22:5-39:19
@@ -190,6 +229,8 @@ MERGED from [com.google.android.gms:play-services-tasks:18.1.0] C:\Users\quich\.
 MERGED from [com.google.android.gms:play-services-tasks:18.1.0] C:\Users\quich\.gradle\caches\transforms-3\91762f678564d17c23f866cf1e1cbd49\transformed\jetified-play-services-tasks-18.1.0\AndroidManifest.xml:5:5-20
 MERGED from [com.google.android.gms:play-services-basement:18.3.0] C:\Users\quich\.gradle\caches\transforms-3\384a194353a31ea2bc52f4ce1050d630\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:20:5-24:19
 MERGED from [com.google.android.gms:play-services-basement:18.3.0] C:\Users\quich\.gradle\caches\transforms-3\384a194353a31ea2bc52f4ce1050d630\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:20:5-24:19
+MERGED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:30:5-143:19
+MERGED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:30:5-143:19
 MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\fbb2be9dbd6183e8311d3ac006784ffa\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\fbb2be9dbd6183e8311d3ac006784ffa\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\quich\.gradle\caches\transforms-3\01815581afc1998c7868acd647df806f\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:25:5-35:19
@@ -198,6 +239,8 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\quich\.gradle\cach
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\quich\.gradle\caches\transforms-3\0cbd8121edacb839bf00b4bdc9d6f1ba\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
 MERGED from [androidx.core:core:1.9.0] C:\Users\quich\.gradle\caches\transforms-3\131a14e650442bdc8d41eaaa9e5b4d34\transformed\core-1.9.0\AndroidManifest.xml:28:5-89
 MERGED from [androidx.core:core:1.9.0] C:\Users\quich\.gradle\caches\transforms-3\131a14e650442bdc8d41eaaa9e5b4d34\transformed\core-1.9.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.room:room-runtime:2.2.5] C:\Users\quich\.gradle\caches\transforms-3\2428e2f7428928dd8d03498202e46bb3\transformed\room-runtime-2.2.5\AndroidManifest.xml:24:5-29:19
+MERGED from [androidx.room:room-runtime:2.2.5] C:\Users\quich\.gradle\caches\transforms-3\2428e2f7428928dd8d03498202e46bb3\transformed\room-runtime-2.2.5\AndroidManifest.xml:24:5-29:19
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\quich\.gradle\caches\transforms-3\3975554c31aa369dad3d8f71abdb7c9a\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\quich\.gradle\caches\transforms-3\3975554c31aa369dad3d8f71abdb7c9a\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
 MERGED from [com.facebook.soloader:soloader:0.10.5] C:\Users\quich\.gradle\caches\transforms-3\a8bc4a39f05b0cfc749bf73de002f192\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:11:5-15:19
@@ -207,53 +250,59 @@ MERGED from [com.facebook.soloader:soloader:0.10.5] C:\Users\quich\.gradle\cache
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.9.0] C:\Users\quich\.gradle\caches\transforms-3\131a14e650442bdc8d41eaaa9e5b4d34\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
 	android:label
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:10:7-39
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:10:7-39
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:12:7-39
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:12:7-39
 	tools:ignore
 		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml:8:9-48
 	android:roundIcon
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:12:7-52
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:12:7-52
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:14:7-52
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:14:7-52
 	tools:targetApi
 		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml:7:9-29
 	android:icon
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:11:7-41
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:11:7-41
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:13:7-41
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:13:7-41
 	android:allowBackup
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:13:7-34
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:13:7-34
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:15:7-34
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:15:7-34
 	android:theme
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:14:7-38
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:14:7-38
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:16:7-38
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:16:7-38
 	android:usesCleartextTraffic
 		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml:6:9-44
 	android:name
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:9:7-38
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:9:7-38
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:11:7-38
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:11:7-38
+meta-data#com.google.android.geo.API_KEY
+ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:17:7-121
+	android:value
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:17:64-119
+	android:name
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:17:18-63
 activity#com.client_lalamove.MainActivity
-ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:15:7-26:18
+ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:18:7-29:18
 	android:label
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:17:9-41
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:20:9-41
 	android:launchMode
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:19:9-40
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:22:9-40
 	android:windowSoftInputMode
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:20:9-51
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:23:9-51
 	android:exported
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:21:9-32
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:24:9-32
 	android:configChanges
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:18:9-118
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:21:9-118
 	android:name
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:16:9-37
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:19:9-37
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:22:9-25:25
+ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:25:9-28:25
 action#android.intent.action.MAIN
-ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:23:13-65
+ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:26:13-65
 	android:name
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:23:21-62
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:26:21-62
 category#android.intent.category.LAUNCHER
-ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:24:13-73
+ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:27:13-73
 	android:name
-		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:24:23-70
+		ADDED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\main\AndroidManifest.xml:27:23-70
 uses-sdk
 INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml
@@ -264,10 +313,14 @@ MERGED from [:react-native-async-storage_async-storage] D:\work_space\uit_ltttbd
 MERGED from [:react-native-async-storage_async-storage] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-async-storage\async-storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-community_datetimepicker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-community_datetimepicker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\datetimepicker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-community_geolocation] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\geolocation\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-community_geolocation] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-community\geolocation\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-firebase_auth] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\auth\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-firebase_auth] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\auth\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-firebase_firestore] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\firestore\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-firebase_firestore] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\firestore\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-firebase_storage] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-firebase_storage] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-firebase_app] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-44
 MERGED from [:react-native-firebase_app] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\app\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-44
 MERGED from [:react-native-google-signin_google-signin] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-google-signin\google-signin\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
@@ -278,8 +331,12 @@ MERGED from [:react-native-picker_picker] D:\work_space\uit_ltttbdd\visual_studi
 MERGED from [:react-native-picker_picker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-picker\picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-gesture-handler] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-gesture-handler] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-gesture-handler\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-get-location] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-get-location\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-get-location] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-get-location\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-image-picker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-image-picker] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-maps] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-maps\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:react-native-maps] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-maps\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-pager-view] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-pager-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-pager-view] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-pager-view\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:react-native-reanimated] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\react-native-reanimated\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-44
@@ -336,6 +393,10 @@ MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\quich\.gradle\ca
 MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\quich\.gradle\caches\transforms-3\cedaefa63313dfd9f64ba909069b51f2\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:21:5-23:64
 MERGED from [com.google.firebase:firebase-firestore:24.11.1] C:\Users\quich\.gradle\caches\transforms-3\1eaf5278b619cb9e174b6c94f5f8e03c\transformed\jetified-firebase-firestore-24.11.1\AndroidManifest.xml:6:5-44
 MERGED from [com.google.firebase:firebase-firestore:24.11.1] C:\Users\quich\.gradle\caches\transforms-3\1eaf5278b619cb9e174b6c94f5f8e03c\transformed\jetified-firebase-firestore-24.11.1\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:19:5-44
+MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:19:5-44
+MERGED from [com.google.firebase:firebase-appcheck:17.1.2] C:\Users\quich\.gradle\caches\transforms-3\2f6cfb3aae47c4b8cfcc4407b7837479\transformed\jetified-firebase-appcheck-17.1.2\AndroidManifest.xml:18:5-44
+MERGED from [com.google.firebase:firebase-appcheck:17.1.2] C:\Users\quich\.gradle\caches\transforms-3\2f6cfb3aae47c4b8cfcc4407b7837479\transformed\jetified-firebase-appcheck-17.1.2\AndroidManifest.xml:18:5-44
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.3] C:\Users\quich\.gradle\caches\transforms-3\7784205a870f56c26bcb60ccabf79f4f\transformed\jetified-firebase-common-ktx-20.4.3\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.3] C:\Users\quich\.gradle\caches\transforms-3\7784205a870f56c26bcb60ccabf79f4f\transformed\jetified-firebase-common-ktx-20.4.3\AndroidManifest.xml:5:5-44
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\quich\.gradle\caches\transforms-3\a1f6e94761677b17a86087133afb1311\transformed\jetified-appcompat-resources-1.6.1\AndroidManifest.xml:20:5-44
@@ -350,20 +411,26 @@ MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\quich\.gradle\caches\t
 MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\quich\.gradle\caches\transforms-3\858dc591faff319c774fa62ec5f4cdb2\transformed\appcompat-1.6.1\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-auth:21.0.0] C:\Users\quich\.gradle\caches\transforms-3\308593d8d9f57539674ab3eef7ba2a18\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-auth:21.0.0] C:\Users\quich\.gradle\caches\transforms-3\308593d8d9f57539674ab3eef7ba2a18\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\7ae3427b5f898390cd4efd969a00b0f3\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\7ae3427b5f898390cd4efd969a00b0f3\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-location:21.0.1] C:\Users\quich\.gradle\caches\transforms-3\ae513808a84f823829792f3118b4428a\transformed\jetified-play-services-location-21.0.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-location:21.0.1] C:\Users\quich\.gradle\caches\transforms-3\ae513808a84f823829792f3118b4428a\transformed\jetified-play-services-location-21.0.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.maps.android:android-maps-utils:3.8.2] C:\Users\quich\.gradle\caches\transforms-3\d08fe44d4ea0d5045bc8893a7979ff8b\transformed\jetified-android-maps-utils-3.8.2\AndroidManifest.xml:5:5-44
+MERGED from [com.google.maps.android:android-maps-utils:3.8.2] C:\Users\quich\.gradle\caches\transforms-3\d08fe44d4ea0d5045bc8893a7979ff8b\transformed\jetified-android-maps-utils-3.8.2\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-auth-api-phone:18.0.2] C:\Users\quich\.gradle\caches\transforms-3\549dd11529dd8e67246c2687ed24bab1\transformed\jetified-play-services-auth-api-phone-18.0.2\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-auth-api-phone:18.0.2] C:\Users\quich\.gradle\caches\transforms-3\549dd11529dd8e67246c2687ed24bab1\transformed\jetified-play-services-auth-api-phone-18.0.2\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-auth-base:18.0.10] C:\Users\quich\.gradle\caches\transforms-3\67bf32f491cb6e5501c5e76b47cba4b4\transformed\jetified-play-services-auth-base-18.0.10\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-auth-base:18.0.10] C:\Users\quich\.gradle\caches\transforms-3\67bf32f491cb6e5501c5e76b47cba4b4\transformed\jetified-play-services-auth-base-18.0.10\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-fido:20.0.1] C:\Users\quich\.gradle\caches\transforms-3\537d8cabe21edf73fb7cae016ff54d98\transformed\jetified-play-services-fido-20.0.1\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-fido:20.0.1] C:\Users\quich\.gradle\caches\transforms-3\537d8cabe21edf73fb7cae016ff54d98\transformed\jetified-play-services-fido-20.0.1\AndroidManifest.xml:5:5-44
-MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] C:\Users\quich\.gradle\caches\transforms-3\54cc2140f5e474b19481bcada99838a4\transformed\jetified-firebase-appcheck-interop-17.0.0\AndroidManifest.xml:18:5-20:41
-MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] C:\Users\quich\.gradle\caches\transforms-3\54cc2140f5e474b19481bcada99838a4\transformed\jetified-firebase-appcheck-interop-17.0.0\AndroidManifest.xml:18:5-20:41
 MERGED from [com.google.firebase:firebase-database-collection:18.0.1] C:\Users\quich\.gradle\caches\transforms-3\623522860db3da3fc7557eb33c71698f\transformed\jetified-firebase-database-collection-18.0.1\AndroidManifest.xml:5:5-7:41
 MERGED from [com.google.firebase:firebase-database-collection:18.0.1] C:\Users\quich\.gradle\caches\transforms-3\623522860db3da3fc7557eb33c71698f\transformed\jetified-firebase-database-collection-18.0.1\AndroidManifest.xml:5:5-7:41
-MERGED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\quich\.gradle\caches\transforms-3\e04577146130542fa21f86a14e93a902\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:18:5-43
-MERGED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\quich\.gradle\caches\transforms-3\e04577146130542fa21f86a14e93a902\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:18:5-43
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.1.0] C:\Users\quich\.gradle\caches\transforms-3\59fad8d752d995a964e9fa166af564ce\transformed\jetified-firebase-appcheck-interop-17.1.0\AndroidManifest.xml:18:5-44
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.1.0] C:\Users\quich\.gradle\caches\transforms-3\59fad8d752d995a964e9fa166af564ce\transformed\jetified-firebase-appcheck-interop-17.1.0\AndroidManifest.xml:18:5-44
+MERGED from [com.google.android.gms:play-services-base:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\01c3a4436cf28c86dbe35b7fd3258ed8\transformed\jetified-play-services-base-18.2.0\AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-base:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\01c3a4436cf28c86dbe35b7fd3258ed8\transformed\jetified-play-services-base-18.2.0\AndroidManifest.xml:18:5-43
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\7ae3427b5f898390cd4efd969a00b0f3\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\7ae3427b5f898390cd4efd969a00b0f3\transformed\jetified-viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\quich\.gradle\caches\transforms-3\ea9e07e110d555a8dc9465fb21932448\transformed\jetified-firebase-auth-interop-20.0.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\quich\.gradle\caches\transforms-3\ea9e07e110d555a8dc9465fb21932448\transformed\jetified-firebase-auth-interop-20.0.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-common:20.4.3] C:\Users\quich\.gradle\caches\transforms-3\c072f32255cf8293d7216c312c904e4a\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:19:5-44
@@ -396,6 +463,8 @@ MERGED from [androidx.savedstate:savedstate:1.2.0] C:\Users\quich\.gradle\caches
 MERGED from [androidx.savedstate:savedstate:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\07bcdd74fee851169e18586f5ece6b17\transformed\jetified-savedstate-1.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] C:\Users\quich\.gradle\caches\transforms-3\099b99181c79b6824d920bf9cd74d597\transformed\swiperefreshlayout-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.1.0] C:\Users\quich\.gradle\caches\transforms-3\099b99181c79b6824d920bf9cd74d597\transformed\swiperefreshlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:21:5-23:41
 MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\37a50543f75849814456deec0447a5ea\transformed\jetified-emoji2-views-helper-1.2.0\AndroidManifest.xml:5:5-44
 MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\37a50543f75849814456deec0447a5ea\transformed\jetified-emoji2-views-helper-1.2.0\AndroidManifest.xml:5:5-44
 MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\fbb2be9dbd6183e8311d3ac006784ffa\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:21:5-44
@@ -434,16 +503,22 @@ MERGED from [androidx.core:core:1.9.0] C:\Users\quich\.gradle\caches\transforms-
 MERGED from [androidx.core:core:1.9.0] C:\Users\quich\.gradle\caches\transforms-3\131a14e650442bdc8d41eaaa9e5b4d34\transformed\core-1.9.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\42537f8165efd22bf9b3fb620b1e8301\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\42537f8165efd22bf9b3fb620b1e8301\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] C:\Users\quich\.gradle\caches\transforms-3\8124f6e5c0d1c853cf963607a8cddbdd\transformed\jetified-lifecycle-service-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.1.0] C:\Users\quich\.gradle\caches\transforms-3\8124f6e5c0d1c853cf963607a8cddbdd\transformed\jetified-lifecycle-service-2.1.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.1] C:\Users\quich\.gradle\caches\transforms-3\c6ced4d0d0157bb8360a4fb8b074cede\transformed\lifecycle-runtime-2.5.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.1] C:\Users\quich\.gradle\caches\transforms-3\c6ced4d0d0157bb8360a4fb8b074cede\transformed\lifecycle-runtime-2.5.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\90f60693078e03addaaab191eb15df30\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\90f60693078e03addaaab191eb15df30\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.room:room-runtime:2.2.5] C:\Users\quich\.gradle\caches\transforms-3\2428e2f7428928dd8d03498202e46bb3\transformed\room-runtime-2.2.5\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.room:room-runtime:2.2.5] C:\Users\quich\.gradle\caches\transforms-3\2428e2f7428928dd8d03498202e46bb3\transformed\room-runtime-2.2.5\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.sqlite:sqlite-framework:2.2.0] C:\Users\quich\.gradle\caches\transforms-3\8de971e2418c5b70dbd241e732f7f266\transformed\sqlite-framework-2.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.sqlite:sqlite-framework:2.2.0] C:\Users\quich\.gradle\caches\transforms-3\8de971e2418c5b70dbd241e732f7f266\transformed\sqlite-framework-2.2.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\quich\.gradle\caches\transforms-3\3975554c31aa369dad3d8f71abdb7c9a\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\quich\.gradle\caches\transforms-3\3975554c31aa369dad3d8f71abdb7c9a\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\5b80f617554d627031cfc3036b20a3aa\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\quich\.gradle\caches\transforms-3\5b80f617554d627031cfc3036b20a3aa\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] C:\Users\quich\.gradle\caches\transforms-3\fae69b61e7f061e7a377eddea7964dd4\transformed\lifecycle-livedata-2.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.1.0] C:\Users\quich\.gradle\caches\transforms-3\fae69b61e7f061e7a377eddea7964dd4\transformed\lifecycle-livedata-2.1.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.1] C:\Users\quich\.gradle\caches\transforms-3\345cccbe22562c7f2e60dce7e3102b70\transformed\lifecycle-livedata-core-2.5.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.1] C:\Users\quich\.gradle\caches\transforms-3\345cccbe22562c7f2e60dce7e3102b70\transformed\lifecycle-livedata-core-2.5.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.arch.core:core-runtime:2.1.0] C:\Users\quich\.gradle\caches\transforms-3\7786a6ed6629058b406782c500a88926\transformed\core-runtime-2.1.0\AndroidManifest.xml:20:5-22:41
@@ -478,16 +553,28 @@ MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] C:\Users\qui
 		INJECTED from D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\android\app\src\debug\AndroidManifest.xml
 uses-permission#android.permission.WAKE_LOCK
 ADDED from [:react-native-firebase_auth] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\auth\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:5-68
+MERGED from [:react-native-firebase_storage] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:5-68
+MERGED from [:react-native-firebase_storage] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:5-68
+MERGED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:25:5-68
+MERGED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:25:5-68
 	android:name
 		ADDED from [:react-native-firebase_auth] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\auth\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:8:22-65
 uses-permission#android.permission.ACCESS_NETWORK_STATE
 ADDED from [:react-native-firebase_auth] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\auth\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
+MERGED from [:react-native-firebase_storage] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
+MERGED from [:react-native-firebase_storage] D:\work_space\uit_ltttbdd\visual_studio_code\lalamove_app\node_modules\@react-native-firebase\storage\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-79
 MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\quich\.gradle\caches\transforms-3\cedaefa63313dfd9f64ba909069b51f2\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:26:5-79
 MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\quich\.gradle\caches\transforms-3\cedaefa63313dfd9f64ba909069b51f2\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:26:5-79
 MERGED from [com.google.firebase:firebase-firestore:24.11.1] C:\Users\quich\.gradle\caches\transforms-3\1eaf5278b619cb9e174b6c94f5f8e03c\transformed\jetified-firebase-firestore-24.11.1\AndroidManifest.xml:10:5-79
 MERGED from [com.google.firebase:firebase-firestore:24.11.1] C:\Users\quich\.gradle\caches\transforms-3\1eaf5278b619cb9e174b6c94f5f8e03c\transformed\jetified-firebase-firestore-24.11.1\AndroidManifest.xml:10:5-79
+MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:23:5-79
+MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:23:5-79
 MERGED from [com.google.android.recaptcha:recaptcha:18.4.0] C:\Users\quich\.gradle\caches\transforms-3\7ca6c88ef0e6aea80cde27e96423b814\transformed\jetified-recaptcha-18.4.0\AndroidManifest.xml:8:5-79
 MERGED from [com.google.android.recaptcha:recaptcha:18.4.0] C:\Users\quich\.gradle\caches\transforms-3\7ca6c88ef0e6aea80cde27e96423b814\transformed\jetified-recaptcha-18.4.0\AndroidManifest.xml:8:5-79
+MERGED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:26:5-79
+MERGED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:26:5-79
 MERGED from [io.grpc:grpc-android:1.57.2] C:\Users\quich\.gradle\caches\transforms-3\f5c4ec445967d839b79aa20207a178af\transformed\jetified-grpc-android-1.57.2\AndroidManifest.xml:7:5-79
 MERGED from [io.grpc:grpc-android:1.57.2] C:\Users\quich\.gradle\caches\transforms-3\f5c4ec445967d839b79aa20207a178af\transformed\jetified-grpc-android-1.57.2\AndroidManifest.xml:7:5-79
 	android:name
@@ -504,6 +591,10 @@ MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\quich\.gradle\ca
 MERGED from [com.google.firebase:firebase-auth:22.3.1] C:\Users\quich\.gradle\caches\transforms-3\cedaefa63313dfd9f64ba909069b51f2\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:66:9-72:19
 MERGED from [com.google.firebase:firebase-firestore:24.11.1] C:\Users\quich\.gradle\caches\transforms-3\1eaf5278b619cb9e174b6c94f5f8e03c\transformed\jetified-firebase-firestore-24.11.1\AndroidManifest.xml:14:9-23:19
 MERGED from [com.google.firebase:firebase-firestore:24.11.1] C:\Users\quich\.gradle\caches\transforms-3\1eaf5278b619cb9e174b6c94f5f8e03c\transformed\jetified-firebase-firestore-24.11.1\AndroidManifest.xml:14:9-23:19
+MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:27:9-36:19
+MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:27:9-36:19
+MERGED from [com.google.firebase:firebase-appcheck:17.1.2] C:\Users\quich\.gradle\caches\transforms-3\2f6cfb3aae47c4b8cfcc4407b7837479\transformed\jetified-firebase-appcheck-17.1.2\AndroidManifest.xml:22:9-31:19
+MERGED from [com.google.firebase:firebase-appcheck:17.1.2] C:\Users\quich\.gradle\caches\transforms-3\2f6cfb3aae47c4b8cfcc4407b7837479\transformed\jetified-firebase-appcheck-17.1.2\AndroidManifest.xml:22:9-31:19
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.3] C:\Users\quich\.gradle\caches\transforms-3\7784205a870f56c26bcb60ccabf79f4f\transformed\jetified-firebase-common-ktx-20.4.3\AndroidManifest.xml:9:9-15:19
 MERGED from [com.google.firebase:firebase-common-ktx:20.4.3] C:\Users\quich\.gradle\caches\transforms-3\7784205a870f56c26bcb60ccabf79f4f\transformed\jetified-firebase-common-ktx-20.4.3\AndroidManifest.xml:9:9-15:19
 MERGED from [com.google.firebase:firebase-common:20.4.3] C:\Users\quich\.gradle\caches\transforms-3\c072f32255cf8293d7216c312c904e4a\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:30:9-38:19
@@ -628,6 +719,30 @@ ADDED from [com.google.firebase:firebase-firestore:24.11.1] C:\Users\quich\.grad
 		ADDED from [com.google.firebase:firebase-firestore:24.11.1] C:\Users\quich\.gradle\caches\transforms-3\1eaf5278b619cb9e174b6c94f5f8e03c\transformed\jetified-firebase-firestore-24.11.1\AndroidManifest.xml:22:17-82
 	android:name
 		ADDED from [com.google.firebase:firebase-firestore:24.11.1] C:\Users\quich\.gradle\caches\transforms-3\1eaf5278b619cb9e174b6c94f5f8e03c\transformed\jetified-firebase-firestore-24.11.1\AndroidManifest.xml:21:17-111
+meta-data#com.google.firebase.components:com.google.firebase.storage.FirebaseStorageKtxRegistrar
+ADDED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:30:13-32:85
+	android:value
+		ADDED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:32:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:31:17-118
+meta-data#com.google.firebase.components:com.google.firebase.storage.StorageRegistrar
+ADDED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:33:13-35:85
+	android:value
+		ADDED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:35:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\quich\.gradle\caches\transforms-3\6f5050df653abbf422e9dd4eee04abb9\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:34:17-107
+meta-data#com.google.firebase.components:com.google.firebase.appcheck.FirebaseAppCheckKtxRegistrar
+ADDED from [com.google.firebase:firebase-appcheck:17.1.2] C:\Users\quich\.gradle\caches\transforms-3\2f6cfb3aae47c4b8cfcc4407b7837479\transformed\jetified-firebase-appcheck-17.1.2\AndroidManifest.xml:25:13-27:85
+	android:value
+		ADDED from [com.google.firebase:firebase-appcheck:17.1.2] C:\Users\quich\.gradle\caches\transforms-3\2f6cfb3aae47c4b8cfcc4407b7837479\transformed\jetified-firebase-appcheck-17.1.2\AndroidManifest.xml:27:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-appcheck:17.1.2] C:\Users\quich\.gradle\caches\transforms-3\2f6cfb3aae47c4b8cfcc4407b7837479\transformed\jetified-firebase-appcheck-17.1.2\AndroidManifest.xml:26:17-120
+meta-data#com.google.firebase.components:com.google.firebase.appcheck.FirebaseAppCheckRegistrar
+ADDED from [com.google.firebase:firebase-appcheck:17.1.2] C:\Users\quich\.gradle\caches\transforms-3\2f6cfb3aae47c4b8cfcc4407b7837479\transformed\jetified-firebase-appcheck-17.1.2\AndroidManifest.xml:28:13-30:85
+	android:value
+		ADDED from [com.google.firebase:firebase-appcheck:17.1.2] C:\Users\quich\.gradle\caches\transforms-3\2f6cfb3aae47c4b8cfcc4407b7837479\transformed\jetified-firebase-appcheck-17.1.2\AndroidManifest.xml:30:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-appcheck:17.1.2] C:\Users\quich\.gradle\caches\transforms-3\2f6cfb3aae47c4b8cfcc4407b7837479\transformed\jetified-firebase-appcheck-17.1.2\AndroidManifest.xml:29:17-117
 meta-data#com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar
 ADDED from [com.google.firebase:firebase-common-ktx:20.4.3] C:\Users\quich\.gradle\caches\transforms-3\7784205a870f56c26bcb60ccabf79f4f\transformed\jetified-firebase-common-ktx-20.4.3\AndroidManifest.xml:12:13-14:85
 	android:value
@@ -654,14 +769,40 @@ ADDED from [com.google.android.gms:play-services-auth:21.0.0] C:\Users\quich\.gr
 		ADDED from [com.google.android.gms:play-services-auth:21.0.0] C:\Users\quich\.gradle\caches\transforms-3\308593d8d9f57539674ab3eef7ba2a18\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:36:13-107
 	android:name
 		ADDED from [com.google.android.gms:play-services-auth:21.0.0] C:\Users\quich\.gradle\caches\transforms-3\308593d8d9f57539674ab3eef7ba2a18\transformed\jetified-play-services-auth-21.0.0\AndroidManifest.xml:34:13-89
-activity#com.google.android.gms.common.api.GoogleApiActivity
-ADDED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\quich\.gradle\caches\transforms-3\e04577146130542fa21f86a14e93a902\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
-	android:exported
-		ADDED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\quich\.gradle\caches\transforms-3\e04577146130542fa21f86a14e93a902\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:22:19-43
-	android:theme
-		ADDED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\quich\.gradle\caches\transforms-3\e04577146130542fa21f86a14e93a902\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:21:19-78
+meta-data#com.google.android.gms.version
+ADDED from [com.google.maps.android:android-maps-utils:3.8.2] C:\Users\quich\.gradle\caches\transforms-3\d08fe44d4ea0d5045bc8893a7979ff8b\transformed\jetified-android-maps-utils-3.8.2\AndroidManifest.xml:8:9-10:69
+MERGED from [com.google.android.gms:play-services-basement:18.3.0] C:\Users\quich\.gradle\caches\transforms-3\384a194353a31ea2bc52f4ce1050d630\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:21:9-23:69
+MERGED from [com.google.android.gms:play-services-basement:18.3.0] C:\Users\quich\.gradle\caches\transforms-3\384a194353a31ea2bc52f4ce1050d630\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:21:9-23:69
+	android:value
+		ADDED from [com.google.maps.android:android-maps-utils:3.8.2] C:\Users\quich\.gradle\caches\transforms-3\d08fe44d4ea0d5045bc8893a7979ff8b\transformed\jetified-android-maps-utils-3.8.2\AndroidManifest.xml:10:13-66
 	android:name
-		ADDED from [com.google.android.gms:play-services-base:18.0.1] C:\Users\quich\.gradle\caches\transforms-3\e04577146130542fa21f86a14e93a902\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:19-85
+		ADDED from [com.google.maps.android:android-maps-utils:3.8.2] C:\Users\quich\.gradle\caches\transforms-3\d08fe44d4ea0d5045bc8893a7979ff8b\transformed\jetified-android-maps-utils-3.8.2\AndroidManifest.xml:9:13-58
+uses-feature#0x00020000
+ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:26:5-28:35
+	android:glEsVersion
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:27:9-41
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:28:9-32
+queries
+ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:30:5-34:15
+package#com.google.android.apps.maps
+ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:33:9-64
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:33:18-61
+uses-library#org.apache.http.legacy
+ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:39:9-41:40
+	android:required
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:41:13-37
+	android:name
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\ca6b0d4b9aa43192dedbc45f940b6ff3\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:40:13-50
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\01c3a4436cf28c86dbe35b7fd3258ed8\transformed\jetified-play-services-base-18.2.0\AndroidManifest.xml:20:9-22:45
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\01c3a4436cf28c86dbe35b7fd3258ed8\transformed\jetified-play-services-base-18.2.0\AndroidManifest.xml:22:19-43
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\01c3a4436cf28c86dbe35b7fd3258ed8\transformed\jetified-play-services-base-18.2.0\AndroidManifest.xml:21:19-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:18.2.0] C:\Users\quich\.gradle\caches\transforms-3\01c3a4436cf28c86dbe35b7fd3258ed8\transformed\jetified-play-services-base-18.2.0\AndroidManifest.xml:20:19-85
 provider#com.google.firebase.provider.FirebaseInitProvider
 ADDED from [com.google.firebase:firebase-common:20.4.3] C:\Users\quich\.gradle\caches\transforms-3\c072f32255cf8293d7216c312c904e4a\transformed\jetified-firebase-common-20.4.3\AndroidManifest.xml:23:9-28:39
 	android:authorities
@@ -684,26 +825,234 @@ uses-permission#com.google.android.providers.gsf.permission.READ_GSERVICES
 ADDED from [com.google.android.recaptcha:recaptcha:18.4.0] C:\Users\quich\.gradle\caches\transforms-3\7ca6c88ef0e6aea80cde27e96423b814\transformed\jetified-recaptcha-18.4.0\AndroidManifest.xml:9:5-98
 	android:name
 		ADDED from [com.google.android.recaptcha:recaptcha:18.4.0] C:\Users\quich\.gradle\caches\transforms-3\7ca6c88ef0e6aea80cde27e96423b814\transformed\jetified-recaptcha-18.4.0\AndroidManifest.xml:9:22-95
-meta-data#com.google.android.gms.version
-ADDED from [com.google.android.gms:play-services-basement:18.3.0] C:\Users\quich\.gradle\caches\transforms-3\384a194353a31ea2bc52f4ce1050d630\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:21:9-23:69
-	android:value
-		ADDED from [com.google.android.gms:play-services-basement:18.3.0] C:\Users\quich\.gradle\caches\transforms-3\384a194353a31ea2bc52f4ce1050d630\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:23:13-66
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:27:5-81
 	android:name
-		ADDED from [com.google.android.gms:play-services-basement:18.3.0] C:\Users\quich\.gradle\caches\transforms-3\384a194353a31ea2bc52f4ce1050d630\transformed\jetified-play-services-basement-18.3.0\AndroidManifest.xml:22:13-58
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:27:22-78
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:28:5-77
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:28:22-74
 provider#androidx.startup.InitializationProvider
-ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\fbb2be9dbd6183e8311d3ac006784ffa\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:31:9-39:20
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\fbb2be9dbd6183e8311d3ac006784ffa\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.emoji2:emoji2:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\fbb2be9dbd6183e8311d3ac006784ffa\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
 MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\quich\.gradle\caches\transforms-3\01815581afc1998c7868acd647df806f\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:26:9-34:20
 MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\quich\.gradle\caches\transforms-3\01815581afc1998c7868acd647df806f\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:26:9-34:20
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\quich\.gradle\caches\transforms-3\0cbd8121edacb839bf00b4bdc9d6f1ba\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\quich\.gradle\caches\transforms-3\0cbd8121edacb839bf00b4bdc9d6f1ba\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
 	tools:node
-		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\fbb2be9dbd6183e8311d3ac006784ffa\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:28:13-31
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:35:13-31
 	android:authorities
-		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\fbb2be9dbd6183e8311d3ac006784ffa\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:33:13-68
 	android:exported
-		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\fbb2be9dbd6183e8311d3ac006784ffa\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:34:13-37
 	android:name
-		ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\fbb2be9dbd6183e8311d3ac006784ffa\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:32:13-67
+meta-data#androidx.work.WorkManagerInitializer
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:36:13-38:52
+	android:value
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:38:17-49
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:37:17-68
+service#androidx.work.impl.background.systemalarm.SystemAlarmService
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:41:9-46:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:44:13-72
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:45:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:46:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:43:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:42:13-88
+service#androidx.work.impl.background.systemjob.SystemJobService
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:47:9-53:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:50:13-70
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:51:13-36
+	android:permission
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:52:13-69
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:53:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:49:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:48:13-84
+service#androidx.work.impl.foreground.SystemForegroundService
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:54:9-59:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:57:13-77
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:58:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:59:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:56:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:55:13-81
+receiver#androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:61:9-66:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:64:13-35
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:65:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:66:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:63:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:62:13-88
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:67:9-77:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:70:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:71:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:72:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:69:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:68:13-106
+intent-filter#action:name:android.intent.action.ACTION_POWER_CONNECTED+action:name:android.intent.action.ACTION_POWER_DISCONNECTED
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:73:13-76:29
+action#android.intent.action.ACTION_POWER_CONNECTED
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:74:17-87
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:74:25-84
+action#android.intent.action.ACTION_POWER_DISCONNECTED
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:75:17-90
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:75:25-87
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:78:9-88:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:81:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:82:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:83:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:80:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:79:13-104
+intent-filter#action:name:android.intent.action.BATTERY_LOW+action:name:android.intent.action.BATTERY_OKAY
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:84:13-87:29
+action#android.intent.action.BATTERY_OKAY
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:85:17-77
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:85:25-74
+action#android.intent.action.BATTERY_LOW
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:86:17-76
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:86:25-73
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:89:9-99:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:92:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:93:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:94:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:91:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:90:13-104
+intent-filter#action:name:android.intent.action.DEVICE_STORAGE_LOW+action:name:android.intent.action.DEVICE_STORAGE_OK
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:95:13-98:29
+action#android.intent.action.DEVICE_STORAGE_LOW
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:96:17-83
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:96:25-80
+action#android.intent.action.DEVICE_STORAGE_OK
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:97:17-82
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:97:25-79
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:100:9-109:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:103:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:104:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:105:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:102:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:101:13-103
+intent-filter#action:name:android.net.conn.CONNECTIVITY_CHANGE
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:106:13-108:29
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:107:17-79
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:107:25-76
+receiver#androidx.work.impl.background.systemalarm.RescheduleReceiver
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:110:9-121:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:113:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:114:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:115:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:112:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:111:13-88
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.TIMEZONE_CHANGED+action:name:android.intent.action.TIME_SET
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:116:13-120:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:117:17-79
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:117:25-76
+action#android.intent.action.TIME_SET
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:118:17-73
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:118:25-70
+action#android.intent.action.TIMEZONE_CHANGED
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:119:17-81
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:119:25-78
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:122:9-131:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:125:13-72
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:126:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:127:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:124:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:123:13-99
+intent-filter#action:name:androidx.work.impl.background.systemalarm.UpdateProxies
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:128:13-130:29
+action#androidx.work.impl.background.systemalarm.UpdateProxies
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:129:17-98
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:129:25-95
+receiver#androidx.work.impl.diagnostics.DiagnosticsReceiver
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:132:9-142:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:135:13-35
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:136:13-36
+	android:permission
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:137:13-57
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:138:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:134:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:133:13-78
+intent-filter#action:name:androidx.work.diagnostics.REQUEST_DIAGNOSTICS
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:139:13-141:29
+action#androidx.work.diagnostics.REQUEST_DIAGNOSTICS
+ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:140:17-88
+	android:name
+		ADDED from [androidx.work:work-runtime:2.7.1] C:\Users\quich\.gradle\caches\transforms-3\3f21d5561afcdd85c5c8d43af55a484b\transformed\work-runtime-2.7.1\AndroidManifest.xml:140:25-85
 meta-data#androidx.emoji2.text.EmojiCompatInitializer
 ADDED from [androidx.emoji2:emoji2:1.2.0] C:\Users\quich\.gradle\caches\transforms-3\fbb2be9dbd6183e8311d3ac006784ffa\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
 	android:value
@@ -736,6 +1085,14 @@ uses-permission#com.client_lalamove.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.9.0] C:\Users\quich\.gradle\caches\transforms-3\131a14e650442bdc8d41eaaa9e5b4d34\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
 	android:name
 		ADDED from [androidx.core:core:1.9.0] C:\Users\quich\.gradle\caches\transforms-3\131a14e650442bdc8d41eaaa9e5b4d34\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+service#androidx.room.MultiInstanceInvalidationService
+ADDED from [androidx.room:room-runtime:2.2.5] C:\Users\quich\.gradle\caches\transforms-3\2428e2f7428928dd8d03498202e46bb3\transformed\room-runtime-2.2.5\AndroidManifest.xml:25:9-28:40
+	android:exported
+		ADDED from [androidx.room:room-runtime:2.2.5] C:\Users\quich\.gradle\caches\transforms-3\2428e2f7428928dd8d03498202e46bb3\transformed\room-runtime-2.2.5\AndroidManifest.xml:28:13-37
+	android:directBootAware
+		ADDED from [androidx.room:room-runtime:2.2.5] C:\Users\quich\.gradle\caches\transforms-3\2428e2f7428928dd8d03498202e46bb3\transformed\room-runtime-2.2.5\AndroidManifest.xml:27:13-43
+	android:name
+		ADDED from [androidx.room:room-runtime:2.2.5] C:\Users\quich\.gradle\caches\transforms-3\2428e2f7428928dd8d03498202e46bb3\transformed\room-runtime-2.2.5\AndroidManifest.xml:26:13-74
 meta-data#com.facebook.soloader.enabled
 ADDED from [com.facebook.soloader:soloader:0.10.5] C:\Users\quich\.gradle\caches\transforms-3\a8bc4a39f05b0cfc749bf73de002f192\transformed\jetified-soloader-0.10.5\AndroidManifest.xml:12:9-14:37
 	android:value
