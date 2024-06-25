@@ -40,4 +40,24 @@ export class AddressService {
       user: userId,
     });
   }
+
+  async getDefaultAddress(userId: string) {
+    return await this.addressModel.findOne({
+      user: userId,
+      isDefault: true,
+    });
+  }
+
+  async changeDefaultAddress(userId: string, addressId: string) {
+    const defaultAddress = await this.addressModel.findOne({
+      user: userId,
+      isDefault: true,
+    });
+
+    if (defaultAddress) defaultAddress.isDefault = false;
+    await defaultAddress.save();
+    return await this.addressModel.findByIdAndUpdate(addressId, {
+      isDefault: true,
+    });
+  }
 }

@@ -16,13 +16,7 @@ export class Address {
   fullName?: string;
 
   @Prop()
-  province?: string;
-
-  @Prop()
-  district?: string;
-
-  @Prop()
-  ward?: string;
+  addressString?: string;
 
   @Prop()
   detail?: string;

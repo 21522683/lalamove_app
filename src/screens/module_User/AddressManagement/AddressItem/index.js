@@ -11,10 +11,14 @@ import {
   setSourceAddress,
 } from '../../../../redux/slices/createOrderSlice';
 import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+import baseUrl from '../../../../constants/baseUrl';
 
-const AddressItem = ({address, index, handleSetDefault}) => {
+const AddressItem = ({address, index, getAddressOfCurrentUser}) => {
   const navigation = useNavigation();
   const [disable, setDisable] = useState(false);
+  const userAuth = useSelector(state => state.users.userAuth);
+
   const statusChooseAddress = useSelector(
     state => state.createOrder.statusChooseAddress,
   );
@@ -23,8 +27,25 @@ const AddressItem = ({address, index, handleSetDefault}) => {
     state => state.createOrder.destinationAddress,
   );
   const dispatch = useDispatch();
-  const handleClickSetDefault = () => {
-    handleSetDefault(index);
+  const handleClickSetDefault = async () => {
+    if (address.isDefault) return;
+    try {
+      console.log(userAuth);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await axios.patch(
+        `${baseUrl}/address/${address._id}/defaultAddress`,
+        config,
+      );
+
+      getAddressOfCurrentUser();
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleChooseAddress = () => {
     if (disable) return;
@@ -73,10 +94,7 @@ const AddressItem = ({address, index, handleSetDefault}) => {
         </View>
         <View style={{marginTop: verticalScale(8), gap: 4}}>
           <Text style={styles.textAddress}>{address.detail}</Text>
-          <Text
-            style={
-              styles.textAddress
-            }>{`${address.ward}, ${address.district}, ${address.province}`}</Text>
+          <Text style={styles.textAddress}>{address.addressString}</Text>
         </View>
         <Pressable onPress={handleClickSetDefault}>
           <View

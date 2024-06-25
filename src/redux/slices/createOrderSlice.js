@@ -42,6 +42,10 @@ const createOrderSlice = createSlice({
       const {name, text} = action.payload;
       state.newAddress[name] = text;
     },
+    changeDefaultAddress: (state, action) => {
+      const addressId = action.payload;
+      state.newAddress[name] = text;
+    },
   },
 });
 

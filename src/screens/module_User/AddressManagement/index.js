@@ -78,6 +78,7 @@ const AddressManagementScreen = () => {
             <View style={{marginBottom: 24, marginHorizontal: 2}} key={index}>
               <AddressItem
                 address={item}
+                getAddressOfCurrentUser={getAddressOfCurrentUser}
                 index={index}
                 handleSetDefault={handleSetDefault}
               />

@@ -10,13 +10,19 @@ export class CreateOrderDTO {
   shortDescription: string;
 
   sourceAddress: {
-    address: string;
+    addressString: string;
+    fullName: string;
+    phoneNumber: string;
+    detail: string;
     latitude: number;
     longitude: number;
   };
 
   destinationAddress: {
-    address: string;
+    addressString: string;
+    fullName: string;
+    phoneNumber: string;
+    detail: string;
     latitude: number;
     longitude: number;
   };

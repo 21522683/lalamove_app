@@ -18,25 +18,52 @@ import styles from '../style';
 import {useNavigation} from '@react-navigation/native';
 import {IMAGES} from '../../../../assets/images';
 import {useDispatch, useSelector} from 'react-redux';
-import {setStatusChooseAddress} from '../../../../redux/slices/createOrderSlice';
+import {
+  setSourceAddress,
+  setStatusChooseAddress,
+} from '../../../../redux/slices/createOrderSlice';
+import axios from 'axios';
+import baseUrl from '../../../../constants/baseUrl';
 
 const WelcomeCreateOrderScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const state = useSelector(state => state.createOrder);
+  const userAuth = useSelector(state => state.users.userAuth);
+
   const isHasSourceAddress = JSON.stringify(state.sourceAddress) !== '{}';
   const isHasDestinationAddress =
     JSON.stringify(state.destinationAddress) !== '{}';
   const sourceAddressString = isHasSourceAddress
-    ? `${state.sourceAddress?.detail}, ${state.sourceAddress?.ward}, ${state.sourceAddress?.district}, ${state.sourceAddress?.province}`
+    ? `${state.sourceAddress?.detail}, ${state.sourceAddress?.addressString}`
     : '';
   const destinationAddressString = isHasDestinationAddress
-    ? `${state.destinationAddress?.detail}, ${state.destinationAddress?.ward}, ${state.destinationAddress?.district}, ${state.sourceAddress?.province}`
+    ? `${state.destinationAddress?.detail}, ${state.sourceAddress?.addressString}`
     : '';
+
+  const getDefaultAddress = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await axios.get(
+        `${baseUrl}/address/getDefaultAddress`,
+        config,
+      );
+      const defaultAddress = response.data.data;
+      if (defaultAddress) {
+        dispatch(setSourceAddress(defaultAddress));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    console.log(state.sourceAddress);
-    console.log(state.destinationAddress);
-  }, [state.sourceAddress, state.destinationAddress]);
+    getDefaultAddress();
+  }, []);
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Surface style={styles.header}>

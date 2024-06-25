@@ -25,19 +25,13 @@ export class Order {
 
   @Prop(
     raw({
+      addressString: {
+        type: String,
+      },
       fullName: {
         type: String,
       },
       phoneNumber: {
-        type: String,
-      },
-      province: {
-        type: String,
-      },
-      district: {
-        type: String,
-      },
-      ward: {
         type: String,
       },
       detail: {
@@ -54,19 +48,13 @@ export class Order {
   sourceAddress: Record<string, any>;
   @Prop(
     raw({
+      addressString: {
+        type: String,
+      },
       fullName: {
         type: String,
       },
       phoneNumber: {
-        type: String,
-      },
-      province: {
-        type: String,
-      },
-      district: {
-        type: String,
-      },
-      ward: {
         type: String,
       },
       detail: {
