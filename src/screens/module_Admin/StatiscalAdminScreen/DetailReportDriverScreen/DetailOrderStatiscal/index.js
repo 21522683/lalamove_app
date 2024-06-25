@@ -92,7 +92,7 @@ const DetailOrderStatiscal = ({ navigation }) => {
                         </View>
                         <View style={{ marginVertical: verticalScale(2), flexDirection: 'column' }}>
                             <Text style={styles.title_item}>Địa chỉ giao hàng:</Text>
-                            <Text style={styles.content_item}>{dataApi.sourceAddress.detail + ", " + dataApi.sourceAddress.ward + ", " + dataApi.sourceAddress.district + ", " + dataApi.sourceAddress.province}</Text>
+                            <Text style={styles.content_item}>{dataApi.sourceAddress.detail + ", " + dataApi.sourceAddress.addressString}</Text>
                         </View>
                     </View>
 
@@ -108,7 +108,7 @@ const DetailOrderStatiscal = ({ navigation }) => {
                         </View>
                         <View style={{ marginVertical: verticalScale(2), flexDirection: 'column' }}>
                             <Text style={styles.title_item}>Địa chỉ nhận hàng:</Text>
-                            <Text style={styles.content_item}>{dataApi.sourceAddress.detail + ", " + dataApi.sourceAddress.ward + ", " + dataApi.sourceAddress.district + ", " + dataApi.sourceAddress.province}</Text>
+                            <Text style={styles.content_item}>{dataApi.sourceAddress.detail + ", " + dataApi.sourceAddress.addressString}</Text>
                         </View>
                     </View>
 
@@ -124,7 +124,7 @@ const DetailOrderStatiscal = ({ navigation }) => {
                         </View>
                         <View style={{ marginVertical: verticalScale(2), flexDirection: 'column' }}>
                             <Text style={styles.title_item}>Địa chỉ nhận hàng:</Text>
-                            <Text style={styles.content_item}>{dataApi.destinationAddress.detail + ", " + dataApi.destinationAddress.ward + ", " + dataApi.destinationAddress.district + ", " + dataApi.destinationAddress.province}</Text>
+                            <Text style={styles.content_item}>{dataApi.destinationAddress.detail + ", " + dataApi.destinationAddress.addressString}</Text>
                         </View>
                     </View>
                 </View>
