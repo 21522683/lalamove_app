@@ -97,7 +97,7 @@ const ItemAddress = ({ item, index, getDataAPI }) => {
                             <Text style={styles.text_change}>Chọn mặc định</Text>
                         </TouchableOpacity>
                         <Text style={styles.text_content_item_list} numberOfLines={3}>
-                            {item.detail + ", " + item.ward + ", " + item.district + ", " + item.province}
+                            {item.detail + ", " + item.addressString}
                         </Text>
                         <TouchableOpacity activeOpacity={0.7} style={styles.button_more} onPress={handleClickDelete}>
                             <Text style={styles.icon_more}>Xóa</Text>

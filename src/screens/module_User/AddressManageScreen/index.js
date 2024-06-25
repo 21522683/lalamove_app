@@ -62,7 +62,7 @@ const AddressManageScreen = () => {
                             addressDefault.detail === undefined ? (
                                 <Text style={styles.text_content} numberOfLines={3}>Chưa chọn địa chỉ mặc định</Text>
                             ) : (
-                                <Text style={styles.text_content} numberOfLines={3}>{addressDefault.detail + ", " + addressDefault.ward + ", " + addressDefault.district + ", " + addressDefault.province}</Text>
+                                <Text style={styles.text_content} numberOfLines={3}>{addressDefault.detail + ", " + addressDefault.addressString}</Text>
                             )
                         }
                     </View>
