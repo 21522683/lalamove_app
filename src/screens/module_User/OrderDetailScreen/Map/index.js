@@ -4,36 +4,39 @@ import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
 import GetLocation from 'react-native-get-location';
 import {ICONS} from '../../../../assets/icons/index';
 import styles from './style';
+import {useSelector} from 'react-redux';
+import axios from 'axios';
+import baseUrl from '../../../../constants/baseUrl';
 
-export default function Map() {
+export default function Map({order}) {
   const mapView = useRef();
   let [coordinates, setCoordinates] = useState([]);
-  const [timer, setTimer] = useState(null);
+  const userAuth = useSelector(state => state.users.userAuth);
+
+  const timer = useRef();
+
   const [state, setState] = useState({
     pickupCords: {
-      latitude: 10.74475,
-      longitude: 106.72915,
+      latitude: order.sourceAddress.latitude,
+      longitude: order.sourceAddress.longitude,
     },
     droplocationCords: {
-      latitude: 10.77309,
-      longitude: 106.69835,
+      latitude: order.destinationAddress.latitude,
+      longitude: order.destinationAddress.longitude,
     },
   });
 
   useEffect(() => {
     calculateRoutes(state.pickupCords, state.droplocationCords);
-    // onStart();
-    // return () => {
-    //   if (timer) {
-    //     clearTimer();
-    //   }
-    // };
+    onStart();
+    return () => {
+      clearTimer();
+    };
   }, []);
 
   const clearTimer = () => {
     if (timer) {
       clearInterval(timer);
-      setTimer(null);
     }
   };
 
@@ -53,35 +56,19 @@ export default function Map() {
       });
   };
 
-  const getCurrentLocation = async () => {
-    try {
-      const location = await GetLocation.getCurrentPosition({
-        enableHighAccuracy: true,
-        timeout: 60000,
-      });
-      if (!location) {
-        throw new Error('No location available');
-      }
-      return location;
-    } catch (err) {
-      throw err;
-    }
-  };
-
   const onStart = async () => {
     try {
-      const newTimer = setInterval(async () => {
+      timer.current = setInterval(async () => {
         await onMove();
-        console.log('tick');
+        console.log('tick-user');
       }, 5000);
-      setTimer(newTimer);
     } catch (err) {
       throw err;
     }
   };
 
   const onMove = async () => {
-    const currentLocation = await getCurrentLocation();
+    const currentLocation = await getOrderLocation();
     if (!currentLocation) {
       return;
     }
@@ -113,6 +100,28 @@ export default function Map() {
       },
     };
     mapView.current.animateCamera(newCamera, {duration: 2000});
+  };
+
+  const getOrderLocation = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await axios.get(
+        `${baseUrl}/order-location/getOrderLocation?id=${order._id}`,
+        config,
+      );
+      console.log(response);
+      const cors = response.data.data;
+
+      return {latitude: cors.latitude, longitude: cors.longitude};
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
   };
 
   return (

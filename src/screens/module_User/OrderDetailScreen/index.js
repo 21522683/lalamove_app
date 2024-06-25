@@ -48,7 +48,7 @@ const OrderDetailScreen = ({navigation, route}) => {
         onPress={() => navigation.goBack()}>
         <Icon name="arrow-back" size={24} color="#575757" />
       </TouchableOpacity>
-      {order.status === 'Đang giao hàng' && (
+      {order.status !== 'Đang giao hàng' && (
         <View
           style={{
             position: 'absolute',
@@ -56,12 +56,12 @@ const OrderDetailScreen = ({navigation, route}) => {
             width: '100%',
             height: '100%',
           }}>
-          <Map />
+          <Map order={order} />
         </View>
       )}
 
       <ScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef}>
-        {order.status === 'Đang giao hàng' && (
+        {order.status !== 'Đang giao hàng' && (
           <View>
             <View style={{height: windowHeight / 2 - 20}}></View>
             <ContactItem {...order.sourceAddress} />

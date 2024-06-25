@@ -8,17 +8,18 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import React, {useRef} from 'react';
+import React, {useContext, useRef} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './style';
 import CUSTOM_COLOR from '../../../../constants/colors';
 import cs from '../../CustomStyle';
 import {ICONS} from '../../../../assets/icons';
 import AddressItem from '../../components/AddressItem';
+import {LocationContext} from '../../../../../TrackLocation';
 
 const OrderDetailDriverScreen = ({navigation, route}) => {
   var order = {...route.params};
-  
+  const {isTransport} = useContext(LocationContext);
   const animatedValue = useRef(new Animated.ValueXY()).current;
   const opacityValue = useRef(new Animated.Value(1)).current;
   const windowWidth = Dimensions.get('window').width;
@@ -135,40 +136,43 @@ const OrderDetailDriverScreen = ({navigation, route}) => {
         </View>
         <View style={{height: 90}}></View>
       </ScrollView>
-
-      <View {...panResponder.panHandlers} style={styles.outer_receiver_slider}>
-        <Animated.View style={opacityAnimation}>
-          <Text
-            style={{
-              fontSize: 16,
-              color: '#fff',
-              fontWeight: 'bold',
-              alignSelf: 'center',
-            }}>
-            Trượt để nhận đơn
-          </Text>
-        </Animated.View>
-        <View style={{position: 'absolute', left: 10}}>
-          <Animated.View style={swipeAnimation}>
-            <View
+      {!isTransport && (
+        <View
+          {...panResponder.panHandlers}
+          style={styles.outer_receiver_slider}>
+          <Animated.View style={opacityAnimation}>
+            <Text
               style={{
-                width: 50,
-                height: 50,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#fff',
-                borderRadius: 5,
+                fontSize: 16,
+                color: '#fff',
+                fontWeight: 'bold',
+                alignSelf: 'center',
               }}>
-              <Icon
-                name="arrow-forward"
-                size={24}
-                color={CUSTOM_COLOR.Primary}
-              />
-            </View>
+              Trượt để nhận đơn
+            </Text>
           </Animated.View>
+          <View style={{position: 'absolute', left: 10}}>
+            <Animated.View style={swipeAnimation}>
+              <View
+                style={{
+                  width: 50,
+                  height: 50,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: '#fff',
+                  borderRadius: 5,
+                }}>
+                <Icon
+                  name="arrow-forward"
+                  size={24}
+                  color={CUSTOM_COLOR.Primary}
+                />
+              </View>
+            </Animated.View>
+          </View>
         </View>
-      </View>
+      )}
     </View>
   );
 };

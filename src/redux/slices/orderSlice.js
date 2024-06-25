@@ -50,6 +50,7 @@ export const getAllOrderInRadius = createAsyncThunk(
         `${baseUrl}/order/driver-orders?${searchString}`,
         config,
       );
+      console.log(data);
 
       return data;
     } catch (error) {

@@ -1,5 +1,5 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import AddressItem from '../../components/AddressItem';
 import styles from './style';
 import cs from '../../CustomStyle';
@@ -11,18 +11,16 @@ import Icon2 from 'react-native-vector-icons/FontAwesome6';
 import CUSTOM_COLOR from '../../../../constants/colors';
 import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
 import GetLocation from 'react-native-get-location';
+import {LocationContext} from '../../../../../TrackLocation';
 
 const DriverReviewMap = ({navigation, route}) => {
   var order = {...route.params}.order;
-
   const [isStart, setIsStart] = useState(false);
   const [length, setLength] = useState(0);
-  const [firstLoad, setFirstLoad] = useState(true);
   const [isToSource, setIsToSource] = useState({...route.params}.isToSource);
 
   const mapView = useRef();
   let [coordinates, setCoordinates] = useState([]);
-  const [timer, setTimer] = useState(null);
   const [state, setState] = useState({
     pickupCords: {
       latitude: order.sourceAddress?.latitude,
@@ -38,6 +36,8 @@ const DriverReviewMap = ({navigation, route}) => {
     },
   });
 
+  const {onStartDelivery, curLocation, onStopDelivery} =
+    useContext(LocationContext);
   useEffect(() => {
     (async () => {
       try {
@@ -58,27 +58,37 @@ const DriverReviewMap = ({navigation, route}) => {
         calculateRoutes(
           {latitude: location.latitude, longitude: location.longitude},
           state.droplocationCords,
+          true,
         );
       } catch (err) {
         throw err;
       }
     })();
-
-    return () => {
-      if (timer) {
-        clearTimer();
-      }
-    };
   }, []);
 
-  const clearTimer = () => {
-    if (timer) {
-      clearInterval(timer);
-      setTimer(null);
-    }
-  };
+  useEffect(() => {
+    if (curLocation) {
+      setState(prevState => ({
+        ...prevState,
+        pickupCords: {
+          latitude: curLocation.latitude,
+          longitude: curLocation.longitude,
+        },
+      }));
 
-  const calculateRoutes = (sourceAddress, destinationAddress) => {
+      calculateRoutes(
+        {
+          latitude: curLocation.latitude,
+          longitude: curLocation.longitude,
+        },
+        state.droplocationCords,
+      );
+
+      changeCamera(curLocation);
+    }
+  }, [curLocation]);
+
+  const calculateRoutes = (sourceAddress, destinationAddress, isFitCors) => {
     fetch(
       `https://api.tomtom.com/routing/1/calculateRoute/${sourceAddress.latitude},${sourceAddress.longitude}:${destinationAddress.latitude},${destinationAddress.longitude}/json?key=QaDHsyMVJAx8DeAIGLvYbciKZpHEh9on`,
     )
@@ -92,12 +102,11 @@ const DriverReviewMap = ({navigation, route}) => {
         }));
         setLength(data.routes[0].summary.lengthInMeters / 1000);
         setCoordinates(newCors);
-        if (firstLoad) {
+        if (isFitCors) {
           mapView.current.fitToCoordinates(newCors, {
             edgePadding: {top: 0, right: 50, bottom: 250, left: 50},
             animated: true,
           });
-          setFirstLoad(false);
         }
       });
   };
@@ -118,40 +127,7 @@ const DriverReviewMap = ({navigation, route}) => {
   };
 
   const onStart = async () => {
-    try {
-      const newTimer = setInterval(async () => {
-        await onMove();
-        console.log('tick');
-      }, 5000);
-      setTimer(newTimer);
-    } catch (err) {
-      throw err;
-    }
-  };
-
-  const onMove = async () => {
-    const currentLocation = await getCurrentLocation();
-    if (!currentLocation) {
-      return;
-    }
-
-    setState(prevState => ({
-      ...prevState,
-      pickupCords: {
-        latitude: currentLocation.latitude,
-        longitude: currentLocation.longitude,
-      },
-    }));
-
-    calculateRoutes(
-      {
-        latitude: currentLocation.latitude,
-        longitude: currentLocation.longitude,
-      },
-      state.droplocationCords,
-    );
-
-    changeCamera(currentLocation);
+    onStartDelivery(order);
   };
 
   const changeCamera = cor => {
@@ -160,12 +136,13 @@ const DriverReviewMap = ({navigation, route}) => {
         latitude: cor.latitude,
         longitude: cor.longitude,
       },
+      zoom: 15,
     };
     mapView.current.animateCamera(newCamera, {duration: 2000});
   };
 
   const arrivalPlace = async () => {
-    clearTimer();
+    await onStopDelivery();
 
     if (isToSource) {
       const location = await getCurrentLocation();
