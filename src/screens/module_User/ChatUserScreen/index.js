@@ -71,7 +71,8 @@ export default function ChatUserScreen({ route, navigation }) {
     const onSendMsg = useCallback(async (msgArray = []) => {
         const msg = msgArray[0]
         const time = new Date();
-        console.log(msg)
+        console.log(imageUrl)
+        return;
         const url = await uploadImg(imageUrl, "", msg);
         const userMsg = {
             ...msg,
@@ -103,7 +104,7 @@ export default function ChatUserScreen({ route, navigation }) {
             .then(() => {
                 console.log('User added!');
             });
-    }, []);
+    }, [imageUrl]);
     const handlePickImage = async () => {
         let options = {
             storageOptions: {
@@ -123,6 +124,9 @@ export default function ChatUserScreen({ route, navigation }) {
     };
     async function uploadImg(file, type, name) {
         try {
+            console.log(file)
+            if(!file) return "";
+
             const uid = Date.now();
             console.log(file)
             const reference = storage().ref(`/images/img_${name}_${uid}`);

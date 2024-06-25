@@ -124,6 +124,7 @@ export default function ChatDriverScreen({ route, navigation }) {
     };
     async function uploadImg(file, type, name) {
         try {
+            if(!file) return "";
             const uid = Date.now();
             const reference = storage().ref(`/images/img_${name}_${uid}`);
 
