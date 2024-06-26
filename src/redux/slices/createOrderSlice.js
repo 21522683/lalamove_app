@@ -13,6 +13,10 @@ const initialState = {
   statusChooseAddress: '',
   discountPrice: 0,
   newAddress: {},
+  addNewAddressSuccessfully: false,
+  isEditAddress: false,
+  isRefreshOrder: false,
+  indexVehicleChoosen: -1,
 };
 
 const createOrderSlice = createSlice({
@@ -42,9 +46,49 @@ const createOrderSlice = createSlice({
       const {name, text} = action.payload;
       state.newAddress[name] = text;
     },
-    changeDefaultAddress: (state, action) => {
-      const addressId = action.payload;
-      state.newAddress[name] = text;
+    addNewAddressSuccessfully: (state, action) => {
+      const value = action.payload;
+      state.addNewAddressSuccessfully = value;
+    },
+
+    setStatusEditAddress: (state, action) => {
+      const value = action.payload;
+      state.isEditAddress = value;
+    },
+    setEditAddress: (state, action) => {
+      const address = action.payload;
+      state.newAddress = address;
+    },
+    refreshChooseAddress: state => {
+      state.sourceAddress = {};
+      state.destinationAddress = {};
+    },
+    setVehicleType: (state, action) => {
+      const {vehicleType, index} = action.payload;
+      state.vehicleType = vehicleType;
+      state.indexVehicleChoosen = index;
+    },
+
+    refreshOrder: state => {
+      state.shortDescription = '';
+      state.sourceAddress = {};
+      state.destinationAddress = {};
+      state.goodsImage = null;
+      state.vehicleType = {};
+      state.status = 'Đang chờ nhận';
+      state.charge = 0;
+      state.goodsType = '';
+      state.note = '';
+      state.statusChooseAddress = '';
+      state.discountPrice = 0;
+      state.newAddress = {};
+      state.addNewAddressSuccessfully = false;
+      state.isEditAddress = false;
+      state.isRefreshOrder = true;
+      state.indexVehicleChoosen = -1;
+    },
+    setRefreshOrder: (state, action) => {
+      state.isRefreshOrder = action.payload;
     },
   },
 });
@@ -58,4 +102,10 @@ export const {
   setVehicleType,
   setXYZNewAddress,
   setChangeTextNewAddress,
+  addNewAddressSuccessfully,
+  setStatusEditAddress,
+  setEditAddress,
+  refreshChooseAddress,
+  refreshOrder,
+  setRefreshOrder,
 } = createOrderSlice.actions;

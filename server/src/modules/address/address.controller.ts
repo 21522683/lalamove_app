@@ -24,30 +24,6 @@ export class AddressController {
     return 'Welcome';
   }
 
-  @Post('addNewAddress')
-  async addNewAddress(
-    @Req() req,
-    @Body() body: CreateAddressDTO,
-    @Res() res: Response,
-  ) {
-    try {
-      const { username: phoneNumber } = req.user;
-      const newAddress = await this.addressService.addNewAddress(
-        phoneNumber,
-        body,
-      );
-      res.status(HttpStatus.CREATED).json({
-        message: 'Add new address successfully',
-        data: newAddress,
-      });
-    } catch (error) {
-      console.log(error);
-      res.status(HttpStatus.BAD_REQUEST).json({
-        message: error.message,
-      });
-    }
-  }
-
   @Patch('updateAddress/:addressId')
   async updateAddress(
     @Param('addressId') addressId: string,
@@ -142,6 +118,51 @@ export class AddressController {
       res.status(HttpStatus.OK).json({
         message: 'Change default addresses successfully',
         data: address,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Post()
+  async addNewAddress(@Req() req, @Res() res: Response, @Body() body) {
+    try {
+      const userId: string = req.user.sub;
+      const address = await this.addressService.addNewAddress(userId, body);
+
+      res.status(HttpStatus.CREATED).json({
+        message: 'Add new address successfully',
+        data: address,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Patch(':id')
+  async editAddress(
+    @Req() req,
+    @Res() res: Response,
+    @Body() body,
+    @Param('id') addressid: string,
+  ) {
+    try {
+      const userId: string = req.user.sub;
+      const response = await this.addressService.editAddress(
+        userId,
+        addressid,
+        body,
+      );
+
+      res.status(HttpStatus.CREATED).json({
+        message: 'Add new address successfully',
+        data: response,
       });
     } catch (error) {
       console.log(error);

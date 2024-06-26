@@ -8,16 +8,23 @@ import Icon2 from 'react-native-vector-icons/FontAwesome6';
 import styles from './style';
 import {IMAGES} from '../../../../../assets/images';
 import formatCurrencyVND from '../../../../../utils/formatCurrencyVND';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {setVehicleType} from '../../../../../redux/slices/createOrderSlice';
 
-const VehicleItem = ({index, setIndexChosen, indexChosen, item}) => {
+const VehicleItem = ({index, item}) => {
   const dispatch = useDispatch();
-  const isChoosen = index === indexChosen;
+  const indexVehicleChoosen = useSelector(
+    state => state.createOrder.indexVehicleChoosen,
+  );
+  const isChoosen = index === indexVehicleChoosen;
   const handlePress = () => {
     if (isChoosen) return;
-    setIndexChosen(index);
-    dispatch(setVehicleType(item));
+    dispatch(
+      setVehicleType({
+        index,
+        vehicleType: item,
+      }),
+    );
   };
 
   const setImage = () => {
@@ -51,7 +58,7 @@ const VehicleItem = ({index, setIndexChosen, indexChosen, item}) => {
         ]}>
         <View style={{flexDirection: 'row', alignItems: 'center', gap: 24}}>
           <Image
-            source={img}
+            source={item.image ?? img}
             style={{width: 70, height: 70, resizeMode: 'cover'}}
           />
           <View style={{flex: 1, gap: 6}}>

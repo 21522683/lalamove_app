@@ -15,18 +15,80 @@ import styles from '../style';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {
+  addNewAddressSuccessfully,
   setChangeTextNewAddress,
+  setDestinationAddress,
+  setSourceAddress,
   setXYZ,
 } from '../../../../redux/slices/createOrderSlice';
+import baseUrl from '../../../../constants/baseUrl';
+import axios from 'axios';
 
 const AddAddressScreen = ({route}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const newAddress = useSelector(state => state.createOrder.newAddress);
-  console.log(newAddress);
+  const userAuth = useSelector(state => state.users.userAuth);
+  const isEditAddress = useSelector(state => state.createOrder.isEditAddress);
+  const sourceAddress = useSelector(state => state.createOrder.sourceAddress);
+  const destinationAddress = useSelector(
+    state => state.createOrder.destinationAddress,
+  );
 
   const handleChangeText = (name, text) => {
     dispatch(setChangeTextNewAddress({name, text}));
+  };
+
+  const handleClickOk = () => {
+    if (!isEditAddress) {
+      handleAddNewAddress();
+    } else handleEditAddress();
+  };
+
+  const handleAddNewAddress = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await axios.post(
+        `${baseUrl}/address`,
+
+        newAddress,
+        config,
+      );
+      dispatch(addNewAddressSuccessfully(true));
+      navigation.goBack();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleEditAddress = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await axios.patch(
+        `${baseUrl}/address/${newAddress._id}`,
+        newAddress,
+        config,
+      );
+      dispatch(addNewAddressSuccessfully(true));
+      if (newAddress._id === sourceAddress._id) {
+        dispatch(setSourceAddress(newAddress));
+      }
+      if (newAddress._id === destinationAddress._id) {
+        dispatch(setDestinationAddress(newAddress));
+      }
+      navigation.goBack();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -154,7 +216,7 @@ const AddAddressScreen = ({route}) => {
                 }></Switch>
             </View>
           </View>
-          <Pressable>
+          <Pressable onPress={handleClickOk}>
             <View
               style={{
                 backgroundColor: '#F16722',
@@ -166,7 +228,7 @@ const AddAddressScreen = ({route}) => {
                 elevation: 2,
               }}>
               <Text style={{fontSize: 15, fontWeight: '400', color: 'white'}}>
-                Thêm địa chỉ
+                {isEditAddress ? 'Lưu' : 'Thêm địa chỉ'}
               </Text>
             </View>
           </Pressable>

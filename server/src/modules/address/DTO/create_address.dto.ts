@@ -4,19 +4,19 @@ export class CreateAddressDTO {
   user: string;
 
   @IsOptional()
-  province: string;
-
-  @IsOptional()
-  district: string;
-
-  @IsOptional()
-  ward: string;
+  addressString: string;
 
   @IsOptional()
   detail: string;
 
   @IsOptional()
+  isDefault: boolean;
+
+  @IsOptional()
   phoneNumber: string;
+
+  @IsOptional()
+  fullName: string;
 
   @IsOptional()
   latitude: number;

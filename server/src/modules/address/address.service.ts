@@ -13,18 +13,6 @@ export class AddressService {
     @InjectModel(User.name) private userModel: Model<User>,
   ) {}
 
-  async addNewAddress(phoneNumber: string, address: CreateAddressDTO) {
-    const user = await this.userModel.findOne({
-      phoneNumber: phoneNumber,
-    });
-
-    const newAddress = new this.addressModel({
-      ...address,
-      user: user.id,
-    });
-    return await newAddress.save();
-  }
-
   async updateAddress(addressId: string, body: CreateAddressDTO) {
     return await this.addressModel.findByIdAndUpdate(addressId, body, {
       new: true,
@@ -54,10 +42,51 @@ export class AddressService {
       isDefault: true,
     });
 
-    if (defaultAddress) defaultAddress.isDefault = false;
-    await defaultAddress.save();
+    if (defaultAddress) {
+      defaultAddress.isDefault = false;
+      await defaultAddress.save();
+    }
+
     return await this.addressModel.findByIdAndUpdate(addressId, {
       isDefault: true,
     });
+  }
+  async addNewAddress(userId: string, address: CreateAddressDTO) {
+    if (address.isDefault) {
+      const defaultAddress = await this.addressModel.findOne({
+        user: userId,
+        isDefault: true,
+      });
+
+      if (defaultAddress) {
+        defaultAddress.isDefault = false;
+        await defaultAddress.save();
+      }
+    }
+    const newAddress = new this.addressModel({
+      ...address,
+      user: userId,
+    });
+    return await newAddress.save();
+  }
+
+  async editAddress(
+    userId: string,
+    addressId: string,
+    address: CreateAddressDTO,
+  ) {
+    if (address.isDefault) {
+      const defaultAddress = await this.addressModel.findOne({
+        user: userId,
+        isDefault: true,
+      });
+
+      if (defaultAddress) {
+        defaultAddress.isDefault = false;
+        await defaultAddress.save();
+      }
+    }
+
+    return await this.addressModel.findByIdAndUpdate(addressId, address);
   }
 }

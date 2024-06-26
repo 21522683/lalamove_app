@@ -1,4 +1,5 @@
 export default function formatCurrencyVND(number) {
+  if (number === undefined) return '';
   // Chuyển số thành chuỗi
   let numberString = number.toString();
   // Sử dụng regex để thêm dấu phẩy phân cách nhóm ba chữ số

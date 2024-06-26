@@ -110,6 +110,7 @@ const GoodsInformationScreen = () => {
                   style={{color: '#222222', fontSize: 15, fontWeight: '500'}}>
                   Đặc điểm hàng hóa
                 </Text>
+                <Text style={{fontSize: 16, color: '#F16722'}}>*</Text>
               </View>
               <TextInput
                 placeholder="Ex: Dễ vỡ, đông lạnh, ..."
@@ -129,6 +130,7 @@ const GoodsInformationScreen = () => {
                   style={{color: '#222222', fontSize: 15, fontWeight: '500'}}>
                   Mô tả sơ lược hàng hóa
                 </Text>
+                <Text style={{fontSize: 16, color: '#F16722'}}>*</Text>
               </View>
               <TextInput
                 placeholder="Ex: Có 1 giường, 2 ghế, ..."
@@ -153,6 +155,7 @@ const GoodsInformationScreen = () => {
                   style={{color: '#222222', fontSize: 15, fontWeight: '500'}}>
                   Ảnh chụp hàng hóa
                 </Text>
+                <Text style={{fontSize: 16, color: '#F16722'}}>*</Text>
               </View>
               <Pressable onPress={selectImage}>
                 <View

@@ -8,7 +8,9 @@ import {verticalScale} from 'react-native-size-matters';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   setDestinationAddress,
+  setEditAddress,
   setSourceAddress,
+  setStatusEditAddress,
 } from '../../../../redux/slices/createOrderSlice';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
@@ -30,7 +32,6 @@ const AddressItem = ({address, index, getAddressOfCurrentUser}) => {
   const handleClickSetDefault = async () => {
     if (address.isDefault) return;
     try {
-      console.log(userAuth);
       const config = {
         headers: {
           Authorization: `Bearer ${userAuth.access_token}`,
@@ -39,6 +40,7 @@ const AddressItem = ({address, index, getAddressOfCurrentUser}) => {
       };
       const response = await axios.patch(
         `${baseUrl}/address/${address._id}/defaultAddress`,
+        {},
         config,
       );
 
@@ -66,17 +68,23 @@ const AddressItem = ({address, index, getAddressOfCurrentUser}) => {
       setDisable(true);
     }
   }, []);
+
+  const handleClickEdit = () => {
+    dispatch(setStatusEditAddress(true));
+    dispatch(setEditAddress(address));
+    navigation.navigate('AddAddressScreen');
+  };
   return (
     <Pressable onPress={handleChooseAddress}>
       <View style={[styles.card, styles.shadowCard]}>
         {sourceAddress._id === address._id && (
           <View style={styles.markedPoint}>
-            <Text style={styles.textPoint}>Điểm đi</Text>
+            <Text style={styles.textPoint}>Điểm nhận hàng</Text>
           </View>
         )}
         {destinationAddress._id === address._id && (
           <View style={styles.markedPoint}>
-            <Text style={styles.textPoint}>Điểm đến</Text>
+            <Text style={styles.textPoint}>Điểm trả hàng</Text>
           </View>
         )}
         <View
@@ -90,7 +98,9 @@ const AddressItem = ({address, index, getAddressOfCurrentUser}) => {
             <Text style={{fontSize: 16}}>|</Text>
             <Text style={styles.phone}>{address.phoneNumber}</Text>
           </View>
-          <Text style={styles.edit}>Sửa</Text>
+          <Pressable onPress={handleClickEdit}>
+            <Text style={styles.edit}>Sửa</Text>
+          </Pressable>
         </View>
         <View style={{marginTop: verticalScale(8), gap: 4}}>
           <Text style={styles.textAddress}>{address.detail}</Text>

@@ -7,12 +7,22 @@ import AddressItem from './AddressItem';
 import {FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import baseUrl from '../../../constants/baseUrl';
+import {
+  addNewAddressSuccessfully,
+  setEditAddress,
+  setStatusEditAddress,
+} from '../../../redux/slices/createOrderSlice';
 
 const AddressManagementScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const userAuth = useSelector(state => state.users.userAuth);
+  const addNewAddress = useSelector(
+    state => state.createOrder.addNewAddressSuccessfully,
+  );
+  console.log();
   const [allAddress, setAllAddress] = useState([]);
   const getAddressOfCurrentUser = async () => {
     try {
@@ -28,10 +38,19 @@ const AddressManagementScreen = () => {
       );
       const allAddress = response.data.data;
       setAllAddress(allAddress);
+      if (addNewAddress) {
+        dispatch(addNewAddressSuccessfully(false));
+      }
     } catch (error) {
       console.log(error);
     }
   };
+  useEffect(() => {
+    if (addNewAddress) {
+      console.log('vaoooo');
+      getAddressOfCurrentUser();
+    }
+  }, [addNewAddress]);
   const handleSetDefault = index => {
     setAllAddress(
       prev =>
@@ -89,6 +108,8 @@ const AddressManagementScreen = () => {
       <TouchableOpacity
         style={styles.floatingButton}
         onPress={() => {
+          dispatch(setStatusEditAddress(false));
+          dispatch(setEditAddress({}));
           navigation.navigate('AddAddressScreen');
         }}>
         <Icon name="pluscircle" size={40} color="#F16722" />

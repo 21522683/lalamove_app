@@ -13,12 +13,15 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import Icon3 from 'react-native-vector-icons/FontAwesome';
 import Icon4 from 'react-native-vector-icons/Feather';
+import Icon5 from 'react-native-vector-icons/EvilIcons';
 import {Surface} from 'react-native-paper';
 import styles from '../style';
 import {useNavigation} from '@react-navigation/native';
 import {IMAGES} from '../../../../assets/images';
 import {useDispatch, useSelector} from 'react-redux';
 import {
+  refreshChooseAddress,
+  setRefreshOrder,
   setSourceAddress,
   setStatusChooseAddress,
 } from '../../../../redux/slices/createOrderSlice';
@@ -30,15 +33,22 @@ const WelcomeCreateOrderScreen = () => {
   const dispatch = useDispatch();
   const state = useSelector(state => state.createOrder);
   const userAuth = useSelector(state => state.users.userAuth);
+  const isRefreshOrder = useSelector(state => state.createOrder.isRefreshOrder);
 
   const isHasSourceAddress = JSON.stringify(state.sourceAddress) !== '{}';
-  const isHasDestinationAddress =
+  let isHasDestinationAddress =
     JSON.stringify(state.destinationAddress) !== '{}';
   const sourceAddressString = isHasSourceAddress
-    ? `${state.sourceAddress?.detail}, ${state.sourceAddress?.addressString}`
+    ? `${
+        state.sourceAddress?.detail ? `${state.sourceAddress?.detail}, ` : ''
+      }${state.sourceAddress?.addressString}`
     : '';
-  const destinationAddressString = isHasDestinationAddress
-    ? `${state.destinationAddress?.detail}, ${state.sourceAddress?.addressString}`
+  let destinationAddressString = isHasDestinationAddress
+    ? `${
+        state.destinationAddress?.detail
+          ? `${state.destinationAddress?.detail}, `
+          : ''
+      }${state.destinationAddress?.addressString}`
     : '';
 
   const getDefaultAddress = async () => {
@@ -57,6 +67,9 @@ const WelcomeCreateOrderScreen = () => {
       if (defaultAddress) {
         dispatch(setSourceAddress(defaultAddress));
       }
+      if (isRefreshOrder) {
+        dispatch(setRefreshOrder(false));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -64,8 +77,19 @@ const WelcomeCreateOrderScreen = () => {
   useEffect(() => {
     getDefaultAddress();
   }, []);
+
+  useEffect(() => {
+    if (isRefreshOrder) {
+      getDefaultAddress();
+    }
+  }, [isRefreshOrder]);
+
+  const handleRefreshChooseAddress = () => {
+    if (!isHasDestinationAddress && !isHasSourceAddress) return;
+    dispatch(refreshChooseAddress());
+  };
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
+    <View style={{flex: 1, backgroundColor: 'white', position: 'relative'}}>
       <Surface style={styles.header}>
         <View style={{width: 28}}></View>
         <View style={{flexDirection: 'row', alignItems: 'center', gap: 8}}>
@@ -185,37 +209,53 @@ const WelcomeCreateOrderScreen = () => {
 
                 <Text>{destinationAddressString}</Text>
               </View>
-              {/* {isHasDestinationAddress && (
-                <Icon name="download" size={20} style={{alignSelf: 'center'}} />
-              )} */}
             </View>
 
-            <Pressable
-              onPress={() => {
-                if (!(isHasSourceAddress && isHasDestinationAddress)) return;
-                navigation.navigate('GoodsInformationScreen');
-              }}>
+            <Pressable onPress={handleRefreshChooseAddress}>
               <View
                 style={{
-                  backgroundColor:
-                    isHasSourceAddress && isHasDestinationAddress
-                      ? '#F16722'
-                      : '#ccc',
-                  height: 45,
-                  marginHorizontal: 12,
+                  flexDirection: 'row',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 8,
-                  marginTop: 160,
+                  justifyContent: 'flex-end',
+                  marginTop: 10,
+                  alignSelf: 'flex-end',
                 }}>
-                <Text style={{fontSize: 15, fontWeight: '400', color: 'white'}}>
-                  Tiếp tục
-                </Text>
+                <Icon5 name="refresh" size={30} style={{alignSelf: 'center'}} />
+                <Text>Thiết lập lại</Text>
               </View>
             </Pressable>
           </View>
         </View>
       </View>
+      <Pressable
+        style={{
+          position: 'absolute',
+          bottom: 20,
+          left: 10,
+          right: 10,
+        }}
+        onPress={() => {
+          if (!(isHasSourceAddress && isHasDestinationAddress)) return;
+          navigation.navigate('GoodsInformationScreen');
+        }}>
+        <View
+          style={{
+            backgroundColor:
+              isHasSourceAddress && isHasDestinationAddress
+                ? '#F16722'
+                : '#ccc',
+            height: 45,
+            marginHorizontal: 12,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 8,
+            marginTop: 160,
+          }}>
+          <Text style={{fontSize: 15, fontWeight: '400', color: 'white'}}>
+            Tiếp tục
+          </Text>
+        </View>
+      </Pressable>
     </View>
   );
 };

@@ -1,13 +1,13 @@
-import { createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, createAction} from '@reduxjs/toolkit';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import baseUrl from '../../constants/baseUrl';
-import { Alert } from 'react-native';
+import {Alert} from 'react-native';
 const resetPasswordAction = createAction('password/reset');
 //register action
 export const registerUserAction = createAsyncThunk(
   'users/registerUser',
-  async (payload, { rejectWithValue, getState, dispatch }) => {
+  async (payload, {rejectWithValue, getState, dispatch}) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -15,7 +15,7 @@ export const registerUserAction = createAsyncThunk(
     };
     //http call
     try {
-      const { data } = await axios.post(
+      const {data} = await axios.post(
         `${baseUrl}/auth/register-user`,
         payload.bd,
         config,
@@ -40,19 +40,19 @@ export const registerUserAction = createAsyncThunk(
 //update driver infor
 export const updateDriverInforAction = createAsyncThunk(
   'users/updateDriverInfor',
-  async (payload, { rejectWithValue, getState, dispatch }) => {
+  async (payload, {rejectWithValue, getState, dispatch}) => {
     const user = getState()?.users;
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user?.userAuth?.access_token}`,
+        Authorization: `Bearer ${user?.userAuth?.access_token}`,
       },
     };
     //http call
     try {
-      const { data } = await axios.post(
+      const {data} = await axios.post(
         `${baseUrl}/users/update-driver-infor`,
-        { ...payload.bd, id: user?.userAuth?.id },
+        {...payload.bd, id: user?.userAuth?.id},
         config,
       );
       if (payload.navigation) {
@@ -66,7 +66,7 @@ export const updateDriverInforAction = createAsyncThunk(
         throw error;
       }
       console.log(error.response.data.response.message);
-      alert(error.response.data.response.message)
+      alert(error.response.data.response.message);
 
       return rejectWithValue(error?.response?.data);
     }
@@ -75,7 +75,7 @@ export const updateDriverInforAction = createAsyncThunk(
 //register action
 export const registerDriverAction = createAsyncThunk(
   'users/registerDriver',
-  async (payload, { rejectWithValue, getState, dispatch }) => {
+  async (payload, {rejectWithValue, getState, dispatch}) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export const registerDriverAction = createAsyncThunk(
     };
     //http call
     try {
-      const { data } = await axios.post(
+      const {data} = await axios.post(
         `${baseUrl}/auth/register-driver`,
         payload.bd,
         config,
@@ -104,7 +104,7 @@ export const registerDriverAction = createAsyncThunk(
 );
 export const loginUserByGoogleAction = createAsyncThunk(
   'users/loginUserByGoogle',
-  async (payload, { rejectWithValue, getState, dispatch }) => {
+  async (payload, {rejectWithValue, getState, dispatch}) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -112,7 +112,11 @@ export const loginUserByGoogleAction = createAsyncThunk(
     };
     //http call
     try {
-      const { data } = await axios.post(`${baseUrl}/auth/login-by-google`, payload, config);
+      const {data} = await axios.post(
+        `${baseUrl}/auth/login-by-google`,
+        payload,
+        config,
+      );
       await AsyncStorage.setItem('userStorage', JSON.stringify(data));
 
       console.log(data);
@@ -122,7 +126,7 @@ export const loginUserByGoogleAction = createAsyncThunk(
         throw error;
       }
       console.log(error.response.data.response.message);
-      alert(error.response.data.response.message)
+      alert(error.response.data.response.message);
       return rejectWithValue(error?.response?.data);
     }
   },
@@ -130,7 +134,7 @@ export const loginUserByGoogleAction = createAsyncThunk(
 // login
 export const loginUserAction = createAsyncThunk(
   'users/loginUser',
-  async (user, { rejectWithValue, getState, dispatch }) => {
+  async (user, {rejectWithValue, getState, dispatch}) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -138,7 +142,7 @@ export const loginUserAction = createAsyncThunk(
     };
     //http call
     try {
-      const { data } = await axios.post(`${baseUrl}/auth/login`, user, config);
+      const {data} = await axios.post(`${baseUrl}/auth/login`, user, config);
 
       await AsyncStorage.setItem('userStorage', JSON.stringify(data));
 
@@ -147,7 +151,7 @@ export const loginUserAction = createAsyncThunk(
       if (!error.response) {
         throw error;
       }
-      alert(error.response.data.response.message)
+      alert(error.response.data.response.message);
       return rejectWithValue(error?.response?.data);
     }
   },
@@ -155,7 +159,7 @@ export const loginUserAction = createAsyncThunk(
 // get all vehicle type
 export const getAllVehicleTypeAction = createAsyncThunk(
   'users/getAllVehicleType',
-  async (payload, { rejectWithValue, getState, dispatch }) => {
+  async (payload, {rejectWithValue, getState, dispatch}) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -163,8 +167,8 @@ export const getAllVehicleTypeAction = createAsyncThunk(
     };
     //http call
     try {
-      const { data } = await axios.get(`${baseUrl}/auth/vehicle-type`, config);
-      console.log(data)
+      const {data} = await axios.get(`${baseUrl}/auth/vehicle-type`, config);
+      console.log(data);
       return data;
     } catch (error) {
       if (!error.response) {
@@ -177,19 +181,22 @@ export const getAllVehicleTypeAction = createAsyncThunk(
 // get driver infor
 export const getDriverInforAction = createAsyncThunk(
   'users/getDriverInfor',
-  async (qr, { rejectWithValue, getState, dispatch }) => {
+  async (qr, {rejectWithValue, getState, dispatch}) => {
     const user = getState()?.users;
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user?.userAuth?.access_token}`,
+        Authorization: `Bearer ${user?.userAuth?.access_token}`,
       },
     };
     //http call
     try {
-      const { data } = await axios.get(`${baseUrl}/users/get-driver-infor?query=${qr}`, config);
-      console.log(data)
-      return { data, qr };
+      const {data} = await axios.get(
+        `${baseUrl}/users/get-driver-infor?query=${qr}`,
+        config,
+      );
+      console.log(data);
+      return {data, qr};
     } catch (error) {
       if (!error.response) {
         throw error;
@@ -201,7 +208,7 @@ export const getDriverInforAction = createAsyncThunk(
 // Logout user
 export const logoutUserAction = createAsyncThunk(
   'users/logout',
-  async (payload, { rejectWithValue, getState, dispatch }) => {
+  async (payload, {rejectWithValue, getState, dispatch}) => {
     try {
       await AsyncStorage.removeItem('userStorage');
     } catch (error) {
@@ -215,7 +222,7 @@ export const logoutUserAction = createAsyncThunk(
 // send request reset
 export const sendRequestResetAction = createAsyncThunk(
   'users/send-reset-req',
-  async (payload, { rejectWithValue, getState, dispatch }) => {
+  async (payload, {rejectWithValue, getState, dispatch}) => {
     try {
       const config = {
         headers: {
@@ -224,7 +231,7 @@ export const sendRequestResetAction = createAsyncThunk(
       };
       //http call
 
-      const { data } = await axios.get(
+      const {data} = await axios.get(
         `${baseUrl}/auth/check-phone?phoneNumber=${payload.pn}`,
         config,
       );
@@ -232,7 +239,7 @@ export const sendRequestResetAction = createAsyncThunk(
       console.log('call', data);
 
       if (payload.navigation) {
-        payload.navigation.navigate('VerifyEmail', { phoneNumber: payload.pn });
+        payload.navigation.navigate('VerifyEmail', {phoneNumber: payload.pn});
       }
       return data;
     } catch (error) {
@@ -247,7 +254,7 @@ export const sendRequestResetAction = createAsyncThunk(
 // check otp
 export const checkOtpAction = createAsyncThunk(
   'users/check-otp',
-  async (payload, { rejectWithValue, getState, dispatch }) => {
+  async (payload, {rejectWithValue, getState, dispatch}) => {
     try {
       const config = {
         headers: {
@@ -255,13 +262,13 @@ export const checkOtpAction = createAsyncThunk(
         },
       };
       //http call
-      const { data } = await axios.get(
+      const {data} = await axios.get(
         `${baseUrl}/auth/${payload.pn}/check-otp?otp=${payload.otp}`,
         config,
       );
       console.log('call', data);
       if (payload.navigation) {
-        payload.navigation.navigate('Reset-pass', { phoneNumber: payload.pn });
+        payload.navigation.navigate('Reset-pass', {phoneNumber: payload.pn});
       }
       return data;
     } catch (error) {
@@ -275,7 +282,7 @@ export const checkOtpAction = createAsyncThunk(
 // reset password
 export const resetPassAction = createAsyncThunk(
   'users/resetPass',
-  async (payload, { rejectWithValue, getState, dispatch }) => {
+  async (payload, {rejectWithValue, getState, dispatch}) => {
     try {
       const config = {
         headers: {
@@ -284,7 +291,7 @@ export const resetPassAction = createAsyncThunk(
       };
       //http call
 
-      const { data } = await axios.post(
+      const {data} = await axios.post(
         `${baseUrl}/auth/reset-password`,
         payload.body,
         config,
@@ -307,17 +314,17 @@ export const resetPassAction = createAsyncThunk(
 export const setUserAuth = createAction('users/set');
 export const getCurrentUserAction = createAsyncThunk(
   'users/getCurrentUser',
-  async (_, { rejectWithValue, getState, dispatch }) => {
+  async (_, {rejectWithValue, getState, dispatch}) => {
     try {
       const user = getState()?.users;
-      const { userAuth } = user;
+      const {userAuth} = user;
       const config = {
         headers: {
-          'Authorization': `Bearer ${userAuth.access_token}`,
+          Authorization: `Bearer ${userAuth.access_token}`,
           'Content-Type': 'application/json',
         },
       };
-      const { data } = await axios.get(`${baseUrl}/users/current-user`, config);
+      const {data} = await axios.get(`${baseUrl}/users/current-user`, config);
       dispatch(setCurrentUser(data));
       return data;
     } catch (error) {
@@ -330,17 +337,21 @@ export const getCurrentUserAction = createAsyncThunk(
 );
 export const updatePassUserAction = createAsyncThunk(
   'users/updatePassUser',
-  async (dataUpdate, { rejectWithValue, getState, dispatch }) => {
+  async (dataUpdate, {rejectWithValue, getState, dispatch}) => {
     try {
       const user = getState()?.users;
-      const { userAuth } = user;
+      const {userAuth} = user;
       const config = {
         headers: {
-          'Authorization': `Bearer ${userAuth.access_token}`,
+          Authorization: `Bearer ${userAuth.access_token}`,
           'Content-Type': 'application/json',
         },
       };
-      const { data } = await axios.put(`${baseUrl}/users/update-pass/${dataUpdate.id}`, dataUpdate.info, config);
+      const {data} = await axios.put(
+        `${baseUrl}/users/update-pass/${dataUpdate.id}`,
+        dataUpdate.info,
+        config,
+      );
       return data;
     } catch (error) {
       if (!error?.response) {
@@ -352,17 +363,21 @@ export const updatePassUserAction = createAsyncThunk(
 );
 export const updateInfoUserAction = createAsyncThunk(
   'users/updateInfoUser',
-  async (dataUpdate, { rejectWithValue, getState, dispatch }) => {
+  async (dataUpdate, {rejectWithValue, getState, dispatch}) => {
     try {
       const user = getState()?.users;
-      const { userAuth } = user;
+      const {userAuth} = user;
       const config = {
         headers: {
-          'Authorization': `Bearer ${userAuth.access_token}`,
+          Authorization: `Bearer ${userAuth.access_token}`,
           'Content-Type': 'application/json',
         },
       };
-      const { data } = await axios.put(`${baseUrl}/users/update-info/${dataUpdate.id}`, dataUpdate.info, config);
+      const {data} = await axios.put(
+        `${baseUrl}/users/update-info/${dataUpdate.id}`,
+        dataUpdate.info,
+        config,
+      );
       return data;
     } catch (error) {
       if (!error?.response) {
@@ -384,12 +399,11 @@ const usersSlices = createSlice({
 
     listAllDriver: [],
     indexSelectedDriver: -1,
-
   },
   reducers: {
     setCurrentUser: (state, action) => {
       state.currentUser = {
-        ...action.payload
+        ...action.payload,
       };
     },
     clearSuccessMessage: (state, action) => {
@@ -400,13 +414,13 @@ const usersSlices = createSlice({
     },
     setSuccessMessage: (state, action) => {
       state.successMessage = action.payload;
-    }, 
+    },
     setListAllDriver: (state, action) => {
       state.listAllDriver = action.payload;
     },
     setIndexSelectedDriver: (state, action) => {
       state.indexSelectedDriver = action.payload;
-    }
+    },
   },
   extraReducers: builder => {
     //register
@@ -476,7 +490,7 @@ const usersSlices = createSlice({
       state.vehicleTypes = action?.payload;
       state.appErr = undefined;
     });
-    // get all vehicle type 
+    // get all vehicle type
     builder.addCase(getAllVehicleTypeAction.rejected, (state, action) => {
       state.loading = false;
       state.appErr = undefined;
@@ -503,12 +517,18 @@ const usersSlices = createSlice({
     });
     builder.addCase(getDriverInforAction.fulfilled, (state, action) => {
       state.loading = false;
-      if (action?.payload?.qr === "vehicles") {
-        state.userInfor = { ...state.userInfor, vehicles: [...action?.payload?.data] }
-      } else if (action?.payload?.qr === "license") {
-        state.userInfor = { ...state.userInfor, driverLisences: [...action?.payload?.data] }
+      if (action?.payload?.qr === 'vehicles') {
+        state.userInfor = {
+          ...state.userInfor,
+          vehicles: [...action?.payload?.data],
+        };
+      } else if (action?.payload?.qr === 'license') {
+        state.userInfor = {
+          ...state.userInfor,
+          driverLisences: [...action?.payload?.data],
+        };
       } else {
-        state.userInfor = { ...action?.payload?.data }
+        state.userInfor = {...action?.payload?.data};
       }
       state.error = undefined;
     });
@@ -533,13 +553,11 @@ const usersSlices = createSlice({
       state.error = action?.payload?.response?.message;
     });
     // get current user
-    builder.addCase(getCurrentUserAction.pending, (state, action) => {
-    });
+    builder.addCase(getCurrentUserAction.pending, (state, action) => {});
     builder.addCase(getCurrentUserAction.fulfilled, (state, action) => {
       state.currentUser = action?.payload;
     });
-    builder.addCase(getCurrentUserAction.rejected, (state, action) => {
-    });
+    builder.addCase(getCurrentUserAction.rejected, (state, action) => {});
     // get update info user
     builder.addCase(updateInfoUserAction.pending, (state, action) => {
       state.loading = true;
@@ -577,6 +595,5 @@ export const {
   setLoading,
   setListAllDriver,
   setIndexSelectedDriver,
-  setSuccessMessage
-
+  setSuccessMessage,
 } = usersSlices.actions;

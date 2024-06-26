@@ -23,15 +23,16 @@ import storage from '@react-native-firebase/storage';
 import baseUrl from '../../../../constants/baseUrl';
 import VehicleItemPrevOrder from './VehicleItemPrevOrder';
 import axios from 'axios';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import formatCurrencyVND from '../../../../utils/formatCurrencyVND';
+import {refreshOrder} from '../../../../redux/slices/createOrderSlice';
 
 const PrevCompletedOrderScreen = () => {
   const navigation = useNavigation();
   const scrollViewRef = useRef();
   const state = useSelector(state => state.createOrder);
   const userAuth = useSelector(state => state.users.userAuth);
-
+  const dispatch = useDispatch();
   const [distance, setDistance] = useState(0);
   const [estimateTime, setEstimateTime] = useState(0);
   const [charge, setCharge] = useState(0);
@@ -80,26 +81,11 @@ const PrevCompletedOrderScreen = () => {
       await reference.putFile(state.goodsImage);
       url = await reference.getDownloadURL();
     }
-    console.log(url);
-    console.log('111222');
-
-    let sourceAddressString = `${state.sourceAddress.ward}, ${state.sourceAddress.district}, ${state.sourceAddress.province}`;
-    if (state.sourceAddress.detail.trim() !== '')
-      sourceAddressString =
-        `${state.sourceAddress.detail.trim()}, ` + sourceAddressString;
-
-    let destinationAddressString = `${state.destinationAddress.ward}, ${state.destinationAddress.district}, ${state.destinationAddress.province}`;
-    if (state.destinationAddress.detail.trim() !== '')
-      destinationAddressString =
-        `${state.destinationAddress.detail.trim()}, ` +
-        destinationAddressString;
 
     const sourceAddress = {
       fullName: state.sourceAddress.fullName,
       phoneNumber: state.sourceAddress.phoneNumber,
-      province: state.sourceAddress.province,
-      district: state.sourceAddress.district,
-      ward: state.sourceAddress.ward,
+      addressString: state.sourceAddress.addressString,
       detail: state.sourceAddress.detail,
       latitude: state.sourceAddress.latitude,
       longitude: state.sourceAddress.longitude,
@@ -107,9 +93,7 @@ const PrevCompletedOrderScreen = () => {
     const destinationAddress = {
       fullName: state.destinationAddress.fullName,
       phoneNumber: state.destinationAddress.phoneNumber,
-      province: state.destinationAddress.province,
-      district: state.destinationAddress.district,
-      ward: state.destinationAddress.ward,
+      addressString: state.destinationAddress.addressString,
       detail: state.destinationAddress.detail,
       latitude: state.destinationAddress.latitude,
       longitude: state.destinationAddress.longitude,
@@ -125,7 +109,6 @@ const PrevCompletedOrderScreen = () => {
       note: state.note,
       discountPrice: state.discountPrice,
     };
-    console.log(order);
     const config = {
       headers: {
         Authorization: `Bearer ${userAuth.access_token}`,
@@ -137,9 +120,7 @@ const PrevCompletedOrderScreen = () => {
       order,
       config,
     );
-    console.log(order);
-    console.log(response.data);
-
+    dispatch(refreshOrder());
     navigation.navigate('CompletedOrderScreen');
   };
   return (
