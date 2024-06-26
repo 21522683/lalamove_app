@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Address, Addresschema } from './Schema/address.schema';
-import { Model } from 'mongoose';
+import mongoose, { Model, ObjectId } from 'mongoose';
 import { CreateAddressDTO } from './DTO/create_address.dto';
 import { User } from 'src/schemas';
+import { SetDefaultAddressDTO } from './DTO/set_default_address.dto';
 
 @Injectable()
 export class AddressService {
@@ -51,6 +52,34 @@ export class AddressService {
       isDefault: true,
     });
   }
+  async setAddressDefault(id: string, body: SetDefaultAddressDTO) {
+    const listAddressOfUser = await this.addressModel.find({
+      user: body.userId,
+    });
+
+    if (listAddressOfUser.length > 0) {
+      for (let i = 0; i < listAddressOfUser.length; i++) {
+        if (listAddressOfUser[i].isDefault === true) {
+          listAddressOfUser[i].isDefault = false;
+          await listAddressOfUser[i].save();
+        }
+      }
+      let res = await this.addressModel.findById({
+        _id: new mongoose.Types.ObjectId(id),
+      });
+      res.isDefault = true;
+      await res.save();
+
+      return res;
+    }
+  }
+
+  async deleteAddressSaved(id: string) {
+    let res = await this.addressModel.findByIdAndDelete({
+      _id: new mongoose.Types.ObjectId(id),
+    });
+    return res;
+  }
   async addNewAddress(userId: string, address: CreateAddressDTO) {
     if (address.isDefault) {
       const defaultAddress = await this.addressModel.findOne({
@@ -69,7 +98,6 @@ export class AddressService {
     });
     return await newAddress.save();
   }
-
   async editAddress(
     userId: string,
     addressId: string,

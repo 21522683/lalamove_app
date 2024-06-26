@@ -37,7 +37,8 @@ const styles = ScaledSheet.create({
   },
   title_item: {
     color: CUSTOM_COLOR.Black,
-    fontSize: scale(10),
+    fontSize: scale(12),
+    fontWeight: 'bold',
     marginLeft: scale(20),
     marginBottom: verticalScale(20),
   },

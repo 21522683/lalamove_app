@@ -33,7 +33,7 @@ const styles = ScaledSheet.create({
   },
 
   contact_phone_text: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '500',
     textAlignVertical: 'center',
   },
@@ -136,6 +136,7 @@ const styles = ScaledSheet.create({
     color: '#2F2F2F',
     marginLeft: 20,
     fontSize: 14,
+    width: '90%',
   },
   sign_outer: {
     backgroundColor: '#E1F2FA',
@@ -143,6 +144,8 @@ const styles = ScaledSheet.create({
     paddingHorizontal: 20,
     borderRadius: 4,
     marginBottom: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   width_50: {
     width: '45%',

@@ -11,7 +11,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/EvilIcons';
 import {launchCamera as _launchCamera} from 'react-native-image-picker';
 let launchCamera = _launchCamera;
-import {IMAGES} from '../../../../assets/images';
 
 const VerifyOrderDriverScreen = ({navigation, props}) => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -67,7 +66,11 @@ const VerifyOrderDriverScreen = ({navigation, props}) => {
     <View style={styles.container}>
       <View style={styles.header_container}>
         <Text style={styles.text_receiver_time}>Xác nhận đơn hàng</Text>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+            navigation.goBack();
+          }}>
           <Icon
             name="arrow-back"
             size={24}

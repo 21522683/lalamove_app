@@ -6,4 +6,5 @@ export const ICONS = {
   receiverTimeIcon: require('./clock.png'),
   cancelTimeIcon: require('./cancel_time.png'),
   documentPolicy: require('./document_policy.png'),
+  deliveryManIcon: require('./delivery-man.png'),
 };

@@ -88,11 +88,14 @@ export class User {
   @Prop({ required: false, type: [Vehicle] })
   vehicles?: Vehicle[];
 
-  @Prop({ default: false, required: false })
+  @Prop({ default: true, required: false })
   isWaitingAccepted?: boolean;
 
   @Prop({ required: false, default: false })
   isActive?: boolean;
+
+  @Prop({ required: false, default: false })
+  isLocked?: boolean;
 
   @Prop({ required: false })
   dateApproval?: Date;

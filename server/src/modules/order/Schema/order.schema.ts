@@ -71,7 +71,7 @@ export class Order {
   destinationAddress: Record<string, any>;
 
   @Prop({
-    default: 'Đang chờ nhận',
+    default: 'Đang chờ nhận', // Giao hoàn thành - Đang giao 
   })
   status: string;
 

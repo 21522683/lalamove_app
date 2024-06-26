@@ -8,26 +8,18 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import React, {useRef} from 'react';
+import React, {useContext, useRef} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './style';
 import CUSTOM_COLOR from '../../../../constants/colors';
 import cs from '../../CustomStyle';
 import {ICONS} from '../../../../assets/icons';
 import AddressItem from '../../components/AddressItem';
+import {LocationContext} from '../../../../../TrackLocation';
 
 const OrderDetailDriverScreen = ({navigation, route}) => {
   var order = {...route.params};
-
-  var goodInfo = {
-    type: 'Thực phẩm và đồ uống',
-    amount: '10kg đến 30kg',
-    quantity: 2,
-    description:
-      'Giữ hàng cần thận nha, khi giao đến nhắn bạn nhận là chúc mừng ngày cá tháng tư',
-    vehicleDescription: 'Giao hàng cồng kềnh, 60x50x60 cm, lên đến 50 kg',
-  };
-
+  const {isTransport} = useContext(LocationContext);
   const animatedValue = useRef(new Animated.ValueXY()).current;
   const opacityValue = useRef(new Animated.Value(1)).current;
   const windowWidth = Dimensions.get('window').width;
@@ -72,7 +64,9 @@ const OrderDetailDriverScreen = ({navigation, route}) => {
           <Icon name="arrow-back" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.receive_instance}>Nhận đơn ngay</Text>
-        <Text style={styles.distance}>Cách ~{order.distance} Kilomet</Text>
+        <Text style={styles.distance}>
+          Cách ~{Math.round(order.distance * 10) / 10} Kilomet
+        </Text>
         <Text style={styles.status_text}>{order.status}</Text>
       </View>
       <ScrollView style={{marginTop: -20}}>
@@ -85,26 +79,26 @@ const OrderDetailDriverScreen = ({navigation, route}) => {
             style={{width: 24, height: 24, marginRight: 10}}
           />
           <View>
-            <Text style={styles.main_type_good}>{goodInfo.type}</Text>
+            <Text style={styles.main_type_good}>{order.goodsType}</Text>
 
             <View style={styles.outer_good_info_item}>
-              <Text style={styles.title_good_info_item}>Tổng khối lượng: </Text>
-              <Text style={styles.content_good_info_item}>
-                {goodInfo.amount}
-              </Text>
-            </View>
-            <View style={styles.outer_good_info_item}>
-              <Text style={styles.title_good_info_item}>Số lượng: </Text>
-              <Text style={styles.content_good_info_item}>
-                {goodInfo.quantity}
-              </Text>
-            </View>
-            <View style={styles.outer_good_info_item}>
               <Text style={styles.title_good_info_item}>Mô tả: </Text>
+              <Text style={styles.content_good_info_item}>
+                {order.shortDescription}
+              </Text>
+            </View>
+            <View style={styles.outer_good_info_item}>
+              <Text style={styles.title_good_info_item}>Ghi chú: </Text>
+              <Text style={styles.content_good_info_item}>{order.note}</Text>
+            </View>
+            <View>
+              <Text style={styles.title_good_info_item}>Hình ảnh: </Text>
               <View style={{width: '85%'}}>
-                <Text style={styles.content_good_info_item}>
-                  {goodInfo.description}
-                </Text>
+                <Image
+                  width={100}
+                  height={100}
+                  source={{uri: order.goodsImage}}
+                />
               </View>
             </View>
           </View>
@@ -116,11 +110,13 @@ const OrderDetailDriverScreen = ({navigation, route}) => {
             style={{width: 24, height: 24, marginRight: 10}}
           />
           <View>
-            <Text style={styles.main_type_good}>{order.vehicleType}</Text>
-            <View style={{height: 7}} />
+            <Text style={styles.main_type_good}>
+              {order.vehicleType.vehicleTypeName}
+            </Text>
             <View style={{width: '90%'}}>
               <Text style={styles.title_good_info_item}>
-                {goodInfo.vehicleDescription}
+                {order.vehicleType.size} {'\n'}
+                {order.vehicleType.suitableFor}
               </Text>
             </View>
           </View>
@@ -140,40 +136,43 @@ const OrderDetailDriverScreen = ({navigation, route}) => {
         </View>
         <View style={{height: 90}}></View>
       </ScrollView>
-
-      <View {...panResponder.panHandlers} style={styles.outer_receiver_slider}>
-        <Animated.View style={opacityAnimation}>
-          <Text
-            style={{
-              fontSize: 16,
-              color: '#fff',
-              fontWeight: 'bold',
-              alignSelf: 'center',
-            }}>
-            Trượt để nhận đơn
-          </Text>
-        </Animated.View>
-        <View style={{position: 'absolute', left: 10}}>
-          <Animated.View style={swipeAnimation}>
-            <View
+      {!isTransport && (
+        <View
+          {...panResponder.panHandlers}
+          style={styles.outer_receiver_slider}>
+          <Animated.View style={opacityAnimation}>
+            <Text
               style={{
-                width: 50,
-                height: 50,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#fff',
-                borderRadius: 5,
+                fontSize: 16,
+                color: '#fff',
+                fontWeight: 'bold',
+                alignSelf: 'center',
               }}>
-              <Icon
-                name="arrow-forward"
-                size={24}
-                color={CUSTOM_COLOR.Primary}
-              />
-            </View>
+              Trượt để nhận đơn
+            </Text>
           </Animated.View>
+          <View style={{position: 'absolute', left: 10}}>
+            <Animated.View style={swipeAnimation}>
+              <View
+                style={{
+                  width: 50,
+                  height: 50,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: '#fff',
+                  borderRadius: 5,
+                }}>
+                <Icon
+                  name="arrow-forward"
+                  size={24}
+                  color={CUSTOM_COLOR.Primary}
+                />
+              </View>
+            </Animated.View>
+          </View>
         </View>
-      </View>
+      )}
     </View>
   );
 };

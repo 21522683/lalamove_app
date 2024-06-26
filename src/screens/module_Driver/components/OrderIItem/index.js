@@ -16,7 +16,7 @@ const OrderItem = props => {
     <View style={styles.container}>
       <View style={styles.outer__header_distance}>
         <Text style={styles.inner_header_distance_text}>
-          (~{props.distance} Kilomet) Nhận đơn ngay
+          (~{Math.round(props.distance * 10) / 10} Kilomet) Nhận đơn ngay
         </Text>
       </View>
       <View style={{paddingHorizontal: 17}}>
@@ -24,7 +24,7 @@ const OrderItem = props => {
         <AddressItem props={props} hide />
       </View>
       <View style={styles.vehicle_type}>
-        <Text style={{fontSize: 16}}>{props.vehicleType}</Text>
+        <Text style={{fontSize: 16}}>{props.vehicleType.vehicleTypeName}</Text>
       </View>
       <View style={styles.horizontal_line}></View>
       <View style={styles.outer_money}>

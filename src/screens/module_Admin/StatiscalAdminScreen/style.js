@@ -116,7 +116,17 @@ const styles = ScaledSheet.create({
   list: {
     flexDirection: 'column',
     margin: moderateScale(20),
-  }
+  },
+  containerLoading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
 });
 
 export default styles;

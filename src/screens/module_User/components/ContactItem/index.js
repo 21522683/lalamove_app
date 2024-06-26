@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/Fontisto';
 import CUSTOM_COLOR from '../../../../constants/colors';
 import { useNavigation } from '@react-navigation/native';
-
+import { Linking } from 'react-native';
 const ContactItem = props => {
   const navigator = useNavigation();
   return (
@@ -49,7 +49,7 @@ const ContactItem = props => {
         </View>
       </View>
       <View style={{display: 'flex', flexDirection: 'row', gap: 12}}>
-        <View
+        <TouchableOpacity
           style={{
             width: 40,
             height: 40,
@@ -58,9 +58,12 @@ const ContactItem = props => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+          }}
+          onPress={()=>{
+            Linking.openURL('tel:+8468008460');
           }}>
           <Icon name="phone" size={20} color={CUSTOM_COLOR.Primary} />
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity
           style={{
             width: 40,

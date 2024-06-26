@@ -14,6 +14,7 @@ import { ComplainModule } from './modules/complain/complain.module';
 import { OrderModule } from './modules/order/order.module';
 import { VehicleTypeModule } from './modules/vehicle-type/vehicle-type.module';
 import { VoucherModule } from './modules/voucher/voucher.module';
+import { OrderLocationModule } from './modules/order-location/order-location.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -38,6 +39,7 @@ import { VoucherModule } from './modules/voucher/voucher.module';
     OrderModule,
     VehicleTypeModule,
     VoucherModule,
+    OrderLocationModule,
   ],
   controllers: [AppController],
   providers: [
