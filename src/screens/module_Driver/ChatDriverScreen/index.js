@@ -95,7 +95,7 @@ export default function ChatDriverScreen({route, navigation}) {
             .then(() => {
                 console.log('User added!');
             });
-    }, []);
+    }, [imageUrl]);
     const handlePickImage = async () => {
         let options = {
             storageOptions: {

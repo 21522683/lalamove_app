@@ -24,7 +24,7 @@ const OrderItem = props => {
         <AddressItem props={props} hide />
       </View>
       <View style={styles.vehicle_type}>
-        <Text style={{fontSize: 16}}>{props.vehicleType.vehicleTypeName}</Text>
+        <Text style={{fontSize: 16}}>{props.vehicleType?.vehicleTypeName}</Text>
       </View>
       <View style={styles.horizontal_line}></View>
       <View style={styles.outer_money}>

@@ -19,36 +19,37 @@ const ProfileDriverScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
 
       <View style={styles.header}>
-        <Image style={styles.avatar} src={userInfor?.avatar} />
+        <Image style={styles.avatar} src={userInfor._doc?.avatar} />
 
-        <Text style={styles.title}>{userInfor?.fullName}</Text>
+        <Text style={styles.title}>{userInfor._doc?.fullName}</Text>
         <Text style={{ marginBottom: 10 }}>Tp. Hồ Chí Minh</Text>
         <Rating
           ratingColor={CUSTOM_COLOR.Primary}
           type='custom'
           ratingCount={5}
+          startingValue={userInfor?.stb}
           imageSize={18}
           readonly
-          startingValue={3}
+          // startingValue={3}
         // onFinishRating={4}
         // jumpValue={5}
         />
       </View>
 
       <View style={styles.body_container}>
-        <TouchableOpacity style={styles.item_profile} onPress={()=> navigation.navigate("ChatDriverScreen",{name: userInfor?.fullName, uid: userInfor?.id, avatar:userInfor?.avatar})}>
+        <View style={styles.item_profile} >
           <View style={{ ...styles.info, marginRight: 20 }}>
-            <Text style={styles.num}>2</Text>
+            <Text style={styles.num}>{userInfor?.rvCount}</Text>
             <Text style={styles.email}> Đánh giá</Text>
           </View>
 
           <View style={{ height: '100%', width: 0.5, backgroundColor: '#ccc' }} />
 
           <View style={{ ...styles.info, marginLeft: 20 }}>
-            <Text style={styles.num}>3.5</Text>
+            <Text style={styles.num}>{userInfor?.stb ?? 0}</Text>
             <Text style={styles.email}> Sao trung bình</Text>
           </View>
-        </TouchableOpacity>
+        </View>
 
         <View style={styles.container_selection}>
           <View style={styles.item_selection}>
@@ -67,7 +68,7 @@ const ProfileDriverScreen = ({ navigation }) => {
               <Image source={IMAGES.key_security_icon} style={styles.icon_selection} />
               <Text style={styles.title_selection}>Quản lý thông tin tài xế</Text>
             </View>
-            <TouchableOpacity style={styles.button_foward} onPress={() => { navigation.navigate('infor-driver', {...userInfor})}}>
+            <TouchableOpacity style={styles.button_foward} onPress={() => { navigation.navigate('infor-driver', {...userInfor._doc})}}>
               <Image source={IMAGES.foward_icon_orage} style={styles.icon_next} />
             </TouchableOpacity>
           </View>

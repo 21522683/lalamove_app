@@ -5,13 +5,15 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {Rating} from 'react-native-ratings';
 import CUSTOM_COLOR from '../../../../constants/colors';
 
-const ReviewModal = ({onClose, props}) => {
+const ReviewModal = ({ onClose, props, review }) => {
+  const [contentReview, setContentReview] = useState(review?.content ?? "");
+  const [star, setStar] = useState(review?.star ?? 0);
   return (
     <View
       style={{
         width: '100%',
         height: '100%',
-        backgroundColor: 'rgba(0,0,0,0.05)',
+        backgroundColor: 'rgba(0,0,0,0.6)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -28,7 +30,7 @@ const ReviewModal = ({onClose, props}) => {
         }}>
         <Image source={ICONS.documentPolicy} size={21}></Image>
         <View>
-          <Text style={{color: '#606060', fontWeight: '600'}}>
+          <Text style={{ color: '#606060', fontWeight: '600' }}>
             Đơn hàng {props.orderId}
           </Text>
           <View
@@ -38,7 +40,7 @@ const ReviewModal = ({onClose, props}) => {
               alignItems: 'center',
               gap: 5,
             }}>
-            <Text style={{color: '#222222', fontSize: 14}}>Tài xế: </Text>
+            <Text style={{ color: '#222222', fontSize: 14 }}>Tài xế: </Text>
             <Text>{props.driverName}</Text>
             <View
               style={{
@@ -61,17 +63,19 @@ const ReviewModal = ({onClose, props}) => {
               gap: 5,
               marginBottom: 10,
             }}>
-            <Text style={{color: '#222222', fontSize: 14}}>Số sao: </Text>
+            <Text style={{ color: '#222222', fontSize: 14 }}>Số sao: </Text>
             <Rating
               type="star"
               ratingCount={5}
               imageSize={24}
-              startingValue={0}
-              //   onFinishRating={value => console.log(value)}
+              startingValue={star}
+              fractions={1}
+              readonly={review === null ? false : true}
+              // onFinishRating={value => setStar(value)}
             />
           </View>
           <View>
-            <Text style={{color: '#222222', fontSize: 14, marginBottom: 6}}>
+            <Text style={{ color: '#222222', fontSize: 14, marginBottom: 6 }}>
               Nội dung:
             </Text>
             <TextInput
@@ -85,14 +89,15 @@ const ReviewModal = ({onClose, props}) => {
                 textAlignVertical: 'top',
                 marginBottom: 10,
               }}
-              // onChangeText={onChangeText}
-              // value={text}
+              onChangeText={text => setContentReview(text)}
+              editable={review === null ? true : false}
+              value={contentReview}
               multiline={true}
               placeholder="Text here..."
             />
           </View>
           <View>
-            <Text style={{color: '#222222', fontSize: 14, marginBottom: 6}}>
+            <Text style={{ color: '#222222', fontSize: 14, marginBottom: 6 }}>
               Hình ảnh:
             </Text>
             <View
@@ -173,26 +178,7 @@ const ReviewModal = ({onClose, props}) => {
                 </Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <View
-                style={{
-                  backgroundColor: CUSTOM_COLOR.Primary,
-                  paddingHorizontal: 12,
-                  paddingVertical: 6,
-                  borderRadius: 4,
-                  alignSelf: 'flex-start',
-                }}>
-                <Text
-                  style={{
-                    fontSize: 16,
-                    color: '#fff',
-                    fontWeight: 'bold',
-                    alignSelf: 'center',
-                  }}>
-                  Gửi
-                </Text>
-              </View>
-            </TouchableOpacity>
+            
           </View>
         </View>
       </View>

@@ -33,11 +33,11 @@ function UserOrdersScreen(navigation) {
         />
         <Tab.Screen
           name="Đang giao"
-          component={() => <OrdersScreen status="Đang giao" />}
+          component={() => <OrdersScreen status="Đang giao hàng" />}
         />
         <Tab.Screen
           name="Hoàn thành"
-          component={() => <OrdersScreen status="Hoàn thành" />}
+          component={() => <OrdersScreen status="Đã hoàn thành" />}
         />
         <Tab.Screen
           name="Đã hủy"

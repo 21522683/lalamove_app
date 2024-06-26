@@ -6,6 +6,7 @@ import {
   ScrollView,
   Dimensions,
   Modal,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {ICONS} from '../../../assets/icons';
@@ -17,6 +18,9 @@ import ReviewModal from './ReviewModal';
 import CUSTOM_COLOR from '../../../constants/colors';
 import UserModalCreateComplain from './UserModalCreateComplain';
 import Map from './Map';
+import { useSelector } from 'react-redux';
+import baseUrl from '../../../constants/baseUrl';
+import axios from 'axios';
 
 const OrderDetailScreen = ({navigation, route}) => {
   var order = {...route.params};
@@ -30,6 +34,8 @@ const OrderDetailScreen = ({navigation, route}) => {
   const windowHeight = Dimensions.get('window').height;
   const [visibleReview, setVisibleReview] = useState(false);
   const [isVisibleModal, setVisibleModal] = useState(false);
+  const userAuth = useSelector(state => state.users.userAuth);
+  const [reviewOrder, setReviewOrder] = useState(null);
 
   useEffect(() => {
     if (scrollViewRef.current) {
@@ -37,7 +43,23 @@ const OrderDetailScreen = ({navigation, route}) => {
         scrollViewRef.current.scrollToEnd({animated: true});
     }
   }, []);
-
+  const checkReviewOrder = async ()=>{
+    try {
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const url = `${baseUrl}/order/review-order/${order._id}`;
+      const data = await axios.get(url, config);
+      setReviewOrder(data.data.data);
+      setVisibleReview(true);
+    } catch (error) {
+      console.log(error)
+      Alert.alert('Thông báo', "Đã có lỗi xảy ra vui lòng thử lại sau.");
+    }
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header_container}>
@@ -48,7 +70,7 @@ const OrderDetailScreen = ({navigation, route}) => {
         onPress={() => navigation.goBack()}>
         <Icon name="arrow-back" size={24} color="#575757" />
       </TouchableOpacity>
-      {order.status !== 'Đang giao hàng' && (
+      {order.status === 'Đang giao hàng' && (
         <View
           style={{
             position: 'absolute',
@@ -61,7 +83,7 @@ const OrderDetailScreen = ({navigation, route}) => {
       )}
 
       <ScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef}>
-        {order.status !== 'Đang giao hàng' && (
+        {order.status === 'Đang giao hàng' && (
           <View>
             <View style={{height: windowHeight / 2 - 20}}></View>
             <ContactItem {...order.sourceAddress} />
@@ -218,7 +240,7 @@ const OrderDetailScreen = ({navigation, route}) => {
           <View style={{flex: 1}}>
             <TouchableOpacity
               style={[styles.outer_receiver_slider, styles.width_50]}
-              onPress={() => setVisibleReview(true)}>
+              onPress={checkReviewOrder}>
               <View>
                 <Text
                   style={{
@@ -246,10 +268,12 @@ const OrderDetailScreen = ({navigation, route}) => {
               setVisibleReview(false);
             }}
             props={{
-              orderId: order.orderId,
-              driverName: 'Lê Văn Phát',
-              avatar: 'Hello',
+              orderId: order._id,
+              driverName: order?.drive?.fullName,
+              avatar: order?.drive?.avatar,
+              driveId: order?.drive._id
             }}
+            review={reviewOrder}
           />
         </Modal>
         <Modal

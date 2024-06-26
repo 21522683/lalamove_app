@@ -14,9 +14,9 @@ export default function ChatUserScreen({route, navigation}) {
   const [imageUrl, setImageUrl] = useState('');
 
   // const c_uid = userAuth?.id;
-  // const t_uid = route.params.uid;
+  const t_uid = route.params.uid;
   const c_uid = userAuth?.id;
-  const t_uid = '663054a412064fca29108e57';
+  // const t_uid = '663054a412064fca29108e57';
   const docId = c_uid + '-chatwith-' + t_uid;
 
   const [messages, setMessages] = useState([]);
@@ -64,8 +64,6 @@ export default function ChatUserScreen({route, navigation}) {
     const onSendMsg = useCallback(async (msgArray = []) => {
         const msg = msgArray[0]
         const time = new Date();
-        console.log(imageUrl)
-        return;
         const url = await uploadImg(imageUrl, "", msg);
         const userMsg = {
             ...msg,
@@ -117,7 +115,6 @@ export default function ChatUserScreen({route, navigation}) {
     };
     async function uploadImg(file, type, name) {
         try {
-            console.log(file)
             if(!file) return "";
 
             const uid = Date.now();

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Order } from './Schema/order.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
@@ -6,6 +6,8 @@ import { CreateOrderDTO } from './DTO/create_order.dto';
 import { getDaysInMonth } from 'src/utils/quantityDaysInMonth';
 import { Params, User, VehicleType } from 'src/schemas';
 import { UpdateHoaHongDTO } from './DTO/update_hoa_hong.dto';
+import { Review } from './Schema/review.schema';
+import { CreateReivewDTO } from './DTO/review_create.dto';
 
 @Injectable()
 export class OrderService {
@@ -14,6 +16,7 @@ export class OrderService {
     @InjectModel(Params.name) private paramsModel: Model<Params>,
     @InjectModel(VehicleType.name) private readonly vehicleTypeModel: Model<VehicleType>,
     @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Review.name) private reviewModel: Model<Review>,
   ) { }
 
   async addNewOrder(customer: string, body: CreateOrderDTO) {
@@ -33,19 +36,19 @@ export class OrderService {
     if (user.userType === 'Driver') {
       return await this.orderModel
         .find({ drive: user._id })
-        .populate(['vehicleType'])
+        .populate(['vehicleType', 'customer', 'review'])
         .exec();
     }
     return await this.orderModel
       .find({ customer: user._id })
-      .populate(['vehicleType'])
+      .populate(['vehicleType', 'drive', 'review'])
       .exec();
   }
 
   async getAllOrder() {
     const orders = await this.orderModel
       .find()
-      .populate(['vehicleType', 'customer'])
+      .populate(['vehicleType', 'customer', 'review'])
       .exec();
     return orders;
   }
@@ -89,6 +92,33 @@ export class OrderService {
 
     return distance;
   };
+
+  async createReviewOrder(reviewDto: CreateReivewDTO){
+    const order = await this.orderModel.findById(reviewDto.order);
+    if(!order) {
+      throw new BadRequestException("Order is not exist");
+    }
+    const review = new this.reviewModel({
+      ...reviewDto,
+    })
+    const createdReview = await review.save();
+    
+    order.review = createdReview;
+
+    await order.save();
+
+    return createdReview;
+  }
+
+  async getReviewOrder(orderId: string){
+    const reivew = await this.reviewModel.findOne({
+      order: orderId
+    });
+    if(!reivew) {
+      return null;
+    }
+    return reivew;
+  }
 
   async getInfoReportDriver(driverId: string, query: any) {
     const { textSearch, option } = query;

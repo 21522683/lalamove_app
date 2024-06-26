@@ -14,6 +14,7 @@ import { OrderService } from './order.service';
 import { CreateOrderDTO } from './DTO/create_order.dto';
 import { UpdateHoaHongDTO } from './DTO/update_hoa_hong.dto';
 import { Response, query } from 'express';
+import { CreateReivewDTO } from './DTO/review_create.dto';
 
 @Controller('order')
 export class OrderController {
@@ -96,6 +97,35 @@ export class OrderController {
       res.status(HttpStatus.OK).json({
         message: 'Get all user orders successfully',
         data: orders,
+      });
+    } catch (error) {
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Put('create-review-order')
+  async createReviewOrder(@Body() reviewDto: CreateReivewDTO, @Res() res: Response) {
+    try {
+      const review = await this.orderService.createReviewOrder(reviewDto);
+      res.status(HttpStatus.OK).json({
+        message: 'Create review for orders successfully',
+        data: review,
+      });
+    } catch (error) {
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+  @Get('review-order/:id')
+  async getReviewOrder(@Param("id") orderId: string, @Res() res: Response) {
+    try {
+      const review = await this.orderService.getReviewOrder(orderId);
+      res.status(HttpStatus.OK).json({
+        message: 'Get review order successfully',
+        data: review,
       });
     } catch (error) {
       res.status(HttpStatus.BAD_REQUEST).json({
