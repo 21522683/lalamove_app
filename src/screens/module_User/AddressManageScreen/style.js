@@ -70,7 +70,7 @@ const styles = ScaledSheet.create({
   container_header_list: {
     flexDirection: 'row', 
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     paddingHorizontal: scale(20),
     marginVertical: verticalScale(20),
   },

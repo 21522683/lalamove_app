@@ -75,9 +75,6 @@ const AddressManageScreen = () => {
 
                 <View style={styles.container_header_list}>
                     <Text style={styles.title_list}>DANH SÁCH ĐỊA CHỈ ĐÃ LƯU</Text>
-                    <TouchableOpacity style={styles.btn_add}>
-                        <Text style={styles.text_add}>Thêm địa chỉ</Text>
-                    </TouchableOpacity>
                 </View>
 
                 <ScrollView style={styles.list}>
