@@ -23,9 +23,6 @@ export class UpdateVehicleTypeDTO {
   suitableFor: string;
 
   @IsOptional()
-  note: string;
-
-  @IsOptional()
   image: string;
 
   @IsOptional()

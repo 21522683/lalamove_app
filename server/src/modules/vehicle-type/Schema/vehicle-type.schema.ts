@@ -31,9 +31,6 @@ export class VehicleType {
   @Prop({ default: '', required: true })
   image: string;
 
-  @Prop({ required: true })
-  note: string;
-
   @Prop({ default: 'Đang hoạt động', required: true })
   status: string;
 }

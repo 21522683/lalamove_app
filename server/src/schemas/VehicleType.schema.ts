@@ -14,18 +14,21 @@ export class VehicleType {
   size: string;
 
   @Prop({ default: '', required: true })
-  minPrice: number;
+  minPrice: Number;
 
   @Prop({ default: '', required: true })
-  minLength: number;
+  minLength: Number;
 
   @Prop({ default: '', required: true })
-  priceAddIfOut: number;
+  priceAddIfOut: Number;
 
   @Prop({ default: '', required: true })
   suitableFor: string;
 
-  @Prop({ required: true })
-  note: string;
+  @Prop({ default: '' })
+  image: string;
+
+  @Prop({ default: 'Đang hoạt động', required: true })
+  status: string;
 }
 export const VehicleTypeSchema = SchemaFactory.createForClass(VehicleType);

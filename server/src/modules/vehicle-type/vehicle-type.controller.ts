@@ -23,12 +23,8 @@ export class VehicleTypeController {
     return 'Welcome';
   }
 
-  @Post('addNewVehicleType')
-  async addNewVehicleType(
-    @Req() req,
-    @Body() body: CreateVehicleTypeDTO,
-    @Res() res: Response,
-  ) {
+  @Post('')
+  async addNewVehicleType(@Req() req, @Body() body, @Res() res: Response) {
     try {
       const { sub: userId } = req.user;
       const newVehicleType = await this.vehicleTypeService.addNewVehicleType(
@@ -47,7 +43,7 @@ export class VehicleTypeController {
     }
   }
 
-  @Patch('updateNewVehicleType/:vehicleTypeId')
+  @Patch(':vehicleTypeId')
   async updateNewVehicleType(
     @Param('vehicleTypeId') vehicleTypeId: string,
     @Body() body,
@@ -58,7 +54,7 @@ export class VehicleTypeController {
         vehicleTypeId,
         body,
       );
-      res.status(HttpStatus.CREATED).json({
+      res.status(HttpStatus.OK).json({
         message: 'Update vehicle type successfully',
         data: vehicleType,
       });

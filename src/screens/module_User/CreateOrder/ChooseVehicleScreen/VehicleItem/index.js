@@ -32,6 +32,15 @@ const VehicleItem = ({index, item}) => {
       case 'Xe máy': {
         return IMAGES.xemay;
       }
+      case 'Xe bán tải': {
+        return IMAGES.xebantai;
+      }
+      case 'Xe van': {
+        return IMAGES.xevan;
+      }
+      case 'Xe tải': {
+        return IMAGES.xetai;
+      }
       default: {
         return IMAGES.xemay;
       }

@@ -19,8 +19,7 @@ export class VehicleTypeService {
     if (user.userType !== 'Admin')
       throw new ForbiddenException('Không có quyền');
 
-    const newVehicleType = new this.vehicleTypeModel(vehicleType);
-    return await newVehicleType.save();
+    return await this.vehicleTypeModel.create(vehicleType);
   }
 
   async updateNewVehicleType(

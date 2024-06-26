@@ -31,10 +31,6 @@ export class CreateVehicleTypeDTO {
 
   @IsString()
   @IsOptional()
-  note: string;
-
-  @IsString()
-  @IsOptional()
   image: string;
 
   @IsString()
