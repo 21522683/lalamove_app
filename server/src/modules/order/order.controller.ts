@@ -86,10 +86,12 @@ export class OrderController {
   @Get('driver-orders')
   async driverOrders(@Query() query, @Res() res: Response) {
     try {
+      const driverId = query.driverId;
       const latitude = query.latitude;
       const longitude = query.longitude;
       const radius = query.radius;
       const orders = await this.orderService.driverOrders(
+        driverId,
         latitude,
         longitude,
         radius,

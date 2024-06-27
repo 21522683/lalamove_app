@@ -15,9 +15,15 @@ const OrderItem = props => {
   return (
     <View style={styles.container}>
       <View style={styles.outer__header_distance}>
-        <Text style={styles.inner_header_distance_text}>
-          (~{Math.round(props.distance * 10) / 10} Kilomet) Nhận đơn ngay
-        </Text>
+        {props.status === 'Đang chờ nhận' ? (
+          <Text style={styles.inner_header_distance_text}>
+            (~{Math.round(props.distance * 10) / 10} Kilomet) Nhận đơn ngay
+          </Text>
+        ) : (
+          <Text style={styles.inner_header_distance_text}>
+            Đơn hàng #{props._id.substr(props._id.length - 12)}
+          </Text>
+        )}
       </View>
       <View style={{paddingHorizontal: 17}}>
         <Text style={styles.status_text}>{props.status}</Text>

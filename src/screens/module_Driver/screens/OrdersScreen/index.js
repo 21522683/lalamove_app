@@ -18,6 +18,7 @@ import {useFocusEffect} from '@react-navigation/native';
 const DriverOrdersScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const [driverOrders, setDriverOrders] = useState();
+  const userAuth = useSelector(state => state.users.userAuth);
   const orders = useSelector(state => state.orders.ordersInRadius);
   useFocusEffect(
     useCallback(() => {
@@ -33,6 +34,7 @@ const DriverOrdersScreen = ({navigation}) => {
           dispatch(
             getAllOrderInRadius({
               query: {
+                driverId: userAuth.id,
                 latitude: location.latitude,
                 longitude: location.longitude,
                 radius: 100,
