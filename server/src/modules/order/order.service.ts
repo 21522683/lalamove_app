@@ -46,7 +46,7 @@ export class OrderService {
     }
     return await this.orderModel
       .find({ customer: user._id })
-      .populate(['vehicleType'])
+      .populate(['vehicleType', 'drive'])
       .exec();
   }
 
@@ -73,6 +73,68 @@ export class OrderService {
         };
       })
       .filter((item) => item.distance < radius);
+  }
+
+  async driverReceiveOrder(driverId: string, orderId: string) {
+    return this.orderModel.findOneAndUpdate(
+      { _id: orderId },
+      {
+        drive: driverId,
+        status: 'Đang chờ lấy hàng',
+        receivedDate: new Date(),
+      },
+      { new: true },
+    );
+  }
+
+  async driverDeliveryOrder(driverId: string, orderId: string) {
+    return this.orderModel.findOneAndUpdate(
+      { _id: orderId },
+      {
+        drive: driverId,
+        status: 'Đang giao hàng',
+        deliveryDate: new Date(),
+      },
+      { new: true },
+    );
+  }
+
+  async driverFinishOrder(driverId: string, orderId: string, body) {
+    return this.orderModel.findOneAndUpdate(
+      { _id: orderId },
+      {
+        drive: driverId,
+        status: 'Đã hoàn thành',
+        verifyImage: body.imgUri,
+        finishedDate: new Date(),
+      },
+      { new: true },
+    );
+    return 'HIHI';
+  }
+
+  async driverCancelOrder(orderId: string) {
+    return this.orderModel.findOneAndUpdate(
+      { _id: orderId },
+      {
+        drive: null,
+        status: 'Đang chờ nhận',
+        deliveryDate: null,
+        receivedDate: null,
+      },
+      { new: true },
+    );
+  }
+
+  async userCancelOrder(orderId: string) {
+    return this.orderModel.findOneAndUpdate(
+      { _id: orderId },
+      {
+        status: 'Đã hủy',
+        cancelledDate: new Date(),
+      },
+      { new: true },
+    );
   }
 
   haversineDistance = (

@@ -13,11 +13,12 @@ import {
 import { OrderService } from './order.service';
 import { CreateOrderDTO } from './DTO/create_order.dto';
 import { UpdateHoaHongDTO } from './DTO/update_hoa_hong.dto';
-import { Response, query } from 'express';
+import { Response } from 'express';
+import { Public } from '../auth/authPublic.decorator';
 
 @Controller('order')
 export class OrderController {
-  constructor(private readonly orderService: OrderService) { }
+  constructor(private readonly orderService: OrderService) {}
 
   @Get()
   welcome(@Req() req) {
@@ -66,7 +67,6 @@ export class OrderController {
     return this.orderService.getInfoOrderById(id);
   }
 
-
   @Get(':id/get-user-orders')
   async getAllUserOrders(@Param('id') id: string, @Res() res: Response) {
     try {
@@ -98,6 +98,120 @@ export class OrderController {
         data: orders,
       });
     } catch (error) {
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Public()
+  @Put(':driverId/driver-receive-order/:orderId')
+  async driverReceiveOrder(
+    @Param('driverId') driverId: string,
+    @Param('orderId') orderId: string,
+    @Res() res: Response,
+  ) {
+    try {
+      const order = await this.orderService.driverReceiveOrder(
+        driverId,
+        orderId,
+      );
+      res.status(HttpStatus.OK).json({
+        message: 'Update driver order successfully',
+        data: order,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Public()
+  @Put(':driverId/driver-delivery-order/:orderId')
+  async driverDeliveryOrder(
+    @Param('driverId') driverId: string,
+    @Param('orderId') orderId: string,
+    @Res() res: Response,
+  ) {
+    try {
+      const order = await this.orderService.driverDeliveryOrder(
+        driverId,
+        orderId,
+      );
+      res.status(HttpStatus.OK).json({
+        message: 'Update driver order successfully',
+        data: order,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Public()
+  @Put(':driverId/driver-finish-order/:orderId')
+  async driverFinishOrder(
+    @Param('driverId') driverId: string,
+    @Param('orderId') orderId: string,
+    @Body() body,
+    @Res() res: Response,
+  ) {
+    try {
+      const order = await this.orderService.driverFinishOrder(
+        driverId,
+        orderId,
+        body,
+      );
+      res.status(HttpStatus.OK).json({
+        message: 'Update driver order successfully',
+        data: order,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Public()
+  @Put('driver-cancel-order/:orderId')
+  async driverCancelOrder(
+    @Param('orderId') orderId: string,
+    @Res() res: Response,
+  ) {
+    try {
+      const order = await this.orderService.driverCancelOrder(orderId);
+      res.status(HttpStatus.OK).json({
+        message: 'Update driver order successfully',
+        data: order,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(HttpStatus.BAD_REQUEST).json({
+        message: error.message,
+      });
+    }
+  }
+
+  @Public()
+  @Put('user-cancel-order/:orderId')
+  async userCancelOrder(
+    @Param('orderId') orderId: string,
+    @Res() res: Response,
+  ) {
+    try {
+      const order = await this.orderService.userCancelOrder(orderId);
+      res.status(HttpStatus.OK).json({
+        message: 'Update user order successfully',
+        data: order,
+      });
+    } catch (error) {
+      console.log(error);
       res.status(HttpStatus.BAD_REQUEST).json({
         message: error.message,
       });

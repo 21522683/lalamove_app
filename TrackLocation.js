@@ -13,6 +13,9 @@ const LocationProvider = ({children}) => {
   const userAuth = useSelector(state => state.users.userAuth);
   const [curLocation, setCurLocation] = useState(null);
   const [isTransport, setTransport] = useState(false);
+  const [isToSource, setIsToSource] = useState(true);
+  const [isStart, setIsStart] = useState(false);
+  const [isOnMap, setIsOnMap] = useState(true);
   const [curOrder, setCurOrder] = useState(null);
 
   const onStartDelivery = async currentOrder => {
@@ -30,7 +33,7 @@ const LocationProvider = ({children}) => {
     timer.current = setInterval(async () => {
       await onDelivery();
       console.log('tick');
-    }, 5000);
+    }, 20000);
   };
 
   const onDelivery = async () => {
@@ -137,6 +140,12 @@ const LocationProvider = ({children}) => {
         onStopDelivery,
         isTransport,
         curOrder,
+        isToSource,
+        setIsToSource,
+        isStart,
+        setIsStart,
+        isOnMap,
+        setIsOnMap,
       }}>
       {children}
     </LocationContext.Provider>

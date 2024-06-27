@@ -6,50 +6,53 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import styles from './style.js';
 import Icon from 'react-native-vector-icons/AntDesign';
 import OrderItem from '../../components/OrderIItem/index.js';
 import {useDispatch, useSelector} from 'react-redux';
 import GetLocation from 'react-native-get-location';
 import {getAllOrderInRadius} from '../../../../redux/slices/orderSlice.js';
+import {useFocusEffect} from '@react-navigation/native';
 
 const DriverOrdersScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const [driverOrders, setDriverOrders] = useState();
   const orders = useSelector(state => state.orders.ordersInRadius);
-  useEffect(() => {
-    (async () => {
-      try {
-        const location = await GetLocation.getCurrentPosition({
-          enableHighAccuracy: true,
-          timeout: 60000,
-        });
-        if (!location) {
-          throw new Error('No location available');
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        try {
+          const location = await GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 60000,
+          });
+          if (!location) {
+            throw new Error('No location available');
+          }
+          dispatch(
+            getAllOrderInRadius({
+              query: {
+                latitude: location.latitude,
+                longitude: location.longitude,
+                radius: 100,
+              },
+            }),
+          );
+        } catch (err) {
+          throw err;
         }
-        console.log(location);
-        dispatch(
-          getAllOrderInRadius({
-            query: {
-              latitude: location.latitude,
-              longitude: location.longitude,
-              radius: 100,
-            },
-          }),
-        );
-      } catch (err) {
-        throw err;
-      }
-    })();
-  }, []);
+      })();
+    }, []),
+  );
+  useEffect(() => {}, []);
 
   useEffect(() => {
     if (orders) {
       setDriverOrders(orders.filter(item => item.status === 'Đang chờ nhận'));
     }
   }, [orders]);
-  
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}

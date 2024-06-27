@@ -9,7 +9,7 @@ import {LocationContext} from '../../TrackLocation';
 
 const TransportingComponent = () => {
   const navigation = useNavigation();
-  const curOrder = useContext(LocationContext);
+  const {curOrder, isToSource} = useContext(LocationContext);
   return (
     <View style={styles.container}>
       <View style={styles.outer__info}>
@@ -21,7 +21,7 @@ const TransportingComponent = () => {
           onPress={() => {
             navigation.navigate('DriverReviewMap', {
               order: {...curOrder},
-              isToSource: true,
+              isToSource: isToSource,
             });
           }}>
           <View style={styles.button_container}>

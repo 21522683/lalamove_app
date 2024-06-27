@@ -6,25 +6,50 @@ import {
   ScrollView,
   Linking,
 } from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import styles from './style';
 import {ICONS} from '../../../../assets/icons';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/Feather';
-import Icon6 from 'react-native-vector-icons/FontAwesome6';
-import Icon7 from 'react-native-vector-icons/Octicons';
 import cs from '../../CustomStyle';
 import CUSTOM_COLOR from '../../../../constants/colors';
 import AddressItem from '../../components/AddressItem';
+import {useSelector} from 'react-redux';
+import axios from 'axios';
+import baseUrl from '../../../../constants/baseUrl';
+import {LocationContext} from '../../../../../TrackLocation';
 
 const ReceiverDetailDriverScreen = ({navigation, route}) => {
   var order = {...route.params};
+
+  const userAuth = useSelector(state => state.users.userAuth);
+  const {isTransport} = useContext(LocationContext);
 
   const VND = new Intl.NumberFormat('vi-VN', {
     style: 'currency',
     currency: 'VND',
   });
+
+  const cancelOrder = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await axios.put(
+        `${baseUrl}/order/driver-cancel-order/${order._id}`,
+        config,
+      );
+      navigation.goBack();
+      navigation.goBack();
+      return response.data.data;
+    } catch (err) {
+      throw err;
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -86,7 +111,7 @@ const ReceiverDetailDriverScreen = ({navigation, route}) => {
         </View>
         <View style={styles.outer_addresses}>
           <View style={[cs.horizontal_flex, styles.space_between]}>
-            <Text>Hôm nay, 10:38</Text>
+            <Text>Hôm nay, {new Date().toLocaleTimeString()}</Text>
             <Text>#{order._id.substr(order._id.length - 12)}</Text>
           </View>
           <Text style={styles.status_text}>{order.status}</Text>
@@ -136,37 +161,43 @@ const ReceiverDetailDriverScreen = ({navigation, route}) => {
           Xác nhận với khách hàng về các loại chi phí phát sinh
         </Text>
         <View style={[cs.horizontal_flex, styles.space_between]}>
-          <View style={[styles.outer_cancel_btn, styles.width_50]}>
-            <Text
-              style={{
-                fontSize: 16,
-                color: CUSTOM_COLOR.Primary,
-                fontWeight: 'bold',
-                alignSelf: 'center',
-              }}>
-              Hủy đơn hàng
-            </Text>
-          </View>
           <TouchableOpacity
-            style={[styles.outer_receiver_slider, styles.width_50]}
-            onPress={() =>
-              navigation.navigate('DriverReviewMap', {
-                order: {...order},
-                isToSource: true,
-              })
-            }>
+            onPress={cancelOrder}
+            style={[styles.outer_cancel_btn, styles.width_50]}>
             <View>
               <Text
                 style={{
                   fontSize: 16,
-                  color: '#fff',
+                  color: CUSTOM_COLOR.Primary,
                   fontWeight: 'bold',
                   alignSelf: 'center',
                 }}>
-                Nhận kiện hàng
+                Hủy đơn hàng
               </Text>
             </View>
           </TouchableOpacity>
+          {!isTransport && (
+            <TouchableOpacity
+              style={[styles.outer_receiver_slider, styles.width_50]}
+              onPress={() =>
+                navigation.navigate('DriverReviewMap', {
+                  order: {...order},
+                  isToSource: true,
+                })
+              }>
+              <View>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    alignSelf: 'center',
+                  }}>
+                  Nhận kiện hàng
+                </Text>
+              </View>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>

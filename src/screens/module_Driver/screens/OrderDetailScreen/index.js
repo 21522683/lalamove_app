@@ -7,6 +7,7 @@ import {
   Animated,
   Dimensions,
   ScrollView,
+  Button,
 } from 'react-native';
 import React, {useContext, useRef} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -16,9 +17,13 @@ import cs from '../../CustomStyle';
 import {ICONS} from '../../../../assets/icons';
 import AddressItem from '../../components/AddressItem';
 import {LocationContext} from '../../../../../TrackLocation';
+import {useSelector} from 'react-redux';
+import baseUrl from '../../../../constants/baseUrl';
+import axios from 'axios';
 
 const OrderDetailDriverScreen = ({navigation, route}) => {
   var order = {...route.params};
+  const userAuth = useSelector(state => state.users.userAuth);
   const {isTransport} = useContext(LocationContext);
   const animatedValue = useRef(new Animated.ValueXY()).current;
   const opacityValue = useRef(new Animated.Value(1)).current;
@@ -34,11 +39,13 @@ const OrderDetailDriverScreen = ({navigation, route}) => {
         animatedValue.setValue({x: gesture.dx, y: gesture.dy});
         opacityValue.setValue(1 - gesture.dx / (windowWidth - 85));
       },
-      onPanResponderRelease: (event, gesture) => {
+      onPanResponderRelease: async (event, gesture) => {
         if (gesture.dx < windowWidth - 85) {
           animatedValue.setValue({x: 0, y: gesture.dy});
           opacityValue.setValue(1);
         } else {
+          console.log('Dô');
+          await receiveOrder();
           navigation.navigate('ReceiverDetailDriverScreen', {...order});
           animatedValue.setValue({x: 0, y: gesture.dy});
           opacityValue.setValue(1);
@@ -57,6 +64,26 @@ const OrderDetailDriverScreen = ({navigation, route}) => {
   const opacityAnimation = {
     opacity: opacityValue,
   };
+
+  const receiveOrder = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await axios.put(
+        `${baseUrl}/order/${userAuth?.id}/driver-receive-order/${order._id}`,
+        config,
+      );
+      console.log(response);
+      return response.data.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header_container}>

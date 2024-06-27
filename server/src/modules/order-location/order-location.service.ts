@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { OrderLocation } from './Schema/order-location.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { CreateOrderLocationDTO } from './DTO/create-order-location.dto';
 import { UpdateOrderLocationDTO } from './DTO/update-order-location.dto';
 
@@ -23,7 +23,7 @@ export class OrderLocationService {
     body: UpdateOrderLocationDTO,
   ) {
     return this.orderLocationModel.findOneAndUpdate(
-      { _id: orderLocationId },
+      { _id: new mongoose.Types.ObjectId(orderLocationId) },
       { $set: body },
       { new: true },
     );
