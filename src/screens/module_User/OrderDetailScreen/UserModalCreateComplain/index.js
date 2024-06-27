@@ -110,8 +110,8 @@ const UserModalCreateComplain = ({isVisibleModal, setVisibleModal, order}) => {
               <Text style={{fontSize: 16, fontWeight: '400', color: '#222222'}}>
                 Tài xế:
               </Text>
-              <Text style={{...styles.title}}>{order.drive.fullName}</Text>
-              {order.drive.avatar ? (
+              <Text style={{...styles.title}}>{order.drive?.fullName}</Text>
+              {order.drive?.avatar ? (
                 <Image
                   source={{
                     uri: order.drive.avatar,

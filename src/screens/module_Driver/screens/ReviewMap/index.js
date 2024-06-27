@@ -149,6 +149,7 @@ const DriverReviewMap = ({navigation, route}) => {
       updateOrderStatus();
     }
     if (!isStart) {
+      console.log(order);
       onStartDelivery(order);
       setIsStart(true);
     }

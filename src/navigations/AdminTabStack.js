@@ -4,6 +4,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import CUSTOM_COLOR from '../constants/colors';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 import ComplainManagementScreen from '../screens/module_Admin/ComplainManagementScreen';
 import VehicleManagementScreen from '../screens/module_Admin/VehicleManagement/VehicleManagementScreen';
 import DetaiVehicleScreen from '../screens/module_Admin/VehicleManagement/DetaiVehicleScreen';
@@ -94,7 +96,7 @@ function AdminTabStackScreens() {
           headerShown: false,
           tabBarLabel: 'Khiếu nại',
           tabBarIcon: ({focused, color, size}) => {
-            let iconName = focused ? 'text-document' : 'text-document-inverted';
+            let iconName = focused ? 'text-document-inverted' : 'text-document';
             return <Entypo name={iconName} size={size} color={color} />;
           },
         }}
@@ -106,7 +108,9 @@ function AdminTabStackScreens() {
           headerShown: false,
           tabBarLabel: 'Thống kê',
           tabBarIcon: ({focused, color, size}) => {
-            let iconName = focused ? 'home' : 'home-outline';
+            let iconName = focused
+              ? 'stats-chart-sharp'
+              : 'stats-chart-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         }}
@@ -125,7 +129,7 @@ function AdminTabStackScreens() {
           headerShown: false,
           tabBarLabel: 'Phương tiện',
           tabBarIcon: ({focused, color, size}) => {
-            let iconName = focused ? 'home' : 'home-outline';
+            let iconName = focused ? 'car-sport' : 'car-sport-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         }}
@@ -137,8 +141,8 @@ function AdminTabStackScreens() {
           headerShown: false,
           tabBarLabel: 'Hồ sơ',
           tabBarIcon: ({focused, color, size}) => {
-            let iconName = focused ? 'home' : 'home-outline';
-            return <Ionicons name={iconName} size={size} color={color} />;
+            let iconName = focused ? 'user' : 'user-o';
+            return <FontAwesome name={iconName} size={size} color={color} />;
           },
         }}
       />

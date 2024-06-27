@@ -25,7 +25,7 @@ const LocationProvider = ({children}) => {
     setTransport(true);
     setCurOrder(currentOrder);
     const res = await createOrderLocation({
-      order: order._id,
+      order: currentOrder._id,
       latitude: currentLocation.latitude,
       longitude: currentLocation.longitude,
     });
@@ -78,6 +78,7 @@ const LocationProvider = ({children}) => {
 
   const createOrderLocation = async orderLoc => {
     try {
+      console.log(orderLoc);
       const config = {
         headers: {
           Authorization: `Bearer ${userAuth.access_token}`,

@@ -35,6 +35,9 @@ export default function Map({order}) {
             'Content-Type': 'application/json',
           },
         };
+        console.log(
+          `${baseUrl}/order-location/getOrderLocation?id=${order._id}`,
+        );
         const response = await axios.get(
           `${baseUrl}/order-location/getOrderLocation?id=${order._id}`,
           config,
@@ -130,6 +133,7 @@ export default function Map({order}) {
         latitude: cor.latitude,
         longitude: cor.longitude,
       },
+      zoom: 18
     };
     mapView.current.animateCamera(newCamera, {duration: 2000});
   };

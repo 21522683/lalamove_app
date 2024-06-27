@@ -13,6 +13,7 @@ export class OrderLocationService {
   ) {}
 
   async addNewOrderLocation(body: CreateOrderLocationDTO) {
+    console.log(body);
     const order = new this.orderLocationModel(body);
     await order.save();
     return order;
