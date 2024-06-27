@@ -77,7 +77,22 @@ export class OrderService {
     return orders;
   }
 
-  async driverOrders(latitude: number, longitude: number, radius: number) {
+  async driverOrders(
+    driverId: string,
+    latitude: number,
+    longitude: number,
+    radius: number,
+  ) {
+    console.log('dô');
+
+    const driver = await this.userModel.findById(driverId).populate({
+      path: 'vehicles',
+      populate: { path: 'vehicleType' },
+    });
+    const verhiclesTypeList = driver?.vehicles?.map(
+      (item) => item.vehicleType['vehicleTypeName'],
+    );
+    console.log(verhiclesTypeList);
     const orders = await this.getAllOrder();
     return orders
       .map((order) => {
@@ -91,7 +106,11 @@ export class OrderService {
           ),
         };
       })
-      .filter((item) => item.distance < radius);
+      .filter(
+        (item) =>
+          item.distance < radius &&
+          verhiclesTypeList.includes(item.vehicleType['vehicleTypeName']),
+      );
   }
 
   async driverReceiveOrder(driverId: string, orderId: string) {

@@ -6,12 +6,12 @@ import {
   SafeAreaView,
   TextInput,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import styles from './style.js';
 import Icon from 'react-native-vector-icons/AntDesign';
 import OrderItem from '../components/OrderIItem/index.js';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   getAllUserOrdersAction,
@@ -77,9 +77,11 @@ const OrdersScreen = ({navigation, status, textSearch}) => {
   const dispatch = useDispatch();
   const orders = useSelector(state => state.orders.userOrders);
   const [userOrders, setUserOrders] = useState(null);
-  useEffect(() => {
-    dispatch(getAllUserOrdersAction());
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(getAllUserOrdersAction());
+    }, []),
+  );
 
   useEffect(() => {
     if (textSearch === '') {

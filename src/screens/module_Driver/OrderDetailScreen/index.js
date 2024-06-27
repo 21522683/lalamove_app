@@ -56,7 +56,7 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
         },
       };
       const response = await axios.put(
-       `${baseUrl}/order/user-cancel-order/${order._id}`,
+        `${baseUrl}/order/user-cancel-order/${order._id}`,
         config,
       );
       navigation.goBack();
@@ -76,10 +76,10 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
       };
       const url = `${baseUrl}/order/review-order/${order._id}`;
       const data = await axios.get(url, config);
-      if(data.data.data){
+      if (data.data.data) {
         setReviewOrder(data.data.data);
         setVisibleReview(true);
-      }else{
+      } else {
         Alert.alert('Thông báo', 'Chưa có đánh giá nào cho đơn hàng.');
       }
     } catch (error) {

@@ -33,9 +33,6 @@ function DriverReceivedOrdersScreen(navigation) {
         <Tab.Screen name="Hoàn thành">
           {() => <OrdersScreen status="Đã hoàn thành" />}
         </Tab.Screen>
-        <Tab.Screen name="Đã hủy">
-          {() => <OrdersScreen status="Đã hủy" />}
-        </Tab.Screen>
       </Tab.Navigator>
     </View>
   );
@@ -48,7 +45,6 @@ const OrdersScreen = ({navigation, status}) => {
   const [userOrders, setUserOrders] = useState([]);
   useFocusEffect(
     useCallback(() => {
-      console.log('Data');
       dispatch(getAllUserOrdersAction());
     }, []),
   );
