@@ -16,54 +16,77 @@ import AddressItem from '../components/AddressItem';
 import {IMAGES} from '../../../assets/images';
 import ContactItem from '../components/ContactItem';
 import ReviewModal from './ReviewModal';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import axios from 'axios';
 import baseUrl from '../../../constants/baseUrl';
+import CUSTOM_COLOR from '../../../constants/colors';
 
 const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
-  var order = {...route.params};
+  const order = {...route.params};
   const userAuth = useSelector(state => state.users.userAuth);
+
+  const VND = new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+  });
+  useEffect(() => {
+    console.log('doo');
+    console.log(order);
+  }, []);
+  const scrollViewRef = useRef();
+  const windowHeight = Dimensions.get('window').height;
+  const [visibleReview, setVisibleReview] = useState(false);
+  const [isVisibleModal, setVisibleModal] = useState(false);
   const [reviewOrder, setReviewOrder] = useState(null);
-  var goodInfo = {
-    type: 'Thực phẩm và đồ uống',
-    amount: '10kg đến 30kg',
-    quantity: 2,
-    description:
-      'Giữ hàng cần thận nha, khi giao đến nhắn bạn nhận là chúc mừng ngày cá tháng tư',
-    vehicleDescription: 'Giao hàng cồng kềnh, 60x50x60 cm, lên đến 50 kg',
-  };
-  const checkReviewOrder = async ()=>{
+
+  useEffect(() => {
+    if (scrollViewRef.current) {
+      (order.status === 'Đang giao hàng' ||
+        order.status === 'Đang chờ lấy hàng') &&
+        scrollViewRef.current.scrollToEnd({animated: true});
+    }
+  }, []);
+
+  const cancelOrder = async () => {
     try {
       const config = {
         headers: {
-          'Authorization': `Bearer ${userAuth.access_token}`,
+          Authorization: `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await axios.put(
+       `${baseUrl}/order/user-cancel-order/${order._id}`,
+        config,
+      );
+      navigation.goBack();
+      return response.data.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const checkReviewOrder = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userAuth.access_token}`,
           'Content-Type': 'application/json',
         },
       };
       const url = `${baseUrl}/order/review-order/${order._id}`;
       const data = await axios.get(url, config);
-      setReviewOrder(data.data.data);
-      setVisibleReview(true);
+      if(data.data.data){
+        setReviewOrder(data.data.data);
+        setVisibleReview(true);
+      }else{
+        Alert.alert('Thông báo', 'Chưa có đánh giá nào cho đơn hàng.');
+      }
     } catch (error) {
-      console.log(error)
-      Alert.alert('Thông báo', "Đã có lỗi xảy ra vui lòng thử lại sau.");
+      console.log(error);
+      Alert.alert('Thông báo', 'Đã có lỗi xảy ra vui lòng thử lại sau.');
     }
-  }
-  const VND = new Intl.NumberFormat('vi-VN', {
-    style: 'currency',
-    currency: 'VND',
-  });
-
-  const scrollViewRef = useRef();
-  const windowHeight = Dimensions.get('window').height;
-  const [visibleReview, setVisibleReview] = useState(false);
-
-  useEffect(() => {
-    if (scrollViewRef.current) {
-      scrollViewRef.current.scrollToEnd({animated: true});
-    }
-  }, []);
-
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header_container}>
@@ -74,21 +97,59 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
         onPress={() => navigation.goBack()}>
         <Icon name="arrow-back" size={24} color="#575757" />
       </TouchableOpacity>
-      {order.status === 'Đang giao hàng' && (
-        <Image
-          source={IMAGES.map}
-          style={{position: 'absolute', zIndex: -1}}></Image>
+      {(order.status === 'Đang giao hàng' ||
+        order.status === 'Đang chờ lấy hàng') && (
+        <View
+          style={{
+            position: 'absolute',
+            zIndex: -1,
+            width: '100%',
+            height: '100%',
+          }}>
+          {/* <Map order={order} /> */}
+        </View>
       )}
 
       <ScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef}>
-        {order.status === 'Đang giao hàng' && (
+        {(order.status === 'Đang giao hàng' ||
+          order.status === 'Đang chờ lấy hàng') && (
           <View>
-            <View style={{height: windowHeight / 2}}></View>
-            {/* <ContactItem {...order.sourceAddress} /> */}
+            <View style={{height: windowHeight - 200}}></View>
+            <ContactItem {...order.drive} />
           </View>
         )}
-        <View style={{backgroundColor: '#fff', height: windowHeight - 80}}>
-          {order.status !== 'Đã hủy' && (
+        <View
+          style={{
+            backgroundColor: '#fff',
+            height:
+              windowHeight -
+              (order.status === 'Đang giao hàng' ||
+              order.status === 'Đang chờ lấy hàng'
+                ? 50
+                : order.status === 'Đã hoàn thành'
+                ? -560
+                : 0),
+          }}>
+          {(order.status === 'Đang chờ lấy hàng' ||
+            order.status === 'Đang giao hàng' ||
+            order.status === 'Đã hoàn thành') && (
+            <View style={styles.outer_good}>
+              <Image
+                source={ICONS.calendarIcon}
+                style={{width: 24, height: 24, marginRight: 10}}
+              />
+              <View>
+                <Text style={styles.main_type_good}>Ngày nhận đơn</Text>
+                <View style={{height: 7}}></View>
+                <Text style={styles.title_good_info_item}>
+                  {new Date(order.receivedDate).toLocaleString()}
+                </Text>
+              </View>
+            </View>
+          )}
+
+          {(order.status === 'Đang giao hàng' ||
+            order.status === 'Đã hoàn thành') && (
             <View style={styles.outer_good}>
               <Image
                 source={ICONS.calendarIcon}
@@ -97,10 +158,13 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
               <View>
                 <Text style={styles.main_type_good}>Ngày giao hàng</Text>
                 <View style={{height: 7}}></View>
-                <Text style={styles.title_good_info_item}>{order.date}</Text>
+                <Text style={styles.title_good_info_item}>
+                  {new Date(order.deliveryDate).toLocaleString()}
+                </Text>
               </View>
             </View>
           )}
+
           {order.status === 'Đã hoàn thành' && (
             <View style={styles.outer_good}>
               <Image
@@ -110,10 +174,13 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
               <View>
                 <Text style={styles.main_type_good}>Ngày nhận hàng</Text>
                 <View style={{height: 7}}></View>
-                <Text style={styles.title_good_info_item}>{order.date}</Text>
+                <Text style={styles.title_good_info_item}>
+                  {new Date(order.finishedDate).toLocaleString()}
+                </Text>
               </View>
             </View>
           )}
+
           {order.status === 'Đã hủy' && (
             <View style={styles.outer_good}>
               <Image
@@ -123,7 +190,9 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
               <View>
                 <Text style={styles.main_type_good}>Ngày hủy</Text>
                 <View style={{height: 7}}></View>
-                <Text style={styles.title_good_info_item}>{order.date}</Text>
+                <Text style={styles.title_good_info_item}>
+                  {new Date(order.cancelledDate).toLocaleString()}
+                </Text>
               </View>
             </View>
           )}
@@ -137,28 +206,26 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
               style={{width: 24, height: 24, marginRight: 10}}
             />
             <View>
-              <Text style={styles.main_type_good}>{goodInfo.type}</Text>
+              <Text style={styles.main_type_good}>{order.goodsType}</Text>
 
               <View style={styles.outer_good_info_item}>
-                <Text style={styles.title_good_info_item}>
-                  Tổng khối lượng:{' '}
-                </Text>
-                <Text style={styles.content_good_info_item}>
-                  {goodInfo.amount}
-                </Text>
-              </View>
-              <View style={styles.outer_good_info_item}>
-                <Text style={styles.title_good_info_item}>Số lượng: </Text>
-                <Text style={styles.content_good_info_item}>
-                  {goodInfo.quantity}
-                </Text>
-              </View>
-              <View style={styles.outer_good_info_item}>
                 <Text style={styles.title_good_info_item}>Mô tả: </Text>
+                <Text style={styles.content_good_info_item}>
+                  {order.shortDescription}
+                </Text>
+              </View>
+              <View style={styles.outer_good_info_item}>
+                <Text style={styles.title_good_info_item}>Ghi chú: </Text>
+                <Text style={styles.content_good_info_item}>{order.note}</Text>
+              </View>
+              <View>
+                <Text style={styles.title_good_info_item}>Hình ảnh: </Text>
                 <View style={{width: '85%'}}>
-                  <Text style={styles.content_good_info_item}>
-                    {goodInfo.description}
-                  </Text>
+                  <Image
+                    width={100}
+                    height={100}
+                    source={{uri: order.goodsImage}}
+                  />
                 </View>
               </View>
             </View>
@@ -169,11 +236,13 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
               style={{width: 24, height: 24, marginRight: 10}}
             />
             <View>
-              <Text style={styles.main_type_good}>{order.vehicleType}</Text>
-              <View style={{height: 7}} />
+              <Text style={styles.main_type_good}>
+                {order.vehicleType?.vehicleTypeName}
+              </Text>
               <View style={{width: '90%'}}>
                 <Text style={styles.title_good_info_item}>
-                  {goodInfo.vehicleDescription}
+                  {order.vehicleType?.size} {'\n'}
+                  {order.vehicleType?.suitableFor}
                 </Text>
               </View>
             </View>
@@ -191,9 +260,112 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
               <Text style={styles.title_good_info_item}>Thu tiền mặt</Text>
             </View>
           </View>
-          {/* <View style={{height: windowHeight}}></View> */}
+          {order.status === 'Đã hoàn thành' && (
+            <View style={styles.outer_good}>
+              <Image
+                width={'100%'}
+                height={400}
+                source={{uri: order.verifyImage}}
+              />
+            </View>
+          )}
         </View>
       </ScrollView>
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          backgroundColor: '#fff',
+          paddingBottom: 10,
+          bottom: 0,
+        }}>
+        {/* {order.status !== 'Đang chờ nhận' && (
+          <>
+            {!order.isHasComplain ? (
+              <View style={{flex: 1}}>
+                <View>
+                  <TouchableOpacity
+                    style={[styles.outer_receiver_slider, styles.back_white]}
+                    onPress={() => setVisibleModal(true)}>
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          color: CUSTOM_COLOR.Primary,
+                          fontWeight: 'bold',
+                          alignSelf: 'center',
+                        }}>
+                        Khiếu nại
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <View>
+                <TouchableOpacity
+                  style={[styles.outer_receiver_slider, styles.back_white]}>
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        color: CUSTOM_COLOR.Primary,
+                        fontWeight: 'bold',
+                        alignSelf: 'center',
+                      }}>
+                      Đã khiếu nại
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            )}
+          </>
+        )} */}
+        {order.status === 'Đã hoàn thành' ? (
+          <View style={{flex: 1}}>
+            <TouchableOpacity
+              style={[styles.outer_receiver_slider, styles.width_50]}
+              onPress={checkReviewOrder}>
+              <View>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    alignSelf: 'center',
+                  }}>
+                  Xem đánh giá
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          order.status !== 'Đã hủy' && (
+            <View style={{flex: 1}}>
+              <View>
+                <TouchableOpacity
+                  style={[styles.outer_receiver_slider, styles.back_white]}
+                  onPress={cancelOrder}>
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        color: CUSTOM_COLOR.Primary,
+                        fontWeight: 'bold',
+                        alignSelf: 'center',
+                      }}>
+                      Hủy đơn
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )
+        )}
+      </View>
       <View
         style={{
           flex: 1,
@@ -209,7 +381,7 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
               orderId: order._id,
               driverName: order?.drive?.fullName,
               avatar: order?.drive?.avatar,
-              driveId: order?.drive?._id
+              driveId: order?.drive._id,
             }}
             review={reviewOrder}
           />

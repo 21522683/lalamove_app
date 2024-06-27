@@ -47,7 +47,7 @@ export class OrderService {
     if (user.userType === 'Driver') {
       return await this.orderModel
         .find({ drive: user._id })
-        .populate(['vehicleType', 'customer', 'review'])
+        .populate(['vehicleType', 'customer', 'drive',  'review'])
         .exec();
     }
     const orders = await this.orderModel

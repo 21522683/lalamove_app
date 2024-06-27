@@ -150,7 +150,7 @@ const ReviewModal = ({ onClose, props, review }) => {
               placeholder="Text here..."
             />
           </View>
-          <View>
+          {/* <View>
             <Text style={{ color: '#222222', fontSize: 14, marginBottom: 6 }}>
               Hình ảnh:
             </Text>
@@ -201,7 +201,7 @@ const ReviewModal = ({ onClose, props, review }) => {
                 </Text>
               </View>
             </TouchableOpacity>
-          </View>
+          </View> */}
           <View
             style={{
               display: 'flex',
