@@ -48,12 +48,13 @@ export class ComplainController {
     }
   }
 
-  @Patch('updateComplain/:complainId')
+  @Patch(':complainId')
   async updateComplain(
     @Param('complainId') complainId: string,
     @Body() body,
     @Res() res: Response,
   ) {
+    console.log(body);
     try {
       const address = await this.complainService.updateComplain(
         complainId,
@@ -113,7 +114,7 @@ export class ComplainController {
   async getAllComplains(@Req() req, @Res() res: Response) {
     try {
       const complains = await this.complainService.getAllComplains();
-      res.status(HttpStatus.CREATED).json({
+      res.status(HttpStatus.OK).json({
         message: 'Get complains successfully',
         data: complains,
       });

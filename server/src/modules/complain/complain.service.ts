@@ -18,9 +18,17 @@ export class ComplainService {
   }
 
   async updateComplain(complainId: string, complain: UpdateComplainDTO) {
-    return await this.complainModel.findByIdAndUpdate(complainId, complain, {
-      new: true,
-    });
+    return await this.complainModel.findByIdAndUpdate(
+      complainId,
+      {
+        ...complain,
+        isResponsed: true,
+        responseDate: new Date(),
+      },
+      {
+        new: true,
+      },
+    );
   }
 
   async deleteComplainById(complainId: string) {
@@ -46,10 +54,16 @@ export class ComplainService {
     return await this.complainModel.find().populate({
       path: 'order',
       model: 'Order',
-      populate: {
-        path: 'drive',
-        model: 'User',
-      },
+      populate: [
+        {
+          path: 'drive',
+          model: 'User',
+        },
+        {
+          path: 'customer',
+          model: 'User',
+        },
+      ],
     });
   }
 }

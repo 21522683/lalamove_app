@@ -7,7 +7,7 @@ export class UpdateComplainDTO {
 
   @IsBoolean()
   @IsNotEmpty()
-  isResponsed: boolean;
+  isResponsed?: boolean;
 
   @IsOptional()
   responseDate?: Date;
