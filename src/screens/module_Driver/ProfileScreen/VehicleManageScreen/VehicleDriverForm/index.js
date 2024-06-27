@@ -31,7 +31,7 @@ const VehicleDriverForm = ({ navigation, route }) => {
         cavetText: item?.cavetText ?? '',
         vehicleImage: '',
         cavetImage: '',
-        vehicleTypeId: item?.vehicleType?.id ?? '',
+        vehicleTypeId: item?.vehicleType?._id ?? '',
     });
     const pickImg = () => {
         let options = {
@@ -69,30 +69,31 @@ const VehicleDriverForm = ({ navigation, route }) => {
         }
     }
     async function uploadImg(file, type, name) {
-        try {
-            if (file.startsWith('file:')) {
-                if (type) {
-                    try {
-                        let imageRef = storage().refFromURL(type);
-                        await imageRef.delete();
-                    } catch (error) {
-                        console.log(error)
-                    }
-                }
-                const uid = Date.now();
+        if (file.startsWith('file:')) {
+            // if (type) {
+            //     try {
+            //         let imageRef = storage().refFromURL(type);
+            //         await imageRef.delete();
+            //     } catch (error) {
+            //         console.log(error)
+            //     }
+            // }
+            const uid = Date.now();
+            try {
                 const reference = storage().ref(`/images/img_${name}_${uid}`);
 
                 await reference.putFile(file);
                 const url = await reference.getDownloadURL();
                 console.log(url)
                 return url;
+            } catch (error) {
+                console.log(error)
 
-            } else {
-                return file;
             }
-        } catch (error) {
-            console.log(error);
+        } else {
+            return file;
         }
+
     }
     const [errors, setErrors] = useState({});
     const handleOnchange = (text, input) => {
@@ -131,6 +132,7 @@ const VehicleDriverForm = ({ navigation, route }) => {
                 uploadImg(vehicleImg, item?.vehicleImage, inputs.lisencePlate),
                 uploadImg(cavetImg, item?.cavetImage, inputs.cavetText),
             ])
+            // return;
             const pl = {
                 bd: {
                     action: type + ' vehicle',
@@ -145,7 +147,7 @@ const VehicleDriverForm = ({ navigation, route }) => {
                     }
                 },
                 navigation: navigation,
-                type:'vehicles'
+                type: 'vehicles'
             }
             dispatch(updateDriverInforAction(pl));
         }

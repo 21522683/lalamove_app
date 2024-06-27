@@ -50,6 +50,7 @@ export const updateDriverInforAction = createAsyncThunk(
     };
     //http call
     try {
+      console.log(payload.bd)
       const { data } = await axios.post(
         `${baseUrl}/users/update-driver-infor`,
         { ...payload.bd, id: user?.userAuth?.id },

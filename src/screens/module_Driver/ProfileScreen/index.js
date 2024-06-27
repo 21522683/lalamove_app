@@ -19,9 +19,9 @@ const ProfileDriverScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
 
       <View style={styles.header}>
-        <Image style={styles.avatar} src={userInfor._doc?.avatar} />
+        <Image style={styles.avatar} src={userInfor?._doc?.avatar} />
 
-        <Text style={styles.title}>{userInfor._doc?.fullName}</Text>
+        <Text style={styles.title}>{userInfor?._doc?.fullName}</Text>
         <Text style={{ marginBottom: 10 }}>Tp. Hồ Chí Minh</Text>
         <Rating
           ratingColor={CUSTOM_COLOR.Primary}
@@ -68,7 +68,7 @@ const ProfileDriverScreen = ({ navigation }) => {
               <Image source={IMAGES.key_security_icon} style={styles.icon_selection} />
               <Text style={styles.title_selection}>Quản lý thông tin tài xế</Text>
             </View>
-            <TouchableOpacity style={styles.button_foward} onPress={() => { navigation.navigate('infor-driver', {...userInfor._doc})}}>
+            <TouchableOpacity style={styles.button_foward} onPress={() => { navigation.navigate('infor-driver', {...userInfor?._doc})}}>
               <Image source={IMAGES.foward_icon_orage} style={styles.icon_next} />
             </TouchableOpacity>
           </View>

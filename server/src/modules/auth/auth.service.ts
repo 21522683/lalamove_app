@@ -133,6 +133,9 @@ export class AuthService {
     if (exitedUser.userType !== loginUserDto.userType) {
       throw new BadRequestException('Sai tài khoản hoặc mật khẩu.');
     }
+    if (exitedUser.isLocked) {
+      throw new BadRequestException('Tài khoản đã bị khoá.');
+    }
     if (!exitedUser.isActive && exitedUser.userType === 'User') {
       await sendEmail(
         exitedUser.email,

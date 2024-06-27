@@ -209,7 +209,7 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
               orderId: order._id,
               driverName: order?.drive?.fullName,
               avatar: order?.drive?.avatar,
-              driveId: order?.drive._id
+              driveId: order?.drive?._id
             }}
             review={reviewOrder}
           />

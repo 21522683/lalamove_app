@@ -91,6 +91,7 @@ export class UserService {
           status: 'Đang kiểm tra',
         });
       } else if (body?.action === 'update vehicle') {
+        console.log(body?.data)
         exitedUser.vehicles.forEach((v, index) => {
           if (v.id === body?.data?.id) {
             v = { ...body?.data, status: 'Đang kiểm tra' };
