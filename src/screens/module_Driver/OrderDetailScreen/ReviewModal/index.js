@@ -1,8 +1,8 @@
-import {View, Text, TouchableOpacity, Image, TextInput} from 'react-native';
-import React from 'react';
-import {ICONS} from '../../../../assets/icons';
+import { View, Text, TouchableOpacity, Image, TextInput } from 'react-native';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Rating} from 'react-native-ratings';
+import { Rating } from 'react-native-ratings';
+import { ICONS } from '../../../../assets/icons';
 import CUSTOM_COLOR from '../../../../constants/colors';
 
 const ReviewModal = ({ onClose, props, review }) => {
@@ -71,7 +71,7 @@ const ReviewModal = ({ onClose, props, review }) => {
               startingValue={star}
               fractions={1}
               readonly={review === null ? false : true}
-              // onFinishRating={value => setStar(value)}
+              onFinishRating={value => setStar(value)}
             />
           </View>
           <View>
@@ -96,7 +96,7 @@ const ReviewModal = ({ onClose, props, review }) => {
               placeholder="Text here..."
             />
           </View>
-          <View>
+          {/* <View>
             <Text style={{ color: '#222222', fontSize: 14, marginBottom: 6 }}>
               Hình ảnh:
             </Text>
@@ -147,7 +147,7 @@ const ReviewModal = ({ onClose, props, review }) => {
                 </Text>
               </View>
             </TouchableOpacity>
-          </View>
+          </View> */}
           <View
             style={{
               display: 'flex',
@@ -178,7 +178,27 @@ const ReviewModal = ({ onClose, props, review }) => {
                 </Text>
               </View>
             </TouchableOpacity>
-            
+            <TouchableOpacity onPress={()=>{}}>
+              <View
+                style={{
+                  backgroundColor: CUSTOM_COLOR.Primary,
+                  paddingHorizontal: 12,
+                  paddingVertical: 6,
+                  borderRadius: 4,
+                  alignSelf: 'flex-start',
+                  display: review === null ? 'flex' : 'none'
+                }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    alignSelf: 'center',
+                  }}>
+                  Gửi
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       </View>

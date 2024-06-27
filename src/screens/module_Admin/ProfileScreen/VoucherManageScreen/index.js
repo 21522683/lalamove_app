@@ -52,7 +52,7 @@ const VoucherManageScreen = ({ navigation }) => {
     if (filter.option === 'Hết hạn') {
       setVoucherLists(vouchers.filter(e => checkExpired(e) && (e.voucherCode.toLowerCase()).includes(filter?.textSearch?.toLowerCase())))
     }
-  }, [filter]);
+  }, [filter, vouchers]);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.search_bar}>
