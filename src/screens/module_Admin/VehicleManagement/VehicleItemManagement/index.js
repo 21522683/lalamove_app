@@ -1,7 +1,5 @@
 import {View, Text, Pressable, Image, TextInput} from 'react-native';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon from 'react-native-vector-icons/AntDesign';
 import Icon4 from 'react-native-vector-icons/Feather';
 import Icon8 from 'react-native-vector-icons/AntDesign';
 
