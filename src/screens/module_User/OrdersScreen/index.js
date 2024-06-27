@@ -13,6 +13,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {getAllUserOrdersAction} from '../../../redux/slices/orderSlice.js';
+import CUSTOM_COLOR from '../../../constants/colors.js';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -26,23 +27,29 @@ function UserOrdersScreen(navigation) {
           <Text style={styles.search_hint}>Tìm kiếm tất cả các đơn hàng</Text>
         </View>
       </View>
-      <Tab.Navigator>
-        <Tab.Screen
-          name="Chờ nhận"
-          component={() => <OrdersScreen status="Đang chờ nhận" />}
-        />
-        <Tab.Screen
-          name="Đang giao"
-          component={() => <OrdersScreen status="Đang giao" />}
-        />
-        <Tab.Screen
-          name="Hoàn thành"
-          component={() => <OrdersScreen status="Hoàn thành" />}
-        />
-        <Tab.Screen
-          name="Đã hủy"
-          component={() => <OrdersScreen status="Đã hủy" />}
-        />
+      <Tab.Navigator
+        screenOptions={{
+          tabBarScrollEnabled: true,
+          tabBarIndicatorStyle: {
+            backgroundColor: CUSTOM_COLOR.Primary,
+            height: 2,
+          },
+        }}>
+        <Tab.Screen name="Chờ nhận đơn">
+          {() => <OrdersScreen status="Đang chờ nhận" />}
+        </Tab.Screen>
+        <Tab.Screen name="Chờ lấy hàng">
+          {() => <OrdersScreen status="Đang chờ lấy hàng" />}
+        </Tab.Screen>
+        <Tab.Screen name="Đang giao">
+          {() => <OrdersScreen status="Đang giao hàng" />}
+        </Tab.Screen>
+        <Tab.Screen name="Hoàn thành">
+          {() => <OrdersScreen status="Đã hoàn thành" />}
+        </Tab.Screen>
+        <Tab.Screen name="Đã hủy">
+          {() => <OrdersScreen status="Đã hủy" />}
+        </Tab.Screen>
       </Tab.Navigator>
     </View>
   );

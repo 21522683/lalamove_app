@@ -1,8 +1,8 @@
 import {View, Text} from 'react-native';
 import React from 'react';
-import cs from '../../CustomStyle';
+import cs from '../../../module_Driver/CustomStyle';
 import styles from './styles';
-import Icon from 'react-native-vector-icons/Octicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome6';
 import CUSTOM_COLOR from '../../../../constants/colors';
 const AddressItem = ({props, hide, current}) => {
@@ -26,13 +26,16 @@ const AddressItem = ({props, hide, current}) => {
             marginLeft: 14,
           }}>
           <Text style={styles.address_detail}>
-            {hide ? props.sourceAddress.detail : props.sourceAddress.fullName}
+            {hide
+              ? props.sourceAddress.detail ??
+                props.sourceAddress.addressString?.split(',')[0]
+              : props.sourceAddress.fullName}
           </Text>
           <View style={{width: hide ? '95%' : '90%'}}>
             <Text style={styles.address_info}>
               {hide
-                ? `${props.sourceAddress.ward}, ${props.sourceAddress.district}, ${props.sourceAddress.province}`
-                : `${props.sourceAddress.detail}, ${props.sourceAddress.ward}, ${props.sourceAddress.district}, ${props.sourceAddress.province}`}
+                ? `${props.sourceAddress.addressString}`
+                : `${props.sourceAddress.detail}, ${props.sourceAddress.addressString}`}
             </Text>
           </View>
         </View>
@@ -48,20 +51,26 @@ const AddressItem = ({props, hide, current}) => {
       </View>
       <View style={[cs.horizontal_flex]}>
         <View style={styles.outer_location}>
-          <Icon name="location" size={22} color={CUSTOM_COLOR.green} />
+          <Icon
+            name="location-outline"
+            size={18}
+            color={CUSTOM_COLOR.Primary}
+            style={{marginLeft: -4}}
+          />
           <View style={{width: 1, flex: 1}}></View>
         </View>
         <View style={{marginLeft: 14}}>
           <Text style={styles.address_detail}>
             {hide
-              ? props.destinationAddress.detail
+              ? props.destinationAddress.detail ??
+                props.destinationAddress.addressString?.split(',')[0]
               : props.destinationAddress.fullName}
           </Text>
           <View style={{width: hide ? '95%' : '90%'}}>
             <Text style={styles.address_info}>
               {hide
-                ? `${props.destinationAddress.ward}, ${props.destinationAddress.district}, ${props.destinationAddress.province}`
-                : `${props.destinationAddress.detail}, ${props.destinationAddress.ward}, ${props.destinationAddress.district}, ${props.destinationAddress.province}`}
+                ? `${props.destinationAddress.addressString}`
+                : `${props.destinationAddress.detail}, ${props.destinationAddress.addressString}`}
             </Text>
           </View>
         </View>

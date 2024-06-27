@@ -44,6 +44,21 @@ export class Order {
     default: new Date(),
   })
   date?: Date;
+
+  @Prop()
+  receivedDate?: Date;
+
+  @Prop()
+  deliveryDate?: Date;
+
+  @Prop()
+  finishedDate?: Date;
+
+  @Prop()
+  cancelledDate?: Date;
+
+  @Prop()
+  verifyImage?: string;
 }
 
 export const Orderchema = SchemaFactory.createForClass(Order);

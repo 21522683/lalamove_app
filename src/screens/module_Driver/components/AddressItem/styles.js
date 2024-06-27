@@ -20,6 +20,7 @@ const styles = ScaledSheet.create({
 
   outer_dot: {
     display: 'flex',
+    marginRight: 5,
     flexDirection: 'column',
     alignItems: 'center',
   },
@@ -28,19 +29,13 @@ const styles = ScaledSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 16,
-    width: 16,
-    height: 16,
-    borderColor: CUSTOM_COLOR.green,
+    borderRadius: 10,
+    width: 10,
+    height: 10,
+    marginTop: 5,
+    borderColor: CUSTOM_COLOR.Primary,
     borderWidth: 1.5,
     marginBottom: 3,
-  },
-
-  line_under_dot: {
-    backgroundColor: CUSTOM_COLOR.green,
-    width: 5,
-    height: 5,
-    borderRadius: 5,
   },
 
   address_detail: {

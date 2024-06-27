@@ -27,10 +27,10 @@ const DriverTabStack = createBottomTabNavigator();
 
 const DriverStack = createStackNavigator();
 export default function DriverStackScreens() {
-  const {isTransport} = useContext(LocationContext);
+  const {isOnMap, isTransport} = useContext(LocationContext);
   return (
     <React.Fragment>
-      {isTransport && <TransportingComponent />}
+      {!isOnMap && isTransport && <TransportingComponent />}
       <DriverStack.Navigator>
         <DriverStack.Screen
           name="application-driver"

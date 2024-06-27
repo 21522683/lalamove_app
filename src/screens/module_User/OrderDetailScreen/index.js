@@ -17,9 +17,13 @@ import ReviewModal from './ReviewModal';
 import CUSTOM_COLOR from '../../../constants/colors';
 import UserModalCreateComplain from './UserModalCreateComplain';
 import Map from './Map';
+import {useSelector} from 'react-redux';
+import axios from 'axios';
+import baseUrl from '../../../constants/baseUrl';
 
 const OrderDetailScreen = ({navigation, route}) => {
   var order = {...route.params};
+  const userAuth = useSelector(state => state.users.userAuth);
 
   const VND = new Intl.NumberFormat('vi-VN', {
     style: 'currency',
@@ -33,10 +37,30 @@ const OrderDetailScreen = ({navigation, route}) => {
 
   useEffect(() => {
     if (scrollViewRef.current) {
-      order.status === 'Đang giao hàng' &&
+      (order.status === 'Đang giao hàng' ||
+        order.status === 'Đang chờ lấy hàng') &&
         scrollViewRef.current.scrollToEnd({animated: true});
     }
   }, []);
+
+  const cancelOrder = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await axios.put(
+        `${baseUrl}/order/user-cancel-order/${order._id}`,
+        config,
+      );
+      navigation.goBack();
+      return response.data.data;
+    } catch (err) {
+      throw err;
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -48,7 +72,8 @@ const OrderDetailScreen = ({navigation, route}) => {
         onPress={() => navigation.goBack()}>
         <Icon name="arrow-back" size={24} color="#575757" />
       </TouchableOpacity>
-      {order.status !== 'Đang giao hàng' && (
+      {(order.status === 'Đang giao hàng' ||
+        order.status === 'Đang chờ lấy hàng') && (
         <View
           style={{
             position: 'absolute',
@@ -61,19 +86,45 @@ const OrderDetailScreen = ({navigation, route}) => {
       )}
 
       <ScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef}>
-        {order.status !== 'Đang giao hàng' && (
+        {(order.status === 'Đang giao hàng' ||
+          order.status === 'Đang chờ lấy hàng') && (
           <View>
-            <View style={{height: windowHeight / 2 - 20}}></View>
-            <ContactItem {...order.sourceAddress} />
+            <View style={{height: windowHeight - 200}}></View>
+            <ContactItem {...order.drive} />
           </View>
         )}
         <View
           style={{
             backgroundColor: '#fff',
             height:
-              windowHeight - (order.status === 'Đang giao hàng' ? 80 : 40),
+              windowHeight -
+              (order.status === 'Đang giao hàng' ||
+              order.status === 'Đang chờ lấy hàng'
+                ? 50
+                : order.status === 'Đã hoàn thành'
+                ? -560
+                : 0),
           }}>
-          {order.status !== 'Đã hủy' && order.status !== 'Đang chờ nhận' && (
+          {(order.status === 'Đang chờ lấy hàng' ||
+            order.status === 'Đang giao hàng' ||
+            order.status === 'Đã hoàn thành') && (
+            <View style={styles.outer_good}>
+              <Image
+                source={ICONS.calendarIcon}
+                style={{width: 24, height: 24, marginRight: 10}}
+              />
+              <View>
+                <Text style={styles.main_type_good}>Ngày nhận đơn</Text>
+                <View style={{height: 7}}></View>
+                <Text style={styles.title_good_info_item}>
+                  {new Date(order.receivedDate).toLocaleString()}
+                </Text>
+              </View>
+            </View>
+          )}
+
+          {(order.status === 'Đang giao hàng' ||
+            order.status === 'Đã hoàn thành') && (
             <View style={styles.outer_good}>
               <Image
                 source={ICONS.calendarIcon}
@@ -83,11 +134,12 @@ const OrderDetailScreen = ({navigation, route}) => {
                 <Text style={styles.main_type_good}>Ngày giao hàng</Text>
                 <View style={{height: 7}}></View>
                 <Text style={styles.title_good_info_item}>
-                  {new Date(order.date).toLocaleString()}
+                  {new Date(order.deliveryDate).toLocaleString()}
                 </Text>
               </View>
             </View>
           )}
+
           {order.status === 'Đã hoàn thành' && (
             <View style={styles.outer_good}>
               <Image
@@ -98,11 +150,12 @@ const OrderDetailScreen = ({navigation, route}) => {
                 <Text style={styles.main_type_good}>Ngày nhận hàng</Text>
                 <View style={{height: 7}}></View>
                 <Text style={styles.title_good_info_item}>
-                  {new Date(order.date).toLocaleString()}
+                  {new Date(order.finishedDate).toLocaleString()}
                 </Text>
               </View>
             </View>
           )}
+
           {order.status === 'Đã hủy' && (
             <View style={styles.outer_good}>
               <Image
@@ -113,7 +166,7 @@ const OrderDetailScreen = ({navigation, route}) => {
                 <Text style={styles.main_type_good}>Ngày hủy</Text>
                 <View style={{height: 7}}></View>
                 <Text style={styles.title_good_info_item}>
-                  {new Date(order.date).toLocaleString()}
+                  {new Date(order.cancelledDate).toLocaleString()}
                 </Text>
               </View>
             </View>
@@ -182,6 +235,15 @@ const OrderDetailScreen = ({navigation, route}) => {
               <Text style={styles.title_good_info_item}>Thu tiền mặt</Text>
             </View>
           </View>
+          {order.status === 'Đã hoàn thành' && (
+            <View style={styles.outer_good}>
+              <Image
+                width={'100%'}
+                height={400}
+                source={{uri: order.verifyImage}}
+              />
+            </View>
+          )}
         </View>
       </ScrollView>
       <View
@@ -195,26 +257,28 @@ const OrderDetailScreen = ({navigation, route}) => {
           paddingBottom: 10,
           bottom: 0,
         }}>
-        <View style={{flex: 1}}>
-          <View>
-            <TouchableOpacity
-              style={[styles.outer_receiver_slider, styles.back_white]}
-              onPress={() => setVisibleModal(true)}>
-              <View>
-                <Text
-                  style={{
-                    fontSize: 16,
-                    color: CUSTOM_COLOR.Primary,
-                    fontWeight: 'bold',
-                    alignSelf: 'center',
-                  }}>
-                  Khiếu nại
-                </Text>
-              </View>
-            </TouchableOpacity>
+        {order.status !== 'Đang chờ nhận' && (
+          <View style={{flex: 1}}>
+            <View>
+              <TouchableOpacity
+                style={[styles.outer_receiver_slider, styles.back_white]}
+                onPress={() => setVisibleModal(true)}>
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      color: CUSTOM_COLOR.Primary,
+                      fontWeight: 'bold',
+                      alignSelf: 'center',
+                    }}>
+                    Khiếu nại
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-        {order.status === 'Đã hoàn thành' && (
+        )}
+        {order.status === 'Đã hoàn thành' ? (
           <View style={{flex: 1}}>
             <TouchableOpacity
               style={[styles.outer_receiver_slider, styles.width_50]}
@@ -232,6 +296,28 @@ const OrderDetailScreen = ({navigation, route}) => {
               </View>
             </TouchableOpacity>
           </View>
+        ) : (
+          order.status !== 'Đã hủy' && (
+            <View style={{flex: 1}}>
+              <View>
+                <TouchableOpacity
+                  style={[styles.outer_receiver_slider, styles.back_white]}
+                  onPress={cancelOrder}>
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        color: CUSTOM_COLOR.Primary,
+                        fontWeight: 'bold',
+                        alignSelf: 'center',
+                      }}>
+                      Hủy đơn
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )
         )}
       </View>
       <View

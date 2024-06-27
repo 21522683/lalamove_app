@@ -93,7 +93,7 @@ const styles = ScaledSheet.create({
     fontSize: 20,
   },
   outer_des: {
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255,255,255, 0.5)',
     position: 'absolute',
     top: 60,
     left: 0,

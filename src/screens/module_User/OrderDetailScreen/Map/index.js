@@ -27,16 +27,48 @@ export default function Map({order}) {
   });
 
   useEffect(() => {
-    calculateRoutes(state.pickupCords, state.droplocationCords);
-    onStart();
+    (async () => {
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${userAuth.access_token}`,
+            'Content-Type': 'application/json',
+          },
+        };
+        const response = await axios.get(
+          `${baseUrl}/order-location/getOrderLocation?id=${order._id}`,
+          config,
+        );
+        const cors = response.data.data;
+        if (!cors) {
+          return;
+        }
+        calculateRoutes(
+          {latitude: cors.latitude, longitude: cors.longitude},
+          state.droplocationCords,
+        );
+        setState(prevState => ({
+          ...prevState,
+          pickupCords: {
+            latitude: cors.latitude,
+            longitude: cors.longitude,
+          },
+        }));
+        onStart();
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    })();
+
     return () => {
       clearTimer();
     };
   }, []);
 
   const clearTimer = () => {
-    if (timer) {
-      clearInterval(timer);
+    if (timer.current) {
+      clearInterval(timer.current);
     }
   };
 
@@ -69,7 +101,7 @@ export default function Map({order}) {
 
   const onMove = async () => {
     const currentLocation = await getOrderLocation();
-    if (!currentLocation) {
+    if (!currentLocation?.latitude) {
       return;
     }
 
@@ -117,7 +149,7 @@ export default function Map({order}) {
       console.log(response);
       const cors = response.data.data;
 
-      return {latitude: cors.latitude, longitude: cors.longitude};
+      return {latitude: cors?.latitude, longitude: cors?.longitude};
     } catch (err) {
       console.log(err);
       throw err;

@@ -12,12 +12,16 @@ import CUSTOM_COLOR from '../../../../constants/colors';
 import MapView, {Marker, Polyline, PROVIDER_GOOGLE} from 'react-native-maps';
 import GetLocation from 'react-native-get-location';
 import {LocationContext} from '../../../../../TrackLocation';
+import {useSelector} from 'react-redux';
+import axios from 'axios';
+import baseUrl from '../../../../constants/baseUrl';
+import {ActivityIndicator} from 'react-native-paper';
 
 const DriverReviewMap = ({navigation, route}) => {
   var order = {...route.params}.order;
-  const [isStart, setIsStart] = useState(false);
   const [length, setLength] = useState(0);
-  const [isToSource, setIsToSource] = useState({...route.params}.isToSource);
+  const userAuth = useSelector(state => state.users.userAuth);
+  const [loading, setLoading] = useState(false);
 
   const mapView = useRef();
   let [coordinates, setCoordinates] = useState([]);
@@ -36,15 +40,25 @@ const DriverReviewMap = ({navigation, route}) => {
     },
   });
 
-  const {onStartDelivery, curLocation, onStopDelivery} =
-    useContext(LocationContext);
+  const {
+    onStartDelivery,
+    curLocation,
+    onStopDelivery,
+    isToSource,
+    setIsToSource,
+    isStart,
+    setIsStart,
+    setIsOnMap,
+  } = useContext(LocationContext);
   useEffect(() => {
     (async () => {
       try {
+        setLoading(true);
         const location = await GetLocation.getCurrentPosition({
           enableHighAccuracy: true,
           timeout: 60000,
         });
+        setLoading(false);
         if (!location) {
           throw new Error('No location available');
         }
@@ -60,10 +74,14 @@ const DriverReviewMap = ({navigation, route}) => {
           state.droplocationCords,
           true,
         );
+        setIsOnMap(true);
       } catch (err) {
         throw err;
       }
     })();
+    return () => {
+      setIsOnMap(false);
+    };
   }, []);
 
   useEffect(() => {
@@ -127,7 +145,13 @@ const DriverReviewMap = ({navigation, route}) => {
   };
 
   const onStart = async () => {
-    onStartDelivery(order);
+    if (!isToSource) {
+      updateOrderStatus();
+    }
+    if (!isStart) {
+      onStartDelivery(order);
+      setIsStart(true);
+    }
   };
 
   const changeCamera = cor => {
@@ -136,7 +160,7 @@ const DriverReviewMap = ({navigation, route}) => {
         latitude: cor.latitude,
         longitude: cor.longitude,
       },
-      zoom: 15,
+      zoom: 18,
     };
     mapView.current.animateCamera(newCamera, {duration: 2000});
   };
@@ -182,6 +206,25 @@ const DriverReviewMap = ({navigation, route}) => {
     }
   };
 
+  const updateOrderStatus = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await axios.put(
+        `${baseUrl}/order/${userAuth?.id}/driver-delivery-order/${order._id}`,
+        config,
+      );
+      console.log(response);
+      return response.data.data;
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <MapView
@@ -212,12 +255,14 @@ const DriverReviewMap = ({navigation, route}) => {
         <View style={styles.outer_des}>
           <View style={[cs.horizontal_flex]}>
             <View style={styles.outer_location}>
-              <Icon3 name="location" size={22} color={CUSTOM_COLOR.green} />
+              <Icon3 name="location" size={22} color={CUSTOM_COLOR.Primary} />
             </View>
             <View style={{marginLeft: 14}}>
               <View style={{width: '90%'}}>
                 <Text style={styles.address_info}>
-                  {`${order.sourceAddress.detail}, ${order.sourceAddress.ward}, ${order.sourceAddress.district}, ${order.sourceAddress.province}`}
+                  {isToSource
+                    ? `${order.sourceAddress.detail}, ${order.sourceAddress.ward}, ${order.sourceAddress.district}, ${order.sourceAddress.province}`
+                    : `${order.destinationAddress.detail}, ${order.destinationAddress.ward}, ${order.destinationAddress.district}, ${order.destinationAddress.province}`}
                 </Text>
               </View>
             </View>
@@ -240,8 +285,8 @@ const DriverReviewMap = ({navigation, route}) => {
               </Text>
               <TouchableOpacity
                 onPress={() => {
-                  setIsStart(true);
                   onStart();
+                  //   setIsStart(true);
                 }}>
                 <Text style={styles.status_text}>Bắt đầu</Text>
               </TouchableOpacity>
@@ -252,7 +297,11 @@ const DriverReviewMap = ({navigation, route}) => {
           </View>
         ) : null}
         <ContactItem
-          props={{...order.sourceAddress}}
+          props={
+            isToSource
+              ? {...order.sourceAddress}
+              : {...order.destinationAddress}
+          }
           onOpenChat={() =>
             navigation.navigate('ChatDriverScreen', {
               name: order.customer?.fullName,
@@ -287,6 +336,21 @@ const DriverReviewMap = ({navigation, route}) => {
           Order #{order._id.substr(order._id.length - 12)}
         </Text>
       </View>
+      {loading && (
+        <View
+          style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'rgba(0,0,0,0.2)',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <ActivityIndicator size="large" color="#FF5900" />
+        </View>
+      )}
     </View>
   );
 };

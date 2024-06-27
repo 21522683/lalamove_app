@@ -16,13 +16,10 @@ export const getAllUserOrdersAction = createAsyncThunk(
     };
 
     try {
-      console.log('doo');
-
       const {data} = await axios.get(
         `${baseUrl}/order/${user?.userAuth?.id}/get-user-orders`,
         config,
       );
-      console.log(data);
       return data;
     } catch (error) {
       if (!error.response) {

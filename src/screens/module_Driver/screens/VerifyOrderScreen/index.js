@@ -4,16 +4,26 @@ import {
   TouchableOpacity,
   Image,
   PermissionsAndroid,
+  Alert,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import styles from './style';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/EvilIcons';
-import {launchCamera as _launchCamera} from 'react-native-image-picker';
-let launchCamera = _launchCamera;
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {useSelector} from 'react-redux';
+import axios from 'axios';
+import baseUrl from '../../../../constants/baseUrl';
+import {LocationContext} from '../../../../../TrackLocation';
+import {useNavigation} from '@react-navigation/native';
+import storage from '@react-native-firebase/storage';
 
-const VerifyOrderDriverScreen = ({navigation, props}) => {
+const VerifyOrderDriverScreen = ({navigation, route}) => {
+  var order = {...route.params};
+  const nav = useNavigation();
   const [selectedImage, setSelectedImage] = useState(null);
+  const userAuth = useSelector(state => state.users.userAuth);
+  const {setIsToSource, setIsStart} = useContext(LocationContext);
   const handleCameraLaunch = () => {
     requestCameraPermission();
   };
@@ -34,12 +44,12 @@ const VerifyOrderDriverScreen = ({navigation, props}) => {
         console.log('Camera permission given');
         const options = {
           mediaType: 'photo',
-          includeBase64: false,
-          maxHeight: 2000,
-          maxWidth: 2000,
+          includeBase64: true,
+          maxHeight: 300,
+          maxWidth: 500,
         };
 
-        launchCamera(options, handleResponse);
+        launchImageLibrary(options, handleResponse);
       } else {
         console.log('Camera permission denied');
       }
@@ -49,16 +59,50 @@ const VerifyOrderDriverScreen = ({navigation, props}) => {
   };
 
   const handleResponse = response => {
-    console.log(response);
     if (response.didCancel) {
       console.log('User cancelled image picker');
     } else if (response.error) {
       console.log('Image picker error: ', response.error);
     } else {
-      let imageUri = response.uri || response.assets?.[0]?.uri;
-      console.log('dô');
-      console.log(imageUri);
+      console.log(response);
+      let imageUri = response?.uri || response.assets?.[0]?.uri;
       setSelectedImage(imageUri);
+    }
+  };
+
+  const submitOrder = async () => {
+    try {
+      if (!selectedImage) {
+        Alert.alert('Thông báo', 'Vui lòng chọn hình ảnh');
+        return;
+      }
+
+      const uid = new Date().getTime();
+      const reference = storage().ref(`/images/img_${uid}`);
+
+      await reference.putFile(selectedImage);
+      let url = await reference.getDownloadURL();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const response = await axios.put(
+        `${baseUrl}/order/${userAuth.id}/driver-finish-order/${order._id}`,
+        {imgUri: url},
+        config,
+      );
+
+      setIsToSource(true);
+      setIsStart(false);
+
+      nav.navigate('application-driver');
+
+      return response.data.data;
+    } catch (err) {
+      throw err;
     }
   };
 
@@ -78,7 +122,7 @@ const VerifyOrderDriverScreen = ({navigation, props}) => {
             style={styles.arrow_back_icon}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={submitOrder}>
           <Icon
             name="checkmark-sharp"
             size={24}
@@ -108,7 +152,7 @@ const VerifyOrderDriverScreen = ({navigation, props}) => {
               paddingVertical: 10,
             }}>
             <Icon2 name="camera" size={40} color="#F2AB58" />
-            <Text style={{color: '#F2AB58'}}>Chụp ảnh</Text>
+            <Text style={{color: '#F2AB58'}}>Chọn ảnh</Text>
           </View>
         </TouchableOpacity>
       </View>

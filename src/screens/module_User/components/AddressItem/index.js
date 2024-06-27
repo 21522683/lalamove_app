@@ -26,13 +26,16 @@ const AddressItem = ({props, hide, current}) => {
             marginLeft: 14,
           }}>
           <Text style={styles.address_detail}>
-            {hide ? props.sourceAddress.detail : props.sourceAddress.name}
+            {hide
+              ? props.sourceAddress.detail ??
+                props.sourceAddress.addressString?.split(',')[0]
+              : props.sourceAddress.fullName}
           </Text>
           <View style={{width: hide ? '95%' : '90%'}}>
             <Text style={styles.address_info}>
               {hide
-                ? `${props.sourceAddress.ward}, ${props.sourceAddress.district}, ${props.sourceAddress.province}`
-                : `${props.sourceAddress.detail}, ${props.sourceAddress.ward}, ${props.sourceAddress.district}, ${props.sourceAddress.province}`}
+                ? `${props.sourceAddress.addressString}`
+                : `${props.sourceAddress.detail}, ${props.sourceAddress.addressString}`}
             </Text>
           </View>
         </View>
@@ -59,14 +62,15 @@ const AddressItem = ({props, hide, current}) => {
         <View style={{marginLeft: 14}}>
           <Text style={styles.address_detail}>
             {hide
-              ? props.destinationAddress.detail
-              : props.destinationAddress.name}
+              ? props.destinationAddress.detail ??
+                props.destinationAddress.addressString?.split(',')[0]
+              : props.destinationAddress.fullName}
           </Text>
           <View style={{width: hide ? '95%' : '90%'}}>
             <Text style={styles.address_info}>
               {hide
-                ? `${props.destinationAddress.ward}, ${props.destinationAddress.district}, ${props.destinationAddress.province}`
-                : `${props.destinationAddress.detail}, ${props.destinationAddress.ward}, ${props.destinationAddress.district}, ${props.destinationAddress.province}`}
+                ? `${props.destinationAddress.addressString}`
+                : `${props.destinationAddress.detail}, ${props.destinationAddress.addressString}`}
             </Text>
           </View>
         </View>
