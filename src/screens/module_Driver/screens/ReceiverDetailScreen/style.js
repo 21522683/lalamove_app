@@ -161,7 +161,7 @@ const styles = ScaledSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'stretch',
+    justifyContent: 'center',
     padding: 8,
   },
 });

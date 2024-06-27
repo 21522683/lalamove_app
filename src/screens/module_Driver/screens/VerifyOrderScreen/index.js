@@ -5,6 +5,7 @@ import {
   Image,
   PermissionsAndroid,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useContext, useState} from 'react';
 import styles from './style';
@@ -24,6 +25,7 @@ const VerifyOrderDriverScreen = ({navigation, route}) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const userAuth = useSelector(state => state.users.userAuth);
   const {setIsToSource, setIsStart} = useContext(LocationContext);
+  const [loading, setLoading] = useState(false);
   const handleCameraLaunch = () => {
     requestCameraPermission();
   };
@@ -76,7 +78,7 @@ const VerifyOrderDriverScreen = ({navigation, route}) => {
         Alert.alert('Thông báo', 'Vui lòng chọn hình ảnh');
         return;
       }
-
+      setLoading(true);
       const uid = new Date().getTime();
       const reference = storage().ref(`/images/img_${uid}`);
 
@@ -94,6 +96,7 @@ const VerifyOrderDriverScreen = ({navigation, route}) => {
         {imgUri: url},
         config,
       );
+      setLoading(false);
 
       setIsToSource(true);
       setIsStart(false);
@@ -156,6 +159,21 @@ const VerifyOrderDriverScreen = ({navigation, route}) => {
           </View>
         </TouchableOpacity>
       </View>
+      {loading && (
+        <View
+          style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'rgba(0,0,0,0.2)',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <ActivityIndicator size="large" color="#FF5900" />
+        </View>
+      )}
     </View>
   );
 };

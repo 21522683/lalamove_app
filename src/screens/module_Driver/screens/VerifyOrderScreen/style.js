@@ -11,6 +11,7 @@ const styles = ScaledSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     backgroundColor: '#fff',
+    position: 'relative',
   },
 
   header_container: {
