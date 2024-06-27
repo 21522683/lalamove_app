@@ -62,7 +62,11 @@ const AddressManageScreen = () => {
                             addressDefault.detail === undefined ? (
                                 <Text style={styles.text_content} numberOfLines={3}>Chưa chọn địa chỉ mặc định</Text>
                             ) : (
-                                <Text style={styles.text_content} numberOfLines={3}>{addressDefault.detail + ", " + addressDefault.ward + ", " + addressDefault.district + ", " + addressDefault.province}</Text>
+                                <Text style={styles.text_content} numberOfLines={3}>
+                                    {
+                                        (addressDefault.detail) ? addressDefault.detail + ", " + addressDefault.addressString : addressDefault.addressString
+                                    }
+                                </Text>
                             )
                         }
                     </View>
@@ -71,9 +75,6 @@ const AddressManageScreen = () => {
 
                 <View style={styles.container_header_list}>
                     <Text style={styles.title_list}>DANH SÁCH ĐỊA CHỈ ĐÃ LƯU</Text>
-                    <TouchableOpacity style={styles.btn_add}>
-                        <Text style={styles.text_add}>Thêm địa chỉ</Text>
-                    </TouchableOpacity>
                 </View>
 
                 <ScrollView style={styles.list}>

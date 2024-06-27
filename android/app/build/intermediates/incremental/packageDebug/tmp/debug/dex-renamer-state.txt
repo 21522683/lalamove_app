@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #Thu Jun 27 10:25:57 ICT 2024
 path.4=8/classes.dex
 path.3=14/classes.dex
@@ -5,6 +6,16 @@ path.2=0/classes.dex
 path.1=0/classes.dex
 path.6=classes3.dex
 path.5=classes2.dex
+=======
+#Tue Jun 25 21:57:25 ICT 2024
+base.0=D\:\\lalamove_app\\android\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=D\:\\lalamove_app\\android\\app\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
+base.2=D\:\\lalamove_app\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.3=D\:\\lalamove_app\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
+base.4=D\:\\lalamove_app\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\8\\classes.dex
+base.5=D\:\\lalamove_app\\android\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+base.6=D\:\\lalamove_app\\android\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes3.dex
+>>>>>>> origin/Tinh
 path.0=classes.dex
 base.4=D\:\\work_space\\uit_ltttbdd\\visual_studio_code\\lalamove_app\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\8\\classes.dex
 base.3=D\:\\work_space\\uit_ltttbdd\\visual_studio_code\\lalamove_app\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
