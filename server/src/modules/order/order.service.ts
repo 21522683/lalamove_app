@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 import { CreateOrderDTO } from './DTO/create_order.dto';
 import { getDaysInMonth } from 'src/utils/quantityDaysInMonth';
-import { Params, User, VehicleType } from 'src/schemas';
+import { Params, User, VehicleType, Voucher } from 'src/schemas';
 import { UpdateHoaHongDTO } from './DTO/update_hoa_hong.dto';
 
 @Injectable()
@@ -12,11 +12,19 @@ export class OrderService {
   constructor(
     @InjectModel(Order.name) private orderModel: Model<Order>,
     @InjectModel(Params.name) private paramsModel: Model<Params>,
-    @InjectModel(VehicleType.name) private readonly vehicleTypeModel: Model<VehicleType>,
+    @InjectModel(VehicleType.name)
+    private readonly vehicleTypeModel: Model<VehicleType>,
     @InjectModel(User.name) private userModel: Model<User>,
-  ) { }
+    @InjectModel(Voucher.name) private voucherModel: Model<Voucher>,
+  ) {}
 
   async addNewOrder(customer: string, body: CreateOrderDTO) {
+    if (body.voucherId) {
+      const voucher = await this.voucherModel.findById(body.voucherId);
+      voucher.quality--;
+      await voucher.save();
+      delete body.voucherId;
+    }
     const order = new this.orderModel({
       customer,
       ...body,
@@ -158,9 +166,12 @@ export class OrderService {
       let quantityDays = getDaysInMonth(currentMonth, currentYear);
       let dailyRevenue = new Array(quantityDays).fill(0);
 
-      orders.forEach(order => {
+      orders.forEach((order) => {
         const orderDate = new Date(order.date);
-        if (orderDate.getMonth() + 1 === currentMonth && orderDate.getFullYear() === currentYear) {
+        if (
+          orderDate.getMonth() + 1 === currentMonth &&
+          orderDate.getFullYear() === currentYear
+        ) {
           const day = orderDate.getDate();
           dailyRevenue[day - 1] += order.charge;
           totalOrderSuccess++;
@@ -168,13 +179,14 @@ export class OrderService {
         }
       });
 
-      arrLabelChart = Array.from({ length: quantityDays }, (_, i) => (i + 1).toString());
+      arrLabelChart = Array.from({ length: quantityDays }, (_, i) =>
+        (i + 1).toString(),
+      );
       arrValueChart = dailyRevenue;
-
     } else if (option === 'Theo tháng') {
       let monthlyRevenue = new Array(12).fill(0);
 
-      orders.forEach(order => {
+      orders.forEach((order) => {
         const orderDate = new Date(order.date);
         if (orderDate.getFullYear() === currentYear) {
           const month = orderDate.getMonth();
@@ -186,11 +198,10 @@ export class OrderService {
 
       arrLabelChart = Array.from({ length: 12 }, (_, i) => (i + 1).toString());
       arrValueChart = monthlyRevenue;
-
     } else if (option === 'Theo năm') {
       let yearlyRevenue = {};
 
-      orders.forEach(order => {
+      orders.forEach((order) => {
         const orderDate = new Date(order.date);
         const year = orderDate.getFullYear();
         if (!yearlyRevenue[year]) yearlyRevenue[year] = 0;
@@ -200,10 +211,12 @@ export class OrderService {
       });
 
       arrLabelChart = Object.keys(yearlyRevenue).sort();
-      arrValueChart = arrLabelChart.map(year => yearlyRevenue[year]);
+      arrValueChart = arrLabelChart.map((year) => yearlyRevenue[year]);
     }
 
-    const totalOfDriver = parseFloat((totalRevenue * params.hoaHongChoTaiXe).toFixed(1));
+    const totalOfDriver = parseFloat(
+      (totalRevenue * params.hoaHongChoTaiXe).toFixed(1),
+    );
     const totalOfSystem = parseFloat((totalRevenue - totalOfDriver).toFixed(1));
 
     dataOfChart = {
@@ -213,7 +226,15 @@ export class OrderService {
 
     const infoDriver = await this.userModel.findById({ _id: driverId }).exec();
 
-    return { orders, dataOfChart, totalOrderSuccess, totalRevenue, totalOfSystem, totalOfDriver, infoDriver };
+    return {
+      orders,
+      dataOfChart,
+      totalOrderSuccess,
+      totalRevenue,
+      totalOfSystem,
+      totalOfDriver,
+      infoDriver,
+    };
   }
 
   async getInfoReportAdmin(query: any) {
@@ -269,7 +290,11 @@ export class OrderService {
         for (let i = 1; i <= quantityDays; i++) {
           const dailyTotal = orders.reduce((total, order) => {
             const orderDate = new Date(order.date);
-            if (orderDate.getDate() === i && orderDate.getMonth() + 1 === currentMonth && orderDate.getFullYear() === currentYear) {
+            if (
+              orderDate.getDate() === i &&
+              orderDate.getMonth() + 1 === currentMonth &&
+              orderDate.getFullYear() === currentYear
+            ) {
               arrOrder.push(order);
               totalOrderSuccess++;
               totalRevenue += order.charge;
@@ -285,7 +310,10 @@ export class OrderService {
         for (let i = 1; i <= 12; i++) {
           const monthlyTotal = orders.reduce((total, order) => {
             const orderDate = new Date(order.date);
-            if (orderDate.getMonth() + 1 === i && orderDate.getFullYear() === currentYear) {
+            if (
+              orderDate.getMonth() + 1 === i &&
+              orderDate.getFullYear() === currentYear
+            ) {
               arrOrder.push(order);
               totalOrderSuccess++;
               totalRevenue += order.charge;
@@ -298,10 +326,12 @@ export class OrderService {
           arrLabelChart.push(i.toString());
         }
       } else if (option === 'Theo năm') {
-        const yearsSet = new Set<number>(orders.map(order => new Date(order.date).getFullYear()));
+        const yearsSet = new Set<number>(
+          orders.map((order) => new Date(order.date).getFullYear()),
+        );
         const yearsArray = Array.from(yearsSet).sort();
 
-        yearsArray.forEach(year => {
+        yearsArray.forEach((year) => {
           const yearlyTotal = orders.reduce((total, order) => {
             const orderDate = new Date(order.date);
             if (orderDate.getFullYear() === year) {
@@ -317,8 +347,12 @@ export class OrderService {
         });
       }
 
-      let totalOfSystem = parseFloat((totalRevenue * (1 - params.hoaHongChoTaiXe)).toFixed(1));
-      let totalOfDriver = parseFloat((totalRevenue * params.hoaHongChoTaiXe).toFixed(1));
+      let totalOfSystem = parseFloat(
+        (totalRevenue * (1 - params.hoaHongChoTaiXe)).toFixed(1),
+      );
+      let totalOfDriver = parseFloat(
+        (totalRevenue * params.hoaHongChoTaiXe).toFixed(1),
+      );
 
       dataOfChart = { arrLabelChart, arrValueChart };
 
@@ -327,17 +361,28 @@ export class OrderService {
         filter.fullName = { $regex: textSearch.trim(), $options: 'i' };
       }
 
-      const listDrivers = await this.userModel.find(filter).populate({
-        path: 'vehicles',
-        populate: {
-          path: 'vehicleType',
-          model: this.vehicleTypeModel,
-        },
-      }).exec();
+      const listDrivers = await this.userModel
+        .find(filter)
+        .populate({
+          path: 'vehicles',
+          populate: {
+            path: 'vehicleType',
+            model: this.vehicleTypeModel,
+          },
+        })
+        .exec();
 
-      return { dataOfChart, totalOrderSuccess, totalRevenue, totalOfSystem, totalOfDriver, hoaHong: params.hoaHongChoTaiXe, listDrivers };
+      return {
+        dataOfChart,
+        totalOrderSuccess,
+        totalRevenue,
+        totalOfSystem,
+        totalOfDriver,
+        hoaHong: params.hoaHongChoTaiXe,
+        listDrivers,
+      };
     } catch (error) {
-      console.error("Error retrieving orders:", error);
+      console.error('Error retrieving orders:', error);
       throw new Error('Error retrieving orders');
     }
   }
@@ -388,10 +433,8 @@ export class OrderService {
       const order = orderArray[0];
       return order;
     } catch (error) {
-      console.error("Error retrieving orders:", error);
+      console.error('Error retrieving orders:', error);
       throw new Error('Error retrieving orders');
     }
   }
-
 }
-

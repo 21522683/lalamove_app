@@ -6,6 +6,7 @@ const initialState = {
   destinationAddress: {},
   goodsImage: null,
   vehicleType: {},
+  voucher: {},
   status: 'Đang chờ nhận',
   charge: 0,
   goodsType: '',
@@ -16,7 +17,8 @@ const initialState = {
   addNewAddressSuccessfully: false,
   isEditAddress: false,
   isRefreshOrder: false,
-  indexVehicleChoosen: -1,
+  idVehicleChoosen: '',
+  idVoucherChoosen: '',
 };
 
 const createOrderSlice = createSlice({
@@ -64,9 +66,23 @@ const createOrderSlice = createSlice({
       state.destinationAddress = {};
     },
     setVehicleType: (state, action) => {
-      const {vehicleType, index} = action.payload;
+      const {vehicleType} = action.payload;
       state.vehicleType = vehicleType;
-      state.indexVehicleChoosen = index;
+      state.idVehicleChoosen = vehicleType._id;
+    },
+
+    setVoucher: (state, action) => {
+      const voucher = action.payload;
+      state.voucher = voucher;
+    },
+    setIdVoucher: (state, action) => {
+      state.idVoucherChoosen = action.payload;
+    },
+
+    unUseVoucher: (state, action) => {
+      state.voucher = {};
+      state.idVoucherChoosen = '';
+      state.discountPrice = 0;
     },
 
     refreshOrder: state => {
@@ -75,6 +91,7 @@ const createOrderSlice = createSlice({
       state.destinationAddress = {};
       state.goodsImage = null;
       state.vehicleType = {};
+      state.voucher = {};
       state.status = 'Đang chờ nhận';
       state.charge = 0;
       state.goodsType = '';
@@ -85,7 +102,8 @@ const createOrderSlice = createSlice({
       state.addNewAddressSuccessfully = false;
       state.isEditAddress = false;
       state.isRefreshOrder = true;
-      state.indexVehicleChoosen = -1;
+      state.idVehicleChoosen = -1;
+      state.idVoucherChoosen = -1;
     },
     setRefreshOrder: (state, action) => {
       state.isRefreshOrder = action.payload;
@@ -108,4 +126,7 @@ export const {
   refreshChooseAddress,
   refreshOrder,
   setRefreshOrder,
+  setVoucher,
+  unUseVoucher,
+  setIdVoucher,
 } = createOrderSlice.actions;

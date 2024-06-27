@@ -3,6 +3,7 @@ import { VoucherController } from './voucher.controller';
 import { VoucherService } from './voucher.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Voucher, VoucherSchema } from 'src/schemas';
+import { Order, Orderchema } from '../order/Schema/order.schema';
 
 @Module({
   imports: [
@@ -10,6 +11,10 @@ import { Voucher, VoucherSchema } from 'src/schemas';
       {
         name: Voucher.name,
         schema: VoucherSchema,
+      },
+      {
+        name: Order.name,
+        schema: Orderchema,
       },
     ]),
   ],

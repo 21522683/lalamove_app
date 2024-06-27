@@ -17,7 +17,6 @@ import {useNavigation} from '@react-navigation/native';
 import {LayoutAnimation, Platform, UIManager} from 'react-native';
 import {FlatList} from 'react-native';
 import {useDispatch} from 'react-redux';
-import axios from 'axios';
 import {GetCoordinatesFromInfo} from '../../../../utils/opencagedata';
 if (
   Platform.OS === 'android' &&
@@ -27,11 +26,16 @@ if (
 }
 
 const CreateAddressScreen = () => {
-  const CustomLayoutSpring = {
-    ...LayoutAnimation.Presets.easeInEaseOut,
+  LayoutAnimation.configureNext({
     duration: 120,
-  };
-  LayoutAnimation.configureNext(CustomLayoutSpring);
+    create: {
+      type: LayoutAnimation.Types.easeInEaseOut,
+      property: LayoutAnimation.Properties.opacity,
+    },
+    update: {
+      type: LayoutAnimation.Types.easeInEaseOut,
+    },
+  });
   const navigation = useNavigation();
   const [address, setAddress] = useState({
     province: '',
@@ -47,21 +51,23 @@ const CreateAddressScreen = () => {
       districtId: '',
       ward: '',
       wardId: '',
+      latitude: '',
+      longitude: '',
     });
   };
   const getAPI = async () => {
     const link =
       address.province === ''
-        ? 'https://vapi.vnappmob.com/api/province'
+        ? 'https://esgoo.net/api-tinhthanh/1/0.htm'
         : address.district === ''
-        ? `https://vapi.vnappmob.com/api/province/district/${address.provinceId}`
-        : `https://vapi.vnappmob.com/api/province/ward/${address.districtId}`;
+        ? `https://esgoo.net/api-tinhthanh/2/${address.provinceId}.htm`
+        : `https://esgoo.net/api-tinhthanh/3/${address.districtId}.htm`;
     console.log(link);
     const response = await fetch(link);
 
     const data = await response.json();
-    setListDataAPI(data.results);
-    setListDataAPIOrigin(data.results);
+    setListDataAPI(data.data);
+    setListDataAPIOrigin(data.data);
   };
   const [listDataAPI, setListDataAPI] = useState([]);
   const [listDataAPIOrigin, setListDataAPIOrigin] = useState([]);
@@ -70,23 +76,26 @@ const CreateAddressScreen = () => {
   }, [address]);
 
   const handleClickDataItem = item => {
+    console.log(item);
     if (address.province === '') {
       setAddress(prev => ({
         ...prev,
-        province: item.province_name,
-        provinceId: item.province_id,
+        province: item.full_name,
+        provinceId: item.id,
       }));
     } else if (address.district === '') {
       setAddress(prev => ({
         ...prev,
-        district: item.district_name,
-        districtId: item.district_id,
+        district: item.full_name,
+        districtId: item.id,
       }));
     } else
       setAddress(prev => ({
         ...prev,
-        ward: item.ward_name,
-        wardId: item.ward_id,
+        ward: item.full_name,
+        wardId: item.id,
+        latitude: item.latitude,
+        longitude: item.longitude,
       }));
   };
   function removeVietnameseTones(str) {
@@ -97,40 +106,44 @@ const CreateAddressScreen = () => {
   }
 
   const handleChangeTextSearch = searchString => {
-    setListDataAPI(prev =>
-      listDataAPIOrigin.filter(item => {
-        let current =
-          address.province === ''
-            ? item.province_name
-            : address.district === ''
-            ? item.district_name
-            : item.ward_name;
-        current = removeVietnameseTones(current).toLowerCase().trim();
-        searchString = removeVietnameseTones(searchString).toLowerCase().trim();
-        return current.includes(searchString);
-      }),
-    );
+    if (searchString.trim() !== '') {
+      setListDataAPI(prev =>
+        listDataAPIOrigin.filter(item => {
+          let current = item.full_name;
+          current = removeVietnameseTones(current).toLowerCase().trim();
+          searchString = removeVietnameseTones(searchString)
+            .toLowerCase()
+            .trim();
+
+          return current.includes(searchString);
+        }),
+      );
+    } else {
+      setListDataAPI([...listDataAPIOrigin]);
+    }
   };
   const handleSaveXYZ = () => {
     const {province, ward, district} = address;
     const addressFormCreate = {province, ward, district};
-    console.log(addressFormCreate);
     navigation.setParams({addressFormCreate});
     navigation.goBack();
   };
   const handleClickContinue = async () => {
     if (!address.ward) return;
     try {
-      const {latitude, longitude} = await GetCoordinatesFromInfo(
-        address.ward,
-        address.district,
-        address.province,
-      );
-
+      if (!address.latitude || !address.longitude) {
+        const {latitude, longitude} = await GetCoordinatesFromInfo(
+          address.ward,
+          address.district,
+          address.province,
+        );
+        address.latitude = latitude;
+        address.longitude = longitude;
+      }
       navigation.navigate('ChooseMapScreen2', {
         ok: {
-          latitude,
-          longitude,
+          latitude: Number(address.latitude),
+          longitude: Number(address.longitude),
         },
       });
     } catch (error) {
@@ -353,13 +366,7 @@ const CreateAddressScreen = () => {
                         borderBottomWidth: 1,
                         borderBottomColor: '#DADADA',
                       }}>
-                      <Text style={{fontSize: 15}}>
-                        {address.province === ''
-                          ? item.province_name
-                          : address.district === ''
-                          ? item.district_name
-                          : item.ward_name}
-                      </Text>
+                      <Text style={{fontSize: 15}}>{item.full_name}</Text>
                     </View>
                   </Pressable>
                 )}

@@ -25,8 +25,8 @@ import baseUrl from '../../../../constants/baseUrl';
 const ChooseVehicleScreen = () => {
   const navigation = useNavigation();
   const userAuth = useSelector(state => state.users.userAuth);
-  const indexVehicleChoosen = useSelector(
-    state => state.createOrder.indexVehicleChoosen,
+  const idVehicleChoosen = useSelector(
+    state => state.createOrder.idVehicleChoosen,
   );
 
   const [listVehicleTypes, setListVehycleTypes] = useState([]);
@@ -74,15 +74,18 @@ const ChooseVehicleScreen = () => {
             paddingBottom: 10,
           }}
           renderItem={({item, index}) => (
-            <VehicleItem key={index} item={item} />
+            <VehicleItem key={index} item={item} index={index} />
           )}
         />
 
         <Pressable
-          onPress={() => navigation.navigate('PrevCompletedOrderScreen')}>
+          onPress={() => {
+            if (!idVehicleChoosen) return;
+            navigation.navigate('PrevCompletedOrderScreen');
+          }}>
           <View
             style={{
-              backgroundColor: indexVehicleChoosen !== -1 ? '#F16722' : '#ccc',
+              backgroundColor: idVehicleChoosen !== '' ? '#F16722' : '#ccc',
               height: 45,
               marginHorizontal: 12,
               alignItems: 'center',

@@ -22,7 +22,6 @@ const AddressManagementScreen = () => {
   const addNewAddress = useSelector(
     state => state.createOrder.addNewAddressSuccessfully,
   );
-  console.log();
   const [allAddress, setAllAddress] = useState([]);
   const getAddressOfCurrentUser = async () => {
     try {
@@ -109,7 +108,15 @@ const AddressManagementScreen = () => {
         style={styles.floatingButton}
         onPress={() => {
           dispatch(setStatusEditAddress(false));
-          dispatch(setEditAddress({}));
+          dispatch(
+            setEditAddress({
+              fullName: '',
+              phoneNumber: '',
+              detail: '',
+              isDefault: false,
+              addressString: '',
+            }),
+          );
           navigation.navigate('AddAddressScreen');
         }}>
         <Icon name="pluscircle" size={40} color="#F16722" />

@@ -14,8 +14,10 @@ import React, {useEffect, useRef, useState} from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/FontAwesome';
+import Icon4 from 'react-native-vector-icons/MaterialIcons';
+
 import {useFocusEffect} from '@react-navigation/native';
-import {Surface} from 'react-native-paper';
+import {ActivityIndicator, Surface} from 'react-native-paper';
 import styles from '../style';
 import {useNavigation} from '@react-navigation/native';
 import {IMAGES} from '../../../../assets/images';
@@ -26,6 +28,7 @@ import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 import formatCurrencyVND from '../../../../utils/formatCurrencyVND';
 import {refreshOrder} from '../../../../redux/slices/createOrderSlice';
+import VoucherItemPrevOrder from './VoucherItemPrevOrder';
 
 const PrevCompletedOrderScreen = () => {
   const navigation = useNavigation();
@@ -35,7 +38,9 @@ const PrevCompletedOrderScreen = () => {
   const dispatch = useDispatch();
   const [distance, setDistance] = useState(0);
   const [estimateTime, setEstimateTime] = useState(0);
+  const [isLoading, setLoading] = useState(false);
   const [charge, setCharge] = useState(0);
+  const [discountPrice, setDiscountPrice] = useState(0);
   const scrollToTop = () => {
     scrollViewRef.current.scrollTo({x: 0, y: 0, animated: true});
   };
@@ -59,11 +64,25 @@ const PrevCompletedOrderScreen = () => {
       estimateTime = Number(estimateTime.toFixed(2));
       const minLength = state.vehicleType.minLength;
       const minPrice = state.vehicleType.minPrice;
+
       let charge =
         distance > minLength
           ? minPrice + (distance - minLength) * state.vehicleType.priceAddIfOut
           : minPrice;
       charge = Number(charge.toFixed(0));
+
+      if (state.voucher._id) {
+        let discount = 0;
+        if (state.voucher.isPercent) {
+          discount = ((state.voucher.voucherPrice * 1.0) / 100) * charge;
+          discount = Number(discount.toFixed(0));
+        } else {
+          discount = state.voucher.voucherPrice;
+        }
+
+        setDiscountPrice(discount);
+      }
+
       setEstimateTime(estimateTime);
       setCharge(charge);
       setDistance(distance);
@@ -71,8 +90,14 @@ const PrevCompletedOrderScreen = () => {
   };
   useEffect(() => {
     getEstimate();
-  }, [state.sourceAddress, state.destinationAddress, state.vehicleType]);
+  }, [
+    state.sourceAddress,
+    state.destinationAddress,
+    state.vehicleType,
+    state.voucher,
+  ]);
   const handleClickCreateOrder = async () => {
+    setLoading(true);
     const uid = new Date().getTime();
     const reference = storage().ref(`/images/img_${uid}`);
 
@@ -107,7 +132,7 @@ const PrevCompletedOrderScreen = () => {
       goodsType: state.goodsType,
       goodsImage: url ?? '',
       note: state.note,
-      discountPrice: state.discountPrice,
+      discountPrice: discountPrice,
     };
     const config = {
       headers: {
@@ -115,16 +140,31 @@ const PrevCompletedOrderScreen = () => {
         'Content-Type': 'application/json',
       },
     };
+    if (state.voucher._id) {
+      order.voucherId = state.voucher._id;
+    }
     const response = await axios.post(
       `${baseUrl}/order/addNewOrder`,
       order,
       config,
     );
     dispatch(refreshOrder());
+    setLoading(false);
     navigation.navigate('CompletedOrderScreen');
   };
+
+  const handleClickChooseVoucher = () => {
+    navigation.navigate('ChooseVoucherScreen', {
+      money: charge,
+    });
+  };
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: 'white',
+        position: 'relative',
+      }}>
       <Surface style={styles.header}>
         <TouchableOpacity
           onPress={() => {
@@ -181,12 +221,95 @@ const PrevCompletedOrderScreen = () => {
               },
               styles.shadowCard,
             ]}>
-            <View style={{flexDirection: 'row', gap: 12, alignItems: 'center'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                gap: 12,
+                alignItems: 'center',
+              }}>
               <Icon name="heart" size={24} color="#F16722" />
               <Text style={{color: '#606060', fontWeight: '500', fontSize: 16}}>
                 Cảm ơn bạn đã tin tưởng Lalamove
               </Text>
             </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                gap: 12,
+                alignItems: 'center',
+                marginTop: 20,
+                marginBottom: 20,
+              }}>
+              <Icon2 name="van-utility" size={24} color="#F16722" />
+              <Text style={{color: '#606060', fontWeight: '500', fontSize: 16}}>
+                Xe đã chọn
+              </Text>
+            </View>
+            <View style={{gap: 24}}>
+              <VehicleItemPrevOrder />
+            </View>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                gap: 12,
+                alignItems: 'center',
+                marginTop: 28,
+                marginBottom: 20,
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 12,
+                  alignItems: 'center',
+                  flex: 1,
+                }}>
+                <Icon4 name="discount" size={24} color="#F16722" />
+                <Text
+                  style={{color: '#606060', fontWeight: '500', fontSize: 16}}>
+                  Voucher
+                </Text>
+              </View>
+              <View
+                style={{
+                  position: 'relative',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginRight: 20,
+                }}>
+                <Pressable onPress={handleClickChooseVoucher}>
+                  <View
+                    style={{
+                      backgroundColor: '#F16722',
+                      paddingHorizontal: 10,
+                      paddingLeft: 16,
+                      paddingVertical: 6,
+                    }}>
+                    <Text style={{color: 'white', fontWeight: 500}}>
+                      Chọn voucher
+                    </Text>
+                  </View>
+                </Pressable>
+                <View
+                  style={{
+                    position: 'absolute',
+                    right: -32,
+                    top: 0,
+                    bottom: 0,
+                    borderWidth: 16,
+                    borderTopColor: 'transparent',
+                    borderBottomColor: 'transparent',
+                    borderRightColor: 'transparent',
+                    borderLeftColor: '#F16722',
+                  }}></View>
+              </View>
+            </View>
+            {state.voucher._id && (
+              <View style={{gap: 24}}>
+                <VoucherItemPrevOrder />
+              </View>
+            )}
+
             <View style={{marginTop: 24}}>
               <View style={{marginLeft: 24, gap: 24}}>
                 <View
@@ -222,7 +345,7 @@ const PrevCompletedOrderScreen = () => {
                     Ước tính giao hàng trong:{' '}
                     {estimateTime < 1
                       ? `${(estimateTime * 60).toFixed(0)} phút`
-                      : `${estimateTime} giờ`}
+                      : `${estimateTime} giờ`}{' '}
                   </Text>
                 </View>
 
@@ -261,7 +384,7 @@ const PrevCompletedOrderScreen = () => {
                     style={{marginLeft: 4}}
                   />
                   <Text style={{color: '#606060', fontSize: 15}}>
-                    Tiền giảm: {formatCurrencyVND(state.discountPrice)}
+                    Tiền giảm: {formatCurrencyVND(discountPrice)}
                   </Text>
                 </View>
                 <View
@@ -280,28 +403,9 @@ const PrevCompletedOrderScreen = () => {
                     style={{marginLeft: 4}}
                   />
                   <Text style={{color: '#606060', fontSize: 15}}>
-                    Tiền thanh toán:{' '}
-                    {formatCurrencyVND(charge - state.discountPrice)}
+                    Tiền thanh toán: {formatCurrencyVND(charge - discountPrice)}
                   </Text>
                 </View>
-              </View>
-
-              <View
-                style={{
-                  flexDirection: 'row',
-                  gap: 12,
-                  alignItems: 'center',
-                  marginTop: 32,
-                  marginBottom: 20,
-                }}>
-                <Icon2 name="van-utility" size={24} color="#F16722" />
-                <Text
-                  style={{color: '#606060', fontWeight: '500', fontSize: 16}}>
-                  Xe đã chọn
-                </Text>
-              </View>
-              <View style={{gap: 24}}>
-                <VehicleItemPrevOrder />
               </View>
             </View>
 
@@ -324,6 +428,21 @@ const PrevCompletedOrderScreen = () => {
           </View>
         </View>
       </ScrollView>
+      {isLoading && (
+        <View
+          style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'rgba(0,0,0,0.2)',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <ActivityIndicator size="large" color="#FF5900" />
+        </View>
+      )}
     </SafeAreaView>
   );
 };

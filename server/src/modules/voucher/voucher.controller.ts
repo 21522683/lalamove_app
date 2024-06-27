@@ -6,6 +6,7 @@ import {
   HttpException,
   Param,
   Post,
+  Req,
   Res,
   UsePipes,
   ValidationPipe,
@@ -49,5 +50,23 @@ export class VoucherController {
     const r = await this.voucherService.deleteVoucher(voucherId);
     if (!r) throw new HttpException('Invalid Credentials', 401);
     res.status(200).json(r);
+  }
+
+  @Get('vouchersByCustomer/:money')
+  async getVouchersByCustomer(
+    @Res() res: Response,
+    @Req() req,
+    @Param('money') money: string,
+  ) {
+    const userId: string = req.user.sub;
+    const r = await this.voucherService.getVouchersByCustomer(
+      userId,
+      Number(money),
+    );
+    if (!r) throw new HttpException('Invalid Credentials', 401);
+    res.status(200).json({
+      message: 'Get voucher successfully',
+      data: r,
+    });
   }
 }

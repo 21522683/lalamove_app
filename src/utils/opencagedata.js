@@ -2,9 +2,10 @@ import axios from 'axios';
 
 const OPEN_CAGEDATA_KEY = 'QaDHsyMVJAx8DeAIGLvYbciKZpHEh9on';
 
-export const GetInfoFromCoordinates = async (latitude, longiture) => {
+export const GetInfoFromCoordinates = async (latitude, longitude) => {
   try {
-    const apiLink = `https://api.tomtom.com/search/2/reverseGeocode/${latitude},${longiture}.json?key=${OPEN_CAGEDATA_KEY}&radius=100`;
+    console.log(latitude, longitude);
+    const apiLink = `https://api.tomtom.com/search/2/reverseGeocode/${latitude},${longitude}.json?key=${OPEN_CAGEDATA_KEY}&radius=100`;
     console.log(apiLink);
     const response = await axios.get(apiLink);
     if (
@@ -13,6 +14,7 @@ export const GetInfoFromCoordinates = async (latitude, longiture) => {
       response.data.addresses.length > 0
     ) {
       const result = response.data.addresses[0];
+      console.log(result);
       let stringArr = result.address.freeformAddress.split(',');
       stringArr = stringArr.slice(0, stringArr.length - 1).join(',');
       return stringArr;

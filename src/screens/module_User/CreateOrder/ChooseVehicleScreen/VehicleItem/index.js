@@ -13,15 +13,14 @@ import {setVehicleType} from '../../../../../redux/slices/createOrderSlice';
 
 const VehicleItem = ({index, item}) => {
   const dispatch = useDispatch();
-  const indexVehicleChoosen = useSelector(
-    state => state.createOrder.indexVehicleChoosen,
+  const idVehicleChoosen = useSelector(
+    state => state.createOrder.idVehicleChoosen,
   );
-  const isChoosen = index === indexVehicleChoosen;
+  const isChoosen = item._id === idVehicleChoosen;
   const handlePress = () => {
     if (isChoosen) return;
     dispatch(
       setVehicleType({
-        index,
         vehicleType: item,
       }),
     );
@@ -67,7 +66,7 @@ const VehicleItem = ({index, item}) => {
         ]}>
         <View style={{flexDirection: 'row', alignItems: 'center', gap: 24}}>
           <Image
-            source={item.image ?? img}
+            source={item.image ? {uri: item.image} : img}
             style={{width: 70, height: 70, resizeMode: 'cover'}}
           />
           <View style={{flex: 1, gap: 6}}>

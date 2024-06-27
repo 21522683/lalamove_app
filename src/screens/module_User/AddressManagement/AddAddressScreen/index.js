@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {Surface} from 'react-native-paper';
 import styles from '../style';
@@ -34,12 +34,18 @@ const AddAddressScreen = ({route}) => {
   const destinationAddress = useSelector(
     state => state.createOrder.destinationAddress,
   );
-
+  const isContinue = useMemo(() => {
+    return Object.keys(newAddress).every(key => {
+      if (key === 'detail' || key === 'isDefault') return true;
+      else return !!newAddress[key];
+    });
+  }, [newAddress]);
   const handleChangeText = (name, text) => {
     dispatch(setChangeTextNewAddress({name, text}));
   };
 
   const handleClickOk = () => {
+    if (!isContinue) return;
     if (!isEditAddress) {
       handleAddNewAddress();
     } else handleEditAddress();
@@ -219,7 +225,7 @@ const AddAddressScreen = ({route}) => {
           <Pressable onPress={handleClickOk}>
             <View
               style={{
-                backgroundColor: '#F16722',
+                backgroundColor: isContinue ? '#F16722' : '#ccc',
                 height: 50,
                 marginHorizontal: 12,
                 alignItems: 'center',

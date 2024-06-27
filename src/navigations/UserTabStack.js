@@ -22,6 +22,7 @@ import ProfileDriverScreen from '../screens/module_Driver/ProfileScreen';
 import ChatUserScreen from '../screens/module_User/ChatUserScreen';
 import ChooseMapScreen from '../screens/module_User/AddressManagement/ChooseMapScreen';
 import ChooseMapScreen2 from '../screens/module_User/AddressManagement/ChooseMapScreen2';
+import ChooseVoucherScreen from '../screens/module_User/CreateOrder/ChooseVoucherScreen';
 
 const UserStack = createStackNavigator();
 export default function UserStackScreens() {
@@ -75,6 +76,11 @@ export default function UserStackScreens() {
       <UserStack.Screen
         name="ChooseVehicleScreen"
         component={ChooseVehicleScreen}
+        options={{headerShown: false}}
+      />
+      <UserStack.Screen
+        name="ChooseVoucherScreen"
+        component={ChooseVoucherScreen}
         options={{headerShown: false}}
       />
       <UserStack.Screen

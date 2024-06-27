@@ -37,6 +37,8 @@ export class CreateOrderDTO {
 
   charge: number;
 
+  voucherId?: string;
+
   @IsOptional()
   discountPrice: number;
 
