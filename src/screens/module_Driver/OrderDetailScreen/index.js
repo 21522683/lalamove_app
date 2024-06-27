@@ -6,6 +6,7 @@ import {
   ScrollView,
   Dimensions,
   Modal,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {ICONS} from '../../../assets/icons';
@@ -15,10 +16,14 @@ import AddressItem from '../components/AddressItem';
 import {IMAGES} from '../../../assets/images';
 import ContactItem from '../components/ContactItem';
 import ReviewModal from './ReviewModal';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import baseUrl from '../../../constants/baseUrl';
 
 const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
   var order = {...route.params};
-
+  const userAuth = useSelector(state => state.users.userAuth);
+  const [reviewOrder, setReviewOrder] = useState(null);
   var goodInfo = {
     type: 'Thực phẩm và đồ uống',
     amount: '10kg đến 30kg',
@@ -27,7 +32,23 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
       'Giữ hàng cần thận nha, khi giao đến nhắn bạn nhận là chúc mừng ngày cá tháng tư',
     vehicleDescription: 'Giao hàng cồng kềnh, 60x50x60 cm, lên đến 50 kg',
   };
-
+  const checkReviewOrder = async ()=>{
+    try {
+      const config = {
+        headers: {
+          'Authorization': `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const url = `${baseUrl}/order/review-order/${order._id}`;
+      const data = await axios.get(url, config);
+      setReviewOrder(data.data.data);
+      setVisibleReview(true);
+    } catch (error) {
+      console.log(error)
+      Alert.alert('Thông báo', "Đã có lỗi xảy ra vui lòng thử lại sau.");
+    }
+  }
   const VND = new Intl.NumberFormat('vi-VN', {
     style: 'currency',
     currency: 'VND',
@@ -53,14 +74,14 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
         onPress={() => navigation.goBack()}>
         <Icon name="arrow-back" size={24} color="#575757" />
       </TouchableOpacity>
-      {order.status === 'Đang giao' && (
+      {order.status === 'Đang giao hàng' && (
         <Image
           source={IMAGES.map}
           style={{position: 'absolute', zIndex: -1}}></Image>
       )}
 
       <ScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef}>
-        {order.status === 'Đang giao' && (
+        {order.status === 'Đang giao hàng' && (
           <View>
             <View style={{height: windowHeight / 2}}></View>
             {/* <ContactItem {...order.sourceAddress} /> */}
@@ -80,7 +101,7 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
               </View>
             </View>
           )}
-          {order.status === 'Hoàn thành' && (
+          {order.status === 'Đã hoàn thành' && (
             <View style={styles.outer_good}>
               <Image
                 source={ICONS.receiverTimeIcon}
@@ -185,10 +206,12 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
               setVisibleReview(false);
             }}
             props={{
-              orderId: order.orderId,
-              driverName: 'Lê Văn Phát',
-              avatar: 'Hello',
+              orderId: order._id,
+              driverName: order?.drive?.fullName,
+              avatar: order?.drive?.avatar,
+              driveId: order?.drive?._id
             }}
+            review={reviewOrder}
           />
         </Modal>
       </View>

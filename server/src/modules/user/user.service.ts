@@ -15,10 +15,12 @@ import { templateEmailAcceptLisencesDriver } from 'src/constants/template_email_
 import { templateEmailRejectLisencesDriver } from 'src/constants/template_email_reject_lisences_driver';
 import { templateEmailAcceptVehiclesDriver } from 'src/constants/template_email_accept_vehicles_driver';
 import { templateEmailRejectVehiclesDriver } from 'src/constants/template_email_reject_vehicles_driver';
+import { Review } from '../order/Schema/review.schema';
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
+    @InjectModel(Review.name) private reviewModel: Model<Review>,
     @InjectModel(VehicleType.name) private readonly vehicleTypeModel: Model<VehicleType>,
     private jwtService: JwtService,
   ) { }
@@ -43,8 +45,21 @@ export class UserService {
       if (query === 'reviews') {
         return;
       }
-
-      return exitedUser;
+      const reviews = await this.reviewModel.find({
+        drive: id
+      })
+      console.log(reviews)
+      if (!reviews){
+        return {...exitedUser, rvCount: 0, stb: 0 };
+      }
+      let stb = 0;
+      reviews.forEach((e)=>{
+        stb += e.star;
+      })
+      const rvCount = reviews.length
+      stb = stb/rvCount;
+      console.log({rvCount, stb })
+      return {...exitedUser, rvCount, stb };
     } catch (error) {
       throw new BadRequestException(error);
     }
@@ -76,6 +91,7 @@ export class UserService {
           status: 'Đang kiểm tra',
         });
       } else if (body?.action === 'update vehicle') {
+        console.log(body?.data)
         exitedUser.vehicles.forEach((v, index) => {
           if (v.id === body?.data?.id) {
             v = { ...body?.data, status: 'Đang kiểm tra' };

@@ -42,14 +42,14 @@ const LicenseDriverForm = ({ navigation, route }) => {
     async function uploadImg(file, type, name) {
         try {
             if (file.startsWith('file:')) {
-                if (type) {
-                    try {
-                        let imageRef = storage().refFromURL(type);
-                        await imageRef.delete();
-                    } catch (error) {
-                        console.log(error)
-                    }
-                }
+                // if (type) {
+                //     try {
+                //         let imageRef = storage().refFromURL(type);
+                //         await imageRef.delete();
+                //     } catch (error) {
+                //         console.log(error)
+                //     }
+                // }
                 const uid = Date.now();
                 const reference = storage().ref(`/images/img_${name}_${uid}`);
 

@@ -4,6 +4,7 @@ import { UserService } from './user.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from 'src/schemas/User.schema';
 import { VehicleType, VehicleTypeSchema } from 'src/schemas';
+import { Review, ReviewSchema } from '../order/Schema/review.schema';
 
 @Module({
   imports: [
@@ -11,6 +12,10 @@ import { VehicleType, VehicleTypeSchema } from 'src/schemas';
       {
         name: User.name,
         schema: UserSchema,
+      },
+      {
+        name: Review.name,
+        schema: ReviewSchema,
       },
     ]),
     MongooseModule.forFeature([

@@ -13,10 +13,11 @@ import {
 import { OrderLocationService } from './order-location.service';
 import { CreateOrderLocationDTO } from './DTO/create-order-location.dto';
 import { Response } from 'express';
+import { Public } from '../auth/authPublic.decorator';
 @Controller('order-location')
 export class OrderLocationController {
   constructor(private readonly orderLocationService: OrderLocationService) {}
-
+  @Public()
   @Post('addNewOrderLocation')
   async addNewOrderLocation(
     @Req() req,
@@ -39,7 +40,7 @@ export class OrderLocationController {
       });
     }
   }
-
+  @Public()
   @Put('updateOrderLocation')
   async updateOrderLocation(
     @Query() query,
@@ -62,7 +63,7 @@ export class OrderLocationController {
       });
     }
   }
-
+  @Public()
   @Get('getOrderLocation')
   async getOrderLocation(@Query() query, @Res() res: Response) {
     try {
@@ -79,7 +80,7 @@ export class OrderLocationController {
       });
     }
   }
-
+  @Public()
   @Delete('deleteOrderLocation')
   async deleteOrderLocation(@Query() query, @Res() res: Response) {
     try {

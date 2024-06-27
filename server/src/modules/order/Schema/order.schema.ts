@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose';
 import { Address } from 'src/modules/address/Schema/address.schema';
 import { User } from 'src/schemas';
 import { VehicleType } from 'src/schemas/VehicleType.schema';
+import { Review } from './review.schema';
 
 @Schema({
   timestamps: {
@@ -86,6 +87,9 @@ export class Order {
 
   @Prop()
   note?: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Review' })
+  review?: Review;
 
   @Prop()
   discountPrice?: number;

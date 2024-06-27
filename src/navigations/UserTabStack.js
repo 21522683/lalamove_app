@@ -122,7 +122,7 @@ export default function UserStackScreens() {
       <UserStack.Screen
         name="PrivatePolicyScreen"
         component={PrivatePolicyScreen}
-        options={{headerShown: false}}
+        options={{headerShown: true, title: 'Chính sách người dùng'}}
       />
     </UserStack.Navigator>
   );

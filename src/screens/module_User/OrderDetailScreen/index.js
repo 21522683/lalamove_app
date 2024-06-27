@@ -6,6 +6,7 @@ import {
   ScrollView,
   Dimensions,
   Modal,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {ICONS} from '../../../assets/icons';
@@ -34,6 +35,7 @@ const OrderDetailScreen = ({navigation, route}) => {
   const windowHeight = Dimensions.get('window').height;
   const [visibleReview, setVisibleReview] = useState(false);
   const [isVisibleModal, setVisibleModal] = useState(false);
+  const [reviewOrder, setReviewOrder] = useState(null);
 
   useEffect(() => {
     if (scrollViewRef.current) {
@@ -62,6 +64,23 @@ const OrderDetailScreen = ({navigation, route}) => {
     }
   };
 
+  const checkReviewOrder = async () => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userAuth.access_token}`,
+          'Content-Type': 'application/json',
+        },
+      };
+      const url = `${baseUrl}/order/review-order/${order._id}`;
+      const data = await axios.get(url, config);
+      setReviewOrder(data.data.data);
+      setVisibleReview(true);
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Thông báo', 'Đã có lỗi xảy ra vui lòng thử lại sau.');
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header_container}>
@@ -303,7 +322,7 @@ const OrderDetailScreen = ({navigation, route}) => {
           <View style={{flex: 1}}>
             <TouchableOpacity
               style={[styles.outer_receiver_slider, styles.width_50]}
-              onPress={() => setVisibleReview(true)}>
+              onPress={checkReviewOrder}>
               <View>
                 <Text
                   style={{
@@ -353,10 +372,12 @@ const OrderDetailScreen = ({navigation, route}) => {
               setVisibleReview(false);
             }}
             props={{
-              orderId: order.orderId,
-              driverName: 'Lê Văn Phát',
-              avatar: 'Hello',
+              orderId: order._id,
+              driverName: order?.drive?.fullName,
+              avatar: order?.drive?.avatar,
+              driveId: order?.drive._id,
             }}
+            review={reviewOrder}
           />
         </Modal>
         <UserModalCreateComplain
