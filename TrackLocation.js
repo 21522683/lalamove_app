@@ -33,7 +33,7 @@ const LocationProvider = ({children}) => {
     timer.current = setInterval(async () => {
       await onDelivery();
       console.log('tick');
-    }, 20000);
+    }, 5000);
   };
 
   const onDelivery = async () => {

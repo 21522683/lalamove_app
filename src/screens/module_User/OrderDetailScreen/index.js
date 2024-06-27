@@ -342,13 +342,11 @@ const OrderDetailScreen = ({navigation, route}) => {
           visible={isVisibleModal}
           animationType="slide"
           transparent={true}>
-          <ScrollView>
-            {/* <ModalComponent setVisibleModal={setVisibleModal} /> */}
-            <UserModalCreateComplain
-              isVisibleModal={isVisibleModal}
-              setVisibleModal={setVisibleModal}
-            />
-          </ScrollView>
+          {/* <ModalComponent setVisibleModal={setVisibleModal} /> */}
+          <UserModalCreateComplain
+            isVisibleModal={isVisibleModal}
+            setVisibleModal={setVisibleModal}
+          />
         </Modal>
       </View>
     </View>
