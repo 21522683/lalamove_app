@@ -23,13 +23,14 @@ export class ComplainController {
     return 'Welcome';
   }
 
-  @Post('addNewComplain')
+  @Post()
   async addNewComplain(
     @Req() req,
     @Body() body: CreateComplainDTO,
     @Res() res: Response,
   ) {
     try {
+      console.log(body);
       const { sub: user } = req.user;
       const newComplain = await this.complainService.addNewComplain({
         user,

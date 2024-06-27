@@ -11,12 +11,31 @@ import {
 import React, {useState} from 'react';
 import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/AntDesign';
+import Icon4 from 'react-native-vector-icons/FontAwesome';
 import styles from './style';
-import {scale, verticalScale} from 'react-native-size-matters';
+import {verticalScale} from 'react-native-size-matters';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {useDispatch, useSelector} from 'react-redux';
+import axios from 'axios';
+import storage from '@react-native-firebase/storage';
 
-const UserModalCreateComplain = ({isVisibleModal, setVisibleModal}) => {
-  const [listImage, setListImage] = useState([]);
+import {
+  getAllUserOrdersAction,
+  setOrderDetail,
+} from '../../../../redux/slices/orderSlice';
+import baseUrl from '../../../../constants/baseUrl';
+import {ActivityIndicator} from 'react-native-paper';
+
+const UserModalCreateComplain = ({isVisibleModal, setVisibleModal, order}) => {
+  const userAuth = useSelector(state => state.users.userAuth);
+  const [isLoading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const [complain, setComplain] = useState({
+    title: '',
+    content: '',
+    image: '',
+  });
+
   const selectImage = () => {
     let options = {
       mediaType: 'photo',
@@ -34,13 +53,41 @@ const UserModalCreateComplain = ({isVisibleModal, setVisibleModal}) => {
         return;
       }
 
-      setListImage(prev => [...prev, response.assets[0]]);
+      setComplain(prev => ({...prev, image: response.assets[0].uri}));
     });
   };
-  const handleRemoveImage = indexImage => {
-    setListImage(prev =>
-      [...listImage].filter((item, index) => index !== indexImage),
-    );
+  const handleRemoveImage = () => {
+    setComplain(prev => ({...prev, image: ''}));
+  };
+
+  const handleClickSave = async () => {
+    setLoading(true);
+    let url;
+    const uid = new Date().getTime();
+    const reference = storage().ref(`/images/img_${uid}`);
+
+    if (complain.image) {
+      if (!complain.image.startsWith('http')) {
+        await reference.putFile(complain.image);
+        url = await reference.getDownloadURL();
+        complain.image = url;
+      }
+    }
+
+    complain.order = order._id;
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userAuth.access_token}`,
+        'Content-Type': 'application/json',
+      },
+    };
+    const response = await axios.post(`${baseUrl}/complain`, complain, config);
+
+    dispatch(getAllUserOrdersAction());
+    setLoading(false);
+    dispatch(setOrderDetail({...order, isHasComplain: true}));
+    setVisibleModal(false);
   };
   return (
     <Modal visible={isVisibleModal} animationType="slide" transparent={true}>
@@ -56,31 +103,50 @@ const UserModalCreateComplain = ({isVisibleModal, setVisibleModal}) => {
                   color: '#606060',
                   flex: 1,
                 }}>
-                Đơn hàng #123455
+                Đơn hàng #{order._id.substr(order._id.length - 12)}
               </Text>
             </View>
             <View style={{flexDirection: 'row', gap: 12, alignItems: 'center'}}>
               <Text style={{fontSize: 16, fontWeight: '400', color: '#222222'}}>
                 Tài xế:
               </Text>
-              <Text style={{...styles.title}}>Nguyễn Văn Phát</Text>
-              <Image
-                source={{
-                  uri: 'https://images.fpt.shop/unsafe/filters:quality(5)/fptshop.com.vn/uploads/images/tin-tuc/175607/Originals/avt-cho-cute%20(22).jpg',
-                }}
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 20,
-                  resizeMode: 'cover',
-                }}
-              />
+              <Text style={{...styles.title}}>{order.drive.fullName}</Text>
+              {order.drive.avatar ? (
+                <Image
+                  source={{
+                    uri: order.drive.avatar,
+                  }}
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 20,
+                    resizeMode: 'cover',
+                  }}
+                />
+              ) : (
+                <View
+                  style={{
+                    width: 40,
+                    height: 40,
+                    backgroundColor: '#F5F5F5',
+                    borderRadius: 40,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Icon4 name="user" size={20} />
+                </View>
+              )}
             </View>
             <View style={{flexDirection: 'column', gap: 8}}>
               <Text style={{fontSize: 16, fontWeight: '400', color: '#222222'}}>
                 Tiêu đề:
               </Text>
               <TextInput
+                value={complain.title}
+                onChangeText={text =>
+                  setComplain(prev => ({...prev, title: text}))
+                }
                 placeholder="Tìm kiếm"
                 style={styles.input}></TextInput>
             </View>
@@ -90,6 +156,10 @@ const UserModalCreateComplain = ({isVisibleModal, setVisibleModal}) => {
                 Nội dung:
               </Text>
               <TextInput
+                value={complain.content}
+                onChangeText={text =>
+                  setComplain(prev => ({...prev, content: text}))
+                }
                 style={styles.inputArea}
                 multiline={true}
                 numberOfLines={4}
@@ -101,32 +171,27 @@ const UserModalCreateComplain = ({isVisibleModal, setVisibleModal}) => {
                 Hình ảnh:
               </Text>
               <View style={{flexDirection: 'row', gap: 12}}>
-                {listImage.length > 0 &&
-                  listImage.map((item, indexImage) => {
-                    return (
-                      <View
-                        style={{width: 80, height: 80, position: 'relative'}}
-                        key={indexImage}>
-                        <Image
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            resizeMode: 'cover',
-                            borderRadius: 8,
-                          }}
-                          source={{uri: item.uri}}
-                        />
+                {complain.image && (
+                  <View style={{width: 80, height: 80, position: 'relative'}}>
+                    <Image
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        resizeMode: 'cover',
+                        borderRadius: 8,
+                      }}
+                      source={{uri: complain.image}}
+                    />
 
-                        <Pressable
-                          style={{position: 'absolute', top: -5, right: -5}}
-                          onPress={() => handleRemoveImage(indexImage)}>
-                          <Icon name="closecircle" size={20} color="white" />
-                        </Pressable>
-                      </View>
-                    );
-                  })}
+                    <Pressable
+                      style={{position: 'absolute', top: -5, right: -5}}
+                      onPress={handleRemoveImage}>
+                      <Icon name="closecircle" size={20} color="white" />
+                    </Pressable>
+                  </View>
+                )}
               </View>
-              {listImage.length < 2 && (
+              {!complain.image && (
                 <Pressable onPress={selectImage}>
                   <View
                     style={{
@@ -160,17 +225,36 @@ const UserModalCreateComplain = ({isVisibleModal, setVisibleModal}) => {
                 justifyContent: 'flex-end',
                 marginTop: verticalScale(12),
               }}>
-              <View
-                style={{
-                  borderRadius: 4,
-                  minWidth: 90,
-                  height: 40,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#F16722',
-                }}>
-                <Text style={{fontWeight: '500', color: 'white'}}>Gửi</Text>
-              </View>
+              <Pressable onPress={handleClickSave}>
+                <View
+                  style={{
+                    borderRadius: 4,
+                    minWidth: 90,
+                    height: 40,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#F16722',
+                  }}>
+                  {isLoading && (
+                    <View
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        backgroundColor: 'rgba(0,0,0,0.2)',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <ActivityIndicator size="small" color="white" />
+                    </View>
+                  )}
+                  {!isLoading && (
+                    <Text style={{fontWeight: '500', color: 'white'}}>Gửi</Text>
+                  )}
+                </View>
+              </Pressable>
 
               <TouchableOpacity
                 activeOpacity={1}

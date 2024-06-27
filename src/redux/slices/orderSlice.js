@@ -76,6 +76,12 @@ const OrdersSlices = createSlice({
   initialState: {
     pendingOrders: [],
     userOrders: [],
+    orderDetail: {},
+  },
+  reducers: {
+    setOrderDetail: (state, action) => {
+      state.orderDetail = action.payload;
+    },
   },
   extraReducers: builder => {
     //get all pending orders
@@ -123,3 +129,4 @@ const OrdersSlices = createSlice({
   },
 });
 export default OrdersSlices.reducer;
+export const {setOrderDetail} = OrdersSlices.actions;

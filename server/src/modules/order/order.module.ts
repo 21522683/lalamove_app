@@ -13,6 +13,7 @@ import {
   Voucher,
   VoucherSchema,
 } from 'src/schemas';
+import { Complain, Complainchema } from '../complain/Schema/complain.schema';
 
 @Module({
   imports: [
@@ -28,6 +29,10 @@ import {
       {
         name: Voucher.name,
         schema: VoucherSchema,
+      },
+      {
+        name: Complain.name,
+        schema: Complainchema,
       },
     ]),
     MongooseModule.forFeature([

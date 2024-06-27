@@ -22,8 +22,8 @@ import axios from 'axios';
 import baseUrl from '../../../constants/baseUrl';
 
 const OrderDetailScreen = ({navigation, route}) => {
-  var order = {...route.params};
   const userAuth = useSelector(state => state.users.userAuth);
+  const order = useSelector(state => state.orders.orderDetail);
 
   const VND = new Intl.NumberFormat('vi-VN', {
     style: 'currency',
@@ -258,25 +258,46 @@ const OrderDetailScreen = ({navigation, route}) => {
           bottom: 0,
         }}>
         {order.status !== 'Đang chờ nhận' && (
-          <View style={{flex: 1}}>
-            <View>
-              <TouchableOpacity
-                style={[styles.outer_receiver_slider, styles.back_white]}
-                onPress={() => setVisibleModal(true)}>
+          <>
+            {!order.isHasComplain ? (
+              <View style={{flex: 1}}>
                 <View>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      color: CUSTOM_COLOR.Primary,
-                      fontWeight: 'bold',
-                      alignSelf: 'center',
-                    }}>
-                    Khiếu nại
-                  </Text>
+                  <TouchableOpacity
+                    style={[styles.outer_receiver_slider, styles.back_white]}
+                    onPress={() => setVisibleModal(true)}>
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          color: CUSTOM_COLOR.Primary,
+                          fontWeight: 'bold',
+                          alignSelf: 'center',
+                        }}>
+                        Khiếu nại
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
                 </View>
-              </TouchableOpacity>
-            </View>
-          </View>
+              </View>
+            ) : (
+              <View>
+                <TouchableOpacity
+                  style={[styles.outer_receiver_slider, styles.back_white]}>
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        color: CUSTOM_COLOR.Primary,
+                        fontWeight: 'bold',
+                        alignSelf: 'center',
+                      }}>
+                      Đã khiếu nại
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            )}
+          </>
         )}
         {order.status === 'Đã hoàn thành' ? (
           <View style={{flex: 1}}>
@@ -338,18 +359,11 @@ const OrderDetailScreen = ({navigation, route}) => {
             }}
           />
         </Modal>
-        <Modal
-          visible={isVisibleModal}
-          animationType="slide"
-          transparent={true}>
-          <ScrollView>
-            {/* <ModalComponent setVisibleModal={setVisibleModal} /> */}
-            <UserModalCreateComplain
-              isVisibleModal={isVisibleModal}
-              setVisibleModal={setVisibleModal}
-            />
-          </ScrollView>
-        </Modal>
+        <UserModalCreateComplain
+          order={order}
+          isVisibleModal={isVisibleModal}
+          setVisibleModal={setVisibleModal}
+        />
       </View>
     </View>
   );

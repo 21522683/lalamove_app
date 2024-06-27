@@ -57,6 +57,7 @@ const DetaiVehicleScreen = () => {
         console.log(response.error);
         return;
       }
+
       dispatch(
         setInforText({
           name: 'image',
@@ -87,14 +88,15 @@ const DetaiVehicleScreen = () => {
 
     const uid = new Date().getTime();
     const reference = storage().ref(`/images/img_${uid}`);
-
+    const body = {...vehicleType};
     let url;
     if (vehicleType.image) {
-      await reference.putFile(vehicleType.image);
-      url = await reference.getDownloadURL();
+      if (!vehicleType.image.startsWith('http')) {
+        await reference.putFile(vehicleType.image);
+        url = await reference.getDownloadURL();
+      }
     }
-    const body = {...vehicleType};
-    body.image = url;
+
     body.mount = `${vehicleType.mount}kg`;
     body.size = `${vehicleType.size1}cm x ${vehicleType.size2}cm x ${vehicleType.size3}cm`;
     body.minLength = Number(body.minLength);
@@ -103,6 +105,7 @@ const DetaiVehicleScreen = () => {
     delete body.size1;
     delete body.size2;
     delete body.size3;
+
     const config = {
       headers: {
         Authorization: `Bearer ${userAuth.access_token}`,
@@ -145,7 +148,7 @@ const DetaiVehicleScreen = () => {
     delete body.size2;
     delete body.size3;
     delete body._id;
-
+    console.log('zo');
     const config = {
       headers: {
         Authorization: `Bearer ${userAuth.access_token}`,

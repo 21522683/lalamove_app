@@ -6,6 +6,7 @@ import { CreateOrderDTO } from './DTO/create_order.dto';
 import { getDaysInMonth } from 'src/utils/quantityDaysInMonth';
 import { Params, User, VehicleType, Voucher } from 'src/schemas';
 import { UpdateHoaHongDTO } from './DTO/update_hoa_hong.dto';
+import { Complain } from '../complain/Schema/complain.schema';
 
 @Injectable()
 export class OrderService {
@@ -16,6 +17,7 @@ export class OrderService {
     private readonly vehicleTypeModel: Model<VehicleType>,
     @InjectModel(User.name) private userModel: Model<User>,
     @InjectModel(Voucher.name) private voucherModel: Model<Voucher>,
+    @InjectModel(Complain.name) private complainModel: Model<Complain>,
   ) {}
 
   async addNewOrder(customer: string, body: CreateOrderDTO) {
@@ -44,10 +46,23 @@ export class OrderService {
         .populate(['vehicleType'])
         .exec();
     }
-    return await this.orderModel
+    const orders = await this.orderModel
       .find({ customer: user._id })
       .populate(['vehicleType', 'drive'])
       .exec();
+    const complainUser = await this.complainModel.find({
+      user: userId,
+    });
+
+    const ordersResponse = orders.map((item1) => ({
+      ...item1['_doc'],
+      isHasComplain:
+        complainUser.find(
+          (item2) => item2.order.toString() == item1._id.toString(),
+        ) ?? false,
+    }));
+
+    return ordersResponse;
   }
 
   async getAllOrder() {

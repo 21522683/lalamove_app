@@ -12,7 +12,10 @@ import OrderItem from '../components/OrderIItem/index.js';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllUserOrdersAction} from '../../../redux/slices/orderSlice.js';
+import {
+  getAllUserOrdersAction,
+  setOrderDetail,
+} from '../../../redux/slices/orderSlice.js';
 import CUSTOM_COLOR from '../../../constants/colors.js';
 
 const Tab = createMaterialTopTabNavigator();
@@ -82,9 +85,10 @@ const OrdersScreen = ({navigation, status}) => {
             renderItem={({item}) => (
               <TouchableOpacity
                 activeOpacity={0.95}
-                onPress={() =>
-                  navigator.navigate('OrderDetailScreen', {...item})
-                }>
+                onPress={() => {
+                  dispatch(setOrderDetail({...item}));
+                  navigator.navigate('OrderDetailScreen');
+                }}>
                 <OrderItem {...item} />
               </TouchableOpacity>
             )}

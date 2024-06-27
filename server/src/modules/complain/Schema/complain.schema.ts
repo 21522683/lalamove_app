@@ -17,6 +17,9 @@ export class Complain {
   order: Order;
 
   @Prop()
+  title?: string;
+
+  @Prop()
   content?: string;
 
   @Prop()
@@ -28,7 +31,7 @@ export class Complain {
   isResponsed: boolean;
 
   @Prop()
-  images?: string[];
+  image?: string;
 
   @Prop({
     default: new Date(),
