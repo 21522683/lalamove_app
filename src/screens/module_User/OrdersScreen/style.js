@@ -38,7 +38,6 @@ const styles = ScaledSheet.create({
     gap: 7,
     backgroundColor: '#EFEFEF',
     borderRadius: 4,
-    paddingVertical: 8,
     paddingHorizontal: 16,
     width: '100%',
     marginTop: 10,
@@ -46,7 +45,9 @@ const styles = ScaledSheet.create({
 
   search_hint: {
     fontSize: 13,
-    color: '#B8B8B8',
+    borderRadius: 10,
+    // color: '#B8B8B8',
+    color: '#000000',
   },
 
   text_base: {

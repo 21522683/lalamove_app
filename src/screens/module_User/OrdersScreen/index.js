@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   SafeAreaView,
+  TextInput,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './style.js';
@@ -21,13 +22,18 @@ import CUSTOM_COLOR from '../../../constants/colors.js';
 const Tab = createMaterialTopTabNavigator();
 
 function UserOrdersScreen(navigation) {
+  const [textSearch, setTextSearch] = useState('');
   return (
     <View style={{flex: 1}}>
       <View style={styles.header_container}>
         <Text style={styles.receive_instance}>Đơn hàng của tôi</Text>
         <View style={styles.search_container}>
           <Icon name="search1" size={20} color="#BDBDBD" />
-          <Text style={styles.search_hint}>Tìm kiếm tất cả các đơn hàng</Text>
+          <TextInput
+            onChangeText={e => setTextSearch(e)}
+            style={styles.search_hint}
+            placeholder="Tìm kiếm tất cả các đơn hàng"
+          />
         </View>
       </View>
       <Tab.Navigator
@@ -39,26 +45,34 @@ function UserOrdersScreen(navigation) {
           },
         }}>
         <Tab.Screen name="Chờ nhận đơn">
-          {() => <OrdersScreen status="Đang chờ nhận" />}
+          {() => (
+            <OrdersScreen status="Đang chờ nhận" textSearch={textSearch} />
+          )}
         </Tab.Screen>
         <Tab.Screen name="Chờ lấy hàng">
-          {() => <OrdersScreen status="Đang chờ lấy hàng" />}
+          {() => (
+            <OrdersScreen status="Đang chờ lấy hàng" textSearch={textSearch} />
+          )}
         </Tab.Screen>
         <Tab.Screen name="Đang giao">
-          {() => <OrdersScreen status="Đang giao hàng" />}
+          {() => (
+            <OrdersScreen status="Đang giao hàng" textSearch={textSearch} />
+          )}
         </Tab.Screen>
         <Tab.Screen name="Hoàn thành">
-          {() => <OrdersScreen status="Đã hoàn thành" />}
+          {() => (
+            <OrdersScreen status="Đã hoàn thành" textSearch={textSearch} />
+          )}
         </Tab.Screen>
         <Tab.Screen name="Đã hủy">
-          {() => <OrdersScreen status="Đã hủy" />}
+          {() => <OrdersScreen status="Đã hủy" textSearch={textSearch} />}
         </Tab.Screen>
       </Tab.Navigator>
     </View>
   );
 }
 
-const OrdersScreen = ({navigation, status}) => {
+const OrdersScreen = ({navigation, status, textSearch}) => {
   const navigator = useNavigation();
   const dispatch = useDispatch();
   const orders = useSelector(state => state.orders.userOrders);
@@ -66,6 +80,23 @@ const OrdersScreen = ({navigation, status}) => {
   useEffect(() => {
     dispatch(getAllUserOrdersAction());
   }, []);
+
+  useEffect(() => {
+    if (textSearch === '') {
+      if (orders) {
+        setUserOrders(orders.filter(item => item.status === status));
+      }
+    } else {
+      setUserOrders(
+        userOrders?.filter(item =>
+          item._id
+            .toString()
+            .toLowerCase()
+            .includes(textSearch?.trim().toLowerCase()),
+        ),
+      );
+    }
+  }, [textSearch]);
 
   useEffect(() => {
     if (orders) {
