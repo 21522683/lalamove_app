@@ -3,6 +3,7 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import Icon3 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon4 from 'react-native-vector-icons/Feather';
+import Icon8 from 'react-native-vector-icons/AntDesign';
 
 import styles from './style';
 import {IMAGES} from '../../../../assets/images';
@@ -68,17 +69,22 @@ const VehicleItemManagement = ({item}) => {
             </View>
           </View>
         </View>
+
         <View
           style={{
             marginTop: 16,
             alignSelf: 'flex-end',
-            paddingVertical: 6,
-            paddingHorizontal: 8,
-            borderRadius: 4,
-            backgroundColor:
-              item.status === 'Đang hoạt động' ? '#56cd62' : '#F16722',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            gap: 8,
           }}>
-          <Text style={{color: 'white', fontWeight: 500}}>{item.status}</Text>
+          <Text>{item.status}</Text>
+          {item.status === 'Đang hoạt động' ? (
+            <Icon8 name="checkcircle" color="#F16722" />
+          ) : (
+            <Icon8 name="close" color="#F16722" />
+          )}
         </View>
       </View>
     </Pressable>

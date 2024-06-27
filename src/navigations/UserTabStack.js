@@ -1,6 +1,7 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import CUSTOM_COLOR from '../constants/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import {createStackNavigator} from '@react-navigation/stack';
 import WelcomeCreateOrderScreen from '../screens/module_User/CreateOrder/WelcomeCreateOrderScreen';
 import GoodsInformationScreen from '../screens/module_User/CreateOrder/GoodsInformationScreen';
@@ -155,6 +156,17 @@ function UserTabStackScreens() {
           tabBarIcon: ({focused, color, size}) => {
             let iconName = focused ? 'home' : 'home-outline';
             return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        }}
+      />
+      <UserTabStack.Screen
+        name="Complain"
+        component={UserComplainManagementScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName = focused ? 'text-document' : 'text-document-inverted';
+            return <Entypo name={iconName} size={size} color={color} />;
           },
         }}
       />
