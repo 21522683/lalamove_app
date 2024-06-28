@@ -203,6 +203,7 @@ const DriverReviewMap = ({navigation, route}) => {
           });
         });
     } else {
+        
       navigation.navigate('VerifyOrderDriverScreen', {...order});
     }
   };
@@ -262,8 +263,8 @@ const DriverReviewMap = ({navigation, route}) => {
               <View style={{width: '90%'}}>
                 <Text style={styles.address_info}>
                   {isToSource
-                    ? `${order.sourceAddress.detail}, ${order.sourceAddress.ward}, ${order.sourceAddress.district}, ${order.sourceAddress.province}`
-                    : `${order.destinationAddress.detail}, ${order.destinationAddress.ward}, ${order.destinationAddress.district}, ${order.destinationAddress.province}`}
+                    ? `${order.sourceAddress.detail}, ${order.sourceAddress.addressString}`
+                    : `${order.destinationAddress.detail}, ${order.destinationAddress.addressString}`}
                 </Text>
               </View>
             </View>

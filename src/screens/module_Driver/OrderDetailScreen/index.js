@@ -111,13 +111,13 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
       )}
 
       <ScrollView showsVerticalScrollIndicator={false} ref={scrollViewRef}>
-        {(order.status === 'Đang giao hàng' ||
+        {/* {(order.status === 'Đang giao hàng' ||
           order.status === 'Đang chờ lấy hàng') && (
           <View>
             <View style={{height: windowHeight - 200}}></View>
             <ContactItem {...order.drive} />
           </View>
-        )}
+        )} */}
         <View
           style={{
             backgroundColor: '#fff',
@@ -254,7 +254,7 @@ const ReceivedDriverOrderDetailScreen = ({navigation, route}) => {
             />
             <View>
               <Text style={styles.main_type_good}>
-                {VND.format(order.charge)}
+                {VND.format(order.charge - order.discountPrice)}
               </Text>
               <View style={{height: 7}} />
               <Text style={styles.title_good_info_item}>Thu tiền mặt</Text>

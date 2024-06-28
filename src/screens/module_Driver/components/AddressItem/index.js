@@ -39,15 +39,6 @@ const AddressItem = ({props, hide, current}) => {
             </Text>
           </View>
         </View>
-        {!hide && !current && (
-          <View style={styles.outer_arrow_icon}>
-            <Icon2
-              name="location-arrow"
-              size={24}
-              color={CUSTOM_COLOR.Primary}
-            />
-          </View>
-        )}
       </View>
       <View style={[cs.horizontal_flex]}>
         <View style={styles.outer_location}>
@@ -74,15 +65,6 @@ const AddressItem = ({props, hide, current}) => {
             </Text>
           </View>
         </View>
-        {!hide && !current && (
-          <View style={styles.outer_arrow_icon}>
-            <Icon2
-              name="location-arrow"
-              size={24}
-              color={CUSTOM_COLOR.Primary}
-            />
-          </View>
-        )}
       </View>
     </View>
   );
