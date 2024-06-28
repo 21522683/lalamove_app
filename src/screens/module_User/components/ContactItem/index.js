@@ -95,8 +95,8 @@ const ContactItem = props => {
           }}
           onPress={() => {
             navigator.navigate('ChatUserScreen', {
-              name: props.name,
-              uid: props.uid,
+              name: props.fullName,
+              uid: props._id,
               avatar: props.avatar,
             });
           }}>

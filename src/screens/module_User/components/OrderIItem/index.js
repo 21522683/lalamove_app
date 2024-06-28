@@ -25,7 +25,7 @@ const OrderItem = props => {
       <View style={styles.outer_money}>
         <Text style={{fontSize: 16}}>{props.vehicleType?.vehicleTypeName}</Text>
         <Text style={{fontSize: 16, fontWeight: '700', color: '#333333'}}>
-          {VND.format(props.charge)}
+          {VND.format(props.charge - props.discountPrice)}
         </Text>
       </View>
     </View>

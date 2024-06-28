@@ -14,7 +14,7 @@ import {
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Surface} from 'react-native-paper';
+import {ActivityIndicator, Surface} from 'react-native-paper';
 import styles from '../style';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {IMAGES} from '../../../../assets/images';
@@ -33,6 +33,7 @@ import storage from '@react-native-firebase/storage';
 const DetaiVehicleScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [isLoading, setLoading] = useState(false);
   const vehicleType = useSelector(state => state.vehicleTypeAdmin.vehicleType);
   const isEdit = useSelector(state => state.vehicleTypeAdmin.isEdit);
   const userAuth = useSelector(state => state.users.userAuth);
@@ -41,6 +42,28 @@ const DetaiVehicleScreen = () => {
     state => state.vehicleTypeAdmin.vehicleTypes,
   );
   const [isExists, setExists] = useState(false);
+  const setImage = () => {
+    switch (vehicleType.vehicleTypeName) {
+      case 'Xe máy': {
+        return IMAGES.xemay;
+      }
+      case 'Xe bán tải': {
+        return IMAGES.xebantai;
+      }
+      case 'Xe van': {
+        return IMAGES.xevan;
+      }
+      case 'Xe tải': {
+        return IMAGES.xetai;
+      }
+      default: {
+        return IMAGES.xemay;
+      }
+    }
+  };
+  const img = useMemo(() => {
+    return setImage();
+  }, []);
   const selectImage = () => {
     let options = {
       mediaType: 'photo',
@@ -85,7 +108,7 @@ const DetaiVehicleScreen = () => {
       setExists(true);
       return;
     }
-
+    setLoading(true);
     const uid = new Date().getTime();
     const reference = storage().ref(`/images/img_${uid}`);
     const body = {...vehicleType};
@@ -94,6 +117,7 @@ const DetaiVehicleScreen = () => {
       if (!vehicleType.image.startsWith('http')) {
         await reference.putFile(vehicleType.image);
         url = await reference.getDownloadURL();
+        body.image = url;
       }
     }
 
@@ -118,6 +142,7 @@ const DetaiVehicleScreen = () => {
       config,
     );
     dispatch(setAddVehicleTypeSuccess(true));
+    setLoading(false);
     navigation.goBack();
   };
   const handleAddVehicleType = async () => {
@@ -128,7 +153,7 @@ const DetaiVehicleScreen = () => {
       setExists(true);
       return;
     }
-
+    setLoading(true);
     const uid = new Date().getTime();
     const reference = storage().ref(`/images/img_${uid}`);
 
@@ -148,7 +173,6 @@ const DetaiVehicleScreen = () => {
     delete body.size2;
     delete body.size3;
     delete body._id;
-    console.log('zo');
     const config = {
       headers: {
         Authorization: `Bearer ${userAuth.access_token}`,
@@ -157,6 +181,7 @@ const DetaiVehicleScreen = () => {
     };
     const response = await axios.post(`${baseUrl}/vehicle-type`, body, config);
     dispatch(setAddVehicleTypeSuccess(true));
+    setLoading(false);
     navigation.goBack();
   };
   const handleClickOk = () => {
@@ -165,7 +190,8 @@ const DetaiVehicleScreen = () => {
     else handleAddVehicleType();
   };
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView
+      style={{flex: 1, backgroundColor: 'white', position: 'relative'}}>
       <Surface style={styles.header}>
         <TouchableOpacity
           onPress={() => {
@@ -187,9 +213,7 @@ const DetaiVehicleScreen = () => {
           ]}>
           <View style={{flexDirection: 'row'}}>
             <Image
-              source={
-                vehicleType.image ? {uri: vehicleType.image} : IMAGES.xemay
-              }
+              source={vehicleType.image ? {uri: vehicleType.image} : img}
               style={{flex: 1, resizeMode: 'contain', height: 200}}
             />
             <Pressable style={{alignSelf: 'flex-end'}} onPress={selectImage}>
@@ -439,17 +463,6 @@ const DetaiVehicleScreen = () => {
             </View>
           </View>
 
-          {/* <View style={{flexDirection: 'column', gap: 8}}>
-            <Text style={{fontSize: 16, fontWeight: '500', color: '#222222'}}>
-              Ghi chú:
-            </Text>
-            <TextInput
-              placeholder="Ex: Ghi chú..."
-              multiline={true}
-              numberOfLines={6}
-              style={styles.inputArea}></TextInput>
-          </View> */}
-
           <Pressable onPress={handleClickOk}>
             <View
               style={{
@@ -468,6 +481,21 @@ const DetaiVehicleScreen = () => {
           </Pressable>
         </View>
       </ScrollView>
+      {isLoading && (
+        <View
+          style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'rgba(0,0,0,0.2)',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <ActivityIndicator size="large" color="#FF5900" />
+        </View>
+      )}
     </SafeAreaView>
   );
 };

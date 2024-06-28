@@ -1,16 +1,23 @@
-import { View, Text, TouchableOpacity, Image, TextInput, Alert } from 'react-native';
-import React, { useState } from 'react';
-import { ICONS } from '../../../../assets/icons';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  Alert,
+} from 'react-native';
+import React, {useState} from 'react';
+import {ICONS} from '../../../../assets/icons';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Rating } from 'react-native-ratings';
+import {Rating} from 'react-native-ratings';
 import CUSTOM_COLOR from '../../../../constants/colors';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import baseUrl from '../../../../constants/baseUrl';
 import axios from 'axios';
 
-const ReviewModal = ({ onClose, props, review }) => {
+const ReviewModal = ({onClose, props, review}) => {
   const userAuth = useSelector(state => state.users.userAuth);
-  const [contentReview, setContentReview] = useState(review?.content ?? "");
+  const [contentReview, setContentReview] = useState(review?.content ?? '');
   const [star, setStar] = useState(review?.star ?? 0);
 
   const handleCreateReviewOrder = async () => {
@@ -26,21 +33,19 @@ const ReviewModal = ({ onClose, props, review }) => {
           },
           {
             text: 'OK',
-            onPress: handleSend
+            onPress: handleSend,
           },
         ],
-        { cancelable: false }
+        {cancelable: false},
       );
-    }else{
-
+    } else {
       handleSend();
     }
-
-  }
+  };
   const handleSend = async () => {
     const config = {
       headers: {
-        'Authorization': `Bearer ${userAuth.access_token}`,
+        Authorization: `Bearer ${userAuth.access_token}`,
         'Content-Type': 'application/json',
       },
     };
@@ -49,19 +54,19 @@ const ReviewModal = ({ onClose, props, review }) => {
         order: props.orderId,
         content: contentReview,
         star: star,
-        drive: props.driveId
-      }
-      console.log(payload)
+        drive: props.driveId,
+      };
+      console.log(payload);
       const url = `${baseUrl}/order/create-review-order`;
       const data = await axios.put(url, payload, config);
-      Alert.alert("Thông báo", "Đánh giá thành công");
+      Alert.alert('Thông báo', 'Đánh giá thành công');
 
       onClose();
     } catch (error) {
-      console.log(error)
-      Alert.alert('Thông báo', "Đã có lỗi xảy ra vui lòng thử lại sau.");
+      console.log(error);
+      Alert.alert('Thông báo', 'Đã có lỗi xảy ra vui lòng thử lại sau.');
     }
-  }
+  };
   return (
     <View
       style={{
@@ -84,8 +89,8 @@ const ReviewModal = ({ onClose, props, review }) => {
         }}>
         <Image source={ICONS.documentPolicy} size={21}></Image>
         <View>
-          <Text style={{ color: '#606060', fontWeight: '600' }}>
-            Đơn hàng {props.orderId}
+          <Text style={{color: '#606060', fontWeight: '600'}}>
+            Đơn hàng #{props?.orderId?.substr(props?.orderId?.length - 12)}
           </Text>
           <View
             style={{
@@ -94,7 +99,7 @@ const ReviewModal = ({ onClose, props, review }) => {
               alignItems: 'center',
               gap: 5,
             }}>
-            <Text style={{ color: '#222222', fontSize: 14 }}>Tài xế: </Text>
+            <Text style={{color: '#222222', fontSize: 14}}>Tài xế: </Text>
             <Text>{props.driverName}</Text>
             <View
               style={{
@@ -117,7 +122,7 @@ const ReviewModal = ({ onClose, props, review }) => {
               gap: 5,
               marginBottom: 10,
             }}>
-            <Text style={{ color: '#222222', fontSize: 14 }}>Số sao: </Text>
+            <Text style={{color: '#222222', fontSize: 14}}>Số sao: </Text>
             <Rating
               type="star"
               ratingCount={5}
@@ -129,7 +134,7 @@ const ReviewModal = ({ onClose, props, review }) => {
             />
           </View>
           <View>
-            <Text style={{ color: '#222222', fontSize: 14, marginBottom: 6 }}>
+            <Text style={{color: '#222222', fontSize: 14, marginBottom: 6}}>
               Nội dung:
             </Text>
             <TextInput
@@ -240,7 +245,7 @@ const ReviewModal = ({ onClose, props, review }) => {
                   paddingVertical: 6,
                   borderRadius: 4,
                   alignSelf: 'flex-start',
-                  display: review === null ? 'flex' : 'none'
+                  display: review === null ? 'flex' : 'none',
                 }}>
                 <Text
                   style={{

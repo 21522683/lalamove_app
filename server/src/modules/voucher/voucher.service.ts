@@ -104,7 +104,7 @@ export class VoucherService {
     // Determine applicable vouchers based on completed orders count
     let applyFor: string[] = [];
 
-    if (totalCompletedOrdersCount === 0) {
+    if (totalCompletedOrdersCount < 3) {
       applyFor.push('Khách hàng mới');
     }
     if (recentThreeMonthsOrdersCount >= 5) {

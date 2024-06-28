@@ -14,7 +14,7 @@ import {Surface} from 'react-native-paper';
 import {scale, verticalScale} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/FontAwesome5';
-import {useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {Picker} from '@react-native-picker/picker';
 import UserModalCreateComplain from './UserModalCreateComplain';
 import {useSelector} from 'react-redux';
@@ -22,6 +22,7 @@ import baseUrl from '../../../constants/baseUrl';
 import Icon4 from 'react-native-vector-icons/FontAwesome';
 
 import axios from 'axios';
+import {useFocusEffect} from '@react-navigation/native';
 const formatDateString = d => {
   const date = new Date(d);
   const day = date.getDate().toString().padStart(2, '0'); // Lấy ngày và thêm '0' nếu cần
@@ -56,9 +57,12 @@ function UserComplainManagementScreen() {
       console.log(error);
     }
   };
-  useEffect(() => {
-    getAllComplains();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getAllComplains();
+    }, []),
+  );
+
   useEffect(() => {
     setComplains(prev =>
       [...complainsOrign].filter(item => {

@@ -60,66 +60,68 @@ export default function ChatUserScreen({route, navigation}) {
     return () => subscriber();
   }, []);
 
-
-    const onSendMsg = useCallback(async (msgArray = []) => {
-        const msg = msgArray[0]
-        const time = new Date();
-        const url = await uploadImg(imageUrl, "", msg);
-        const userMsg = {
-            ...msg,
-            sentBy: c_uid,
-            sentTo: t_uid,
-            createdAt: time,
-            image: url,
-        }
-        console.log(isInit)
-        const doc = await firestore().collection('chats').doc(docId).get();
-        const doesDocExist = doc.exists;
-        if (!doesDocExist) {
-            isInit = true;
-            firestore()
-                .collection('chats')
-                .doc(docId)
-                .set({
-                    id: 'user1-chatwith-driver2',
-                    messages: []
-                })
-        }
-        setMessages(previousMessages => GiftedChat.append(previousMessages, userMsg))
-        firestore()
-            .collection('chats')
-            .doc(docId)
-            .update({
-                messages: firestore.FieldValue.arrayUnion({ ...userMsg }),
-            })
-            .then(() => {
-                console.log('User added!');
-            });
-    }, [imageUrl]);
-    const handlePickImage = async () => {
-        let options = {
-            storageOptions: {
-                path: 'image'
-            }
-        }
-        try {
-            launchImageLibrary(options, response => {
-                if (!!response.assets) {
-                    setImageUrl(response ? response?.assets[0]?.uri : '');
-                }
-                else { return; }
-            })
-        } catch (error) {
-            console.log(error)
-        }
+  const onSendMsg = useCallback(
+    async (msgArray = []) => {
+      const msg = msgArray[0];
+      const time = new Date();
+      const url = await uploadImg(imageUrl, '', msg);
+      const userMsg = {
+        ...msg,
+        sentBy: c_uid,
+        sentTo: t_uid,
+        createdAt: time,
+        image: url,
+      };
+      console.log(isInit);
+      const doc = await firestore().collection('chats').doc(docId).get();
+      const doesDocExist = doc.exists;
+      if (!doesDocExist) {
+        isInit = true;
+        firestore().collection('chats').doc(docId).set({
+          id: docId,
+          messages: [],
+        });
+      }
+      setMessages(previousMessages =>
+        GiftedChat.append(previousMessages, userMsg),
+      );
+      firestore()
+        .collection('chats')
+        .doc(docId)
+        .update({
+          messages: firestore.FieldValue.arrayUnion({...userMsg}),
+        })
+        .then(() => {
+          console.log('User added!');
+        });
+    },
+    [imageUrl],
+  );
+  const handlePickImage = async () => {
+    let options = {
+      storageOptions: {
+        path: 'image',
+      },
     };
-    async function uploadImg(file, type, name) {
-        try {
-            if(!file) return "";
+    try {
+      launchImageLibrary(options, response => {
+        if (!!response.assets) {
+          setImageUrl(response ? response?.assets[0]?.uri : '');
+        } else {
+          return;
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  async function uploadImg(file, type, name) {
+    try {
+      if (!file) return '';
 
-            const uid = Date.now();
-            console.log(file)
-            const reference = storage().ref(`/images/img_${name}_${uid}`);
+      const uid = Date.now();
+      console.log(file);
+      const reference = storage().ref(`/images/img_${name}_${uid}`);
 
       await reference.putFile(file);
       const url = await reference.getDownloadURL();

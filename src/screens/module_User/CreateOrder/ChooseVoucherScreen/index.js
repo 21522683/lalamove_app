@@ -74,17 +74,24 @@ const ChooseVoucherScreen = ({route}) => {
       </Surface>
 
       <View style={[styles.body, {gap: 16, backgroundColor: 'white'}]}>
-        <FlatList
-          data={vouchers}
-          contentContainerStyle={{
-            gap: 16,
-            paddingHorizontal: 2,
-            paddingBottom: 10,
-          }}
-          renderItem={({item, index}) => (
-            <VoucherItem key={index} item={item} index={index} />
-          )}
-        />
+        {vouchers.length > 0 && (
+          <FlatList
+            data={vouchers}
+            contentContainerStyle={{
+              gap: 16,
+              paddingHorizontal: 2,
+              paddingBottom: 10,
+            }}
+            renderItem={({item, index}) => (
+              <VoucherItem key={index} item={item} index={index} />
+            )}
+          />
+        )}
+        {(!vouchers || vouchers.length === 0) && (
+          <Text style={{textAlign: 'center'}}>
+            Không có voucher nào phù hợp với bạn
+          </Text>
+        )}
 
         <Pressable
           onPress={() => {

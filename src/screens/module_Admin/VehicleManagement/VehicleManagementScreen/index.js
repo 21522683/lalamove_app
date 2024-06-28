@@ -5,7 +5,7 @@ import {
   FlatList,
   SafeAreaView,
 } from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {Surface} from 'react-native-paper';
 import styles from '../style';
@@ -64,9 +64,12 @@ const VehicleManagementScreen = () => {
       console.log(error);
     }
   };
-  useEffect(() => {
-    getAllVehicleTypes();
-  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      getAllVehicleTypes();
+    }, []),
+  );
 
   useEffect(() => {
     if (isAddVehicleTypeSuccess) {

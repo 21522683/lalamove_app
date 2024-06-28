@@ -47,7 +47,7 @@ export class OrderService {
     if (user.userType === 'Driver') {
       return await this.orderModel
         .find({ drive: user._id })
-        .populate(['vehicleType', 'customer', 'drive',  'review'])
+        .populate(['vehicleType', 'customer', 'drive', 'review'])
         .exec();
     }
     const orders = await this.orderModel
@@ -199,20 +199,25 @@ export class OrderService {
   };
 
   async createReviewOrder(reviewDto: CreateReivewDTO) {
-    const order = await this.orderModel.findById(reviewDto.order);
-    if (!order) {
-      throw new BadRequestException('Order is not exist');
+    try {
+      const order = await this.orderModel.findById(reviewDto.order);
+      if (!order) {
+        throw new BadRequestException('Order is not exist');
+      }
+      const review = new this.reviewModel({
+        ...reviewDto,
+      });
+      const createdReview = await review.save();
+
+      order.review = createdReview;
+
+      await order.save();
+
+      return createdReview;
+    } catch (error) {
+      console.log(error);
+      throw new BadRequestException(error);
     }
-    const review = new this.reviewModel({
-      ...reviewDto,
-    });
-    const createdReview = await review.save();
-
-    order.review = createdReview;
-
-    await order.save();
-
-    return createdReview;
   }
 
   async getReviewOrder(orderId: string) {
