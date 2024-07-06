@@ -127,7 +127,7 @@ const ItemVehicle = ({ index, item, setListVehicles }) => {
 
             <View style={styles.container_text_2}>
                 <Text style={styles.title_text_2}>Loại xe</Text>
-                <Text style={styles.content_text_2}>{item.vehicleType.vehicleTypeName}</Text>
+                <Text style={styles.content_text_2}>{item.vehicleType?.vehicleTypeName}</Text>
             </View>
 
             <View style={styles.container_text_2}>
@@ -154,25 +154,25 @@ const ItemVehicle = ({ index, item, setListVehicles }) => {
 
                         <View style={styles.container_text_2}>
                             <Text style={styles.title_text_2}>Tải trọng tối đa</Text>
-                            <Text style={styles.content_text_2}>{item.vehicleType.mount}</Text>
+                            <Text style={styles.content_text_2}>{item.vehicleType?.mount}</Text>
                         </View>
 
                         <View style={styles.container_text_2}>
                             <Text style={styles.title_text_2}>Kích thước</Text>
-                            <Text style={styles.content_text_2}>{item.vehicleType.size}</Text>
+                            <Text style={styles.content_text_2}>{item.vehicleType?.size}</Text>
                         </View>
 
                         <View style={{ flexDirection: 'column', marginVertical: verticalScale(8) }}>
                             <Text style={styles.title_text_2}>Phù hợp cho:</Text>
                             <View style={{ padding: moderateScale(10), borderColor: '#d7d7d7', borderWidth: 1, borderRadius: 6, marginTop: verticalScale(8) }}>
-                                <Text style={{ color: '#5A5A5A' }}>{item.vehicleType.suitableFor}</Text>
+                                <Text style={{ color: '#5A5A5A' }}>{item.vehicleType?.suitableFor}</Text>
                             </View>
                         </View>
 
                         <View style={{ flexDirection: 'column', marginVertical: verticalScale(8) }}>
                             <Text style={styles.title_text_2}>Ghi chú:</Text>
                             <View style={{ padding: moderateScale(10), borderColor: '#d7d7d7', borderWidth: 1, borderRadius: 6, marginTop: verticalScale(8) }}>
-                                <Text style={{ color: '#5A5A5A' }}>{item.vehicleType.note}</Text>
+                                <Text style={{ color: '#5A5A5A' }}>{item.vehicleType?.note}</Text>
                             </View>
                         </View>
 
