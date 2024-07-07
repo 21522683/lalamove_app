@@ -102,8 +102,8 @@ const createOrderSlice = createSlice({
       state.addNewAddressSuccessfully = false;
       state.isEditAddress = false;
       state.isRefreshOrder = true;
-      state.idVehicleChoosen = -1;
-      state.idVoucherChoosen = -1;
+      state.idVehicleChoosen = '';
+      state.idVoucherChoosen = '';
     },
     setRefreshOrder: (state, action) => {
       state.isRefreshOrder = action.payload;

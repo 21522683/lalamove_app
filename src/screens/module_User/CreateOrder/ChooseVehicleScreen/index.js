@@ -54,51 +54,55 @@ const ChooseVehicleScreen = () => {
   }, []);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-      <Surface style={styles.header}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}>
-          <Icon name="arrowleft" size={24} />
-        </TouchableOpacity>
-        <Text style={{fontSize: 18, fontWeight: '600'}}>Chọn phương tiện</Text>
-        <View style={{width: 28}}></View>
-      </Surface>
-
-      <View style={[styles.body, {gap: 16, backgroundColor: 'white'}]}>
-        <FlatList
-          data={listVehicleTypes}
-          contentContainerStyle={{
-            gap: 16,
-            paddingHorizontal: 2,
-            paddingBottom: 10,
-          }}
-          renderItem={({item, index}) => (
-            <VehicleItem key={index} item={item} index={index} />
-          )}
-        />
-
-        <Pressable
-          onPress={() => {
-            if (!idVehicleChoosen) return;
-            navigation.navigate('PrevCompletedOrderScreen');
-          }}>
-          <View
-            style={{
-              backgroundColor: idVehicleChoosen !== '' ? '#F16722' : '#ccc',
-              height: 45,
-              marginHorizontal: 12,
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 8,
-              marginTop: 20,
+      <ScrollView>
+        <Surface style={styles.header}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
             }}>
-            <Text style={{fontSize: 15, fontWeight: '400', color: 'white'}}>
-              Tiếp tục
-            </Text>
-          </View>
-        </Pressable>
-      </View>
+            <Icon name="arrowleft" size={24} />
+          </TouchableOpacity>
+          <Text style={{fontSize: 18, fontWeight: '600'}}>
+            Chọn phương tiện
+          </Text>
+          <View style={{width: 28}}></View>
+        </Surface>
+
+        <View style={[styles.body, {gap: 16, backgroundColor: 'white'}]}>
+          <FlatList
+            data={listVehicleTypes}
+            contentContainerStyle={{
+              gap: 16,
+              paddingHorizontal: 2,
+              paddingBottom: 10,
+            }}
+            renderItem={({item, index}) => (
+              <VehicleItem key={index} item={item} index={index} />
+            )}
+          />
+
+          <Pressable
+            onPress={() => {
+              if (!idVehicleChoosen) return;
+              navigation.navigate('PrevCompletedOrderScreen');
+            }}>
+            <View
+              style={{
+                backgroundColor: idVehicleChoosen !== '' ? '#F16722' : '#ccc',
+                height: 45,
+                marginHorizontal: 12,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 8,
+                marginTop: 20,
+              }}>
+              <Text style={{fontSize: 15, fontWeight: '400', color: 'white'}}>
+                Tiếp tục
+              </Text>
+            </View>
+          </Pressable>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

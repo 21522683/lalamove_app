@@ -337,7 +337,7 @@ const OrderDetailScreen = ({navigation, route}) => {
             </TouchableOpacity>
           </View>
         ) : (
-          order.status !== 'Đã hủy' && (
+          order.status === 'Đang chờ nhận' && (
             <View style={{flex: 1}}>
               <View>
                 <TouchableOpacity

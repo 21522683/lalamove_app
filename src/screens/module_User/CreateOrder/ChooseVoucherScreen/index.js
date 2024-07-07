@@ -34,6 +34,7 @@ const ChooseVoucherScreen = ({route}) => {
   const idVoucherChoosen = useSelector(
     state => state.createOrder.idVoucherChoosen,
   );
+  console.log(idVoucherChoosen);
 
   const [vouchers, setVouchers] = useState([]);
 

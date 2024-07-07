@@ -1,1 +1,1 @@
-export default baseUrl = 'http://192.168.1.34:3000';
+export default baseUrl = 'http://192.168.102.246:3000';
