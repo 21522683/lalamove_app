@@ -69,16 +69,23 @@ const VoucherForm = ({navigation, route}) => {
     setShowPicker2(!showPicker2);
   };
   const dispatch = useDispatch();
-  const [inputs, setInputs] = useState({
-    voucherCode: item?.voucherCode ?? '',
-    voucherPrice: item?.voucherPrice?.toString() ?? '',
-    isPercent: item?.isPercent ?? false,
-    minPrice: item?.minPrice?.toString() ?? '',
-    quality: item?.quality?.toString() ?? '',
-    applyFor: item?.applyFor ?? '',
-    description: item?.description ?? '',
-    startDate: formatDateString(new Date(item?.startDate)) ?? '',
-    expiredDate: formatDateString(new Date(item?.expiredDate)) ?? '',
+  const [inputs, setInputs] = useState(() => {
+    const current = new Date();
+    return {
+      voucherCode: item?.voucherCode ?? '',
+      voucherPrice: item?.voucherPrice?.toString() ?? '',
+      isPercent: item?.isPercent ?? false,
+      minPrice: item?.minPrice?.toString() ?? '',
+      quality: item?.quality?.toString() ?? '',
+      applyFor: item?.applyFor ?? '',
+      description: item?.description ?? '',
+      startDate: item?.startDate
+        ? formatDateString(new Date(item?.startDate))
+        : formatDateString(current),
+      expiredDate: item?.expiredDate
+        ? formatDateString(new Date(item?.expiredDate))
+        : formatDateString(new Date(current.setDate(current.getDate() + 1))),
+    };
   });
   const [date, setDate] = useState(new Date());
   const [date2, setDate2] = useState(new Date());

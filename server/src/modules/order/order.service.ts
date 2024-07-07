@@ -281,7 +281,7 @@ export class OrderService {
       });
     }
 
-    const orders = await this.orderModel.aggregate(pipeline).exec();
+    const ordersTMP = await this.orderModel.aggregate(pipeline).exec();
 
     const params = await this.paramsModel.findOne().exec();
     const currentDate = new Date();
@@ -293,12 +293,13 @@ export class OrderService {
     let arrLabelChart = [];
     let totalRevenue = 0;
     let totalOrderSuccess = 0;
+    let orders = [];
 
     if (option === 'Theo ngày') {
       let quantityDays = getDaysInMonth(currentMonth, currentYear);
       let dailyRevenue = new Array(quantityDays).fill(0);
 
-      orders.forEach((order) => {
+      orders = ordersTMP.filter((order) => {
         const orderDate = new Date(order.date);
         if (
           orderDate.getMonth() + 1 === currentMonth &&
@@ -308,7 +309,9 @@ export class OrderService {
           dailyRevenue[day - 1] += order.charge;
           totalOrderSuccess++;
           totalRevenue += order.charge;
+          return true;
         }
+        return false;
       });
 
       arrLabelChart = Array.from({ length: quantityDays }, (_, i) =>
@@ -318,14 +321,16 @@ export class OrderService {
     } else if (option === 'Theo tháng') {
       let monthlyRevenue = new Array(12).fill(0);
 
-      orders.forEach((order) => {
+      orders = ordersTMP.filter((order) => {
         const orderDate = new Date(order.date);
         if (orderDate.getFullYear() === currentYear) {
           const month = orderDate.getMonth();
           monthlyRevenue[month] += order.charge;
           totalOrderSuccess++;
           totalRevenue += order.charge;
+          return true;
         }
+        return false;
       });
 
       arrLabelChart = Array.from({ length: 12 }, (_, i) => (i + 1).toString());
@@ -333,13 +338,14 @@ export class OrderService {
     } else if (option === 'Theo năm') {
       let yearlyRevenue = {};
 
-      orders.forEach((order) => {
+      orders = ordersTMP.filter((order) => {
         const orderDate = new Date(order.date);
         const year = orderDate.getFullYear();
         if (!yearlyRevenue[year]) yearlyRevenue[year] = 0;
         yearlyRevenue[year] += order.charge;
         totalOrderSuccess++;
         totalRevenue += order.charge;
+        return true;
       });
 
       arrLabelChart = Object.keys(yearlyRevenue).sort();
