@@ -1,4 +1,4 @@
-#Fri Jun 28 11:12:44 ICT 2024
+#Sun Jul 07 11:58:26 ICT 2024
 base.0=D\:\\lalamove_app\\android\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=D\:\\lalamove_app\\android\\app\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
 base.2=D\:\\lalamove_app\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex

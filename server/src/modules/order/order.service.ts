@@ -232,7 +232,7 @@ export class OrderService {
 
   async getInfoReportDriver(driverId: string, query: any) {
     const { textSearch, option } = query;
-
+  
     let pipeline: any[] = [
       {
         $lookup: {
@@ -268,7 +268,7 @@ export class OrderService {
         },
       },
     ];
-
+  
     if (textSearch && textSearch.trim() !== '') {
       const searchConditions = {
         $or: [
@@ -280,25 +280,39 @@ export class OrderService {
         $match: searchConditions,
       });
     }
-
-    const orders = await this.orderModel.aggregate(pipeline).exec();
-
+  
+    let orders = await this.orderModel.aggregate(pipeline).exec();
+  
     const params = await this.paramsModel.findOne().exec();
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth() + 1;
     const currentYear = currentDate.getFullYear();
-
+  
     let dataOfChart = {};
     let arrValueChart = [];
     let arrLabelChart = [];
     let totalRevenue = 0;
     let totalOrderSuccess = 0;
-
+  
     if (option === 'Theo ngày') {
+      const startOfMonth = new Date(currentYear, currentMonth - 1, 1);
+      const endOfMonth = new Date(currentYear, currentMonth, 0);
+      pipeline.push({
+        $match: {
+          date: {
+            $gte: startOfMonth,
+            $lte: endOfMonth,
+          },
+        },
+      });
+  
+      const filteredOrders = await this.orderModel.aggregate(pipeline).exec();
+      orders = [...filteredOrders];
+  
       let quantityDays = getDaysInMonth(currentMonth, currentYear);
       let dailyRevenue = new Array(quantityDays).fill(0);
-
-      orders.forEach((order) => {
+  
+      filteredOrders.forEach((order) => {
         const orderDate = new Date(order.date);
         if (
           orderDate.getMonth() + 1 === currentMonth &&
@@ -310,14 +324,14 @@ export class OrderService {
           totalRevenue += order.charge;
         }
       });
-
+  
       arrLabelChart = Array.from({ length: quantityDays }, (_, i) =>
         (i + 1).toString(),
       );
       arrValueChart = dailyRevenue;
     } else if (option === 'Theo tháng') {
       let monthlyRevenue = new Array(12).fill(0);
-
+  
       orders.forEach((order) => {
         const orderDate = new Date(order.date);
         if (orderDate.getFullYear() === currentYear) {
@@ -327,12 +341,12 @@ export class OrderService {
           totalRevenue += order.charge;
         }
       });
-
+  
       arrLabelChart = Array.from({ length: 12 }, (_, i) => (i + 1).toString());
       arrValueChart = monthlyRevenue;
     } else if (option === 'Theo năm') {
       let yearlyRevenue = {};
-
+  
       orders.forEach((order) => {
         const orderDate = new Date(order.date);
         const year = orderDate.getFullYear();
@@ -341,23 +355,23 @@ export class OrderService {
         totalOrderSuccess++;
         totalRevenue += order.charge;
       });
-
+  
       arrLabelChart = Object.keys(yearlyRevenue).sort();
       arrValueChart = arrLabelChart.map((year) => yearlyRevenue[year]);
     }
-
+  
     const totalOfDriver = parseFloat(
       (totalRevenue * params.hoaHongChoTaiXe).toFixed(1),
     );
     const totalOfSystem = parseFloat((totalRevenue - totalOfDriver).toFixed(1));
-
+  
     dataOfChart = {
       arrLabelChart,
       arrValueChart,
     };
-
+  
     const infoDriver = await this.userModel.findById({ _id: driverId }).exec();
-
+  
     return {
       orders,
       dataOfChart,
@@ -368,7 +382,7 @@ export class OrderService {
       infoDriver,
     };
   }
-
+  
   async getInfoReportAdmin(query: any) {
     const { textSearch, option } = query;
 
