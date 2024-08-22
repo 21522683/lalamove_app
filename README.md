@@ -61,6 +61,12 @@ Trong kỷ nguyên kỹ thuật số hiện đại, việc giao nhận hàng hó
 
 #### Sơ đồ Usecase Role Admin
 <img src="./src/assets/images/roleAdmin.png" width="500"/>
+
+## Giao diện
+
+<p align="center">
+  <img src="./src/assets/images/demo.png" width="500"/>
+</p>
  	
 ## Tác giả 
 
