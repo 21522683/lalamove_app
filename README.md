@@ -65,7 +65,7 @@ Trong kỷ nguyên kỹ thuật số hiện đại, việc giao nhận hàng hó
 ## Giao diện
 
 <p align="center">
-  <img src="./src/assets/images/demo.png" width="500"/>
+  <img src="./src/assets/images/demo.png"/>
 </p>
  	
 ## Tác giả 
